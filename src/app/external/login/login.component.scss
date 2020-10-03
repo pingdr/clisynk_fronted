@@ -1,0 +1,104 @@
+$col-2: rgb(89, 93, 213);
+$col-1: #368eba;
+
+.login-img-size-small {
+  width: 200px;
+  padding-bottom: 25px;
+}
+
+.container-login100 {
+  width: 100%;
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: none;
+  border-radius: .25rem;
+}
+
+.side-col {
+  background: $col-2;
+  background: -webkit-linear-gradient(-135deg, $col-1, $col-2);
+  background: -o-linear-gradient(-135deg, $col-1, $col-2);
+  background: -moz-linear-gradient(-135deg, $col-1, $col-2);
+  background: linear-gradient(-135deg, $col-1, $col-2);
+}
+
+.card-body {
+  padding: 0;
+}
+
+.login-img-size {
+  width: 400px;
+  margin-top: 100px;
+}
+
+.login-title {
+  padding: 25px;
+  font-size: 18px;
+  color: $col-1;
+  float: left;
+}
+
+.login-text {
+  padding: 10px;
+  font-size: 16px;
+  color: $col-1;
+}
+
+.inner-card {
+  padding: 100px 40px;
+  display: block;
+  margin-top: -18px;
+  margin-bottom: 0;
+}
+
+.login-btn {
+  background: $col-1;
+  color: white;
+  width: 100%;
+}
+
+.login-btn:hover, .login-btn:active {
+  background: $col-2;
+}
+
+.card-width {
+  min-width: 460px;
+}
+
+//for mobile
+@media (max-width: 767px) {
+  .card-width {
+    min-width: 100%;
+  }
+  .login-img-size {
+    display: none;
+  }
+
+  .login-img-size-small {
+    display: block;
+    width: 100%;
+    margin-top: 0;
+  }
+  .login-title {
+    display: none;
+  }
+
+}

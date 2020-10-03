@@ -1,0 +1,48 @@
+<div class="profile-section">
+
+    <div class="contact-header">
+
+        <div class="Clients_list_heading">
+            <img src="/assets/images/back-arrow.svg" (click)="http.goBack()">
+            <h3 class="page-title">Products and services</h3>
+
+            <button class="btn-outline-primary add-prod"
+                    (click)="http.openModal('addProduct')">Add a product or service
+            </button>
+        </div>
+
+        <div class="custom-bussnies-box">
+            <p>Listed below are all the products and services that are used in invoicing, quotes and online order forms.
+                Any changes made here will only affect new invoices, quotes and order forms.</p>
+
+            <div *ngIf="!myModel?.products?.length" class="no-prod">
+                <h3>No product or service found.</h3>
+            </div>
+
+            <app-loader [showLoader]="loader" [length]="myModel?.products?.length"></app-loader>
+
+
+            <div class="bussnies-txt" *ngFor="let data of myModel.products">
+                <h3>{{data?.name}}</h3>
+                <span>{{data?.description}}</span>
+                <div class="bussines-prices">
+                    <div class="prices-txt-left">
+                        <h2>Price</h2>
+                        <h2>{{data?.price}}</h2>
+                    </div>
+                    <div class="right-txt-edit">
+<!--                        <a (click)="deletePro(data)" class="btn-outline-danger">Delete</a>-->
+                        <a (click)="deletePro(data)" class="delete-product">Delete</a>
+                        <a (click)="http.openModal('addProduct', data);" class="blue-link">Edit</a>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+
+

@@ -1,0 +1,988 @@
+<div class="w-100">
+
+    <div class="tab-content" id="v-pills-tabContent" style="width: 100%">
+        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+
+            <div class="text-center modal-text contact_activity_page">
+                <section id="close" class="navigation">
+                    <button class="icon-only" type="button" aria-label="Close" (click)="closeFun()">
+                        <img src="/assets/images/ic_close.svg" style="margin: 10px">
+                    </button>
+                </section>
+
+                <div class="toggle-btn-group">
+                    <mat-button-toggle-group #group="matButtonToggleGroup" class="full-width"
+                                             [formControl]="contactsType">
+                        <mat-button-toggle value="1" aria-label="Text align left" class="full-width"
+                                           (change)="onTypeChange($event.value)"
+                                           [ngClass]="{'lead-type':contactsType.value == 1}">
+                            Lead <i class="fas fa-circle"></i>
+                        </mat-button-toggle>
+                        <mat-button-toggle value="2" aria-label="Text align center" class="full-width"
+                                           (change)="onTypeChange($event.value)">
+                            Client <i class="fas fa-circle " [ngClass]="{'client-type':contactsType.value == 2}"></i>
+                        </mat-button-toggle>
+                        <mat-button-toggle value="3" aria-label="Text align right" class="full-width "
+                                           (change)="onTypeChange($event.value)">
+                            Other <i class="fas fa-circle" [ngClass]="{'other-type':contactsType.value == 3}"></i>
+                        </mat-button-toggle>
+                    </mat-button-toggle-group>
+                </div>
+
+                <span class="circle" *ngIf="!selected?.imageUrl?.thumbnail">
+                    {{selected?.firstName?.substr(0, 1)}}{{selected?.lastName?.substr(0, 1)}}
+                </span>
+                <img *ngIf="selected?.imageUrl?.thumbnail"
+                     src="{{selected?.imageUrl?.thumbnail || http.CONSTANT.USER_PLACEHOLDER}}" class="con-pic" alt=""/>
+                <h3>{{selected?.firstName}} {{selected?.lastName}}</h3>
+                <p>{{selected?.email}}
+                    <ng-container *ngIf="selected?.phoneNumber">{{selected?.countryCode}} {{selected?.phoneNumber}}
+                    </ng-container>
+                </p>
+
+                <div class="iconlist">
+                    <div class="row">
+                        <div class="text-center col-12">
+
+                            <ul class="list-group list-group-horizontal">
+
+                                <li class="list-group-item" (click)="activeIcon = 1;getDetails()"
+                                    [ngClass]="{'active':activeIcon === 1}">
+                                    <i class="fas fa-heartbeat"></i>
+                                    <label>Activity</label>
+                                </li>
+                                <li class="list-group-item" [ngClass]="{'active':activeIcon === 2}"
+                                    (click)="activeIcon = 2;getDetails()">
+                                    <i class="far fa-user"></i>
+                                    <label>Details</label>
+                                </li>
+                                <li class="list-group-item " (click)="activeIcon = 3;getDetails()"
+                                    [ngClass]="{'active':activeIcon === 3}">
+                                    <i class="far fa-envelope"></i>
+                                    <label>Email</label>
+                                </li>
+                                <li class="list-group-item" (click)="checkLink('appointments')"
+                                    [ngClass]="{'active':activeIcon === 4}">
+                                    <i class="far fa-calendar"></i>
+                                    <label>Meet</label>
+                                </li>
+
+
+                                <li class="list-group-item" (click)="checkLink('money')"
+                                    [ngClass]="{'active':activeIcon === 5}">
+                                    <i class="fas fa-dollar-sign"></i>
+                                    <label>Money</label>
+                                </li>
+
+                                <li class="list-group-item" (click)="activeIcon = 6;getDetails()"
+                                    [ngClass]="{'active':activeIcon === 6}">
+                                    <!-- <i class="fas fa-ellipsis-h"></i> -->
+                                    <!-- <label>More</label> -->
+
+                                    <div class="btn-group" dropdown>
+                                        <button id="add-contact1" dropdownToggle type="button"
+                                                class="btn dropdown-toggle " aria-controls="dropdown-basic">
+                                            <i class="fas fa-ellipsis-h"></i>
+                                            <label>More</label>
+                                        </button>
+
+                                        <ul id="add-contact1" *dropdownMenu class="dropdown-menu" role="menu"
+                                            aria-labelledby="button-basic">
+
+                                            <li role="menuitem" (click)="checkLink('tasks')">
+                                                <a class="dropdown-item">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                         id="tasks">
+                                                        <path d="M19 1a2 2 0 0 1 2 2v18a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2zm0 2H5v18h14zm-6.5 15a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1zm4-3a.5.5 0 0 1 0 1h-9a.5.5 0 0 1 0-1zm-.793-8.707a1 1 0 0 1 0 1.414l-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L11 9.586l3.293-3.293a1 1 0 0 1 1.414 0z"
+                                                              fill-rule="evenodd"></path>
+                                                    </svg>
+                                                    Tasks
+                                                </a></li>
+
+                                            <li role="menuitem"><a class="dropdown-item" (click)="moreSection ='notes'">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                     id="notes">
+                                                    <path
+                                                            d="M5 1a1 1 0 0 1 0 2H4v18h1a1 1 0 1 1 0 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2zm11.086 0a2 2 0 0 1 1.414.586L21.414 5.5A2 2 0 0 1 22 6.914V21a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2zM15 3H9v18h11V8h-4a1 1 0 0 1-1-1zm2.5 14a.5.5 0 0 1 0 1h-6a.5.5 0 0 1 0-1zm0-3a.5.5 0 0 1 .09.992L17.5 15h-6a.5.5 0 0 1-.09-.992L11.5 14zm-4-5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zM17 3.914V6h2.086z"
+                                                            fill-rule="evenodd"></path>
+                                                </svg>
+                                                Notes
+                                            </a>
+                                            </li>
+
+                                            <li role="menuitem">
+                                                <a class="dropdown-item" (click)="moreSection ='files'">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                         id="save">
+                                                        <path
+                                                                d="M5 2h10a1 1 0 0 1 .608.206l.1.087 6 6a1 1 0 0 1 .283.576L22 9v10a3 3 0 0 1-2.802 2.993L19 22H5a3 3 0 0 1-2.993-2.802L2 19V5a3 3 0 0 1 2.802-2.993L5 2h10zm3 2H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h1v-6a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6h1a1 1 0 0 0 1-1V9.414L14.586 4H10v4h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1zm8 11H8v5h8z"
+                                                                fill-rule="evenodd"></path>
+                                                    </svg>
+                                                    Files
+                                                </a>
+                                            </li>
+
+                                            <li role="menuitem">
+                                                <a class="dropdown-item" (click)="moreSection ='tags'">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                         id="tag">
+                                                        <path
+                                                                d="M11.586 2A2 2 0 0 1 13 2.586l9 9a2 2 0 0 1 0 2.828L14.414 22a2 2 0 0 1-2.828 0l-9-9A2 2 0 0 1 2 11.586V3a1 1 0 0 1 1-1zm0 2H4v7.586l9 9L20.586 13zM7 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"
+                                                                fill-rule="evenodd"></path>
+                                                    </svg>
+                                                    Tags
+                                                </a>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="col-1 col-sm-1">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </div> -->
+
+            <!--more-->
+            <ng-container *ngIf="activeIcon === 4">
+                <div class="meet-section-tab Contact-Activity-inner">
+
+                    <!--                    <div class="btn-group send-invite" dropdown>-->
+                    <!--                        <button id="button-basic2" dropdownToggle type="button" class="btn text-button"-->
+                    <!--                                aria-controls="dropdown-basic">Send invite-->
+                    <!--                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="chevron-down">-->
+                    <!--                                <path-->
+                    <!--                                        d="M6.293 9.293a1 1 0 0 1 1.414 0L12 13.586l4.293-4.293a1 1 0 1 1 1.414 1.414l-5 5a1 1 0 0 1-1.414 0l-5-5a1 1 0 0 1 0-1.414z"-->
+                    <!--                                        fill-rule="evenodd"></path>-->
+                    <!--                            </svg>-->
+                    <!--                        </button>-->
+                    <!--                        <ul id="dropdown-basic2" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic"-->
+                    <!--                            style="left: -103px;">-->
+                    <!--                            <li role="menuitem" style="display: block" *ngFor="let data of myModel.appointmentTypes"-->
+                    <!--                                (click)="appoint.sendInvite(data)">-->
+                    <!--                                <a class="dropdown-item">-->
+                    <!--                            <span class="ellipsis">{{data?.name}}-->
+                    <!--                                <ng-container-->
+                    <!--                                        *ngIf="data?.duration"> | {{data?.duration}}-->
+                    <!--                                    min</ng-container>-->
+                    <!--                            </span>-->
+                    <!--                                </a>-->
+                    <!--                            </li>-->
+
+                    <!--                        </ul>-->
+                    <!--                    </div>-->
+
+                    <div class="contact-book-btn" *ngIf="myModel?.appointments?.length">
+                        <button type="button" class="btn-outline-primary" (click)="openBook()">
+                            Book Appointment
+                        </button>
+                    </div>
+                    <div class="content">
+                        <!--                        <app-placeholders [flag]="6"  [data]="selected" *ngIf="myModel?.appointments?.length === 0"></app-placeholders>-->
+                        <div class="empty-state" *ngIf="myModel?.appointments?.length === 0">
+                            <div class="image-wrapper"><img src="/assets/images/ic_meet.svg"></div>
+                            <div class="details-wrapper">
+                                <h3 class="empty-state-title">Don't miss an opportunity to meet
+                                    with {{myData?.firstName}}</h3>
+                                <p>Inviting your client to meet is simple. Let's get the ball rolling.</p>
+                            </div>
+                            <div class="slot">
+                                <div class="button-loading">
+                                    <button class="btn btn-outline-primary" type="button" (click)="openBook()">
+                                        <span> Book an appointment</span></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <app-appoint-list [allData]="myModel?.appointments"></app-appoint-list>
+                    </div>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="activeIcon === 5">
+                <div class="money-section-tab Contact-Activity-inner">
+                    <section class="payment-row-section">
+                        <div class="button-header">
+                            <h2 class="block">Payments</h2>
+                            <button type="button" class="btn-outline-primary"
+                                    (click)="http.openModal('addPayment',{contactData:selected})"> Add a payment
+                            </button>
+                        </div>
+
+                        <app-loader [showLoader]="activityLoader" [length]="myModel?.payments"></app-loader>
+
+                        <div *ngFor="let data of myModel?.payments">
+                            <div class="payment-row">
+                                <div class="date">{{data?.createdAt|date:'MMM dd,yyyy'}}</div>
+                                <div class="payment-type">
+                                    <a (click)="http.openModal('paymentDes', data)">
+                                        {{data?.status == 1 ? 'Manual payment made' : 'Refund'}}</a>
+                                    <div class="amount light"> {{data?.amount | currency}}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="money-content" *ngIf="myModel?.payments?.length === 0">
+                            <h3>Get paid today</h3>
+                            <p>Accept credit card payments right here on the contact record. It's quick and easy.</p>
+                            <a class="money-btn" (click)="http.openModal('addPayment',{contactData:selected})"> Add a
+                                payment
+                                from {{selected?.firstName}} </a>
+                        </div>
+                    </section>
+
+                    <section>
+                        <div class="button-header">
+                            <h2 class="block">Invoices</h2>
+                            <button type="button" class="btn-outline-primary" (click)="http.openModal('addInvoice')">
+                                Create an invoice
+                            </button>
+                        </div>
+                        <div>
+                            <div class="card-layout invoices set-width-800">
+                                <app-invoive-tabs [data]="myModel?.invoices"></app-invoive-tabs>
+                            </div>
+                        </div>
+                        <div class="money-content" *ngIf="myModel?.invoices?.length === 0">
+                            <h3>Create and send an invoice</h3>
+                            <p>Set up your invoicing once and it'll be quick and easy in the future. Create, edit, and
+                                track all invoice activity.</p>
+                            <a class="money-btn" (click)="http.openModal('addInvoice')"> Create an invoice
+                                for {{selected?.firstName}}</a>
+                        </div>
+                    </section>
+
+                    <section>
+                        <div class="button-header">
+                            <h2 class="block">Quotes</h2>
+                            <button type="button" class="btn-outline-primary" (click)="http.openModal('addQuote')">
+                                Create a quote
+                            </button>
+                        </div>
+                        <div>
+                            <div class="card-layout invoices">
+                                <app-invoive-tabs [data]="myModel?.quotes"></app-invoive-tabs>
+                            </div>
+                        </div>
+
+                        <div class="money-content" *ngIf="myModel?.quotes?.length === 0">
+                            <h3>Create and send a quote</h3>
+                            <p>Set up quotes once and it'll be quick and easy in the future. Create, edit, and track all
+                                quote activity.</p>
+                            <a class="money-btn" (click)="http.openModal('addQuote')"> Create a quote
+                                for {{selected?.firstName}} </a>
+                        </div>
+
+                    </section>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="activeIcon === 6">
+
+                <ng-container *ngIf="moreSection === 'tags'">
+
+                    <div class="tags-section-tab Contact-Activity-inner">
+                        <div class="input-field">
+                            <mat-form-field class="full-width input-set" appearance="outline">
+                                <mat-label>Search tags applied</mat-label>
+                                <input matInput [formControl]="tagsSearch" (input)="contactTagList(false)">
+                            </mat-form-field>
+                        </div>
+
+                        <p class="total-tags">
+                            <span class="number small">{{myModel?.contactTags?.count}}</span>
+                            Tag applied to {{selected?.firstName}}
+                        </p>
+
+                        <app-loader [showLoader]="activityLoader" [length]="myModel?.contactTags?.length"></app-loader>
+
+                        <ng-container *ngFor="let data of myModel?.contactTags?.data;let i =index">
+                            <div class="tag">
+                                <div class="info">
+                                    <span class="semibold">{{data?.name}}</span>
+                                    <span class="category"> {{data?.tagCategoryId?.name}}</span>
+                                </div>
+                                <div class="actions">
+                                    <span title="Monday, April 27th 2020 03:23 AM"
+                                          class="date">{{data?.createdAt |date:'MMM dd, yyyy'}}</span>
+                                    <div class="tooltip-reference">
+                                        <div class="btn-group tag_remove" dropdown>
+                                            <button id="button-basic2" dropdownToggle type="button" class="btn"
+                                                    aria-controls="dropdown-basic">
+                                                <svg class="chevron category-arrow icon rtl-flip">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                         id="more-horizontal">
+                                                        <circle cx="5" cy="12" r="2"></circle>
+                                                        <circle cx="12" cy="12" r="2"></circle>
+                                                        <circle cx="19" cy="12" r="2"></circle>
+                                                    </svg>
+                                                </svg>
+                                            </button>
+                                            <ul id="dropdown-basic2" *dropdownMenu class="dropdown-menu" role="menu"
+                                                aria-labelledby="button-basic" style="left: -103px;">
+                                                <li (click)="removeTag(data,i)">
+                                                    <h4>Remove</h4>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+
+
+                        <tag-input class="add_new_tags" [(ngModel)]="item" [onlyFromAutocomplete]="true"
+                                   [separatorKeyCodes]="[32]">
+                            <tag-input-dropdown [dynamicUpdate]="false" [showDropdownIfEmpty]="true"
+                                                style="max-width: 100px" [focusFirstElement]="true" [displayBy]="'name'"
+                                                [identifyBy]="'_id'" [autocompleteItems]="myModel.tags">
+                                <ng-template let-item="item" let-index="index">
+                                    {{ item.name}}
+                                </ng-template>
+                            </tag-input-dropdown>
+                        </tag-input>
+
+                        <section class="apply-tags">
+                            <div class=""></div>
+                            <div class="tag-actions">
+                                <div class="button-container">
+                                    <br>
+                                    <button *ngIf="!item?.length" disabled="disabled" type="button"
+                                            class="btn-outline-primary" (click)="applyTagToContact()">
+                                        Apply tag
+                                        to {{selected?.firstName}} {{selected?.lastName}}
+                                    </button>
+
+                                    <button *ngIf="item?.length > 0" type="button" class="btn-outline-primary"
+                                            (click)="applyTagToContact()">
+                                        Apply tag
+                                        to {{selected?.firstName}} {{selected?.lastName}}
+                                    </button>
+
+                                </div>
+                                <a (click)="http.navigate('contacts/manage-tag', selected._id)" class="">
+                                    Manage all tags </a>
+                            </div>
+                        </section>
+
+                        <app-placeholders [flag]="9" *ngIf="myModel?.contactTags?.count === 0"></app-placeholders>
+
+                    </div>
+
+                </ng-container>
+
+                <ng-container *ngIf="moreSection === 'files'">
+
+                    <div class="file-section-tab Contact-Activity-inner">
+                        <div class="row">
+                            <div class="col-md-8 search-field-div">
+                                <mat-form-field class="full-width search-field-input" appearance="outline">
+                                    <mat-label>Search files</mat-label>
+                                    <input matInput placeholder="Search files" type="text" [formControl]="fileSearch">
+                                </mat-form-field>
+                                <label style="margin-top: 10px">File size limit is 10 MB
+                                </label>
+                            </div>
+
+                            <div class="col-md-4 file-upload">
+                                <span *ngIf="!isLoader">Upload a file</span>
+                                <span *ngIf="isLoader">Uploading...</span>
+                                <input style="height: 40px !important;" [disabled]="isLoader"
+                                        type="file" value="Upload a file" (change)="uploadImage($event.target.files[0])">
+                            </div>
+                        </div>
+
+                        <app-placeholders (returnAction)="getDetails()" [flag]="8"
+                                          *ngIf="myModel?.files?.data?.length === 0" [data]="selected">
+                        </app-placeholders>
+                    </div>
+
+                    <div>
+                        <div class="list-item border-partial"
+                             *ngFor="let val of myModel?.files?.data | filter:fileSearch.value">
+                            <div class="list-item-info">
+                                <div class="item-text">
+                                    <div class="title one-line"> {{val?.name}}</div>
+                                    <div class="description">{{val?.createdAt | date:'MMM dd, yyyy, hh:mm a'}}
+                                        , {{val?.size}}
+                                    </div>
+                                </div>
+                                <div class="trailing-slot">
+                                    <div class="file-actions">
+                                        <a class="download_ic" (click)="http.goToLink(val?.content?.original)">
+                                            <img src="/assets/images/ic_download.svg">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </ng-container>
+
+                <ng-container *ngIf="moreSection === 'tasks'">
+                    <div class=" contact-tasks Contact-Activity-inner">
+                        <div class="content">
+                            <div class="text-right button-row contact-button-row">
+                                <button type="submit" class="btn btn-outline-primary"
+                                        (click)="http.openModal('addTask',{contactId:selected})">Add Task
+                                </button>
+                                <!--                                <button type="button" class="btn btn-link text-button" (click)="isEdit = false"> Show-->
+                                <!--                                    completed-->
+                                <!--                                </button>-->
+                                <button type="button" class="text-button" *ngIf="this.myModel.status ===1"
+                                        (click)="this.myModel.status = 2;taskList()"> Show completed
+                                </button>
+                                <button type="button" class="text-button" *ngIf="this.myModel.status ===2"
+                                        (click)="this.myModel.status = 1;taskList()"> Hide completed
+                                </button>
+
+                            </div>
+
+                            <app-placeholders [flag]="4" *ngIf="myModel?.tasks?.length === 0 && !activityLoader">
+                            </app-placeholders>
+                            <app-loader [showLoader]="activityLoader" [length]="myModel?.tasks?.length"></app-loader>
+                            <app-task-list [allData]="myModel?.tasks" [hideContactName]="true"></app-task-list>
+
+                        </div>
+                    </div>
+                </ng-container>
+
+                <ng-container *ngIf="moreSection === 'notes'">
+                    <app-note-list [allData]="myModel?.notes" [contactId]="selected._id" style=" width: 100%;"
+                                   (finalSubmit)="notesDetails()">
+                    </app-note-list>
+                </ng-container>
+
+            </ng-container>
+            <!--more ended-->
+
+            <!--   activity -->
+            <ng-container *ngIf="activeIcon === 1">
+
+                <div class="contact-pipeline">
+                    <h5 class="header" *ngIf="myModel?.dealData?.length"> Pipeline deals
+                        <span class="deal-count">Showing {{myModel?.dealData?.length}} deals</span>
+                    </h5>
+
+                    <div class="deal-container" *ngFor="let data of myModel?.dealData">
+                        <div class="card">
+                            <div class="deal-stage contact-deal">
+                                <div class="deal-header">
+                                    <p class="name">{{data?.name}}</p>
+                                    <!--   <button type="button" class="button text-button"> Open</button>-->
+                                </div>
+                                <div class="deal-stages">
+                                    <div class="deal-details">
+                                        <p class="pipeline-name"> Current pipeline: {{data?.pipelineId?.name}} </p>
+                                        <div class="deal-amount"> US {{data?.dealValue |currency}}</div>
+                                    </div>
+                                    <div class="deal-stage-details">
+                                        <div class="select-stage multiselect">
+                                            <app-contact-pipeline [pipelines]="myModel?.pipelines"
+                                                                  (selectedData)="optionSelected($event,data)">
+                                            </app-contact-pipeline>
+                                        </div>
+                                        <div *ngIf="data?.nextData">
+                                            <a class="text-button" (click)="moveToNext(data)">Move to next stage
+                                                <svg class="icon"
+                                                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                     id="arrow-long-right">
+                                                    <path
+                                                            d="M17.707 6.293l5 5c.029.028.055.059.08.09l-.08-.09a1.008 1.008 0 0 1 .292.675L23 12v.033l-.004.052L23 12a1.008 1.008 0 0 1-.22.625l-.073.082-5 5a1 1 0 0 1-1.414-1.414L19.584 13H2a1 1 0 1 1 0-2h17.586l-3.293-3.293a1 1 0 0 1 1.414-1.414z"
+                                                            fill-rule="evenodd"></path>
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="email-section Contact-Activity-inner">
+                    <h5 class="email-title">Contact Activity</h5>
+                    <app-loader [showLoader]="activityLoader" [length]="myModel?.activities?.length"></app-loader>
+                    <app-activity-list [allData]="myModel?.activities"></app-activity-list>
+                    <app-placeholders [flag]="4" *ngIf="myModel?.activities?.length === 0"></app-placeholders>
+                </div>
+            </ng-container>
+            <!--     activity ended-->
+
+            <!-- details  edit-->
+            <div class="detai_section Contact-Activity-inner" *ngIf="activeIcon === 2">
+                <ng-container *ngIf="isEdit">
+                    <form [formGroup]="form" (ngSubmit)="editContact()" autocomplete="off">
+                        <div class="text-right" style="margin-bottom: 10px;">
+                            <button type="button" class="btn btn-link text-button" (click)="isEdit = false;this.getDetails();
+                                   multiPhoneNumber.clear() ">Cancel
+                            </button>
+                            <button type="submit" class="btn btn-outline-primary">Save</button>
+                        </div>
+                        <section class="contact-details-section">
+                            <section>
+                                <h5 class="">General</h5>
+                                <div class="field-grid editing">
+                                    <div class="input-field">
+                                        <mat-form-field class="full-width" appearance="outline" hintLabel="Max 26 characters">
+                                            <mat-label class="required">First Name</mat-label>
+                                            <input matInput placeholder="Enter first name" type="text"
+                                                   formControlName="firstName" maxlength="26" #fname>
+                                            <mat-error *ngIf="form.controls['firstName'].hasError('required')">
+                                                Please enter first name.
+                                            </mat-error>
+                                            <mat-hint align="end">{{fname.value?.length || 0}}/26</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="input-field" *ngIf="form?.controls?.middleName">
+                                        <mat-form-field class="full-width" appearance="outline">
+                                            <mat-label>Middle Name</mat-label>
+                                            <input matInput placeholder="Enter middle name" type="text"
+                                                   formControlName="middleName">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="input-field">
+                                        <mat-form-field class="full-width" appearance="outline"  hintLabel="Max 26 characters">
+                                            <mat-label class="required">Last Name</mat-label>
+                                            <input matInput placeholder="Enter last name" type="text"
+                                                   formControlName="lastName" maxlength="26" #lname>
+                                            <mat-error *ngIf="form.controls['lastName'].hasError('required')">
+                                                Please enter last name.
+                                            </mat-error>
+                                            <mat-hint align="end">{{lname.value?.length || 0}}/26</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="input-field" *ngIf="form?.controls?.title || form?.controls?.suffix">
+                                        <div class="btn-group add-btn select-opt" dropdown>
+                                            <mat-form-field appearance="outline" class="select-height">
+                                                <mat-label>Title</mat-label>
+                                                <mat-select formControlName="title">
+                                                    <mat-option *ngFor="let title of titles" [value]="title">
+                                                        {{title}}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="" *ngIf="form?.controls?.suffix">
+                                            <mat-form-field class="full-width" appearance="outline">
+                                                <mat-label>Suffix</mat-label>
+                                                <input matInput placeholder="Suffix" type="text"
+                                                       formControlName="suffix">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="input-field">
+                                        <mat-form-field class="full-width" appearance="outline">
+                                            <mat-label>Company name</mat-label>
+                                            <input matInput placeholder="Company name" type="text"
+                                                   formControlName="company">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="input-field">
+                                        <mat-form-field class="full-width" appearance="outline">
+                                            <mat-label>Job title</mat-label>
+                                            <input matInput placeholder="Job title" type="text"
+                                                   formControlName="jobTitle">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="add_field">
+                                    <div class="btn-group" dropdown>
+                                        <a dropdownToggle class=" dropdown-toggle" aria-controls="dropdown-basic">
+                                            + Add a field
+                                        </a>
+                                        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu"
+                                            aria-labelledby="button-basic">
+                                            <li role="menuitem" *ngFor="let val of detailsOptions;let i= index">
+                                                <a class="dropdown-item"
+                                                   (click)="clickOption(detailsOptions,i)">{{val?.name}}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </section>
+                        </section>
+
+                        <section class="contact-details-section">
+                            <section>
+                                <h5>Phone and email</h5>
+
+                                <ng-container formArrayName="multiPhoneNumber"
+                                              *ngFor="let item of multiPhoneNumber.controls; let i = index; let last = last;">
+
+                                    <div class="field-grid editing" [formGroupName]="i">
+                                        <div class="input-field">
+                                            <mat-form-field class="full-width" appearance="outline">
+                                                <mat-label>Phone</mat-label>
+                                                <input matInput placeholder="Phone" type="tel" appNumberOnly
+                                                       formControlName="phoneNumber" maxlength="15" minlength="10">
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="input-field delete-field">
+                                            <div class="btn-group add-btn select-opt" dropdown>
+                                                <mat-form-field appearance="outline" class="select-height">
+                                                    <mat-label>Type</mat-label>
+                                                    <mat-select formControlName="type">
+                                                        <mat-option *ngFor="let type of http.CONSTANT.phoneTypes"
+                                                                    [value]="type">{{type}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                            <img class="del_field_ic" src="/assets/images/close.svg"
+                                                 (click)="multiPhoneNumber.removeAt(i)">
+                                        </div>
+
+                                    </div>
+                                </ng-container>
+                                <div class="add_field">
+                                    <a (click)="addPhoneItem()" class="btn btn-link">+ Add a phone</a>
+                                </div>
+
+                            </section>
+                        </section>
+
+                        <div class="field-grid editing" *ngIf="form.controls.email">
+                            <div class="input-field delete-field">
+                                <mat-form-field class="full-width" appearance="outline">
+                                    <mat-label>Business email</mat-label>
+                                    <input matInput type="text" formControlName="email" placeholder="Business Email" (change)="patternCheck('email')">
+                                </mat-form-field>
+                                <img class="del_field_ic" src="/assets/images/close.svg" (click)="removeEmail('email')">
+                            </div>
+                        </div>
+
+                        <div class="field-grid editing" *ngIf="form.controls.personalEmail">
+                            <div class="input-field delete-field">
+                                <mat-form-field class="full-width" appearance="outline">
+                                    <mat-label>Personal email</mat-label>
+                                    <input matInput type="text" formControlName="personalEmail"
+                                           placeholder="Personal email" (change)="patternCheck('personalEmail')">
+                                </mat-form-field>
+                                <img src="/assets/images/close.svg" class="del_field_ic"
+                                     (click)="removeEmail('personalEmail')">
+                            </div>
+
+                        </div>
+
+                        <div class="field-grid editing" *ngIf="form.controls.otherEmail">
+                            <div class="input-field delete-field">
+                                <mat-form-field class="full-width" appearance="outline">
+                                    <mat-label>Other email</mat-label>
+                                    <input matInput type="text" formControlName="otherEmail" placeholder="Other email" (change)="patternCheck('otherEmail')">
+                                </mat-form-field>
+                                <img src="/assets/images/close.svg" class="del_field_ic"
+                                     (click)="removeEmail('otherEmail')">
+                            </div>
+
+                        </div>
+
+
+                        <div class="row">
+
+                            <div class="col-md-12" *ngIf="emailOptions.length > 0">
+                                <div class="btn-group add_field" dropdown>
+                                    <a dropdownToggle class=" dropdown-toggle" aria-controls="dropdown-basic">
+                                        + Add an email
+                                    </a>
+                                    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu"
+                                        aria-labelledby="button-basic">
+                                        <li role="menuitem" *ngFor="let val of emailOptions;let i= index">
+                                            <a class="dropdown-item"
+                                               (click)="clickOption(emailOptions,i)">{{val?.name}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br>
+                        <br class="clearfix">
+                        <section class="contact-details-section">
+                            <section>
+                                <h5>Addresses</h5>
+
+                                <div class="input-field btn-group add-btn select-opt">
+                                    <mat-form-field class="full-width select-height" appearance="outline">
+                                        <mat-label>Select Country</mat-label>
+                                        <mat-select (selectionChange)="countryList(billingAddress.country)"
+                                                    [(ngModel)]="billingAddress.country"
+                                                    [ngModelOptions]="{standalone: true}">
+                                            <mat-option *ngFor="let val of myModel?.countries"
+                                                        [value]="val.country_name">
+                                                {{val?.country_name}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="input-field">
+                                    <mat-form-field class="full-width" appearance="outline">
+                                        <mat-label>Address</mat-label>
+                                        <input matInput type="text" [(ngModel)]="billingAddress.address"
+                                               [ngModelOptions]="{standalone: true}"
+                                               (addressSelect)="addressDetails($event)" appGoogleplace
+                                               onkeydown="return (event.keyCode!==13);">
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="input-field">
+                                    <mat-form-field class="full-width" appearance="outline">
+                                        <mat-label>Apt/Suite/Other</mat-label>
+                                        <input matInput type="text" [(ngModel)]="billingAddress.other"
+                                               [ngModelOptions]="{standalone: true}">
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="input-field">
+                                    <mat-form-field class="full-width" appearance="outline">
+                                        <mat-label>City</mat-label>
+                                        <input matInput type="text" [(ngModel)]="billingAddress.city"
+                                               [ngModelOptions]="{standalone: true}">
+                                    </mat-form-field>
+                                </div>
+                                <div class="field-grid editing">
+                                    <div class="input-field btn-group add-btn select-opt">
+                                        <mat-form-field class="full-width select-height" appearance="outline">
+                                            <mat-label>State</mat-label>
+                                            <mat-select [(ngModel)]="billingAddress.state"
+                                                        [ngModelOptions]="{standalone: true}">
+                                                <mat-option *ngFor="let val of myModel?.states"
+                                                            [value]="val.state_name">{{val?.state_name}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <!--                                    <div class="input-field">-->
+                                    <!--                                        <mat-form-field class="full-width" appearance="outline">-->
+                                    <!--                                            <mat-label>State</mat-label>-->
+                                    <!--                                            <input matInput type="text"-->
+                                    <!--                                                   [(ngModel)]="billingAddress.state"-->
+                                    <!--                                                   [ngModelOptions]="{standalone: true}">-->
+                                    <!--                                        </mat-form-field>-->
+                                    <!--                                    </div>-->
+                                    <!--                                    -->
+
+                                    <div class="input-field">
+                                        <mat-form-field class="full-width" appearance="outline">
+                                            <mat-label>Zip Code</mat-label>
+                                            <input matInput type="text" [(ngModel)]="billingAddress.zipCode"
+                                                   [ngModelOptions]="{standalone: true}" maxlength="7" appNumberOnly="">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <!--                                <div class="add_field">-->
+                                <!--                                    <a (click)="addAddressItem()" class="btn btn-link">+ Add an address</a>-->
+                                <!--                                </div>-->
+                            </section>
+                        </section>
+
+                        <br>
+                        <br class="clearfix">
+
+                        <section class="contact-details-section">
+                            <section>
+                                <h5>Advanced</h5>
+                                <div class="">
+                                    <button class="btn btn-outline-danger" type="button" (click)="deleteFun()">
+                                        Delete Contact
+                                    </button>
+                                    <label style="margin: 6px">Warning: This action can't be undone.</label>
+                                </div>
+                            </section>
+                        </section>
+                    </form>
+
+                </ng-container>
+
+                <ng-container *ngIf="!isEdit">
+
+                    <div class="text-right" style="margin-bottom: 10px;">
+                        <button type="button" class="btn text-button" (click)="fillValues();isEdit = true">Edit
+                        </button>
+                    </div>
+
+                    <section class="contact-details-section">
+                        <section>
+                            <h5>General</h5>
+                            <div class="field-grid">
+                                <div class="view-field">
+                                    <small>First name</small>
+                                    <span>{{selected?.firstName}}</span>
+                                </div>
+                                <div class="view-field" *ngIf="selected?.middleName">
+                                    <small>Middle name</small>
+                                    <span>{{selected?.middleName}}</span>
+                                </div>
+                                <div class="view-field">
+                                    <small>Last name</small>
+                                    <span>{{selected?.lastName}}</span>
+                                </div>
+
+                                <div class="view-field" *ngIf="selected?.title">
+                                    <small>Title</small>
+                                    <span>{{selected?.title}}</span>
+                                </div>
+                                <div class="view-field" *ngIf="selected?.suffix">
+                                    <small>Suffix</small>
+                                    <span>{{selected?.suffix}}</span>
+                                </div>
+
+                                <div class="view-field" *ngIf="selected?.company">
+                                    <small>Company name</small>
+                                    <span>{{selected?.company}}</span>
+                                </div>
+                                <div class="view-field" *ngIf="selected?.jobTitle">
+                                    <small>Job title</small>
+                                    <span>{{selected?.jobTitle}}</span>
+                                </div>
+
+                                <!--<div class="view-field">-->
+                                    <!--<small>Owner</small>-->
+                                    <!--<span>Admin</span>-->
+                                <!--</div>-->
+                            </div>
+                        </section>
+                    </section>
+
+                    <section class="contact-phone-email contact-details-section">
+                        <section>
+                            <h5>Phone and Email</h5>
+
+                            <div class="field-grid">
+                                <div class="view-field" *ngFor="let data of selected?.multiPhoneNumber">
+                                    <small>{{data?.type}}</small>
+                                    <span>
+                                        (+91) {{data?.phoneNumber}}</span>
+                                </div>
+                            </div>
+
+                            <div class="field-grid mt-3" *ngIf="selected?.email">
+                                <div class="view-field">
+                                    <small>Work email</small>
+                                    <span>{{selected?.email}}</span>
+                                </div>
+                            </div>
+
+                        </section>
+                    </section>
+
+
+                    <section class="contact-phone-email contact-details-section"
+                             *ngIf="selected?.billingAddress?.address">
+                        <section>
+                            <h5>Address</h5>
+                            <div class="field-grid">
+                                <div class="view-field">
+                                    <div>
+                                        {{selected?.billingAddress?.address}}
+                                        <ng-container *ngIf="selected?.billingAddress?.other">
+                                            , {{selected?.billingAddress?.other}}
+                                        </ng-container>
+                                    </div>
+                                    <br>
+                                    <div> {{selected?.billingAddress?.city}}
+                                        <ng-container *ngIf="selected?.billingAddress?.country">
+                                            , {{selected?.billingAddress?.country}}
+                                        </ng-container>
+                                    </div>
+                                    <br>
+                                    <div>
+                                        <ng-container *ngIf="selected?.billingAddress?.zipCode">
+                                            {{selected?.billingAddress?.zipCode}}
+                                        </ng-container>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </section>
+                    </section>
+
+
+                </ng-container>
+
+            </div>
+            <!-- details -->
+            <!--            email history-->
+            <div class="email-section-tab Contact-Activity-inner animated slideInBottom email-section"
+                 *ngIf="activeIcon === 3">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5 class="email-title">Email History</h5>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <button class="btn btn-outline-primary" (click)="openEmailModal()">New Email</button>
+                    </div>
+                </div>
+                <app-loader [showLoader]="activityLoader" [length]="myModel?.emails?.length"></app-loader>
+
+                <app-placeholders *ngIf="myModel?.emails?.length === 0" [flag]="3">
+                </app-placeholders>
+
+                <ng-container *ngFor="let data of myModel?.emails">
+                    <h5 class="email-title">{{data?._id | date:http.CONSTANT.dateFormat}}</h5>
+                    <ng-container *ngFor="let val of data?.data">
+                        <ul class="activity-item">
+                            <li>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="email-open">
+                                    <path
+                                            d="M12.859 1.616l.14.103 2.852 2.28H19a2 2 0 0 1 1.995 1.852L21 6v2a2 2 0 0 1 1.995 1.85L23 10v11a2 2 0 0 1-1.85 1.994L21 23H3a2 2 0 0 1-1.995-1.85L1 21V10a2 2 0 0 1 1.85-1.995L3 8V6a2 2 0 0 1 1.85-1.995L5 4h2.65l2.85-2.281a2 2 0 0 1 2.359-.103zM3.063 11.5H3V21h18v-9.5h-.064a2 2 0 0 1-.604.991l-.132.109-7 5.25a2 2 0 0 1-2.254.1l-.146-.1-7-5.25a2 2 0 0 1-.737-1.1zM19 6H5v5l7 5.25L19 11zm-4.707 2.293a1 1 0 1 1 1.414 1.414L12.914 12.5a2 2 0 0 1-2.828 0l-.793-.793a1 1 0 1 1 1.414-1.414l.793.793zM11.75 3.28l-.9.719h1.8z"
+                                            fill-rule="evenodd"></path>
+                                </svg>
+                                <div class="title"><b>Email sent</b> by <span
+                                        class="semibold">{{val.addedBy?.email}}</span><span
+                                        class="time">{{val?.createdAt | date:'hh:mm a'}}</span></div>
+                                <div class="task-activity-item"><span>Subject:</span> {{val?.content?.subject}}
+                                </div>
+
+
+                                <div class="btn-group view-email" dropdown>
+                                    <button dropdownToggle type="button" class="btn dropdown-toggle"
+                                            aria-controls="dropdown-basic">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                             id="more-horizontal">
+                                            <circle cx="5" cy="12" r="2"></circle>
+                                            <circle cx="12" cy="12" r="2"></circle>
+                                            <circle cx="19" cy="12" r="2"></circle>
+                                        </svg>
+                                    </button>
+                                    <ul *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                                        <li role="menuitem">
+                                            <a class="dropdown-item"
+                                               (click)="http.openModal('emailDetail', val.content)">
+                                                View Email</a></li>
+
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </ng-container>
+                </ng-container>
+            </div>
+            <!--            email history ended-->
+
+            <!--                 more-->
+
+            <!--                 more ended-->
+
+
+        </div>
+
+
+        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+            messages
+        </div>
+        <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+            settings
+        </div>
+    </div>
+</div>

@@ -1,0 +1,68 @@
+<div class="container-login100">
+
+
+    <div class="card shadow text-center card-width">
+        <div class="card-body ">
+            <div class="row">
+                <!--                <div class="col-md-7 ">-->
+                <!--                    <img src="/assets/images/FullColor_TransparentBg_1280x1024_72dpi.png" alt="IMG"-->
+                <!--                         class="login-img-size">-->
+                <!--                </div>-->
+
+                <div class="col-md-12">
+
+                    <br class="clearfix">
+                    <form class="login100-form validate-form text-center" [formGroup]="form"
+                          (ngSubmit)="loginFun()"
+                          autocomplete="off">
+                        <div class="card shadow inner-card">
+                            <div class="card-body">
+                                <img src="/assets/images/1280x1024.jpg" alt="IMG"
+                                     class="login-img-size-small"><br>
+                                <div class="form-group">
+                                    <mat-form-field class="full-width">
+                                        <mat-label>E-mail</mat-label>
+                                        <input matInput type="text" formControlName="email"
+                                               placeholder="Enter email here">
+                                        <mat-error *ngIf="form.controls['email'].hasError('required')">
+                                            Please enter email.
+                                        </mat-error>
+                                        <mat-error
+                                                *ngIf="form.controls['email'].hasError('pattern')">
+                                            Please enter valid email.
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="form-group">
+                                    <mat-form-field class="full-width">
+                                        <mat-label>Password</mat-label>
+                                        <input matInput  [type]="showPassword ? 'password' : 'text'" name="pass" placeholder="Enter password here"
+                                               formControlName="password">
+                                        <mat-error
+                                                *ngIf="form.controls['password'].hasError('required') && form.controls.password.touched">
+                                            Please enter password.
+                                        </mat-error>
+                                        <mat-icon matSuffix (click)="showPassword = !showPassword">{{showPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                    </mat-form-field>
+                                </div>
+
+                                <button type="submit" class="btn login-btn">
+                                    <i class="fa fa-spinner fa-spin" *ngIf="loader"></i>
+                                    <span *ngIf="!loader">Login</span>
+                                </button>
+                                <br>
+                                <br>
+                                <a class="pull-right" (click)="openForgotPassword()">Forgot Password</a><br>
+
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

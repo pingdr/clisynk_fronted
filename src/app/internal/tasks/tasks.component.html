@@ -1,0 +1,22 @@
+<div class="tasks-page">
+    <header class="page-header">
+        <div title="Tasks" class="title">
+            <h2>Tasks</h2>
+        </div>
+        <div class="actions button-row text-right">
+            <button type="button" class="text-button" *ngIf="this.myModel.status ===1"
+                    (click)="this.myModel.status = 2;taskList()"> Show completed
+            </button>
+            <button type="button" class="text-button" *ngIf="this.myModel.status ===2"
+                    (click)="this.myModel.status = 1;taskList()"> Hide completed
+            </button>
+            <button type="button" class="btn-outline-primary" (click)="http.openModal('addTask')"> Add a task</button>
+        </div>
+    </header>
+
+    <section>
+        <app-placeholders [flag]="5" *ngIf="!myModel?.allData?.length && !myModel?.loader"></app-placeholders>
+        <app-loader [showLoader]="myModel?.loader"></app-loader>
+        <app-task-list  [allData]="myModel?.allData"></app-task-list>
+    </section>
+</div>

@@ -1,0 +1,94 @@
+<div class="profile-section">
+
+    <div class="contact-header">
+        <div class="Clients_list_heading">
+            <img [src]="'/assets/images/back-arrow.svg'" (click)="http.goBack()">
+            <h3 class="page-title">Users</h3>
+            <button class="btn-outline-primary t-r-btn"
+                    (click)="openAddUser()">Add a user
+            </button>
+        </div>
+
+        <div class="table-grid">
+            <div class="table-wrapper">
+                <table>
+                    <colgroup>
+                        <col name="col-th-column-7" width="60">
+                        <col name="col-th-column-8" width="130">
+                        <col name="col-th-column-9" width="130">
+                        <col name="col-th-column-10" width="150">
+                        <col name="col-th-column-11" width="150">
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th class="sortable">
+                            <div class="active-sortable cell">#</div>
+                        </th>
+                        <th class="sortable">
+                            <div class="active-sortable cell">First Name</div>
+                        </th>
+                        <th class="sortable">
+                            <div class="active-sortable cell">Last Name</div>
+                        </th>
+                        <th class="sortable">
+                            <div class="active-sortable cell">E-mail</div>
+                        </th>
+                        <th class="sortable">
+                            <div class="active-sortable cell">Contact No.</div>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <div class="min-vw-100" *ngIf="!isEmpty && !myModel?.users?.data?.length">
+                        <ngx-skeleton-loader count="5"
+                                             [theme]="{ 'border-radius': '0', height: '45px', 'margin-bottom': '5px'}">
+                        </ngx-skeleton-loader>
+                    </div>
+
+                    <div class="no-records-found"
+                         *ngIf="isEmpty && !myModel?.users?.data?.length">
+                        <label>No sub-admin found!</label>
+                    </div>
+
+                    <tr class="selectable-row" *ngFor="let data of myModel?.users?.data;let i = index"
+                        (click)="openAddUser(data)">
+                        <td class="">
+                            <div class="cell">{{i + 1}}</div>
+                        </td>
+                        <td class="">
+                            <div class="cell">
+                                <span>{{data?.firstName || '-'}}
+                                </span>
+                            </div>
+                        </td>
+                        <td class="">
+                            <div class="cell">
+                                <span>{{data?.lastName || '-'}}
+                                </span>
+                            </div>
+                        </td>
+                        <td class="">
+                            <div class="cell">
+                                <span>{{data?.email || '-'}}
+                                </span>
+                            </div>
+                        </td>
+                        <td class="">
+                            <div class="cell">
+                                <span>{{data?.phone1 || '-'}}
+                                </span>
+                            </div>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+

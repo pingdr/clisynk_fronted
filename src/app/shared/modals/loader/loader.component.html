@@ -1,0 +1,23 @@
+<ng-container *ngIf="showLoader && !length">
+    <div class="fb-item" *ngFor="let val of ['','','']">
+        <div class="first-section-wrapper">
+            <div class="gravatar">
+                <ngx-skeleton-loader appearance="circle" [theme]="{ width: '55px', height: '55px' }">
+                </ngx-skeleton-loader>
+            </div>
+            <div class="gravatar-title">
+                <div>
+                    <ngx-skeleton-loader
+                            [theme]="{ width: '200px',   'border-radius': '0', height: '15px', 'margin-bottom': '10px'}"
+                    ></ngx-skeleton-loader>
+                </div>
+                <div>
+                    <ngx-skeleton-loader [theme]="{width: '170px','border-radius': '0',height: '15px'}">
+                    </ngx-skeleton-loader>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<!--<label class="not-found-label" *ngIf="!length && !showLoader">No records found</label>-->

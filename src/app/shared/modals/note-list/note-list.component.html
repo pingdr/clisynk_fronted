@@ -1,0 +1,36 @@
+<div class="Contact-Activity-inner note-section-tab">
+    <div class="col-md-12">
+        <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Note</mat-label>
+            <textarea matInput placeholder="Note" [formControl]="text"
+                      rows="5">
+            </textarea>
+        </mat-form-field>
+
+        <button style="margin-bottom: 10px;" class="btn btn-default btn-fat" (click)="addNoteFun()"
+                [ngClass]="{'btn-primary':text.value}">Save note
+        </button>
+
+        <ng-container *ngFor="let data of allData">
+
+            <p class="activity-date"><span>{{data?._id |date:http.CONSTANT.dateFormat}}</span></p>
+
+            <ul class="activity-item" *ngFor="let val of data?.data">
+                <li (click)="openEditNote(val)" style="cursor: pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="tasks">
+                        <path d="M19 1a2 2 0 0 1 2 2v18a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2zm0 2H5v18h14zm-6.5 15a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1zm4-3a.5.5 0 0 1 0 1h-9a.5.5 0 0 1 0-1zm-.793-8.707a1 1 0 0 1 0 1.414l-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L11 9.586l3.293-3.293a1 1 0 0 1 1.414 0z"
+                              fill-rule="evenodd"></path>
+                    </svg>
+
+                    <div class="title">
+                        <b>Note</b>
+                        <ng-container> created by</ng-container>
+                        <span class="semibold"> {{val?.addedBy?.name}}</span><span
+                            class="time">{{val?.createdAt | date:'MMM dd, yyyy, hh:mm a'}} </span>
+                    </div>
+                    <div class="task-activity-item">{{val?.text}}</div>
+                </li>
+            </ul>
+        </ng-container>
+    </div>
+</div>

@@ -1,0 +1,454 @@
+import {EventEmitter, Inject, Injectable} from '@angular/core';
+import {Router} from '@angular/router';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {environment} from '../../environments/environment';
+import * as constant from './constants';
+import {ToastrService} from 'ngx-toastr';
+import {Lightbox} from 'ngx-lightbox';
+import {BehaviorSubject} from 'rxjs';
+import {BsModalRef, BsModalService} from 'ngx-bootstrap';
+import {DOCUMENT, Location} from '@angular/common';
+import {ExportToExcelService} from './exportToExcel.service';
+import Swal from 'sweetalert2';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {FormArray, FormBuilder} from '@angular/forms';
+import * as _ from 'lodash';
+import {ApiUrl} from './apiUrls';
+
+@Injectable({
+    providedIn: 'root'
+})
+export class HttpService {
+
+    public filesData: any = [];
+    modalRefArr: any = [];
+    CONSTANT = constant;
+    modalRef: BsModalRef;
+    public readonly apiEndpoint: String;
+
+    private loaderSubject = new BehaviorSubject<any>(null);
+    public loaderStatus = this.loaderSubject.asObservable();
+
+    private contactUpdatedSubject = new BehaviorSubject<any>(null);
+    public contactUpdatedStatus = this.contactUpdatedSubject.asObservable();
+
+    public eventSubject = new BehaviorSubject<any>(null);
+    public eventStatus = this.eventSubject.asObservable();
+
+    private modalSubject = new BehaviorSubject<any>(null);
+    public modalStatus = this.modalSubject.asObservable();
+
+    private searchSubject = new BehaviorSubject<any>(null);
+    public searchStatus = this.searchSubject.asObservable();
+
+    public heading: string;
+    domain: string;
+    loginData: any;
+    myLoader = false;
+
+    test: EventEmitter<any> = new EventEmitter<any>();
+
+    constructor(private router: Router, public http: HttpClient, public toastr: ToastrService,
+                public lightBox: Lightbox, public modalService: BsModalService, public fb: FormBuilder,
+                @Inject(DOCUMENT) public document: any, private location: Location,
+                public _snackBar: MatSnackBar, public exportService: ExportToExcelService
+    ) {
+        this.apiEndpoint = environment.apiBaseUrl;
+        this.domain = this.document.location.origin;
+        this.loginData = JSON.parse(localStorage.getItem('loginData'));
+    }
+
+    goBack() {
+        this.location.back();
+    }
+
+    setLoginData(data) {
+        this.loginData = data;
+        localStorage.setItem('loginData', JSON.stringify(data));
+    }
+
+    getLoginData() {
+        return JSON.parse(localStorage.getItem('loginData'));
+    }
+
+    openSnackBar(message: string, action?: string) {
+        this._snackBar.open(message, action, {
+            duration: 3000,
+            horizontalPosition: 'right',
+            panelClass: 'custom-snack'
+        });
+    }
+
+    updateEvent(eventType, data?) {
+        const obj: any = {
+            eventType: eventType
+        };
+        if (data) {
+            obj.data = data;
+        }
+        this.eventSubject.next(obj);
+    }
+
+    sendSearch(data) {
+        this.searchSubject.next(data);
+    }
+
+    contactUpdated(data?) {
+        this.contactUpdatedSubject.next(data ? data : false);
+    }
+
+    openModal(name, data?) {
+        const obj: any = {
+            name: name,
+            data: data
+        };
+        this.modalSubject.next(obj);
+    }
+
+    openInvoice(name, data?): void {
+        const money = document.getElementById('money_container');
+        money.style.display = 'none';
+        const obj: any = {
+            name: name,
+            data: data
+        };
+        this.modalSubject.next(obj);
+    }
+
+    fileDownloadFromServer(file) {
+        const link = document.createElement('a');
+        link.download = 'filename';
+        link.href = this.apiEndpoint + 'files/' + file + '.xlsx';
+        link.click();
+    }
+
+    fileDownloadFromLink(url) {
+        const link = document.createElement('a');
+        link.download = 'filename';
+        link.href = url;
+        link.click();
+    }
+
+    goToLink(url: string) {
+        window.open(url, '_blank');
+    }
+
+    loaderOn(loaderStatus) {
+        this.myLoader = loaderStatus;
+        this.loaderSubject.next(loaderStatus);
+    }
+
+    isFormValid(form) {
+        if (form.valid) {
+            return true;
+        } else {
+            Object.keys(form.controls).forEach(key => {
+                form.controls[key].markAsTouched({onlySelf: true});
+            });
+        }
+    }
+
+    sweetConfirm(msg) {
+        let flag = false;
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'Do you want te delete this ' + msg,
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, keep it'
+        }).then((result) => {
+            // return !!result.value;
+            flag = true;
+        });
+        return flag;
+    }
+
+    navigate(url, params?) {
+        if (params) {
+            this.router.navigate([`/${url}`, params]);
+        } else {
+            this.router.navigate([`/${url}`]);
+        }
+    }
+
+    changeTitle(title) {
+        this.heading = title;
+    }
+
+    getData(url, obj?, isLoading?: boolean) {
+        let params = new HttpParams();
+        if (obj) {
+            Object.keys(obj).forEach(key => {
+                if (obj[key] !== '' && obj[key] !== undefined && obj[key] !== null) {
+                    params = params.set(key, obj[key]);
+                }
+            });
+        }
+        return this.http.get<any>(this.apiEndpoint + url, {params: params, reportProgress: isLoading});
+    }
+
+    getDataNew(url, obj?, isLoading?: boolean) {
+        let params = new HttpParams();
+        if (obj) {
+            Object.keys(obj).forEach(key => {
+                if (obj[key] !== '' && obj[key] !== undefined) {
+                    params = params.set(key, obj[key]);
+                }
+            });
+        }
+        return this.http.get<any>(url, {params: params, reportProgress: isLoading});
+    }
+
+    postData(url, obj, isLoading?: boolean) {
+        const formData = new FormData();
+        Object.keys(obj).forEach(key => {
+            if (obj[key] !== '' && obj[key] !== undefined && obj[key] !== null) {
+                formData.append(key, obj[key]);
+            }
+        });
+        return this.http.post<any>(this.apiEndpoint + url, formData, {reportProgress: isLoading});
+    }
+
+    downloadLink(url) {
+        window.location.href = url;
+    }
+
+    openLightBox(data) {
+        if (data) {
+            const temp: any = [];
+            temp.push({
+                src: data,
+                thumb: data
+            });
+            const options = {
+                positionFromTop: 60
+            };
+            this.lightBox.open(temp, 0, options);
+            return true;
+        }
+    }
+
+    uploadImage(url, file, isLoading?) {
+        const formData = new FormData();
+        formData.append('image', file);
+        return this.http.post<any>(this.apiEndpoint + url, formData, {reportProgress: isLoading});
+    }
+
+    uploadFile(url, file, isLoading?: boolean) {
+        const formData = new FormData();
+        formData.append('file', file);
+        return this.http.post<any>(this.apiEndpoint + url, formData, {reportProgress: isLoading});
+    }
+
+    checkImage(file) {
+        if (file) {
+            if (file.size < 1000000) {
+                if (file.type === 'image/jpeg' || file.type === 'image/jpg' || file.type === 'image/png') {
+                    return true;
+                } else {
+                    this.openSnackBar('Please add jpg or png image only');
+                }
+            } else {
+                this.openSnackBar('Please add image less than 10 MB');
+            }
+        }
+        return false;
+    }
+
+    showModal(template, size?, data?) {
+        const initialState: any = {};
+        if (data) {
+            initialState.modalData = data;
+        }
+        const modalRef = this.modalService.show(template,
+                {
+                    initialState, keyboard: true, class: `gray modal-${size ? size : 'md'}`
+                    // initialState, keyboard: true, class: `gray modal-${size ? size : 'md'}`, backdrop: 'static'
+                }
+        );
+        if (!this.modalRefArr.includes(modalRef.content)) {
+            this.modalRefArr.push(modalRef);
+        }
+        return modalRef;
+    }
+
+    hideModal() {
+        const element = this.modalRefArr.pop();
+        if (element) {
+            element.hide();
+        } else {
+            this.modalRefArr.hide();
+        }
+    }
+
+    closeAllModals() {
+        this.modalRefArr.forEach(modal => modal.hide());
+        this.modalRefArr.length = 0;
+    }
+
+    printExcel(res, fileName, flag) {
+        const arr: any = [];
+        let tempArr: any;
+        if (flag === 1) {
+            tempArr = res.doctorlist;
+        } else {
+            tempArr = res.userlist;
+        }
+
+        tempArr.forEach((val, key) => {
+            arr.push({
+                'S.No': key + 1,
+                'Name': val.first_name + ' ' + val.last_name,
+                'email': val.email || 'N.A.',
+                'Contact No': val.country_code + ' ' + val.phone_number || 'N.A.',
+                'Date of Birth': val.date_of_birth || 'N.A.',
+                'Gender': val.gender || 'N.A.',
+                'Country': val.country || 'N.A.',
+                'State': val.state || 'N.A.',
+                'City': val.city || 'N.A.',
+                'Status': val.status || 'N.A.'
+            });
+        });
+        this.exportService.exportAsExcelFile(arr, fileName);
+    }
+
+    changeDate(val) {
+        const date = new Date();
+        const splitDate = val.split('-');
+        date.setFullYear(parseInt(splitDate[2], 10));
+        date.setMonth(parseInt(splitDate[1], 10) - 1);
+        date.setDate(parseInt(splitDate[0], 10));
+        return date;
+    }
+
+    addQueryParams(obj) {
+        this.router.navigate([], {queryParams: obj});
+    }
+
+    getIsSelected(arr, key) {
+        const temp: any = [];
+        arr.forEach((val) => {
+            if (val[key]) {
+                temp.push(val._id);
+            }
+        });
+        return temp;
+    }
+
+    getIdsOnly(arr) {
+        if (arr) {
+            const temp: any = [];
+            arr.forEach((val) => {
+                temp.push(val._id);
+            });
+            return temp;
+        } else {
+            return [];
+        }
+    }
+    getEmailsOnly(arr) {
+        if (arr) {
+            const temp: any = [];
+            arr.forEach((val) => {
+                temp.push(val.email);
+            });
+            return temp;
+        } else {
+            return [];
+        }
+    }
+
+    formatBytes(bytes, decimals, binaryUnits?) {
+        if (bytes === 0) {
+            return '0 Bytes';
+        }
+        const unitMultiple = (binaryUnits) ? 1024 : 1000;
+        const unitNames = (unitMultiple === 1024) ? // 1000 bytes in 1 Kilobyte (KB) or 1024 bytes for the binary version (KiB)
+                ['Bytes', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'] :
+                ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+        const unitChanges = Math.floor(Math.log(bytes) / Math.log(unitMultiple));
+        return parseFloat((bytes / Math.pow(unitMultiple, unitChanges)).toFixed(decimals || 0)) + ' ' + unitNames[unitChanges];
+    }
+
+    checkLastName(val) {
+        if (val.lastName) {
+            val.showName = val.firstName + ' ' + val.lastName;
+        } else {
+            val.showName = val.firstName + ' ';
+        }
+    }
+
+    saveData(data) {
+        localStorage.setItem('savedData', JSON.stringify(data));
+    }
+
+    getSavedData() {
+        return JSON.parse(localStorage.getItem('savedData'));
+    }
+
+    clearSavedData() {
+        localStorage.removeItem('savedData');
+    }
+
+    selectedInArray(allValues, selected) {
+        const tempArr: any = [];
+        allValues.forEach((val) => {
+            selected.forEach((val1) => {
+                if (val._id === val1._id) {
+                    tempArr.push(val);
+                }
+            });
+        });
+        return tempArr;
+    }
+
+    findIndex(arr, id, data) {
+        let index = -1;
+        arr.forEach((val, key) => {
+            if ((val[id] || val) === data) {
+                index = key;
+            }
+        });
+        return index;
+    }
+
+    openInNewTab(url) {
+        const win = window.open(url, '_blank');
+        win.focus();
+    }
+
+    checkAcl(url) {
+        this.loginData = this.getLoginData();
+        if (this.loginData.superAdmin) {
+            return true;
+        } else {
+            return this.loginData.roles.includes('/' + url);
+        }
+    }
+
+    updateDeviceToken() {
+        if (localStorage.getItem('accessToken')) {
+            const obj: any = {
+                deviceToken: localStorage.getItem('deviceToken')
+            };
+            this.postData(ApiUrl.UPDATE_TOKEN, obj).subscribe();
+        }
+    }
+
+    emptyFormArr(arr) {
+        arr = (formArray: FormArray) => {
+            while (formArray.length !== 0) {
+                formArray.removeAt(0);
+            }
+        };
+        return arr;
+    }
+
+    getTimeZone() {
+        const d = new Date();
+        return d.getTimezoneOffset();
+    }
+
+}
+
