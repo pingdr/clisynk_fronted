@@ -32,7 +32,8 @@ export const sideBarAdmin = [
     {path: '/appointments', title: 'Appointments', icon: 'fas fa-calendar', children: [], file: 'calendar.svg'},
     {path: '/money', title: 'Money', icon: 'fas fa-hand-holding-usd', children: [], file: 'money.svg'},
     {path: '/broadcast', title: 'Broadcast', icon: 'fas fa-volume-down', children: [], file: 'broadcast.svg'},
-    {path: '/pipeline', title: 'Pipeline', icon: 'fas fa-user', children: [], file: 'pipeline.svg'}
+    {path: '/pipeline', title: 'Pipeline', icon: 'fas fa-user', children: [], file: 'pipeline.svg'},
+    {path: '/chat', title: 'Chats' , icon: 'fas fa-user',children: [],file:'chats.svg'}
 ];
 
 export const remainderTypes = [

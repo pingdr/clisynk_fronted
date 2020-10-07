@@ -78,6 +78,23 @@ export const ApiUrl = {
     CHECK_UNIQUE: 'appointment/checkUnique',
     APPOINTMENTS: 'appointment/listAppointments',
     NOTIFICATIONS: 'admin/listNotifications',
-    UPDATE_TOKEN:'admin/updateDeviceToken'
+    UPDATE_TOKEN:'admin/updateDeviceToken',
+
+    // chat api's
+    CHAT_CONTACT_DATA: 'chat/fetch-contacts',
+    CHAT_GROUP_DATA: 'chat/fetch-contactlists',
+    CHAT_ROOM: 'chat/fetch-chatrooms',
+    CHAT_MSG:'chat/fetch-messages',
+    CREATE_CHATROOM : 'chat/create-chatroom',
+    PIN_MSG : 'chat/pin',
+    UNPIN_MSG : 'chat/unpin',
+    SEND_IMAGE : 'chat/chat-file-message',
+    MSG_SEARCH : 'chat/fetch-messages',
+    PROFILE_PIN_MSG : 'chat/fetch-pinned-messages',
+    CLEAR_CHAT : 'chat/clear-chat',
+    BLOCK_USER : 'chat/block-user',
+    UNBLOCK_USER : 'chat/unblock-user',
+    FETCH_BLOCK_USERS : 'chat/fetch-blocked-users',
+    DELETE_CHATROOM : 'chat/delete-chatroom'
 };
 

@@ -89,6 +89,7 @@ import {AppointSuccessComponent} from '../modals/appoint-success/appoint-success
 import {AddUserComponent} from '../modals/add-user/add-user.component';
 import {ColorPickerModule} from 'ngx-color-picker';
 import {NotificationsComponent} from '../modals/notifications/notifications.component';
+import {DeleteContactComponent} from '../modals/delete-contact/delete-contact.component';
 
 import {environment} from '../../../environments/environment';
 
@@ -103,7 +104,7 @@ const entryList = [EmailFormatComponent, SendEmailComponent, ChangePasswordCompo
     AddContactToDealComponent, DealNoteComponent, EditDealNoteComponent, AddPipelineTaskComponent, PipelineSendEmailComponent,
     AppointBookComponent, AppointStep1Component, AppointStep2Component, AppointStep3Component, AppointStep4Component,
     EditAppointmentComponent, CalSlotComponent, BookModalComponent, ConfirmComponent, AppointTypeListComponent,
-    AppointListComponent, AppointSuccessComponent, AddUserComponent, NotificationsComponent
+    AppointListComponent, AppointSuccessComponent, AddUserComponent, NotificationsComponent, DeleteContactComponent
 ];
 
 const importExportList = [MatStepperModule, MatTabsModule, MatSliderModule, MatInputModule, MatSelectModule,

@@ -1,6 +1,19 @@
 /* Import main Inspinia style */
 @import "assets/styles/style";
 
+// chat style
+
+emoji-picker{
+  transform: translate(391px, -314px) !important; 
+}
+emoji-content{
+  width: 500px !important;
+}
+.mat-drawer-inner-container{
+  overflow-x: hidden !important;
+}
+
+// chat style end
 
 html, body {
   height: 100%;

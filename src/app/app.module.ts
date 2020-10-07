@@ -1,6 +1,7 @@
 import {BrowserModule, Title} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {NgxEmojiPickerModule} from 'ngx-emoji-picker';
 import {AppComponent} from './app.component';
 import {LoginComponent} from './external/login/login.component';
 import {ExportToExcelService} from './services/exportToExcel.service';
@@ -23,6 +24,11 @@ import {BookingComponent} from './internal/appointments/booking/booking.componen
 import {ShoppingReducer} from './internal/actions/reducer';
 import {StoreModule} from '@ngrx/store';
 import {TodoComponent} from './internal/actions/todo/todo.component';
+
+import {TwilioService} from './services/twilio.service';
+import {NgxDocViewerModule} from 'ngx-doc-viewer';
+import { PushNotificationsModule } from 'ng-push';
+
 // firebase
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { AngularFireModule } from '@angular/fire';
@@ -32,8 +38,8 @@ import { AngularFireModule } from '@angular/fire';
         ReceiptComponent, BookingComponent, TodoComponent
     ],
     imports: [
-        SharedModule, BrowserModule, AppRoutingModule, HttpClientModule,
-        ServiceWorkerModule.register('/ngsw-worker.js', {
+        SharedModule, BrowserModule, AppRoutingModule, HttpClientModule,NgxEmojiPickerModule,NgxDocViewerModule,
+        PushNotificationsModule,ServiceWorkerModule.register('/ngsw-worker.js', {
             enabled: environment.production
         }),
         StoreModule.forRoot({shopping: ShoppingReducer}),
@@ -57,7 +63,7 @@ import { AngularFireModule } from '@angular/fire';
             useClass: InterceptorService,
             multi: true
         },
-        AsyncPipe, ExternalAuthguardService, ExportToExcelService, Title,
+        AsyncPipe, ExternalAuthguardService, ExportToExcelService, Title,TwilioService
     ],
     bootstrap: [AppComponent],
     exports: [CapitalizePipe],

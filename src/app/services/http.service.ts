@@ -32,6 +32,9 @@ export class HttpService {
     private contactUpdatedSubject = new BehaviorSubject<any>(null);
     public contactUpdatedStatus = this.contactUpdatedSubject.asObservable();
 
+    private contactUpdatedSubjectChat = new BehaviorSubject<any>(null);
+    public contactUpdatedStatusChat = this.contactUpdatedSubjectChat.asObservable();
+
     public eventSubject = new BehaviorSubject<any>(null);
     public eventStatus = this.eventSubject.asObservable();
 
@@ -95,6 +98,10 @@ export class HttpService {
 
     contactUpdated(data?) {
         this.contactUpdatedSubject.next(data ? data : false);
+    }
+
+    contactUpdatedChat(data?) {
+        this.contactUpdatedSubjectChat.next(data ? data : false);
     }
 
     openModal(name, data?) {
@@ -208,6 +215,11 @@ export class HttpService {
             }
         });
         return this.http.post<any>(this.apiEndpoint + url, formData, {reportProgress: isLoading});
+    }
+
+    postChatImage(url, payload ,isLoading?: boolean) {
+        
+        return this.http.post<any>(this.apiEndpoint + url, payload ,{reportProgress: isLoading});
     }
 
     downloadLink(url) {
