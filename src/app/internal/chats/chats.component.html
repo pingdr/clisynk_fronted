@@ -193,7 +193,7 @@
             <!-- pin msgs profile  -->
             <div *ngIf="openPinMsgFlag;else mediaContent">
 
-                <i class="fa fa-arrow-left" aria-hidden="true" style="float: right;font-size: 20px;margin-right: 20px;"
+                <i class="fa fa-arrow-left" aria-hidden="true" style="float: right;font-size: 20px;cursor: pointer;"
                     (click)="clickProfileBack()"></i>
                 <div class="username pt-4" style="text-align: left;font-size: 18px;">Pin Messages</div>
                 <div class="profile-pin">
@@ -312,9 +312,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- <div *ngIf="profileMediaArray.length == 0">
+                            <hr/>
+                            <div *ngIf="profileMediaArray.length == 0" style="text-align: center;padding: 10px 0px;">
                                 No Media, Links and Docs
-                            </div> -->
+                            </div>
                             <hr />
                             <div (click)="openPinMsg()">
                                 <span class="profile-name-list">Pin Messages</span>
@@ -387,9 +388,9 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <div *ngIf="profileMediaArray.length == 0">
+                        <div *ngIf="profileMediaArray.length == 0" class="no-media-title">
                                 No Media
-                            </div> -->
+                            </div>
                     </div>
                 </div>
             </div>
@@ -399,14 +400,14 @@
                 <div class="tab-pane1" id="pills-home">
                     <div class="nav flex-column nav-pills" id="v-pills-tab" aria-orientation="vertical">
                         <div *ngFor="let data of profileLinkMsgArray">
-                            <div *ngIf="data?.content && pattern.test(data?.content)" class="link-msg-container">
+                            <div *ngIf="data?.content && pattern.test(data?.content);else noLink" class="link-msg-container">
                                 <i class="fa fa-link" aria-hidden="true" style="font-size: 15px;"></i>
                                 <a [href]="data?.content" class="link-msg">{{data?.content}}</a>
                             </div>
                         </div>
-                        <!-- <div *ngIf="profileLinkMsgArray.length == 0">
+                        <div *ngIf="profileLinkMsgArray.length == 0" class="no-media-title">
                             No Links
-                        </div> -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -428,10 +429,10 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <div *ngIf="profileMediaArray.length == 0">
+                        <div *ngIf="profileMediaArray.length == 0" class="no-media-title">
                             No Docs
                         </div>
-                         -->
+                        
                     </div>
                 </div>
             </div>
@@ -1637,11 +1638,11 @@
                     <div class="caller-id">{{callerName}}</div>
                     <div class="status">Incomming Call..</div>
                     <div class="footer-call">
-                        <div class="btn accept call-animation">
-                            <img class="call-icon" (click)="acceptVideoCall()" src="assets/images/accept-call-icon.svg" >
+                        <div class="btn accept" style="margin: 0px auto;">
+                            <img class="call-animation" (click)="acceptVideoCall()" src="assets/images/accept-call-icon.svg" >
                         </div>
-                        <div class="btn decline">
-                            <img (click)="declineVideoCall()" src="assets/images/decline-call-icon.svg" >
+                        <div class="btn" style="margin: 0px auto;">
+                            <img class="decline" (click)="declineVideoCall()" src="assets/images/decline-call-icon.svg" >
                         </div>
                     </div>
                 </div>
@@ -1654,11 +1655,11 @@
                     <div class="caller-id">{{callerName}}</div>
                     <div class="status">Incomming Call..</div>
                     <div class="footer-call">
-                        <div class="btn accept call-animation">
-                            <img (click)="acceptVoiceCall()" src="assets/images/accept-call-icon.svg" >
+                        <div class="btn accept" style="margin: 0px auto;">
+                            <img class="call-animation" (click)="acceptVoiceCall()" src="assets/images/accept-call-icon.svg" >
                         </div>
-                        <div class="btn decline">
-                            <img (click)="declineVoiceCall()" src="assets/images/decline-call-icon.svg" >
+                        <div class="btn" style="margin: 0px auto;">
+                            <img class="decline" (click)="declineVoiceCall()" src="assets/images/decline-call-icon.svg" >
                         </div>
                     </div>
                 </div>
@@ -1668,33 +1669,42 @@
             <div [ngClass]="outgoingFlag == true ? 'show-video-view video-container' : 'hide-video-view'">
                 <div class="video-header">
                     {{callerName}}
-                    <div>
+                    <div class="video-call-status">
                         {{callStatus}}
                     </div>
                 </div>
                
-                 <div id="local" #localVideo>
-                    <p>local video</p>
-                </div>
-                <div id="remote" #remoteVideo>
-                    <p>remote video</p>
-                </div>
+                 <div id="local" #localVideo></div>
+                <div id="remote" #remoteVideo></div>
                
-                <div (click)="deleteVideoCall()">Delete</div>
-                <div *ngIf="!muteFlag" (click)="muteCall()">Mute</div>
-                <div *ngIf="muteFlag" (click)="unMuteCall()">Un Mute</div>
+                <div class="btn decline video-decline">
+                   <img src="assets/images/decline-call-icon.svg" (click)="deleteVideoCall()">
+                </div>
+                <div *ngIf="!muteFlag" >
+                   <img src="assets/images/unmute-icon.svg" (click)="muteCall()" class="mute-btn">
+                </div>
+                <div *ngIf="muteFlag" >
+                    <img src="assets/images/mute-icon.svg" class="unmute-btn" (click)="unMuteCall()">
+                </div>
             </div>
 
             <!-- outgoing voice call -->
-            <div [ngClass]="outgoingVoiceFlag == true ? 'show-voice-view' : 'hide-voice-view'">
+            <div [ngClass]="outgoingVoiceFlag == true ? 'show-voice-view video-container' : 'hide-voice-view'">
                 <div class="video-header">
                     {{callerName}}
-                    <div>
+                    <div class="video-call-status">
                         {{callStatus}}
                     </div>
-                    <div (click)="deleteVoiceCall()">Delete</div>
-                    <div *ngIf="!muteFlag" (click)="mutCall()">Mute</div>
-                    <div *ngIf="muteFlag" (click)="unMuteCall()">Un Mute</div>
+                </div>
+                
+                <div class="btn decline video-decline">
+                    <img src="assets/images/decline-call-icon.svg" (click)="deleteVoiceCall()">
+                </div>
+                <div *ngIf="!muteFlag">
+                    <img src="assets/images/unmute-icon.svg"  (click)="muteCall()" class="mute-btn">
+                </div>
+                <div *ngIf="muteFlag">
+                    <img src="assets/images/mute-icon.svg" class="unmute-btn" (click)="unMuteCall()">
                 </div>
             </div>
 

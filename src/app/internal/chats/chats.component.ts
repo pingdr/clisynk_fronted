@@ -12,6 +12,7 @@ import {Subject} from 'rxjs';
 import {DeleteContactComponent} from '../../shared/modals/delete-contact/delete-contact.component';
 import { MatSidenav } from '@angular/material/sidenav';
 import { PushNotificationsService} from 'ng-push';
+// import { connect, ConnectOptions, LocalTrack, Room, createLocalTracks, TwilioError } from 'twilio-video';
 import { TwilioService } from '../../services/twilio.service';
 
 var FileSaver = require('file-saver');
@@ -113,7 +114,7 @@ export class ChatsComponent implements OnInit {
 
   // socket var
   socket;
-  private url = 'http://13.234.213.201:8000';
+  private url = 'http://54.241.83.170:8002';
 
   // localstorage data
   accessToken = localStorage.getItem('accessToken');
@@ -199,6 +200,7 @@ export class ChatsComponent implements OnInit {
           // this.outgoingData = data;
           this.outgoingFlag = true;
           this.videoFlag = false;
+          this.outgoingVoiceFlag = false;
           // this.videoCall();
           this.twilioService.startLocalVideo();
         }
@@ -229,7 +231,7 @@ export class ChatsComponent implements OnInit {
   }
 
   getVoiceCallEvent(){
-    this.socket.on('voice-call', (data) => {
+    this.socket.on('audio-call', (data) => {
       console.log('socket listen event voice.......',data)
       if(data.type == 'join'){
         this.voiceCallToken = data.accessToken;
@@ -248,7 +250,7 @@ export class ChatsComponent implements OnInit {
           this.outgoingVoiceFlag = true;
           this.voiceFlag = false;
           // this.videoCall();
-          // this.twilioService.startLocalVideo();
+          this.twilioService.startLocalVideo();
         }
       }
       if(data.type == "rejected" || data.type == "ended"){
@@ -291,7 +293,7 @@ export class ChatsComponent implements OnInit {
   }
 
   acceptVoiceCall(){
-    this.socket.emit('voice-call', {
+    this.socket.emit('audio-call', {
       chatRoomId: this.callChatroomId,
       type : 'accepted',
       room : this.room ,
@@ -316,7 +318,7 @@ export class ChatsComponent implements OnInit {
   }
 
   declineVoiceCall(){
-    this.socket.emit('voice-call', {
+    this.socket.emit('audio-call', {
       chatRoomId: this.callChatroomId ,
       type : 'rejected',
       room : this.room ,
@@ -354,7 +356,7 @@ export class ChatsComponent implements OnInit {
   }
 
   deleteVoiceCall(){
-    this.socket.emit('voice-call', {
+    this.socket.emit('audio-call', {
       chatRoomId: this.selectedChat._id ,
       type : 'ended',
       room : this.room ,
@@ -391,10 +393,12 @@ export class ChatsComponent implements OnInit {
 
   // audio call function
   handleAudio(){
-    this.videoManage = true;
-    this.voiceFlag = true;
 
-    this.socket.emit('voice-call', {
+    console.log('in audio call')
+    this.videoManage = true;
+    // this.outgoingVoiceFlag = true;
+
+    this.socket.emit('audio-call', {
       chatRoomId: this.selectedChat._id ,
       type : 'new-call'
     });
@@ -517,7 +521,9 @@ export class ChatsComponent implements OnInit {
       chatRoomId: this.selectedChat._id
     };
     this.http.getData(ApiUrl.CHAT_MSG, obj).subscribe(async res =>  {
-     this.profileLinkMsgArray = await (res.data.data).reverse();
+      if(res.data.data){
+        this.profileLinkMsgArray = await (res.data.data).reverse();
+      }
     })
   }
 
@@ -714,11 +720,12 @@ getAcknowledgement() {
         this.massageArray = [...this.massageArray, data.message]; 
         this.manageScroll();
       }
+      this.activeChatList.map((user) => {
+        if (user._id == data.message.chatRoomId) {
+          user.lastMessage.content = data.message.content; 
+        }
+      });
     });
-
-    this.socket.on('viewed', (data)=> {
-      console.log('in view on event....',data)
-    })
   }
 
   // get socket typing events
@@ -784,7 +791,11 @@ getAcknowledgement() {
   // msg viewed socket event get
   msgReceived() {
     this.socket.on('viewed', (data) => {
-      console.log('in view on event......................',data)
+      this.massageArray.map((msg) => {
+        if(msg._id == data.messageId){
+          msg.isViewed = true;
+        }
+      })
     });
   }
 
@@ -849,9 +860,19 @@ getAcknowledgement() {
     this.http.postChatImage(ApiUrl.SEND_IMAGE, formData).subscribe(res => {
       this.massageArray = _.without(this.massageArray , ...temp);
       this.massageArray = [...this.massageArray , ...res.data];
+      this.sidebarUpdateMsg(res.data);
       this.manageScroll();
       this.message = '';
     })
+  }
+
+  // update msg in sidebar when get new msg
+  sidebarUpdateMsg(data){
+    this.activeChatList.map((user) => {
+      if ((user._id) == data[0].chatRoomId) {
+        user.lastMessage.content = data[0].file && data[0].file.type; 
+      }
+    });
   }
 
   // chat uplaod doc
@@ -892,6 +913,7 @@ getAcknowledgement() {
     this.http.postChatImage(ApiUrl.SEND_IMAGE, formData).subscribe(res => {
       this.massageArray = _.without(this.massageArray , ...temp);
       this.massageArray = [...this.massageArray , ...res.data];
+      this.sidebarUpdateMsg(res.data);
       this.manageScroll();
       this.message = '';
       this.loading = false;
@@ -939,6 +961,7 @@ getAcknowledgement() {
     this.http.postChatImage(ApiUrl.SEND_IMAGE, formData).subscribe(res => {
       this.massageArray = _.without(this.massageArray , ...temp)
       this.massageArray = [...this.massageArray , ...res.data];
+      this.sidebarUpdateMsg(res.data);
       this.manageScroll();
       this.message = '';
     })
