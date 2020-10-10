@@ -396,7 +396,7 @@ export class ChatsComponent implements OnInit {
 
     console.log('in audio call')
     this.videoManage = true;
-    // this.outgoingVoiceFlag = true;
+     // this.outgoingVoiceFlag = true;
 
     this.socket.emit('audio-call', {
       chatRoomId: this.selectedChat._id ,
@@ -544,7 +544,7 @@ export class ChatsComponent implements OnInit {
       this.http.getData(ApiUrl.MSG_SEARCH, payload).subscribe(async res => {
         if (res.data.data.length > 0) {
           this.searchArray = [];
-          this.searchIndex = 1;
+          this.searchIndex = 0;
           this.searchTotalCount = res.data.totalCount
          await res.data.data.map((msg) => {
             this.searchArray.push(msg._id)
@@ -556,7 +556,7 @@ export class ChatsComponent implements OnInit {
     }
     else{
       this.searchArray = [];
-      this.searchIndex = 1;
+      this.searchIndex = 0;
       this.searchFlag = false;
       this.searchTotalCount = 0;
     }

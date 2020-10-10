@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     public constructor(public http: HttpService, public router: Router, public appoint: AppointmentService) {
         this.myModel = new TableModel();
         this.myModel.subscription = this.http.eventStatus.subscribe(data => {
+            console.log('data..............',data)
             if (data && data.eventType === 'addTask') {
                 this.getData();
             }

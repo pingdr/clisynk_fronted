@@ -484,11 +484,11 @@
 
 
                         <div *ngIf="!searchFlag">
-                            <span class="search-icon"><img src="assets/images/video-icon-chat.svg"
+                            <span class="search-icon"><img src="assets/images/video-icon-chat.png"
                                     style="cursor: pointer;width: 28px;" (click)="handleVideo()" /></span>
-                            <span class="search-icon"><img src="assets/images/phone-icon-chat.svg"
+                            <span class="search-icon"><img src="assets/images/phone-icon-chat.png"
                                     style="cursor: pointer;width: 26px;" (click)="handleAudio()" /></span>
-                            <span class="search-icon"><img src="assets/images/search.svg"
+                            <span class="search-icon"><img src="assets/images/search.png"
                                     style="cursor: pointer;width: 26px;" (click)="displaySearch()" /></span>
                         </div>
 
@@ -504,7 +504,7 @@
                             <img src="/assets/images/ic_close.svg" width="25px" *ngIf="searchArray.length == 0"
                                 (click)="closeSearchChat()">
                             <i class="fa fa-chevron-up" aria-hidden="true"
-                                *ngIf="searchFlag && searchArray.length > 0 && ((searchArray.length - 1) !== searchIndex)"
+                                *ngIf="searchFlag && searchArray.length > 0 && ((searchArray.length) !== searchIndex)"
                                 (click)="handleSearchScrollUp()" style="margin: 0px 20px;cursor: pointer;"></i>
                             <i class="fa fa-chevron-down" aria-hidden="true"
                                 *ngIf="searchFlag && searchArray.length > 0 && searchIndex !== 0" (click)="handleSearchScrollDown()"
@@ -1656,7 +1656,7 @@
                     <div class="status">Incomming Call..</div>
                     <div class="footer-call">
                         <div class="btn accept" style="margin: 0px auto;">
-                            <img class="call-animation" (click)="acceptVoiceCall()" src="assets/images/accept-call-icon.svg" >
+                            <img class="call-animation" (click)="acceptVoiceCall()" src="assets/images/audio-call-icon.svg" >
                         </div>
                         <div class="btn" style="margin: 0px auto;">
                             <img class="decline" (click)="declineVoiceCall()" src="assets/images/decline-call-icon.svg" >

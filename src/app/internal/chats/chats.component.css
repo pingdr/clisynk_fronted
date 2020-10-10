@@ -1328,3 +1328,10 @@ hr{
   height: 40% !important;
   margin: 45px auto;
 }
+
+
+
+iframe video{
+  height: 100% !important;
+  object-fit: cover;
+}
