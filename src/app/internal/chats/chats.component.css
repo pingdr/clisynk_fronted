@@ -533,7 +533,7 @@ hr{
   max-width: 150px;
 }
 .dropdown-menu{
-  left: -160px !important;
+  left: 0 !important;
   min-width: 170px !important;
 }
 .admin-side-dropdown{
