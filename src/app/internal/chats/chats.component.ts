@@ -572,7 +572,6 @@ export class ChatsComponent implements OnInit {
   // chat , gorup , contacts search
   generalSearch(event){
     this.searchName = event.target.value;
-    if(this.searchName){
       if(this.tab === 'chats'){
         this.getAllActiveChat(event.target.value);
       }
@@ -582,7 +581,6 @@ export class ChatsComponent implements OnInit {
       else{
         this.getAllContact(event.target.value);
       }
-    }
    
   }
 

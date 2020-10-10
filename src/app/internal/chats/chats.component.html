@@ -1025,7 +1025,7 @@
 
                                 <!-- user msg file -->
                                 <ng-template #otherUser>
-                                    <div style="float: left;" [id]="chat?._id">
+                                    <div style="float: left;position: relative;" [id]="chat?._id">
 
                                         <div *ngIf="chat?.file != null;else onlyMsg">
                                             <div *ngIf="chat?.ref == null;else UserImageReplay">
