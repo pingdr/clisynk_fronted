@@ -678,7 +678,7 @@ hr{
 .unblock-txt{
     cursor: pointer;
     font-size: 15px;
-    background: #e1e1e1;
+    /* background: #e1e1e1; */
     padding: 3px 30px;
     border-radius: 5px;
 }
@@ -914,7 +914,7 @@ hr{
     /* padding: 0; */
     cursor: pointer;
     margin-top: 8px;
-    margin-left: 15px;
+    /* margin-left: 15px; */
     /* height: 37px; */
     /* width: 104px; */
     /* color: #ffffff; */

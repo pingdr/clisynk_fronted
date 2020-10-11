@@ -14,6 +14,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { PushNotificationsService} from 'ng-push';
 // import { connect, ConnectOptions, LocalTrack, Room, createLocalTracks, TwilioError } from 'twilio-video';
 import { TwilioService } from '../../services/twilio.service';
+import { environment } from '../../../environments/environment';
 
 var FileSaver = require('file-saver');
 
@@ -114,7 +115,7 @@ export class ChatsComponent implements OnInit {
 
   // socket var
   socket;
-  private url = 'http://54.241.83.170:8002';
+  private url = environment.apiBaseUrl;
 
   // localstorage data
   accessToken = localStorage.getItem('accessToken');
