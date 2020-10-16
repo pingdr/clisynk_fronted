@@ -491,9 +491,8 @@ hr{
 }
 .scroll-to-bottom{
   bottom: 115px;
-  position: absolute;
+  position: fixed;
   width: 100%;
-  text-align: right;
   right: 47px;
   background: white;
   max-width: 40px;
@@ -568,7 +567,7 @@ hr{
   left: 0;
   right: 0;
   margin: 0 15px;
-  margin-left: 220px;
+  margin-left: 225px;
 }
 .wrapper.border-bottom.white-bg .contact {
   border-right: 1px solid #ddd;
@@ -1328,11 +1327,4 @@ hr{
   width: 40% !important;
   height: 40% !important;
   margin: 45px auto;
-}
-
-
-
-iframe video{
-  height: 100% !important;
-  object-fit: cover;
 }

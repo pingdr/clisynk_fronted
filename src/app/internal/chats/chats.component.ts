@@ -16,7 +16,8 @@ import { PushNotificationsService} from 'ng-push';
 import { TwilioService } from '../../services/twilio.service';
 import { environment } from '../../../environments/environment';
 
-var FileSaver = require('file-saver');
+// var FileSaver = require('file-saver');
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-chats',
@@ -184,7 +185,6 @@ export class ChatsComponent implements OnInit {
 
   getVideoCallEvent(){
     this.socket.on('video-call', (data) => {
-      console.log('socket listen event video.......',data)
       if(data.type == 'join'){
         this.videoCallToken = data.accessToken;
         this.room = data.room;
@@ -233,7 +233,6 @@ export class ChatsComponent implements OnInit {
 
   getVoiceCallEvent(){
     this.socket.on('audio-call', (data) => {
-      console.log('socket listen event voice.......',data)
       if(data.type == 'join'){
         this.voiceCallToken = data.accessToken;
         this.room = data.room;
@@ -251,7 +250,7 @@ export class ChatsComponent implements OnInit {
           this.outgoingVoiceFlag = true;
           this.voiceFlag = false;
           // this.videoCall();
-          this.twilioService.startLocalVideo();
+          // this.twilioService.startLocalVideo();
         }
       }
       if(data.type == "rejected" || data.type == "ended"){
@@ -350,10 +349,7 @@ export class ChatsComponent implements OnInit {
     this.videoManage = false;
     this.videoFlag = false;
     this.outgoingFlag = false;
-    if (this.twilioService.roomObj && this.twilioService.roomObj !== null) {
-      this.twilioService.roomObj.disconnect();
-      this.twilioService.roomObj = null;
-    }
+    this.twilioService.removeTrack();
   }
 
   deleteVoiceCall(){
@@ -373,12 +369,10 @@ export class ChatsComponent implements OnInit {
   }
 
   videoCall(){
-    console.log('in video calll...',this.videoCallToken , this.room)
     this.twilioService.connectToRoom(this.videoCallToken, { name: this.room, audio: true, video: { width: 100 , height : 100 , frameRate : 12  } })
   }
 
   voiceCall(){
-    console.log('in voice calll...',this.voiceCallToken , this.room)
     this.twilioService.connectToRoom(this.voiceCallToken, { name: this.room, audio: true })
   }
 
@@ -394,8 +388,6 @@ export class ChatsComponent implements OnInit {
 
   // audio call function
   handleAudio(){
-
-    console.log('in audio call')
     this.videoManage = true;
      // this.outgoingVoiceFlag = true;
 
@@ -819,7 +811,7 @@ getAcknowledgement() {
       }
   }
 
-  // chat uplaod msg
+  // chat uplaod img
   uploadImage(){
     this.mediaFlag = false;
     let temp = [];
@@ -835,11 +827,11 @@ getAcknowledgement() {
         user : this.adminId
       },
       loading : true,
-      pinnedBy : []
+      pinnedBy : [],
     }
     var length = this.imageArray.length;
     for(var i=1;i<=length; i++){
-      temp.push(obj)
+      temp.push({...obj , _id : `1${i+1}` })
     }
  
     this.massageArray = [...this.massageArray , ...temp];
@@ -894,7 +886,7 @@ getAcknowledgement() {
     }
     var length = this.docArray.length;
     for(var i=1;i<=length; i++){
-      temp.push(obj)
+      temp.push({...obj ,_id : `1${i+1}` })
     }
     this.massageArray = [...this.massageArray , ...temp];
     this.manageScroll();
@@ -939,7 +931,7 @@ getAcknowledgement() {
     }
     var length = this.videoArray.length;
     for(var i=1;i<=length; i++){
-      temp.push(obj)
+      temp.push({...obj , _id : `1${i+1}`})
     }
     this.massageArray = [...this.massageArray , ...temp];
     this.manageScroll();
@@ -1241,14 +1233,8 @@ getAcknowledgement() {
     }
   }
 
-  scroll(){
-    
-  }
-
   // call api on scroll up
   onScroll(event){
-
-    window.addEventListener('scroll' , this.scroll , true); 
   
     const startingScrollHeight = event.target.scrollHeight;
     if (event.target.scrollTop < 100) {
@@ -1346,7 +1332,9 @@ getAcknowledgement() {
   }
 
   videoURL(){
-    return this._sanitizer.bypassSecurityTrustResourceUrl(this.videoSrc)
+    if(this.videoSrc){
+      return this._sanitizer.bypassSecurityTrustResourceUrl(this.videoSrc)
+    }
   }
 
 }
