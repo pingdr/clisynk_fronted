@@ -21,6 +21,7 @@ export class SideBarComponent implements OnInit, AfterViewInit {
     constructor(private router: Router, public http: HttpService, public acl: AclService) {
         jQuery(document).ready(function () {
             jQuery('#sidebarCollapse').on('click', function () {
+                console.log('in toggle')
                 jQuery('#sidebar').toggleClass('active');
             });
         });
@@ -45,11 +46,13 @@ export class SideBarComponent implements OnInit, AfterViewInit {
     }
 
     toggleNavigation(): void {
+        console.log('in toggle')
         jQuery('body').toggleClass('mini-navbar ');
         smoothlyMenu();
     }
 
     hideSideBar() {
+        console.log('in toggle')
         if (jQuery(document).width() < 769) {
             this.toggleNavigation();
         }

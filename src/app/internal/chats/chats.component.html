@@ -171,7 +171,7 @@
                                         </label>
                                     </span>
                                     <h4 (click)="createChatRoom(data)">{{data?.fullName}}</h4>
-                                    <p>{{data?.email}}
+                                    <p (click)="createChatRoom(data)">{{data?.email}}
                                         <span>Added {{data?.createdAt |date:'MMM dd,yyyy'}}</span>
                                     </p>
                                 </a>
@@ -208,7 +208,7 @@
                                     (click)="previewImage(data?.file?.original)" />
                             </div>
                             <div *ngIf="data?.file?.type == 'VIDEO'" style="padding-top: 10px;">
-                                <div style="position: relative;" class="video-style" data-target="#myModal" data-toggle="modal" (click)="playVideo(data?.file?.thumbnail)">
+                                <div style="position: relative;" class="video-style" data-target="#myModal" data-toggle="modal" (click)="playVideo(data?.file?.original)">
                                     <img src="assets/images/blurVideoImage.gif" 
                                         class="video-view-profile video-style" />
                                     <img src="assets/images/video.svg" width="40px" class="video-icon" />
@@ -381,7 +381,7 @@
                                 </div>
                             </div>
                             <div *ngIf="data?.file?.type == 'VIDEO'" style="position: relative;">
-                                <div style="margin-bottom: 10px;padding: 0px 10px;" data-target="#myModal" data-toggle="modal" (click)="playVideo(data?.file?.thumbnail)">
+                                <div style="margin-bottom: 10px;padding: 0px 10px;" data-target="#myModal" data-toggle="modal" (click)="playVideo(data?.file?.original)">
                                     <img src="assets/images/blurVideoImage.gif" style="padding: 3px;"
                                         class="common-img-class" style="padding: 0px;width: 100px;height: 100px;" />
                                     <img src="assets/images/video.svg" width="20px" class="video-icon" />
@@ -531,7 +531,7 @@
                                                         (click)="previewImage(chat?.file?.original)" />
                                                 </div>
                                                 <div *ngIf="chat?.file?.type == 'VIDEO'" class="image-div"
-                                                    style="position: relative;" data-target="#myModal" data-toggle="modal" (click)="playVideo(chat?.file?.thumbnail)">
+                                                    style="position: relative;" data-target="#myModal" data-toggle="modal" (click)="playVideo(chat?.file?.original)">
                                                     <img src="assets/images/blurVideoImage.gif"
                                                         class="video-style video-view-pin" />
                                                     <img src="assets/images/video.svg" width="40px"
@@ -564,8 +564,8 @@
                                                         *ngIf="chat?.loading;else notLoading" />
                                                     <ng-template #notLoading>
                                                         <img src="assets/images/blurVideoImage.gif" data-target="#myModal" data-toggle="modal"
-                                                            class="video-style" (click)="playVideo(chat?.file?.thumbnail)" 
-                                                            data-target="#myModal" data-toggle="modal" (click)="playVideo(chat?.file?.thumbnail)"/>
+                                                            class="video-style" (click)="playVideo(chat?.file?.original)" 
+                                                            data-target="#myModal" data-toggle="modal" (click)="playVideo(chat?.file?.original)"/>
                                                         <img src="assets/images/video.svg" width="40px"
                                                             class="video-icon" />
                                                     </ng-template>
@@ -621,7 +621,7 @@
                                                 </div>
 
                                                 <div *ngIf="chat?.ref?.file?.type == 'VIDEO'">
-                                                    <div style="position: relative;" class="replay-txt-mt" data-target="#myModal" data-toggle="modal" (click)="playVideo(chat?.ref?.file?.thumbnail)">
+                                                    <div style="position: relative;" class="replay-txt-mt" data-target="#myModal" data-toggle="modal" (click)="playVideo(chat?.ref?.file?.original)">
                                                         <img src="assets/images/blurVideoImage.gif"
                                                             class="image-view" />
                                                         <img src="assets/images/video.svg" width="40px"
@@ -650,7 +650,7 @@
                                                             (click)="previewImage(chat?.file?.original)" />
                                                     </div>
                                                     <div *ngIf="chat?.file?.type == 'VIDEO'" style="position: relative;"
-                                                        class="replaypin-admin-mb" data-target="#myModal" data-toggle="modal" (click)="playVideo(chat?.file?.thumbnail)">
+                                                        class="replaypin-admin-mb" data-target="#myModal" data-toggle="modal" (click)="playVideo(chat?.file?.original)">
                                                         <img src="assets/images/blurVideoImage.gif"
                                                             style="padding: 3px;" class="common-img-class"
                                                             style="padding: 0px;" />
@@ -699,7 +699,7 @@
                                                 </div>
 
                                                 <div *ngIf="chat?.ref?.file?.type == 'VIDEO'" class="common-class">
-                                                    <div style="position: relative;" class="replay-admin-mb" data-target="#myModal" data-toggle="modal" (click)="playVideo(chat?.ref?.file?.thumbnail)">
+                                                    <div style="position: relative;" class="replay-admin-mb" data-target="#myModal" data-toggle="modal" (click)="playVideo(chat?.ref?.file?.original)">
                                                         <img src="assets/images/blurVideoImage.gif"
                                                             class="image-view" />
                                                         <img src="assets/images/video.svg" width="40px"
@@ -737,7 +737,7 @@
                                                         <ng-template #notLoading>
 
                                                             <img src="assets/images/blurVideoImage.gif"
-                                                                class="common-img-class" data-target="#myModal" data-toggle="modal" (click)="playVideo(chat?.file?.thumbnail)"/>
+                                                                class="common-img-class" data-target="#myModal" data-toggle="modal" (click)="playVideo(chat?.file?.original)"/>
                                                             <img src="assets/images/video.svg" width="40px"
                                                                 class="video-icon" />
                                                         </ng-template>
@@ -811,7 +811,7 @@
                                                     </div>
                                                 </div>
                                                 <div *ngIf="chat?.ref?.file?.type == 'VIDEO'" class="simple-admin-file">
-                                                    <div style="display: flex;position: relative;" data-target="#myModal" data-toggle="modal" (click)="playVideo(chat?.ref?.file?.thumbnail)">
+                                                    <div style="display: flex;position: relative;" data-target="#myModal" data-toggle="modal" (click)="playVideo(chat?.ref?.file?.original)">
                                                         <img src="assets/images/blurVideoImage.gif"
                                                             class="common-img-class replay-msg-border" />
                                                         <img src="assets/images/video.svg" width="40px"
@@ -865,7 +865,7 @@
                                                     </ng-container>
                                                 </div>
                                                 <div *ngIf="chat?.ref?.file?.type == 'VIDEO'" class="admin-msg">
-                                                    <div style="position: relative;" data-target="#myModal" data-toggle="modal" (click)="playVideo(chat?.ref?.file?.thumbnail)">
+                                                    <div style="position: relative;" data-target="#myModal" data-toggle="modal" (click)="playVideo(chat?.ref?.file?.original)">
                                                         <img src="assets/images/blurVideoImage.gif"
                                                             class="common-img-class replay-admin-mb"
                                                             style="margin: 0px;" />
@@ -1035,7 +1035,7 @@
                                                             (click)="previewImage(chat?.file?.original)" />
                                                     </div>
                                                     <div *ngIf="chat?.file?.type == 'VIDEO'" class="image-div"
-                                                        style="position: relative;" data-target="#myModal" data-toggle="modal" (click)="playVideo(chat?.file?.thumbnail)">
+                                                        style="position: relative;" data-target="#myModal" data-toggle="modal" (click)="playVideo(chat?.file?.original)">
                                                         <img src="assets/images/blurVideoImage.gif"
                                                             class="video-style video-view-pin" />
                                                         <img src="assets/images/video.svg" width="40px"
@@ -1061,7 +1061,7 @@
                                                             (click)="previewImage(chat?.file?.original)" />
                                                     </div>
                                                     <div *ngIf="chat?.file?.type == 'VIDEO'" style="position: relative;"
-                                                        class="common-border-user" data-target="#myModal" data-toggle="modal" (click)="playVideo(chat?.file?.thumbnail)">
+                                                        class="common-border-user" data-target="#myModal" data-toggle="modal" (click)="playVideo(chat?.file?.original)">
                                                         <img src="assets/images/blurVideoImage.gif"
                                                             class="video-style" />
                                                         <img src="assets/images/video.svg" width="40px"
@@ -1106,7 +1106,7 @@
                                                     <div *ngIf="chat?.ref?.file?.type == 'VIDEO'">
 
                                                         <div style="position: relative;" class="replay-txt-mt" data-target="#myModal" 
-                                                        data-toggle="modal" (click)="playVideo(chat?.ref?.file?.thumbnail)">
+                                                        data-toggle="modal" (click)="playVideo(chat?.ref?.file?.original)">
                                                             <img src="assets/images/blurVideoImage.gif"
                                                                 class="image-view" />
                                                             <img src="assets/images/video.svg" width="40px"
@@ -1139,7 +1139,7 @@
                                                                 (click)="previewImage(chat?.file?.original)" />
                                                         </div>
                                                         <div *ngIf="chat?.file?.type == 'VIDEO'"
-                                                            style="position: relative;" class="replaypin-admin-mb" data-target="#myModal" data-toggle="modal" (click)="playVideo(chat?.file?.thumbnail)">
+                                                            style="position: relative;" class="replaypin-admin-mb" data-target="#myModal" data-toggle="modal" (click)="playVideo(chat?.file?.original)">
                                                             <img src="assets/images/blurVideoImage.gif"
                                                                 class="common-img-class" style="padding: 0px;" />
                                                             <img src="assets/images/video.svg" width="40px"
@@ -1178,7 +1178,7 @@
                                                     </div>
                                                     <div *ngIf="chat?.ref?.file?.type == 'VIDEO'" class="common-class">
                                                         <div style="position: relative;" class="replay-msg-border"
-                                                        data-target="#myModal" data-toggle="modal" (click)="playVideo(chat?.ref?.file?.thumbnail)">
+                                                        data-target="#myModal" data-toggle="modal" (click)="playVideo(chat?.ref?.file?.original)">
                                                             <img src="assets/images/blurVideoImage.gif"
                                                                 class="image-view" />
                                                             <img src="assets/images/video.svg" width="40px"
@@ -1211,7 +1211,7 @@
                                                                 (click)="previewImage(chat?.file?.original)" />
                                                         </div>
                                                         <div *ngIf="chat?.file?.type == 'VIDEO'"
-                                                            style="position: relative;" class="replay-user-mb" data-target="#myModal" data-toggle="modal" (click)="playVideo(chat?.file?.thumbnail)">
+                                                            style="position: relative;" class="replay-user-mb" data-target="#myModal" data-toggle="modal" (click)="playVideo(chat?.file?.original)">
                                                             <img src="assets/images/blurVideoImage.gif"
                                                                 class="common-img-class" />
                                                             <img src="assets/images/video.svg" width="40px"
@@ -1290,7 +1290,7 @@
                                                     <div *ngIf="chat?.ref?.file?.type == 'VIDEO'"
                                                         class="simple-admin-file">
                                                         <div style="display: flex;position: relative;"
-                                                        data-target="#myModal" data-toggle="modal" (click)="playVideo(chat?.ref?.file?.thumbnail)">
+                                                        data-target="#myModal" data-toggle="modal" (click)="playVideo(chat?.ref?.file?.original)">
                                                             <img src="assets/images/blurVideoImage.gif"
                                                                 class="common-img-class replay-msg-border" />
                                                             <img src="assets/images/video.svg" width="40px"
@@ -1346,7 +1346,7 @@
 
                                                     </div>
                                                     <div *ngIf="chat?.ref?.file?.type == 'VIDEO'" class="admin-msg">
-                                                        <div style="position: relative;" data-target="#myModal" data-toggle="modal" (click)="playVideo(chat?.ref?.file?.thumbnail)">
+                                                        <div style="position: relative;" data-target="#myModal" data-toggle="modal" (click)="playVideo(chat?.ref?.file?.original)">
                                                             <img src="assets/images/blurVideoImage.gif"
                                                                 class="common-img-class replay-admin-mb"
                                                                 style="margin: 0px;" />
@@ -1865,7 +1865,7 @@
 
 
 <!-- play video modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade video-modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>

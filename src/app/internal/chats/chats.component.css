@@ -291,7 +291,7 @@
   visibility: hidden !important;
 }
 .modal-body.video-play{
-  padding: 10px !important;
+  padding: 5px !important;
 }
 
 /* final css start */
@@ -539,6 +539,12 @@ hr{
   left: 75px !important;
 }
 
+.modal.fade.video-modal{
+  width: 100%;
+  transform: scale(1.5);
+  /* margin-top: 200px; */
+  padding-top: 150px;
+}
 
 
 
