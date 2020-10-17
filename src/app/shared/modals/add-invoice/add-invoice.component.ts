@@ -210,7 +210,9 @@ export class AddInvoiceComponent implements OnInit, OnDestroy {
         this.finalSubmit();
         this.http.hideModal();
         const money = document.getElementById('money_container');
-        money.style.display = 'block';
+        if(money){
+            money.style.display = 'block';
+        }
     }
 
     selectProduct(data) {
@@ -255,7 +257,9 @@ export class AddInvoiceComponent implements OnInit, OnDestroy {
 
     finalSubmit(next?) {
         const money = document.getElementById('money_container');
-        money.style.display = 'block';
+        if(money){
+            money.style.display = 'block';
+        }
 
         if (this.form.value.contactId && this.myResponse.items.length && this.myResponse.status !== 'Paid' && this.myResponse.status!== 'Refunded') {
 
@@ -316,6 +320,9 @@ export class AddInvoiceComponent implements OnInit, OnDestroy {
                 this.http.eventSubject.next({eventType: 'addInvoice'});
             }, () => {
             });
+        }
+        else{
+            this.http.hideModal();
         }
     }
 
