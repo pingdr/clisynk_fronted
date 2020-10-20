@@ -1556,7 +1556,7 @@
                             </div>
                             <!-- icons -->
 
-                            <div class="form-wrapper" *ngIf="!mediaFlag">
+                            <div class="form-wrapper" *ngIf="!mediaFlag && (imageArray.length == 0 || videoArray.length == 0 || docArray.length == 0)">
                                 <div dropdown>
                                     <img class="plus-icon" src="assets/images/plusblue-docside.svg" id="button-create"
                                         dropdownToggle aria-controls="dropdown-basic" />

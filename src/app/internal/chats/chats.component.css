@@ -503,7 +503,7 @@ hr{
   box-shadow: 1px 4px 7px #dfdfdf;
   cursor: pointer;
   z-index: 9999;
-  /* display: none; */
+  display: none;
 }
 .contact-v-tab-heading .nav-pills a h4{
   font-size: 16px;

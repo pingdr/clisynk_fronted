@@ -7,6 +7,7 @@ import {ContactDetailsComponent} from '../../shared/modals/contact-details/conta
 import {AddContactComponent} from '../../shared/modals/add-contact/add-contact.component';
 import {LogoutComponent} from '../../shared/modals/logout/logout.component';
 import * as moment from 'moment';
+import $ from 'jquery';
 
 declare var jQuery: any;
 import {interval} from 'rxjs';
@@ -28,6 +29,7 @@ export class TopNavBarComponent implements OnInit {
     loader = false;
     loginData: any;
     showClose = false;
+    chatToggle = false;
 
     unreadCount = 0;
 
@@ -104,6 +106,13 @@ export class TopNavBarComponent implements OnInit {
 
     toggleNavigation(): void {
         jQuery('body').toggleClass('mini-navbar');
+        this.chatToggle = !this.chatToggle;
+        if(this.chatToggle){
+            $('.wrapper.border-bottom.white-bg').css('margin-left','65px');
+        }
+        else{
+            $('.wrapper.border-bottom.white-bg').css('margin-left','225px');
+        }
         smoothlyMenu();
     }
 

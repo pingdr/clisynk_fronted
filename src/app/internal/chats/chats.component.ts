@@ -1,4 +1,5 @@
-import { Component, OnInit , TemplateRef, AfterViewInit , ViewChildren,QueryList , ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit , TemplateRef , ViewChild, ElementRef } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { DomSanitizer} from '@angular/platform-browser';
 import { BsModalRef , BsModalService } from 'ngx-bootstrap/modal';
 import { HttpService } from '../../services/http.service';
@@ -18,6 +19,8 @@ import { environment } from '../../../environments/environment';
 
 // var FileSaver = require('file-saver');
 import * as FileSaver from 'file-saver';
+
+declare var jQuery: any;
 
 @Component({
   selector: 'app-chats',
@@ -181,6 +184,7 @@ export class ChatsComponent implements OnInit {
     this.msgReceived();
     this.getVideoCallEvent();
     this.getVoiceCallEvent();
+
   }
 
   getVideoCallEvent(){
@@ -1194,17 +1198,26 @@ getAcknowledgement() {
 
   // delete img from preview imgs before uplaod
   deleteImage(url , index){
-    this.imageArray.splice(index , 1)
+    this.imageArray.splice(index , 1);
+    if(this.imageArray.length == 0){
+      this.mediaFlag = false;
+    }
   }
 
    // delete video from preview video before uplaod
   deleteVideo(url , index){
-    this.videoArray.splice(index , 1)
+    this.videoArray.splice(index , 1);
+    if(this.videoArray.length == 0){
+      this.mediaFlag = false;
+    }
   }
 
   // delete doc from preview doc before uplaod
   deleteDoc(url , index){
-    this.docArray.splice(index , 1)
+    this.docArray.splice(index , 1);
+    if(this.docArray.length == 0){
+      this.mediaFlag = false;
+    }
   }
 
   // get chat old data
@@ -1235,7 +1248,14 @@ getAcknowledgement() {
 
   // call api on scroll up
   onScroll(event){
-  
+
+    if(event.target.offsetHeight + event.target.scrollTop >= (event.target.scrollHeight - 200)){
+      $(".scroll-to-bottom").css('display' , 'none')
+    }
+    else{
+      $(".scroll-to-bottom").css('display' , 'block')
+    }
+
     const startingScrollHeight = event.target.scrollHeight;
     if (event.target.scrollTop < 100) {
       if ((this.massageArray.length < Number(this.msgTotal)) && !this.isLoading) {
