@@ -341,9 +341,10 @@
                             </div>
 
                             <div *ngIf="selectedChat?.chatType == 'GROUP'">
-                                <div *ngFor="let user of selectedChat?.users" style="display: flex;">
-
-                                    <div class="user-circle" style="margin-top: 10px;">
+                                <hr/>
+                                <!-- {{selectedChat?.users?.length}} participents -->
+                                <div *ngFor="let user of selectedChat?.users" style="display: flex;margin: 15px 0px;">
+                                    <div class="user-circle">
                                         <span *ngIf="user?.profileImage;else onlyName">
                                             <img [src]="user?.profileImage?.thumbnail" class="profile-image-list" />
                                         </span>
@@ -357,9 +358,9 @@
                                         </div>
                                         <div>{{user?.email}}</div>
                                     </div>
-
+                                    <hr/>
                                 </div>
-
+                              
                             </div>
 
                         </div>

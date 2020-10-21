@@ -837,13 +837,14 @@ getAcknowledgement() {
     for(var i=1;i<=length; i++){
       temp.push({...obj , _id : `1${i+1}` })
     }
- 
+    
     this.massageArray = [...this.massageArray , ...temp];
     this.manageScroll();
     let formData = new FormData();
     formData.append('chatRoomId', this.selectedChat._id);
 
      this.imageArray.map(singleImage  => {
+     
       formData.append('file', singleImage.file)
     });
 
@@ -892,6 +893,7 @@ getAcknowledgement() {
     for(var i=1;i<=length; i++){
       temp.push({...obj ,_id : `1${i+1}` })
     }
+    
     this.massageArray = [...this.massageArray , ...temp];
     this.manageScroll();
     let formData = new FormData();
@@ -1107,6 +1109,7 @@ getAcknowledgement() {
     this.sidenav.close();
     this.defaultScreenFlag = false;
     this.selectedChat = data;
+    console.log('selected chat is.........',this.selectedChat)
     this.selectedChatIndex = index;
     this.getOldChat();
     this.fetchAllBlockUsers();
