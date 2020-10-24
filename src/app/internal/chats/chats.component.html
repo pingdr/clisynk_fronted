@@ -524,6 +524,10 @@
                                     class="dropdown">
 
                                     <!--admin side files display -->
+                                    <div *ngIf="selectedChat?.chatType == 'GROUP'">
+                                      aa  {{chat?.from?.user | chatGroupUsername: selectedChat}}
+                                    </div>
+
                                     <ng-container *ngIf="chat?.file != null;else onlyMsg">
                                         <div *ngIf="chat?.ref == null;else ImageReplay">
                                             <div *ngIf="chat?.pinnedBy.length > 0; else imageNoReplayWithoutPin">
@@ -1026,6 +1030,7 @@
 
                                 <!-- user msg file -->
                                 <ng-template #otherUser>
+                                    name
                                     <div style="float: left;position: relative;" [id]="chat?._id">
 
                                         <div *ngIf="chat?.file != null;else onlyMsg">

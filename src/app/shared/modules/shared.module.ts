@@ -90,6 +90,7 @@ import {AddUserComponent} from '../modals/add-user/add-user.component';
 import {ColorPickerModule} from 'ngx-color-picker';
 import {NotificationsComponent} from '../modals/notifications/notifications.component';
 import {DeleteContactComponent} from '../modals/delete-contact/delete-contact.component';
+import {chatGroupUsernamePipe} from '../pipes/chatGroupUsername.pipe';
 
 import {environment} from '../../../environments/environment';
 
@@ -123,12 +124,12 @@ const importExportList = [MatStepperModule, MatTabsModule, MatSliderModule, MatI
         ...importExportList
     ],
     declarations: [FirstCharacterPipe, CopyClipboardDirective, GoogleplaceDirective, TimeAgoPipe, NumberOnlyDirective,
-        SharedComponent, ChangeTimePipe, ...entryList],
+        SharedComponent, ChangeTimePipe,chatGroupUsernamePipe, ...entryList],
     exports: [
         CopyClipboardDirective, SharedComponent, TimepickerModule, BsDatepickerModule, GoogleplaceDirective,
         PaginationModule, BsDropdownModule, TabsModule, ModalModule, CollapseModule, AccordionModule, TimeAgoPipe,
         CommonModule, ...importExportList, ...entryList, NgMultiSelectDropDownModule, FirstCharacterPipe,
-        ChangeTimePipe, NumberOnlyDirective
+        ChangeTimePipe, NumberOnlyDirective, chatGroupUsernamePipe
     ],
     entryComponents: [...entryList]
 })

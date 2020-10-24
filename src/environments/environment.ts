@@ -1,6 +1,6 @@
 export const environment = {
     production: false,
-    // apiBaseUrl: 'http://35.160.125.8:8000/',
+    // apiBaseUrl: ' http://test.clisynk.com:8000/',
     apiBaseUrl: 'http://52.52.0.21:8000/',
     // apiBaseUrl: 'https://87512188fb99.ngrok.io/',
     firebase: {

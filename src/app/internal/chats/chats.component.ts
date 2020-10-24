@@ -1110,6 +1110,7 @@ getAcknowledgement() {
     this.defaultScreenFlag = false;
     this.selectedChat = data;
     console.log('selected chat is.........',this.selectedChat)
+  
     this.selectedChatIndex = index;
     this.getOldChat();
     this.fetchAllBlockUsers();
@@ -1232,10 +1233,17 @@ getAcknowledgement() {
     };
     this.http.getData(ApiUrl.CHAT_MSG, obj).subscribe(async res =>  {
       this.massageArray = await (res.data.data).reverse();
+      // this.selectedChat.map((data) => {
+      //   if(data && data.user === )
+      // })
       this.msgTotal = res.data.totalCount;
       this.manageScroll();
       this.msgView()
     })
+  }
+
+  getUserName(id){
+    console.log('id is...........',id)
   }
 
   // manage socket typing event
