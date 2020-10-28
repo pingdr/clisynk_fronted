@@ -29,7 +29,7 @@ declare var jQuery: any;
 })
 export class ChatsComponent implements OnInit {
 
-  @ViewChild('sidenav', { static: false }) sidenav: MatSidenav;
+  @ViewChild('sidenav', { static: false }) sidenav: MatSidenav; 
   @ViewChild('localVideo' , {static : true}) localVideo: ElementRef;
   @ViewChild('remoteVideo' , {static : true}) remoteVideo: ElementRef;
 
@@ -190,13 +190,15 @@ export class ChatsComponent implements OnInit {
   getVideoCallEvent(){
     this.socket.on('video-call', (data) => {
       if(data.type == 'join'){
+        console.log('video join event............................',data)
         this.videoCallToken = data.accessToken;
         this.room = data.room;
-        this.callerName = data.from.name;
+        // this.callerName = data.from.name;
         this.callId = data.callId;
         this.callChatroomId = data.chatRoomId;
-        if(data.from._id !== this.adminId){
+        if(data.fromUser._id !== this.adminId){
           // this.incomingData = data;
+          this.callerName = data.fromUser.name;
           this.videoFlag = true;
           this.videoManage = true;
           this.outgoingFlag = false;
@@ -204,6 +206,7 @@ export class ChatsComponent implements OnInit {
        else{
           // this.outgoingData = data;
           this.outgoingFlag = true;
+          this.callerName = this.selectedChat.temp.name;
           this.videoFlag = false;
           this.outgoingVoiceFlag = false;
           // this.videoCall();
@@ -238,19 +241,22 @@ export class ChatsComponent implements OnInit {
   getVoiceCallEvent(){
     this.socket.on('audio-call', (data) => {
       if(data.type == 'join'){
+        console.log('audio join event............................',data)
         this.voiceCallToken = data.accessToken;
         this.room = data.room;
-        this.callerName = data.from.name;
+        // this.callerName = data.from.name;
         this.callId = data.callId;
         this.callChatroomId = data.chatRoomId;
-        if(data.from._id !== this.adminId){
+        if(data.fromUser._id !== this.adminId){
           // this.incomingData = data;
           this.voiceFlag = true;
           this.videoManage = true;
           this.outgoingVoiceFlag = false;
+          this.callerName = data.fromUser.name;
         }
        else{
           // this.outgoingData = data;
+          this.callerName = this.selectedChat.temp.name;
           this.outgoingVoiceFlag = true;
           this.voiceFlag = false;
           // this.videoCall();
@@ -354,6 +360,7 @@ export class ChatsComponent implements OnInit {
     this.videoFlag = false;
     this.outgoingFlag = false;
     this.twilioService.removeTrack();
+    this.twilioService.detachParticipantTracks();
   }
 
   deleteVoiceCall(){
@@ -373,7 +380,7 @@ export class ChatsComponent implements OnInit {
   }
 
   videoCall(){
-    this.twilioService.connectToRoom(this.videoCallToken, { name: this.room, audio: true, video: { width: 100 , height : 100 , frameRate : 12  } })
+    this.twilioService.connectToRoom(this.videoCallToken, { name: this.room, video: true })
   }
 
   voiceCall(){
@@ -675,6 +682,7 @@ deleteChatroom(){
     this.socket.on('new-message', (data) => {
       this.handlePushNotification(data);
       this.massageArray = [...this.massageArray, data];
+      this.getGroupMemberName();
     });
   }
 
@@ -1109,8 +1117,7 @@ getAcknowledgement() {
     this.sidenav.close();
     this.defaultScreenFlag = false;
     this.selectedChat = data;
-    console.log('selected chat is.........',this.selectedChat)
-  
+    console.log('selected chat is.......................',this.selectedChat)
     this.selectedChatIndex = index;
     this.getOldChat();
     this.fetchAllBlockUsers();
@@ -1233,17 +1240,22 @@ getAcknowledgement() {
     };
     this.http.getData(ApiUrl.CHAT_MSG, obj).subscribe(async res =>  {
       this.massageArray = await (res.data.data).reverse();
-      // this.selectedChat.map((data) => {
-      //   if(data && data.user === )
-      // })
+      this.getGroupMemberName();
       this.msgTotal = res.data.totalCount;
       this.manageScroll();
       this.msgView()
     })
   }
 
-  getUserName(id){
-    console.log('id is...........',id)
+  getGroupMemberName(){
+    this.selectedChat.users = [...this.selectedChat.users , this.selectedChat.temp];
+    this.massageArray.length > 0 && this.massageArray.map((msg) => {
+        this.selectedChat.users.map((user) => {
+          if(msg.from.user === user._id){
+            msg.fromUserName = user.fullName ? user.fullName : user.name
+          }
+        })
+    })
   }
 
   // manage socket typing event

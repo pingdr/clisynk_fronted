@@ -5,12 +5,14 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'chatGroupUsername'
 })
 export class chatGroupUsernamePipe implements PipeTransform {
-  transform(id: string, data , args?: any): any {
-    console.log('id and data..........',id , data)
+  transform( data : any , id : string , args?: any): any {
+    console.log('id and data..........', data , id)
+    // return "test"
+    let temp ;
     data.users.map((user) => {
-        if(user._id !== id){
-            console.log('in else............',user.fullName)
-            return user.fullName
+        if(user._id == id){
+            temp = user.fullName
+            return temp
         }
     })
   }

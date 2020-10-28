@@ -38,7 +38,6 @@
               "node_modules/jquery/dist/jquery.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
               "node_modules/metismenu/dist/metisMenu.js",
-              "src/assets/js/vendor/pace/pace.min.js",
               "node_modules/intl-tel-input/build/js/intlTelInput.min.js"
             ]
           },
@@ -101,7 +100,6 @@
               "node_modules/jquery/dist/jquery.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
               "node_modules/metismenu/dist/metisMenu.js",
-              "vendor/pace/pace.min.js",
               "node_modules/intl-tel-input/build/js/intlTelInput.min.js"
             ],
             "assets": [

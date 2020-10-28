@@ -54,7 +54,9 @@ export class AddUserComponent implements OnInit {
                 obj.roles = JSON.stringify(arr.concat(this.moreUrl));
             }
             this.http.hideModal();
-            this.http.postData(ApiUrl.ADD_USER, obj).subscribe(() => {
+            this.http.postData(ApiUrl.ADD_USER, obj).subscribe((res) => {
+                console.log('add sub admin res.........',res)
+                localStorage.setItem('adminRef', res.data._id)
                 let msg = 'Added Successfully';
                 if (this.modalData && this.modalData.email) {
                     msg = 'Updated Successfully';

@@ -18,7 +18,9 @@ export class TwilioService {
   }
 
   connectToRoom(accessToken: string, options): void {
+    console.log('in connect function' , accessToken , options)
     connect(accessToken, options).then(room => {
+      console.log('connection success....')
       this.roomObj = room;
       this.roomParticipants = room.participants;
 
@@ -60,12 +62,9 @@ export class TwilioService {
   }
 
   removeTrack() {
-    if (this.roomObj && this.roomObj !== null) {
-      this.roomObj.disconnect();
-      this.roomObj = null;
-    }
+    console.log('rrom obj is..................', this.roomObj)
     this.roomObj.localParticipant.tracks.forEach(function (track) {
-      track.stop()
+      track.stop();
     });
   }
 
@@ -109,8 +108,9 @@ export class TwilioService {
     });
   }
 
-  detachParticipantTracks(participant) {
-    var tracks = Array.from(participant.tracks.values());
+  detachParticipantTracks() {
+    var tracks = Array.from(this.roomObj.localParticipant.tracks.values());
+    console.log('in tracks.............',tracks)
     this.detachTracks(tracks);
   }
 
