@@ -31,6 +31,7 @@ import {DealNoteComponent} from '../shared/modals/deal-note/deal-note.component'
 import {AddTagComponent} from '../shared/modals/add-tag/add-tag.component';
 import {AppointSuccessComponent} from '../shared/modals/appoint-success/appoint-success.component';
 import {ChangePasswordComponent} from '../shared/modals/change-password/change-password.component';
+import { SubmitfeedbackComponent } from '../shared/modals/submitfeedback/submitfeedback.component';
 
 @Component({
     selector: 'app-internal',
@@ -157,6 +158,10 @@ export class InternalComponent implements OnDestroy {
                 case 'changePassword':
                     this.http.showModal(ChangePasswordComponent, 'more-sm');
                     break;
+                case 'submitfeedback':
+                    this.http.showModal(SubmitfeedbackComponent, 'md');
+                    break;
+               
             }
         }
     }

@@ -1,0 +1,155 @@
+<div class="main-automations">
+    <div class="left-col-main">
+        <!----------------------Header-main------------------->
+        <div class="left-header-main">
+            <div class="heading-main">My Automations</div>
+            <div class="right-add-icon"> 
+                <a title="add-icon">
+                    <img src="../../../assets/images/add-icon.svg" width="40">
+                </a>
+            </div>
+        </div>
+        <!-------------------------left-side-body------------------------ -->
+      
+            <div class="left-menu-pannal-main">
+                <!-------------------first-menu-strips---------------->
+                <div class="comman-row-main">
+                        <div class="first-icon">
+                            <img src="../../../assets/images/flash.svg" width="20">
+                        </div>
+                        <div class="title-main">
+                            <div class="main-menu-title">My Automation</div>
+                            <div class="status-for-document">Draft</div>
+                        </div>
+                        <div class="right-menu-thing">
+                            <button mat-button [matMenuTriggerFor]="menu">
+                                <img src="../../../assets/images/menu-dots.svg" width="30">
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item>Item 1</button>
+                                <button mat-menu-item>Item 2</button>
+                            </mat-menu>
+                        </div>
+                </div>
+                <!------------------- second-menu-strips------------------>
+                <div class="comman-row-main">
+                    <div class="first-icon">
+                        <img src="../../../assets/images/flash.svg" width="20">
+                    </div>
+                    <div class="title-main">
+                        <div class="main-menu-title">Ask new Customers for a review</div>
+                        <div class="status-for-document">Draft</div>
+                    </div>
+                    <div class="right-menu-thing">
+                        <button mat-button [matMenuTriggerFor]="menu">
+                            <img src="../../../assets/images/menu-dots.svg" width="30">
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item>Item 1</button>
+                            <button mat-menu-item>Item 2</button>
+                        </mat-menu>
+                    </div>
+                </div>
+                <!-------------------third-menu-strips---------------->
+                <div class="comman-row-main">
+                    <div class="first-icon">
+                        <img src="../../../assets/images/flash.svg" width="20">
+                    </div>
+                    <div class="title-main">
+                        <div class="main-menu-title">Free consultation</div>
+                        <div class="status-for-document">Draft</div>
+                    </div>
+                    <div class="right-menu-thing">
+                        <button mat-button [matMenuTriggerFor]="menu">
+                            <img src="../../../assets/images/menu-dots.svg" width="30">
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item>Item 1</button>
+                            <button mat-menu-item>Item 2</button>
+                        </mat-menu>
+                    </div>
+                </div>
+            </div>
+    </div>
+    
+    <div class="right-col-main">
+        <!---------------------Header-main--------------------------->
+        <div class="right-header-main">
+            <div class="header-title-main"> Automation Templates</div>
+        </div>
+        <!-- -----------------------------Body-content------------------------>
+        <div class="right-body-content-main">
+            <div class="free-grid-main">
+                <div class="inner-grid-main first-col-main">
+                    <div class="icon-row-main">
+                        <div class="left-icon">
+                            <img src="../../../assets/images/add-user.svg" width="40">
+                        </div>
+                        <div class="right-add-on">
+                            <a title="add-on">
+                                <img src="../../../assets/images/add-icon.svg" width="40">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-title-main">
+                        <div class="heading">Free Consulation</div>
+                    </div>
+                    <div class="short-description-main">
+                        <div class="sub-heading"> <b>When</b> a lead form is submitted </div>
+                        <div class="sub-heading"> <b>Then</b> send (Free consultation) email </div>
+                    </div>
+                </div>
+                 <!-- second-card -->
+                 <div class="inner-grid-main second-col-main">
+                    <div class="icon-row-main">
+                        <div class="left-icon">
+                            <img src="../../../assets/images/star.svg" width="40">
+                        </div>
+                        <div class="right-add-on">
+                            <a title="add-on">
+                                <img src="../../../assets/images/add-icon.svg" width="40">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-title-main">
+                        <div class="heading">Ask new customers for a review</div>
+                    </div>
+                    <div class="short-description-main">
+                        <div class="sub-heading"> <b>When</b> any product is purchased </div>
+                        <div class="sub-heading"> <b>Then</b> wait 7 days and send (Request review) email </div>
+                    </div>
+                </div>
+                <!-- third-card -->
+                <div class="inner-grid-main third-col-main">
+                    <div class="icon-row-main">
+                        <div class="left-icon">
+                            <img src="../../../assets/images/information.svg" width="40">
+                        </div>
+                        <div class="right-add-on">
+                            <a title="add-on">
+                                <img src="../../../assets/images/add-icon.svg" width="40">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-title-main">
+                        <div class="heading">Request a template</div>
+                    </div>
+                    <div class="short-description-main">
+                        <div class="sub-heading"> Tell us what you want to automate </div>
+                       
+                    </div>
+                </div>
+
+            </div>
+            <div class="submit-feedback-main">
+                <div class="inner-des-main">
+                    <p>Not seeing something you wish to automate ? <br/> Let us know!</p>
+                    <a class="sub-feedback-btn" (click)= "http.openModal('submitfeedback')">Submit feedback</a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

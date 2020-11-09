@@ -93,6 +93,7 @@ import {DeleteContactComponent} from '../modals/delete-contact/delete-contact.co
 import {chatGroupUsernamePipe} from '../pipes/chatGroupUsername.pipe';
 
 import {environment} from '../../../environments/environment';
+import { SubmitfeedbackComponent } from '../modals/submitfeedback/submitfeedback.component';
 
 const entryList = [EmailFormatComponent, SendEmailComponent, ChangePasswordComponent, ContactDetailsComponent, AddNoteComponent,
     ContactOptionsComponent, AddTaskComponent, LoaderComponent, ContactDetailComponent, ActivityListComponent, ContactFilterComponent,
@@ -105,7 +106,7 @@ const entryList = [EmailFormatComponent, SendEmailComponent, ChangePasswordCompo
     AddContactToDealComponent, DealNoteComponent, EditDealNoteComponent, AddPipelineTaskComponent, PipelineSendEmailComponent,
     AppointBookComponent, AppointStep1Component, AppointStep2Component, AppointStep3Component, AppointStep4Component,
     EditAppointmentComponent, CalSlotComponent, BookModalComponent, ConfirmComponent, AppointTypeListComponent,
-    AppointListComponent, AppointSuccessComponent, AddUserComponent, NotificationsComponent, DeleteContactComponent
+    AppointListComponent, AppointSuccessComponent, AddUserComponent, NotificationsComponent, DeleteContactComponent, SubmitfeedbackComponent
 ];
 
 const importExportList = [MatStepperModule, MatTabsModule, MatSliderModule, MatInputModule, MatSelectModule,

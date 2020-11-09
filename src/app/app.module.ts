@@ -32,6 +32,7 @@ import { PushNotificationsModule } from 'ng-push';
 // firebase
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { AngularFireModule } from '@angular/fire';
+
 @NgModule({
     declarations: [
         CapitalizePipe, AppComponent, LoginComponent, PrivacyComponent, ForgotPasswordComponent,
