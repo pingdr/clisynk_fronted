@@ -16,6 +16,7 @@ import { PushNotificationsService} from 'ng-push';
 // import { connect, ConnectOptions, LocalTrack, Room, createLocalTracks, TwilioError } from 'twilio-video';
 import { TwilioService } from '../../services/twilio.service';
 import { environment } from '../../../environments/environment';
+import {SimpleTimer} from 'ng2-simple-timer';
 
 // var FileSaver = require('file-saver');
 import * as FileSaver from 'file-saver';
@@ -78,7 +79,9 @@ export class ChatsComponent implements OnInit {
   profileLinkMsgArray = [];
   openMediaFlag = false;
   openPinMsgFlag = false;
+  openCallLogFlag = false;
   profilePinArray = [];
+  profileCallLogArray = [];
   profileMediaArray = [];
   allBlockUsers = [];
   unBlockFlag = false;
@@ -111,6 +114,10 @@ export class ChatsComponent implements OnInit {
   outgoingData = "";
   incomingData = '';
 
+  timerName = 'call';
+  timerId = '';
+  counter = 0;
+
 
   @ViewChild('scrollMe', { static: false }) scrollDiv;
   modalRef: BsModalRef;
@@ -127,7 +134,7 @@ export class ChatsComponent implements OnInit {
   adminId: string;
   
   constructor(public http: HttpService, private modalService: BsModalService,private _pushNotifications: PushNotificationsService, 
-    private _sanitizer: DomSanitizer , private twilioService: TwilioService) {
+    private _sanitizer: DomSanitizer , private twilioService: TwilioService, private st: SimpleTimer) {
     this._pushNotifications.requestPermission();
 
     this.twilioService.msgSubject.subscribe(r => {
@@ -184,7 +191,7 @@ export class ChatsComponent implements OnInit {
     this.msgReceived();
     this.getVideoCallEvent();
     this.getVoiceCallEvent();
-
+    this.subscribeTimer();
   }
 
   getVideoCallEvent(){
@@ -227,6 +234,7 @@ export class ChatsComponent implements OnInit {
         // this.twilioService.startLocalVideo();
       }
       if(data.type == 'userStatus'){
+        this.callerName = this.selectedChat.temp.name;
         if(this.selectedChat){
           if(data.onlineUsers && data.onlineUsers.includes(this.callChatroomId)){
             this.callStatus = "Ringing.....";
@@ -240,6 +248,7 @@ export class ChatsComponent implements OnInit {
 
   getVoiceCallEvent(){
     this.socket.on('audio-call', (data) => {
+      console.log('data....................................',data)
       if(data.type == 'join'){
         console.log('audio join event............................',data)
         this.voiceCallToken = data.accessToken;
@@ -274,9 +283,12 @@ export class ChatsComponent implements OnInit {
         this.videoManage = true;
         this.voiceFlag = false;
         this.voiceCall();
+        this.st.newTimer( this.timerName, 1 , true);
+        this.callStatus = String(this.counter);
         // this.twilioService.startLocalVideo();
       }
       if(data.type == 'userStatus'){
+        this.callerName = this.selectedChat.temp.name;
         if(this.selectedChat){
           if(data.onlineUsers && data.onlineUsers.includes(this.callChatroomId)){
             this.callStatus = "Ringing.....";
@@ -286,6 +298,15 @@ export class ChatsComponent implements OnInit {
         }
       }
     }); 
+  }
+
+  subscribeTimer(){
+    this.timerId = this.st.subscribe(this.timerName, () => this.timercallback());
+  }
+
+  timercallback(){
+    this.counter++;
+    console.log('counter is............',this.counter)
   }
 
   acceptVideoCall(){
@@ -313,6 +334,7 @@ export class ChatsComponent implements OnInit {
     this.videoManage = true;
     this.voiceFlag = false;
     this.voiceCall();
+    this.st.newTimer( this.timerName, 1 , true);
   }
 
   declineVideoCall(){
@@ -361,6 +383,8 @@ export class ChatsComponent implements OnInit {
     this.outgoingFlag = false;
     this.twilioService.removeTrack();
     this.twilioService.detachParticipantTracks();
+    $('#local').remove();
+    $('#remote').remove();
   }
 
   deleteVoiceCall(){
@@ -453,6 +477,23 @@ export class ChatsComponent implements OnInit {
     })
   }
 
+  // profile call logs
+  openCallLog(){
+    this.openCallLogFlag = true;
+    this.profileCallLogArray = [];
+    this.loader = true;
+    let payload = {
+      chatRoomId : this.selectedChat._id
+    }
+    this.http.getData(ApiUrl.CALL_LOG, payload).subscribe(async res => {
+      if(res.data && res.data){
+        this.profileCallLogArray = res.data;
+        this.loader = false;
+          // console.log('call logs..............',res.data)
+      }
+    })
+  }
+
   // modal open for clear chat confirmation
   clearChatModal(openClearChatModal: TemplateRef<any>){
     this.modalRef = this.modalService.show(
@@ -484,6 +525,7 @@ export class ChatsComponent implements OnInit {
     this.toggleProfileOpen = true;
     this.openMediaFlag = false;
     this.openPinMsgFlag = false;
+    this.openCallLogFlag = false;
     this.profileLinkMsgArray = [];
     this.profileMediaArray = [];
     this.tab1 = '';
@@ -503,6 +545,7 @@ export class ChatsComponent implements OnInit {
 
   // get profile images
   getProfileImages(){
+    this.openCallLogFlag = false;
     let payload = {
       chatRoomId : this.selectedChat._id,
       type : 'MEDIA'
@@ -548,12 +591,12 @@ export class ChatsComponent implements OnInit {
       this.http.getData(ApiUrl.MSG_SEARCH, payload).subscribe(async res => {
         if (res.data.data.length > 0) {
           this.searchArray = [];
-          this.searchIndex = 0;
           this.searchTotalCount = res.data.totalCount
          await res.data.data.map((msg) => {
             this.searchArray.push(msg._id)
           });
           let msgId = await this.searchArray[0];
+          this.searchIndex = 1;
           document.getElementById(msgId).scrollIntoView({ behavior : 'smooth' , block :'start' , inline : 'center'});
         }
       })
@@ -617,17 +660,23 @@ export class ChatsComponent implements OnInit {
 
   // chat serach scroll up
   handleSearchScrollUp(){
-    this.searchIndex = this.searchIndex + 1;
     let msgId =  this.searchArray[this.searchIndex];
-    document.getElementById(msgId).scrollIntoView({ behavior : 'smooth' , block :'start' , inline : 'center'});  
+    document.getElementById(msgId).scrollIntoView({ behavior : 'smooth' , block :'start' , inline : 'center'}); 
+    this.searchIndex = this.searchIndex + 1;
   }
 
   // chat search scroll down
    handleSearchScrollDown(){
-    this.searchIndex = this.searchIndex - 1;
-    let msgId =  this.searchArray[this.searchIndex];
-    document.getElementById(msgId).scrollIntoView({ behavior : 'smooth', block :'start' , inline : 'center'});
-    
+    console.log('search index.........',this.searchIndex , this.searchArray)
+    if(this.searchArray.length <= (this.searchIndex + 1)){
+      console.log('in if....')
+      this.searchIndex = this.searchIndex - 1;
+      let msgId =  this.searchArray[this.searchIndex - 1];
+      document.getElementById(msgId).scrollIntoView({ behavior : 'smooth', block :'start' , inline : 'center'});
+    }
+    else{
+      console.log('in else')
+    }
   }
 
   // select emoji
@@ -644,23 +693,80 @@ export class ChatsComponent implements OnInit {
         });
         this.getSelectedCount();
     } else {
-        this.activeChatList.forEach((val) => {
-            val.isSelected = false;
-        });
-        this.selectedContactCount = 0;
+        this.unselectAll();
     }
-}
+  }
 
-// get selected delete count
-getSelectedCount() {
-  let tempCount = 0;
-  this.activeChatList.forEach((val) => {
+   // select all group
+   selectAllGroup() {
+    if (this.allSelect.value) {
+        this.showSelected = !this.showSelected;
+        this.groupData.forEach((val) => {
+            val.isSelected = true;
+        });
+        this.getSelectedCountGroup();
+    } else {
+        this.unselectAllGroup();
+    }
+  }
+
+  // active chat
+  unselectAll() {
+    this.activeChatList.forEach((val) => {
+      val.isSelected = false;
+    });
+    this.selectedContactCount = 0;
+    this.allSelect.patchValue('');
+  }
+
+  // group
+  unselectAllGroup() {
+    this.groupData.forEach((val) => {
+      val.isSelected = false;
+    });
+    this.selectedContactCount = 0;
+    this.allSelect.patchValue('');
+  }
+
+  // get selected delete count
+  getSelectedCount() {
+    let tempCount = 0;
+    this.activeChatList.forEach((val) => {
       if (val.isSelected) {
-          tempCount++;
+        tempCount++;
       }
-  });
-  this.selectedContactCount = tempCount;
-}
+      else {
+        this.allSelect.patchValue('');
+      }
+    });
+    if (tempCount == this.activeChatList.length) {
+      this.activeChatList.forEach((val) => {
+        val.isSelected = true;
+      });
+      this.allSelect.patchValue(true)
+    }
+    this.selectedContactCount = tempCount;
+  }
+
+  // get selected group count
+  getSelectedCountGroup() {
+    let tempCount = 0;
+    this.groupData.forEach((val) => {
+      if (val.isSelected) {
+        tempCount++;
+      }
+      else {
+        this.allSelect.patchValue('');
+      }
+    });
+    if (tempCount == this.groupData.length) {
+      this.groupData.forEach((val) => {
+        val.isSelected = true;
+      });
+      this.allSelect.patchValue(true)
+    }
+    this.selectedContactCount = tempCount;
+  }
 
 // delete chatroom
 deleteChatroom(){
@@ -671,6 +777,7 @@ deleteChatroom(){
       this.selectedContactCount = 0;
       this.http.openSnackBar('Contact have been deleted');
       this.getAllActiveChat(null);
+      this.getSelectedCount();
       this.http.contactUpdatedChat();
       this.allSelect.patchValue('');
       this.defaultScreenFlag = true;
@@ -682,6 +789,7 @@ deleteChatroom(){
     this.socket.on('new-message', (data) => {
       this.handlePushNotification(data);
       this.massageArray = [...this.massageArray, data];
+      this.manageScroll();
       this.getGroupMemberName();
     });
   }
@@ -1058,6 +1166,7 @@ getAcknowledgement() {
   // get all conatct data
   getAllContact(value) {
     this.defaultScreenFlag = true;
+    this.sidenav.close();
     let payload = {
       search : value ? value : ''
     }
@@ -1072,7 +1181,10 @@ getAcknowledgement() {
 
   // get all group data
   getAllGroupData(value) {
+    this.allSelect.patchValue('');
+    this.selectedContactCount = 0;
     this.defaultScreenFlag = true;
+    this.sidenav.close();
     let payload = {
       search : value ? value : ''
     }
@@ -1087,6 +1199,10 @@ getAcknowledgement() {
 
   // get active chatroom list
   getAllActiveChat(value) {
+    this.allSelect.patchValue("");
+    this.selectedContactCount = 0;
+    this.defaultScreenFlag = true;
+    // this.sidenav.close();
     this.loader = true;
     this.activeChatList = [];
     let payload = {
@@ -1249,9 +1365,11 @@ getAcknowledgement() {
 
   getGroupMemberName(){
     this.selectedChat.users = [...this.selectedChat.users , this.selectedChat.temp];
+    console.log('...................',this.massageArray , this.selectedChat.users)
     this.massageArray.length > 0 && this.massageArray.map((msg) => {
         this.selectedChat.users.map((user) => {
           if(msg.from.user === user._id){
+            // console.log('in if......',msg , user)
             msg.fromUserName = user.fullName ? user.fullName : user.name
           }
         })

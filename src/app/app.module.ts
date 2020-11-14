@@ -24,6 +24,7 @@ import {BookingComponent} from './internal/appointments/booking/booking.componen
 import {ShoppingReducer} from './internal/actions/reducer';
 import {StoreModule} from '@ngrx/store';
 import {TodoComponent} from './internal/actions/todo/todo.component';
+import { SimpleTimer } from 'ng2-simple-timer';
 
 import {TwilioService} from './services/twilio.service';
 import {NgxDocViewerModule} from 'ngx-doc-viewer';
@@ -63,7 +64,7 @@ import { AngularFireModule } from '@angular/fire';
             useClass: InterceptorService,
             multi: true
         },
-        AsyncPipe, ExternalAuthguardService, ExportToExcelService, Title,TwilioService
+        AsyncPipe, ExternalAuthguardService, ExportToExcelService, Title,TwilioService,SimpleTimer  
     ],
     bootstrap: [AppComponent],
     exports: [CapitalizePipe],

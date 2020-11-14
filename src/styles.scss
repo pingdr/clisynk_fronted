@@ -11,6 +11,9 @@ emoji-content{
 }
 .mat-drawer-inner-container{
   overflow-x: hidden !important;
+  width: 100%;
+  height: calc(100vh - 105px) !important;
+  overflow: auto;
 }
 
 // chat style end

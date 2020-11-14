@@ -697,7 +697,12 @@ hr{
   overflow: unset !important;
 }
 
-
+.not-accept{
+  color: #ff0000b0 !important;
+}
+.accept{
+  color: black;
+}
 
 
 

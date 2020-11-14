@@ -26,6 +26,7 @@ export class TwilioService {
 
       //if participent already in room
       room.participants.forEach(participant => {
+        console.log('participent..............',participant)
         this.attachParticipantTracks(participant);
       });
 
@@ -40,9 +41,9 @@ export class TwilioService {
       });
 
       // when participent join existing room
-      room.on('participantConnected', participant => {
-        this.attachParticipantTracks(participant);
-      });
+      // room.on('participantConnected', participant => {
+      //   this.attachParticipantTracks(participant);
+      // });
 
       // When a Participant adds a Track, attach it to the DOM.
       room.on('trackAdded', (track, participant) => {
@@ -124,6 +125,7 @@ export class TwilioService {
 
   // add remote track
   attachTracks(track) {
+    console.log('track.........................',track)
     this.remoteVideo.nativeElement.appendChild(track.attach());
   }
 }

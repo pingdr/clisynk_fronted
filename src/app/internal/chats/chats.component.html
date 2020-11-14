@@ -108,7 +108,7 @@
                     <div class="nav flex-column nav-pills" id="v-pills-tab" aria-orientation="vertical">
                         <div class="select-all">
                             <label class="custom-checkbox">Select all
-                                <input type="checkbox" [formControl]="allSelect">
+                                <input type="checkbox" [formControl]="allSelect" (change)="selectAllGroup()">
                                 <span class="checkmark"></span>
                             </label>
 
@@ -120,11 +120,11 @@
                                 <a class="nav-link" [ngClass]="{'active': selectedIndex == i}">
                                     <span class="circle">
                                         <label class="custom-checkbox">
-                                            <input type="checkbox" (change)="getSelectedCount()"
+                                            <input type="checkbox" (change)="getSelectedCountGroup()"
                                                 [(ngModel)]="data.isSelected">
                                             <span class="checkmark" style="margin-left: -10px;">
                                             </span>
-                                            <span class="circle" style="top: 0;left:0">
+                                            <span class="circle" style="top: 0;left:0" *ngIf="!data.isSelected">
                                                 {{data?.name?.substr(0, 1)}}
                                             </span>
                                         </label>
@@ -141,12 +141,6 @@
             <div class="tab-content contact-v-tab-heading" id="pills-tabContent" *ngIf="tab == 'allContact'">
                 <div class="tab-pane1" id="pills-home">
                     <div class="nav flex-column nav-pills" id="v-pills-tab" aria-orientation="vertical">
-                        <div class="select-all">
-                            <label class="custom-checkbox">Select all
-                                <input type="checkbox" [formControl]="allSelect" (change)="selectAllContact()">
-                                <span class="checkmark"></span>
-                            </label>
-                        </div>
                         <cdk-virtual-scroll-viewport itemSize="50" class="full-port">
                             <app-loader [showLoader]="loader" [length]="chatModel?.contacts?.length">
                             </app-loader>
@@ -155,8 +149,6 @@
                                 <a class="nav-link" [ngClass]="{'active': selectedIndex == i}">
                                     <span class="circle" style="margin-top: 10px;">
                                         <label class="custom-checkbox">
-                                            <input type="checkbox" (change)="getSelectedCount()"
-                                                [(ngModel)]="data.isSelected">
                                             <span class="checkmark" style="margin-left: -10px;">
                                             </span>
                                             <span class="circle" style="top: 0;left:0">
@@ -236,6 +228,9 @@
                         </ng-template>
                         <span class="msg-time-profile">{{data?.createdAt |date:'yyyy-MM-dd h:mm'}}</span>
                     </div>
+                    <div *ngIf="profilePinArray.length == 0" class="no-media-title">
+                        No Message
+                    </div>
                 </div>
             </div>
 
@@ -265,7 +260,7 @@
 
             <!-- main profile page -->
             <ng-template #defaultContent>
-                <div *ngIf="toggleProfileOpen">
+                <div *ngIf="!openCallLogFlag && toggleProfileOpen;else callLog">
                     <i class="fa fa-arrow-left" (click)="sidenav.toggle()" aria-hidden="true"
                         style="float: right;font-size: 20px;cursor: pointer;"></i>
                     <div class="profile-section">
@@ -300,7 +295,7 @@
                                     <i class="fa fa-chevron-right" aria-hidden="true"></i>
                                 </span>
                             </div>
-                            <!-- <hr/> -->
+                            <hr/>
                             <div class="row mt-2">
                                 <div *ngFor="let data of profileImageArray;let i = index">
                                     <div *ngIf="data?.file?.type == 'IMAGE' && i <= 2">
@@ -312,13 +307,20 @@
                                     </div>
                                 </div>
                             </div>
-                            <hr/>
+                            <!-- <hr/> -->
                             <div *ngIf="profileMediaArray.length == 0" style="text-align: center;padding: 10px 0px;">
                                 No Media, Links and Docs
                             </div>
                             <hr />
                             <div (click)="openPinMsg()">
                                 <span class="profile-name-list">Pin Messages</span>
+                                <span class="arrow-icon">
+                                    <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <hr />
+                            <div (click)="openCallLog()">
+                                <span class="profile-name-list">Call Logs</span>
                                 <span class="arrow-icon">
                                     <i class="fa fa-chevron-right" aria-hidden="true"></i>
                                 </span>
@@ -349,12 +351,12 @@
                                             <img [src]="user?.profileImage?.thumbnail" class="profile-image-list" />
                                         </span>
                                         <ng-template #onlyName>
-                                            {{user?.fullName?.substr(0, 1)}}
+                                            {{user?.fullName ? user?.fullName?.substr(0, 1) : user?.name?.substr(0, 1)}}
                                         </ng-template>
                                     </div>
                                     <div>
                                         <div class="username-header">
-                                            {{user?.fullName}}
+                                            {{user?.fullName ? user?.fullName : user?.name}}
                                         </div>
                                         <div>{{user?.email}}</div>
                                     </div>
@@ -366,6 +368,44 @@
                         </div>
                     </div>
                     <!-- </div> -->
+                </div>
+            </ng-template>
+
+            <!-- call logs -->
+            <ng-template #callLog>
+                
+                <i class="fa fa-arrow-left" aria-hidden="true" style="float: right;font-size: 20px;cursor: pointer;"
+                    (click)="clickProfileBack()"></i>
+                <div class="username pt-4" style="text-align: left;font-size: 18px;">Call Logs</div>
+                <div class="profile-pin">
+                    <app-loader [showLoader]="loader" [length]="groupData?.length"></app-loader>
+                    <div *ngFor="let user of profileCallLogArray" style="display: flex;margin: 20px 0px;">
+                        <div class="user-circle">
+                            <span *ngIf="user?.profileImage;else onlyName">
+                                <img [src]="user?.profileImage?.thumbnail" class="profile-image-list" />
+                            </span>
+                            <ng-template #onlyName>
+                                {{user?.admin[0]?.fullName?.substr(0, 1)}}
+                            </ng-template>
+                        </div>
+                        <div style="width: 80%;">
+                            <div style="display: flex;justify-content: space-between;">
+                                <div style="font-weight: 500;margin-top: 0px;" class="username" [ngClass]="user?.callDuration[0]?.end ? 'not-accept' : 'accept'"
+                                >{{user?.admin[0]?.fullName}}</div>
+                                <span style="font-weight: bold;">{{user?.createdAt | date:'d MMM HH:mm'}}</span>
+                            </div>
+                            <div *ngIf="user?.type == 'audio-call';else videoCall">
+                                <img src="assets/images/phone-icon-chat.png" style="width: 17px;margin-right: 10px;"/>
+                                <span>{{user?.admin[0]?._id == adminId ? "Outgoing" : "Incoming"}}</span>
+                            </div>
+                            <ng-template #videoCall>
+                                <img src="assets/images/video-icon-chat.png" style="width: 17px;margin-right: 10px;"/>
+                                <span>{{user?.admin[0]?._id == adminId ? "Outgoing" : "Incoming"}}</span>
+                            </ng-template>
+                        </div>
+                        <hr/>
+                    </div>
+
                 </div>
             </ng-template>
 
@@ -508,7 +548,7 @@
                                 *ngIf="searchFlag && searchArray.length > 0 && ((searchArray.length) !== searchIndex)"
                                 (click)="handleSearchScrollUp()" style="margin: 0px 20px;cursor: pointer;"></i>
                             <i class="fa fa-chevron-down" aria-hidden="true"
-                                *ngIf="searchFlag && searchArray.length > 0 && searchIndex !== 0" (click)="handleSearchScrollDown()"
+                                *ngIf="searchFlag && searchArray.length > 0 && searchIndex > 1" (click)="handleSearchScrollDown()"
                                 style="cursor: pointer;"></i>
 
                         </div>
@@ -1027,7 +1067,7 @@
 
                                 <!-- user msg file -->
                                 <ng-template #otherUser>
-                                    <div *ngIf="selectedChat?.chatType == 'GROUP'" style="font-weight: bold;font-size: 14px;">
+                                    <div *ngIf="selectedChat?.chatType == 'GROUP'" style="font-weight: bold;font-size: 13px;">
                                         {{ chat?.fromUserName }}
                                       </div>
                                     <div style="float: left;position: relative;" [id]="chat?._id">
@@ -1680,7 +1720,7 @@
                 </div>
                
                  <div id="local" #localVideo></div>
-                <div id="remote" #remoteVideo></div>
+                 <div id="remote" #remoteVideo></div>
                
                 <div class="btn decline video-decline">
                    <img src="assets/images/decline-call-icon.svg" (click)="deleteVideoCall()">
