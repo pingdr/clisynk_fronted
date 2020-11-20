@@ -385,22 +385,22 @@
                                 <img [src]="user?.profileImage?.thumbnail" class="profile-image-list" />
                             </span>
                             <ng-template #onlyName>
-                                {{user?.admin[0]?.fullName?.substr(0, 1)}}
+                                {{user?.admins[0]?.fullName?.substr(0, 1)}}
                             </ng-template>
                         </div>
                         <div style="width: 80%;">
                             <div style="display: flex;justify-content: space-between;">
                                 <div style="font-weight: 500;margin-top: 0px;" class="username" [ngClass]="user?.callDuration[0]?.end ? 'not-accept' : 'accept'"
-                                >{{user?.admin[0]?.fullName}}</div>
+                                >{{user?.admins[0]?.fullName}}</div>
                                 <span style="font-weight: bold;">{{user?.createdAt | date:'d MMM HH:mm'}}</span>
                             </div>
                             <div *ngIf="user?.type == 'audio-call';else videoCall">
                                 <img src="assets/images/phone-icon-chat.png" style="width: 17px;margin-right: 10px;"/>
-                                <span>{{user?.admin[0]?._id == adminId ? "Outgoing" : "Incoming"}}</span>
+                                <span>{{user?.admins[0]?._id == adminId ? "Outgoing" : "Incoming"}}</span>
                             </div>
                             <ng-template #videoCall>
                                 <img src="assets/images/video-icon-chat.png" style="width: 17px;margin-right: 10px;"/>
-                                <span>{{user?.admin[0]?._id == adminId ? "Outgoing" : "Incoming"}}</span>
+                                <span>{{user?.admins[0]?._id == adminId ? "Outgoing" : "Incoming"}}</span>
                             </ng-template>
                         </div>
                         <hr/>
