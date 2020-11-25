@@ -84,7 +84,7 @@
                                     </h4>
 
                                     <div *ngIf="data?.unreadCount > 0;else lastMsgWithoutUnreadCount"
-                                        (click)="clickChat(data);" style="display: flex;">
+                                        (click)="clickChat(data,i);" style="display: flex;">
                                         <div class="unread-text-blue">
                                             {{data?.lastMessage?.file ? data?.lastMessage?.file?.type : data?.lastMessage?.content}}
                                         </div>
