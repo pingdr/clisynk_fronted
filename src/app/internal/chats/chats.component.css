@@ -12,7 +12,24 @@
   /* overflow: scroll; */
   /* bottom: 125px; */
 }
+.red-cont {
+  display: flex;
+  align-items: center;
+}
+@keyframes fadeIn { 
+  from { opacity: 0; } 
+}
 
+.animate-flicker {
+    animation: fadeIn 1s infinite alternate;
+}
+.red-dot {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: red;
+    margin: 10px;
+}
 .hide-video-view{
   display: none;
 }

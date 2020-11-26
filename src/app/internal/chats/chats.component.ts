@@ -71,7 +71,7 @@ export class ChatsComponent implements OnInit {
   searchIndex = 0;
   searchArray = [];
   searchFlag = false;
-
+  isRecording: boolean = false;
   loading = false;
   forwardArray = [];
 
@@ -509,9 +509,11 @@ export class ChatsComponent implements OnInit {
             this.record = new StereoAudioRecorder(stream, options);
             this.record.record();
             this.isRecordStart = true;
+            this.isRecording = true;
           }, err => {
             console.log(err);
             this.isRecordStart = false;
+            this.isRecording = false;
           });
       } else {
         this.http.openSnackBar('Please check permission or connectivity of microphone.');
@@ -520,6 +522,7 @@ export class ChatsComponent implements OnInit {
   }
   stopRecord() {
     this.isRecordStart = false;
+    this.isRecording = false;
     this.record.stop((blob) => {
       let file = new File([blob], "audio" + new Date().toISOString() + '.mp3', { type: 'audio/wav' });
       console.log(file);
@@ -1287,6 +1290,7 @@ export class ChatsComponent implements OnInit {
   getAllContact(value) {
     this.defaultScreenFlag = true;
     this.isRecordStart = false;
+    this.isRecording = false;
     this.sidenav.close();
     let payload = {
       search: value ? value : ''
@@ -1304,6 +1308,7 @@ export class ChatsComponent implements OnInit {
   getAllGroupData(value) {
     this.allSelect.patchValue('');
     this.isRecordStart = false;
+    this.isRecording = false;
     this.selectedContactCount = 0;
     this.defaultScreenFlag = true;
     this.sidenav.close();
@@ -1324,6 +1329,7 @@ export class ChatsComponent implements OnInit {
     this.allSelect.patchValue("");
     this.selectedContactCount = 0;
     this.isRecordStart = false;
+    this.isRecording = false;
     this.defaultScreenFlag = true;
     // this.sidenav.close();
     this.loader = true;
@@ -1355,6 +1361,7 @@ export class ChatsComponent implements OnInit {
   clickChat(data, index) {
     this.sidenav.close();
     this.isRecordStart = false;
+    this.isRecording = false;
     this.defaultScreenFlag = false;
     this.selectedChat = data;
     console.log('selected chat is.......................', this.selectedChat)
@@ -1552,6 +1559,7 @@ export class ChatsComponent implements OnInit {
       dataId: data._id
     }
     this.isRecordStart = false;
+    this.isRecording = false;
     this.defaultScreenFlag = false;
     this.selectedChat = data;
     this.http.postData(ApiUrl.CREATE_CHATROOM, payload).subscribe(async res => {
@@ -1579,6 +1587,7 @@ export class ChatsComponent implements OnInit {
       }
     }
     this.isRecordStart = false;
+    this.isRecording = false;
     this.defaultScreenFlag = false;
     this.selectedChat = data;
     this.http.postChatImage(ApiUrl.CREATE_CHATROOM, payload).subscribe(async res => {

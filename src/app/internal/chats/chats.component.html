@@ -1508,8 +1508,7 @@
                                                         </ng-container>
 
                                                     </div>
-                                                    <div *ngIf="chat?.ref?.file?.type == 'AUDIO'"
-                                                        class="admin-msg">
+                                                    <div *ngIf="chat?.ref?.file?.type == 'AUDIO'" class="admin-msg">
                                                         <audio controls>
                                                             <source [src]="chat?.ref?.file?.original" type="audio/mp3">
                                                         </audio>
@@ -1774,6 +1773,9 @@
                                     src="assets/images/record.svg" />
                                 <img class="record-icon" *ngIf="isRecordStart" style="width: 25px;"
                                     (click)="stopRecord()" src="assets/images/mute.svg" />
+                                <div *ngIf="isRecording" class="red-cont">
+                                    <span class="red-dot animate-flicker"></span>
+                                </div>
                             </div>
                         </ng-template>
 
