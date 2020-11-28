@@ -911,7 +911,9 @@ export class ChatsComponent implements OnInit {
   getNewMassages() {
     this.socket.on('new-message', (data) => {
       this.handlePushNotification(data);
-      this.massageArray = [...this.massageArray, data];
+      if (data.chatRoomId === (this.selectedChat && this.selectedChat._id)) {
+        this.massageArray = [...this.massageArray, data];
+      }
       this.manageScroll();
       this.getGroupMemberName();
     });
