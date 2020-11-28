@@ -1672,7 +1672,7 @@
                             </div>
                             <!-- replay video -->
                             <div *ngIf="replayFlag && replayData?.file?.type == 'VIDEO'" class="replay-msg">
-                                <video autoplay [src]="replayData?.file?.original" class="img-replay-preview"></video>
+                                <video [src]="replayData?.file?.original" class="img-replay-preview"></video>
 
                                 <span class="remove-replay-msg" (click)="closeReplayMsg()">X</span>
                             </div>
@@ -2047,7 +2047,7 @@
 <div class="modal fade video-modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" (click)="closeVideo()" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
         <div class="modal-content">
@@ -2055,8 +2055,10 @@
             <div class="modal-body video-play">
                 <!-- 16:9 aspect ratio -->
                 <div class="embed-responsive embed-responsive-16by9">
-                    <iframe class="embed-responsive-item" [src]="videoURL()" id="video" allowscriptaccess="always"
-                        allow="autoplay"></iframe>
+                    <!-- <iframe class="embed-responsive-item" [src]="videoURL()" id="video"></iframe> -->
+                    <div class="embed-responsive-item">
+                        <video style="width: 100% !important;height: 100% !important;" [src]="videoSrc" controls></video>
+                   </div>
                 </div>
             </div>
         </div>

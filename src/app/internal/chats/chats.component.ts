@@ -1287,7 +1287,7 @@ export class ChatsComponent implements OnInit {
   }
 
   // get all conatct data
-  getAllContact(value) {
+  getAllContact(value?) {
     this.defaultScreenFlag = true;
     this.isRecordStart = false;
     this.isRecording = false;
@@ -1305,7 +1305,7 @@ export class ChatsComponent implements OnInit {
   }
 
   // get all group data
-  getAllGroupData(value) {
+  getAllGroupData(value?) {
     this.allSelect.patchValue('');
     this.isRecordStart = false;
     this.isRecording = false;
@@ -1325,7 +1325,7 @@ export class ChatsComponent implements OnInit {
   }
 
   // get active chatroom list
-  getAllActiveChat(value) {
+  getAllActiveChat(value?) {
     this.allSelect.patchValue("");
     this.selectedContactCount = 0;
     this.isRecordStart = false;
@@ -1617,15 +1617,21 @@ export class ChatsComponent implements OnInit {
 
   playVideo(src) {
     this.videoSrc = src;
-    $('#myModal').on('show', function (e) {
+    // $('#myModal').on('show', function (e) {
 
-    });
-    $('#myModal').on('hide.bs.modal', function (e) {
-      // a poor man's stop video
-      $("#video").attr('src', src);
-    })
+    // });
+    // $('#myModal').on('hide.bs.modal', function (e) {
+    //   // a poor man's stop video
+    //   console.log('-----');
+    //   // $("#video").attr('src', src);
+    //   $("#video").stop();
+    // })
   }
-
+  closeVideo() {
+    console.log('-----');
+    $("#video").stop();
+    this.videoSrc = null;
+  }
   videoURL() {
     if (this.videoSrc) {
       return this._sanitizer.bypassSecurityTrustResourceUrl(this.videoSrc)

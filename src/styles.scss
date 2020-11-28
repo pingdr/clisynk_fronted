@@ -30,8 +30,9 @@ body {
   color: #242433;
   // font-family: Roboto, "Helvetica Neue", sans-serif;
 }
-
-
+.lb-data .lb-close {
+  right: 17% !important;
+}
 .modal-header.email_str_header {
   padding: 0px;
   height: 3.5rem;
