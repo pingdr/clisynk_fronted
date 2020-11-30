@@ -921,8 +921,9 @@ export class ChatsComponent implements OnInit {
 
   // push notification function
   handlePushNotification(data) {
-    if (data.chatRoomId !== (this.selectedChat && this.selectedChat._id)) {
-
+    let currentUser = JSON.parse(localStorage.getItem('loginData'));
+    // if (data.chatRoomId !== (this.selectedChat && this.selectedChat._id)) {
+    if (data.from.user !== currentUser._id) {
       let options = {
         body: data.content,
         icon: "assets/images/chat-notify-img.png"
@@ -930,7 +931,7 @@ export class ChatsComponent implements OnInit {
       let userName;
       this.activeChatList.map((user) => {
         if ((user.temp && user.temp._id) == (data.from && data.from.user)) {
-          userName = user.temp.name;
+          userName = user.temp.fullName;
           user.unreadCount = (user.unreadCount ? user.unreadCount : 0) + 1;
           user.lastMessage.content = data.content;
         }
