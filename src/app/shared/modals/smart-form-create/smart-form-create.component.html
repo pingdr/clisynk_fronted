@@ -1,0 +1,34 @@
+<div class="header-for-smart-form-builder-main">
+    <div class="left-col">
+        <button class="icon-only" type="button" aria-label="Close" (click)="http.hideModal()">
+            <img src="/assets/images/ic_close.svg">
+        </button>
+        <span>Edit form</span>        
+    </div>
+    <div class="right-col">
+        <span class="all-changes-saved">All changes saved</span>
+        <button class="btn-save btn-outline-primary ">Save and publish</button>
+    </div>
+
+</div>
+
+<div class="details-and-preview-main">
+    <div class="details-main-left">
+        <label class="comman-label">Details</label>
+        <span>This lead form can be seen by anyone with its URL.</span>
+    </div>
+    <div class="right-priview-label">
+        <label class="comman-label">Preview</label>
+    </div>
+
+</div>
+
+
+<form-builder [form]="form" (change)="onChange($event)" class="smart-form-builder-main-form"></form-builder>
+<button class="btn btn-primary btn-md" (click)="onClick()">Create Form</button>
+<div>
+    <div class="well jsonviewer">
+        <pre id="json"><code class="language-json" #json></code></pre>
+    </div>
+</div>
+ 

@@ -6346,3 +6346,178 @@ section.appt-list {
   white-space: var(--text-wrap, nowrap);
   color: #242433;
 }
+
+
+// ------------------------------smart-form-build-----------------------------//
+.modal-custom-class-for-create-smart-form {
+  width: 100%;
+  max-width: 100%;
+  margin-top: 0;
+  margin-bottom: 0;
+  height: 100%;
+}
+
+.modal-custom-class-for-create-smart-form .modal-content {
+    height: 100%;
+    border-radius: 0;
+    padding: 0;
+    overflow-y: auto;
+    box-shadow: none;
+    border: none;
+    overflow-x: hidden;
+}
+
+
+// -----------------smart-form--------------//
+
+.smart-form-builder-main .formio.builder {
+  width: 90% !important;
+  margin: auto !important;
+  flex-wrap: inherit !important;
+}
+
+.smart-form-builder-main-form .formbuilder {
+  width: 90% !important;
+  margin: auto !important;
+  flex-wrap: inherit !important;
+}
+
+.smart-form-builder-main-form .formbuilder .formcomponents {
+  width: 60% !important;
+  flex: inherit !important;
+  max-width: 60% !important;
+  padding: 0 !important;
+  padding-right: 40px !important;
+}
+
+.smart-form-builder-main-form .formbuilder .formarea {
+  width: 40% !important;
+  max-width: 40% !important;
+  flex: inherit !important;
+  padding: 25px 30px;
+  background: #fff;
+  box-shadow: 0px 0px 10px #dcdcdccc;
+  border-radius: 20px;
+}
+
+.smart-form-builder-main-form .formbuilder .formcomponents .accordion .builder-sidebar_search {
+  margin-bottom: 20px;
+  padding: 22px 20px;
+  font-size: 14px;
+  border-radius: 13px !important;
+}
+
+.smart-form-builder-main-form .formbuilder .formcomponents .form-builder-panel {
+  box-shadow: 0px 0px 3px #ccc;
+  border-radius: 5px !important;
+  border: none !important;
+  margin-bottom: 15px;
+}
+
+.smart-form-builder-main-form .formbuilder .formcomponents .form-builder-panel .card-header {
+  border: none;
+  background: #6097ec;
+  padding: 8px 15px;
+}
+
+.smart-form-builder-main-form .formbuilder .formcomponents .form-builder-panel .card-header button {
+  font-size: 16px;
+  padding: 0;
+  color: #fff;
+}
+
+.smart-form-builder-main-form .formbuilder .formcomponents .form-builder-panel .card-body {
+  padding: 10px !important;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr) !important;
+  grid-column-gap: 3px;
+  grid-row-gap: 3px;
+}
+
+.smart-form-builder-main-form .formbuilder .formcomponents .form-builder-panel .card-body span.btn{
+  // background: #03a9f4bf !important;
+  background: #f3f3f3 !important;
+  color: #000 !important;
+  border: none;
+  padding: 15px 10px !important;
+  font-size: 12px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.smart-form-builder-main-form .formbuilder .formarea .formio-form .builder-components .builder-component .component-btn-group .component-settings-button {
+  box-shadow: 0px 0px 3px #7b7b7b;
+}
+
+.smart-form-builder-main-form .formbuilder .formarea .formio-form .builder-components .builder-component .component-btn-group .component-settings-button-remove i.fa-remove:before {
+  content: "\f1f8";
+}
+
+.smart-form-builder-main-form .formbuilder .formarea .formio-form .builder-components .builder-component .component-btn-group .component-settings-button-move {
+  display: none;
+}
+
+.formio-dialog-theme-default .formio-dialog-content {
+  padding: 30px !important;
+  background: #e4e4e4 !important;
+}
+
+
+.formio-dialog-theme-default .formio-dialog-content .formio-dialog-close:before {
+  color: #000 !important;
+  font-size: 44px !important; 
+}
+
+.formio-dialog.formio-dialog-theme-default .component-edit-container .row .lead {
+  color: #000;
+  margin-bottom: 28px;
+  padding-top: 10px;
+  font-size: 22px;
+  font-weight: 300;
+  font-family: "Sul Sans" !important;
+}
+
+.formio-dialog.formio-dialog-theme-default .component-edit-container .row .float-right {
+  display: none;
+}
+
+// .formio-dialog.formio-dialog-theme-default .component-edit-container .formio-component-form .formio-form .card .card-header {
+//   background: #168edc;
+// }
+
+.formio-dialog.formio-dialog-theme-default .component-edit-container .formio-component-form .formio-form .card .card-header .card-header-tabs li.nav-item {
+  margin-bottom: 0;
+}
+
+.formio-dialog.formio-dialog-theme-default .component-edit-container .formio-component-form .formio-form .card .card-header .card-header-tabs {
+  margin-bottom: 0;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.formio-dialog.formio-dialog-theme-default .component-edit-container .formio-component-form .formio-form .card .card-header .card-header-tabs li.nav-item a {
+  // color: #fff;
+  height: auto !important;
+  padding: 10px 10px;
+  line-height: 0px;
+  font-size: 14px;
+}
+
+.formio-dialog.formio-dialog-theme-default .component-edit-container .formio-component-form .formio-form .card .card-header .card-header-tabs li.active a.nav-link.active {
+  // background: #d8a27a !important;
+  border: none !important;
+  border-radius: 3px !important;
+  background: #1e4dda !important;
+  color: #fff !important;
+}
+
+.formio-component-form .form-check.checkbox input.form-check-input {
+  left: 0;
+}
+
+.formio-component-form .form-radio.radio .form-check input {
+  left: 0;
+}

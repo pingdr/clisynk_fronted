@@ -4,10 +4,10 @@
         <div class="left-header-main">
             <div class="heading-main">My Automations</div>
             <div class="right-add-icon"> 
-                <a title="add-icon">
+                <a title="add-icon" [routerLink]="['/build-automation']">
                     <img src="../../../assets/images/add-icon.svg" width="40">
                 </a>
-            </div>
+            </div> 
         </div>
         <!-------------------------left-side-body------------------------ -->
       
@@ -144,7 +144,7 @@
             <div class="submit-feedback-main">
                 <div class="inner-des-main">
                     <p>Not seeing something you wish to automate ? <br/> Let us know!</p>
-                    <a class="sub-feedback-btn" (click)= "http.openModal('submitfeedback')">Submit feedback</a>
+                    <a class="sub-feedback-btn" (click)="openSubmitfeedback()">Submit feedback</a>
                 </div>
             </div>
 

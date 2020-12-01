@@ -93,7 +93,11 @@ import {DeleteContactComponent} from '../modals/delete-contact/delete-contact.co
 import {chatGroupUsernamePipe} from '../pipes/chatGroupUsername.pipe';
 
 import {environment} from '../../../environments/environment';
-import { SubmitfeedbackComponent } from '../modals/submitfeedback/submitfeedback.component';
+// import { SubmitfeedbackComponent } from '../modals/submitfeedback/submitfeedback.component';
+import { SmartFormCreateComponent } from '../modals/smart-form-create/smart-form-create.component';
+import { FormioModule } from 'angular-formio';
+import { CreateWorkspaceComponent } from '../modals/create-workspace/create-workspace.component';
+
 
 const entryList = [EmailFormatComponent, SendEmailComponent, ChangePasswordComponent, ContactDetailsComponent, AddNoteComponent,
     ContactOptionsComponent, AddTaskComponent, LoaderComponent, ContactDetailComponent, ActivityListComponent, ContactFilterComponent,
@@ -106,14 +110,15 @@ const entryList = [EmailFormatComponent, SendEmailComponent, ChangePasswordCompo
     AddContactToDealComponent, DealNoteComponent, EditDealNoteComponent, AddPipelineTaskComponent, PipelineSendEmailComponent,
     AppointBookComponent, AppointStep1Component, AppointStep2Component, AppointStep3Component, AppointStep4Component,
     EditAppointmentComponent, CalSlotComponent, BookModalComponent, ConfirmComponent, AppointTypeListComponent,
-    AppointListComponent, AppointSuccessComponent, AddUserComponent, NotificationsComponent, DeleteContactComponent, SubmitfeedbackComponent
+    AppointListComponent, AppointSuccessComponent, AddUserComponent, NotificationsComponent, DeleteContactComponent,
+    SmartFormCreateComponent, CreateWorkspaceComponent
 ];
 
 const importExportList = [MatStepperModule, MatTabsModule, MatSliderModule, MatInputModule, MatSelectModule,
     MatTableModule, MatPaginatorModule, MatAutocompleteModule, MatIconModule, MatButtonToggleModule, CKEditorModule,
     ReactiveFormsModule, FormsModule, MatCheckboxModule, NgxSkeletonLoaderModule, MatSnackBarModule, ScrollingModule,
     Ng2SearchPipeModule, MatDatepickerModule, MatNativeDateModule, ClickOutsideModule, TagInputModule, DragDropModule,
-    FullCalendarModule, ColorPickerModule
+    FullCalendarModule, ColorPickerModule, FormioModule
 
 ];
 
@@ -122,6 +127,7 @@ const importExportList = [MatStepperModule, MatTabsModule, MatSliderModule, MatI
         NgMultiSelectDropDownModule.forRoot(), BsDatepickerModule.forRoot(), TimepickerModule.forRoot(),
         CommonModule, PaginationModule.forRoot(), BsDropdownModule.forRoot(), TabsModule.forRoot(),
         ModalModule.forRoot(), CollapseModule.forRoot(), AccordionModule.forRoot(), PopoverModule.forRoot(),
+        
         ...importExportList
     ],
     declarations: [FirstCharacterPipe, CopyClipboardDirective, GoogleplaceDirective, TimeAgoPipe, NumberOnlyDirective,

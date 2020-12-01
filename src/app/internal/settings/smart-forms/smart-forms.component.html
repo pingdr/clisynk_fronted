@@ -1,0 +1,72 @@
+<div class="profile-section">
+
+    <div class="contact-header">
+        <div class="Clients_list_heading">
+            <img [src]="'/assets/images/back-arrow.svg'" (click)="http.goBack()">
+            <h3 class="page-title">Smart Forms</h3>
+            <button class="btn-outline-primary t-r-btn" (click)="openAddUser()">Create form
+            </button>
+        </div>
+
+    </div>
+
+
+    <!-- ---------------------table for form listing ---------------------------->
+    <div class="smart-form-listing-table">
+        <table class="smart-table-list">
+            <thead>
+                <tr>
+                    <th class="form-name">Form name</th>
+                    <th class="description">Description</th>
+                    <th class="added-on">Added On <button class="down-arrow"><img src="../../../../assets/images/down-blue-arrow.svg" width="20"></button></th>
+                    <th class="status">Status</th>
+                    <th class="actions-table"></th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="form-name">Untitled Form</td>
+                    <td class="description">---</td>
+                    <td class="added-on">9/10/2020</td>
+                    <td class="status"><button class="not-published">Not Published</button></td>
+                    <td class="actions-table"><button class="delete-icon"><img src="../../../../assets/images/trash-icon.svg" width="20"></button></td>
+                </tr>
+                <tr>
+                    <td class="form-name">Untitled Form</td>
+                    <td class="description">---</td>
+                    <td class="added-on">9/10/2020</td>
+                    <td class="status"><button class="not-published">Not Published</button></td>
+                    <td class="actions-table"><button class="delete-icon"><img src="../../../../assets/images/trash-icon.svg" width="20"></button></td>
+                </tr>
+                <tr>
+                    <td class="form-name">Untitled Form</td>
+                    <td class="description">---</td>
+                    <td class="added-on">9/10/2020</td>
+                    <td class="status"><button class="not-published">Not Published</button></td>
+                    <td class="actions-table"><button class="delete-icon"><img src="../../../../assets/images/trash-icon.svg" width="20"></button></td>
+                </tr>
+                <tr>
+                    <td class="form-name">asd</td>
+                    <td class="description">---</td>
+                    <td class="added-on">4/28/2020</td>
+                    <td class="status"><button class="not-published">Not Published</button></td>
+                    <td class="actions-table"><button class="delete-icon"><img src="../../../../assets/images/trash-icon.svg" width="20"></button></td>
+                </tr>
+                <tr>
+                    <td class="form-name">niche health care</td>
+                    <td class="description">use it</td>
+                    <td class="added-on">4/27/2020</td>
+                    <td class="status"><button class="published">Published</button></td>
+                    <td class="actions-table"><button class="delete-icon"><img src="../../../../assets/images/trash-icon.svg" width="20"></button></td>
+                </tr>
+            </tbody>
+
+
+        </table>
+
+        
+    </div>
+
+
+</div>

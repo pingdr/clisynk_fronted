@@ -1,0 +1,39 @@
+<div class="main-build-automation">
+    <div class="build-automation-header-main">
+        <div class="left-col">
+            <img [src]="'/assets/images/back-arrow.svg'" (click)="http.goBack()" width="50">
+            <span>Build automation</span>
+        </div>
+        <div class="right-col">
+            <button class="next-btn">Next</button>
+        </div>
+
+
+    </div>
+    <!-------------------------------Build-automation-------------------------->
+    <div class="when-build-main-wrapper">
+        <div class="card-main">
+                <div class="when-heading">
+                    <img src="../../../assets/images/cloud-green.svg" width="20">
+                    <span>When</span>
+                </div>
+                <div class="short-description">...this occurs, start my automation.</div>
+                <div class="add-icon-blue">
+                    <button class="btn" [routerLink]="['/add-build-automation']">+</button>
+                </div>
+        </div>
+        <img [src]="'/assets/images/back-arrow.svg'" width="50" class="down-arrow">
+        <div class="card-main">
+            <div class="when-heading">
+                <img src="../../../assets/images/blue-flash.svg" width="20">
+                <span>Then</span>
+            </div>
+            <div class="short-description">...this will be automated.</div>
+            <div class="add-icon-blue">
+                <button class="btn" [routerLink]="['/build-then-automation']" >+</button>
+            </div>
+        </div>
+        
+
+    </div>
+</div>

@@ -32,11 +32,20 @@ import { PushNotificationsModule } from 'ng-push';
 // firebase
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { AngularFireModule } from '@angular/fire';
+import { BuildAutomationComponent } from './internal/automations/build-automation/build-automation.component';
+import { AddBuildautomationComponent } from './internal/automations/add-buildautomation/add-buildautomation.component';
+import { BuildThenautomationsComponent } from './internal/automations/build-thenautomations/build-thenautomations.component';
+import { SubmitfeedbackComponent } from './shared/modals/submitfeedback/submitfeedback.component';
+import { MatChipsModule } from '@angular/material';
+
+
+
+
 
 @NgModule({
     declarations: [
-        CapitalizePipe, AppComponent, LoginComponent, PrivacyComponent, ForgotPasswordComponent,
-        ReceiptComponent, BookingComponent, TodoComponent
+        CapitalizePipe, AppComponent, LoginComponent, PrivacyComponent, ForgotPasswordComponent,SubmitfeedbackComponent,
+        ReceiptComponent, BookingComponent, TodoComponent, BuildAutomationComponent, AddBuildautomationComponent, BuildThenautomationsComponent,
     ],
     imports: [
         SharedModule, BrowserModule, AppRoutingModule, HttpClientModule,NgxEmojiPickerModule,NgxDocViewerModule,
@@ -55,6 +64,7 @@ import { AngularFireModule } from '@angular/fire';
         }),
         LightboxModule,
         AngularFireMessagingModule,
+        MatChipsModule,
         AngularFireModule.initializeApp(environment.firebase)
     ],
 
@@ -68,7 +78,7 @@ import { AngularFireModule } from '@angular/fire';
     ],
     bootstrap: [AppComponent],
     exports: [CapitalizePipe],
-    entryComponents: [ForgotPasswordComponent]
+    entryComponents: [ForgotPasswordComponent, SubmitfeedbackComponent]
     // HttpService,
 })
 

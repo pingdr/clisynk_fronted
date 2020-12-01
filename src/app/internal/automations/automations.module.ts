@@ -9,6 +9,8 @@ import { MatMenuModule } from '@angular/material';
 
 
 
+
+
 const routes: Routes = [
   {
       path: '', children: [
@@ -24,7 +26,9 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-      AutomationComponent
+      AutomationComponent,
+      
+      
   ],
   imports: [
       CommonModule,
