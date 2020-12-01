@@ -16,6 +16,22 @@
     <div class="details-main-left">
         <label class="comman-label">Details</label>
         <span>This lead form can be seen by anyone with its URL.</span>
+        <div class="this-form-will">
+            <div class="alert-icon"></div>
+            <div class="message-alert-in">This form will appear as a choice in the Add Contact dropdown</div>
+        </div>
+        <div class="short-description-of-form">
+            Form name and description will both appear on the form itself and as a way to identify this form within Keap. The
+            intended audience will determine what type of form you're building.
+         </div>
+         <div class="workspace-input">
+            <input type="text" >
+            <label>Form Name</label>
+          </div>
+          <div class="workspace-input text-area-for-that">
+            <textarea type="text"></textarea>
+            <label>Form description or instructions</label>
+          </div>
     </div>
     <div class="right-priview-label">
         <label class="comman-label">Preview</label>
@@ -25,10 +41,7 @@
 
 
 <form-builder [form]="form" (change)="onChange($event)" class="smart-form-builder-main-form"></form-builder>
-<button class="btn btn-primary btn-md" (click)="onClick()">Create Form</button>
-<div>
-    <div class="well jsonviewer">
-        <pre id="json"><code class="language-json" #json></code></pre>
-    </div>
-</div>
+<!-- <div class="well jsonviewer">
+  <pre id="json"><code class="language-json" #json></code></pre>
+</div> -->
  

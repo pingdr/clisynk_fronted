@@ -462,9 +462,5 @@ export class HttpService {
         return d.getTimezoneOffset();
     }
 
-    postSmartForm(Obj){
-        return this.http.post(Obj,"//");
-    }
-
 }
 

@@ -57,7 +57,7 @@
     width: 90%;
     margin: auto;
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     padding-bottom: 30px;
     padding-top: 10px;
 }
@@ -91,4 +91,107 @@
     width: 90%;
     margin: auto;
     flex-wrap: inherit;
+}
+
+.this-form-will {
+    margin-top: 15px;
+    background: #fff7d6;
+    padding: 17px;
+    padding-left: 60px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #000;
+    width: 96%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    border-radius: 6px;
+}
+
+.this-form-will .alert-icon {
+    width: 30px;
+    height: 30px;
+    border: 2px solid #000;
+    border-radius: 100%;
+    position: absolute;
+    left: 17px;
+}
+
+.this-form-will .alert-icon:before {
+    position: absolute;
+    content: '';
+    width: 2px;
+    height: 10px;
+    background: #000;
+    left: 0;
+    right: 0;
+    margin: auto;
+    top: 10px;
+}
+
+.this-form-will .alert-icon:after {
+    position: absolute;
+    content: '';
+    background: #000;
+    width: 4px;
+    height: 4px;
+    border-radius: 100%;
+    left: 0px;
+    right: 0;
+    margin: auto;
+    top: 4px;
+}
+
+
+.this-form-will .short-description-of-form {
+    width: 96%;
+    font-size: 15px;
+    font-weight: 300;
+}
+
+
+.workspace-input {
+    position: relative;
+    margin-top: 10px;
+}
+.workspace-input label {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    font-size: 12px !important;
+    display: inline-block !important;
+    background: #ffff;
+    color: #8E8C8C !important;
+    transition: 0.4s all ease;
+    padding: 0px 5px;
+
+}
+.workspace-input input[type="text"] {
+    border: 1px solid #e5e6e7;
+    transition: 0.4s all ease;
+    width: 96%;
+    border-radius:11px;
+    padding: 11px 20px;
+}
+.workspace-input input[type="text"]:focus + label, .text-area-for-that textarea:focus + label {
+    top: -6px;
+    transition: 0.4s all ease;
+    left: 8px;
+    font-size: 10px !important;
+    color: blue !important;
+}
+
+.text-area-for-that {
+    margin-top: 15px !important;
+}
+
+
+.text-area-for-that textarea {
+    width: 96%;
+    border: 1px solid #e5e6e7;
+    transition: 0.4s all ease;
+    border-radius: 11px;
+    padding: 11px 20px;
+    height: 95px;
 }

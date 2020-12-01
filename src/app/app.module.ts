@@ -42,10 +42,11 @@ import { MatChipsModule } from '@angular/material';
 
 
 
+
 @NgModule({
     declarations: [
         CapitalizePipe, AppComponent, LoginComponent, PrivacyComponent, ForgotPasswordComponent,SubmitfeedbackComponent,
-        ReceiptComponent, BookingComponent, TodoComponent, BuildAutomationComponent, AddBuildautomationComponent, BuildThenautomationsComponent,
+        ReceiptComponent, BookingComponent, TodoComponent, BuildAutomationComponent, AddBuildautomationComponent, BuildThenautomationsComponent
     ],
     imports: [
         SharedModule, BrowserModule, AppRoutingModule, HttpClientModule,NgxEmojiPickerModule,NgxDocViewerModule,

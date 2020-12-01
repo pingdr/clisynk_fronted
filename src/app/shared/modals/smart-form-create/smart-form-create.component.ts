@@ -1,6 +1,5 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { HttpService } from 'src/app/services/http.service';
-import { format } from 'url';
 
 @Component({
   selector: 'app-smart-form-create',
@@ -119,21 +118,11 @@ export class SmartFormCreateComponent implements OnInit {
     }
     ]
   };
-  public formToBeSend = this.form;
-
-  onClick(){
-    // this.http.postSmartForm(this.formToBeSend).subscribe(res => {
-    //     console.log(res);
-    // });
-    console.log(this.formToBeSend);
-  }
 
   onChange(event) {
-    console.log(event);
-    // this.JsonRef.nativeElement.innerHTML = '';
-    // this.JsonRef.nativeElement.appendChild(document.createTextNode(JSON.stringify(event.form, null, 2)));
-    this.formToBeSend = event.form;
-    console.log(this.formToBeSend);
+    console.log(event)
+    this.JsonRef.nativeElement.innerHTML = '';
+    this.JsonRef.nativeElement.appendChild(document.createTextNode(JSON.stringify(event.form, null, 2)));
   }
 
   constructor(public http:HttpService) { }

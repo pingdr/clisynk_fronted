@@ -10,8 +10,9 @@ import {ProductsComponent} from './products/products.component';
 import { LeadFormsComponent } from './lead-forms/lead-forms.component';
 import { SmartFormsComponent } from './smart-forms/smart-forms.component';
 import { ManageWorkspaceComponent } from './manage-workspace/manage-workspace.component';
-import { MatTooltipModule } from '@angular/material';
+import { MatTooltipModule, MatInputModule } from '@angular/material';
 import { EditWorkspaceComponent } from './edit-workspace/edit-workspace.component';
+import {MatChipsModule} from '@angular/material/chips';
 
 const routes: Routes = [
     {
@@ -70,7 +71,9 @@ const routes: Routes = [
     imports: [
         SharedModule,
         RouterModule.forChild(routes),
-        MatTooltipModule
+        MatTooltipModule,
+        MatChipsModule,
+        MatInputModule,
     ],
     declarations: [
         MyProfileComponent, SettingsComponent, BusinessProfileComponent, UsersComponent, ProductsComponent, LeadFormsComponent, SmartFormsComponent, ManageWorkspaceComponent, EditWorkspaceComponent

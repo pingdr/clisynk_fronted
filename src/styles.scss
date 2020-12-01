@@ -6380,6 +6380,8 @@ section.appt-list {
   width: 90% !important;
   margin: auto !important;
   flex-wrap: inherit !important;
+  padding-bottom: 70px;
+  
 }
 
 .smart-form-builder-main-form .formbuilder .formcomponents {
@@ -6398,6 +6400,9 @@ section.appt-list {
   background: #fff;
   box-shadow: 0px 0px 10px #dcdcdccc;
   border-radius: 20px;
+  position: absolute;
+  right: 0;
+  top: -308px;
 }
 
 .smart-form-builder-main-form .formbuilder .formcomponents .accordion .builder-sidebar_search {
@@ -6424,6 +6429,7 @@ section.appt-list {
   font-size: 16px;
   padding: 0;
   color: #fff;
+  font-weight: 300;
 }
 
 .smart-form-builder-main-form .formbuilder .formcomponents .form-builder-panel .card-body {
@@ -6520,4 +6526,170 @@ section.appt-list {
 
 .formio-component-form .form-radio.radio .form-check input {
   left: 0;
+}
+
+// -----------------edit-manage-workspace-----------------//
+.main-edit-work-space-form{
+  .first-row{
+    .mat-form-field-wrapper{
+      padding-bottom: 0px !important;
+    }    
+  }
+}
+
+
+.main-edit-work-space-form{
+  .second-row{
+    margin-bottom: 20px;
+    label.sub-heading{
+      display: block;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+    .example-chip-list {
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 10px 20px;
+      height: 45px;
+      overflow: auto;
+      &:hover{
+        border: 1px solid #000;
+      }
+      .mat-form-field-wrapper{
+        padding-bottom: 0px;
+        .mat-form-field-underline{
+          display: none !important;
+        }
+        .mat-form-field-infix{
+          padding: 0px !important;
+          span.mat-form-field-label-wrapper{
+            label{
+              top: 0px !important;
+              left: -8px;
+              background: #fff !important;
+              width: 90px !important
+            }
+          }
+          .mat-chip{
+            font-size: 12px;
+            .mat-chip-remove.mat-icon{
+              width: 14px;
+              height: 14px;
+              font-size: 14px;
+            }
+          }
+          .mat-standard-chip{
+            min-height: 26px;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+.main-edit-work-space-form .fourth-row {
+  margin-bottom: 0;
+}
+
+
+.new-header-group-main {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    .ping-dr-notification{
+        margin-right: 10px;
+        .btn-group{
+          margin-top:0px;
+          .btn{
+            border: none;
+            color: #3a3a3a;
+            font-size: 14px;
+            font-weight: 400;
+            padding: 0;
+            &:hover{
+              color: #2d2dc3;
+            }
+          }
+        }
+    }
+}
+
+
+.new-header-group-main .ping-dr-notification ul {
+  text-align: left;
+}
+
+.new-header-group-main .ping-dr-notification ul li {
+  width: 100%;
+  padding: 8px 15px;
+  
+}
+
+.new-header-group-main .ping-dr-notification ul li .main-workspace-notification {
+  display: flex;
+  align-items: center;
+}
+
+.new-header-group-main .ping-dr-notification ul li .main-workspace-notification .left-col {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  background: #e6ab5e;
+  margin-right: 18px;
+  color: #ffff;
+  justify-content: center;
+  font-size: 18px;
+  border-radius: 100%;
+  position: relative;
+  box-shadow: 0px 0px 6px #cccaca;
+}
+
+.new-header-group-main .ping-dr-notification ul li .main-workspace-notification .left-col span.badge-red {
+  display: block;
+  position: absolute;
+  background: #ff0000;
+  width: 20px;
+  height: 20px;
+  font-size: 11px;
+  text-align: center;
+  border-radius: 100%;
+  top: -4px;
+  right: -4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 3px #fffefe;
+  font-weight: 400;
+}
+
+.new-header-group-main .ping-dr-notification ul li .main-workspace-notification .right-col span.workspace-name {
+  display: block;
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.new-header-group-main .ping-dr-notification ul li .main-workspace-notification .right-col span.second-row {
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+}
+
+.new-header-group-main .ping-dr-notification ul li .main-workspace-notification .right-col span.second-row img {
+  width: 12px;
+  margin-right: 8px;
+}
+// --------------notification-color----------------//
+.new-header-group-main .ping-dr-notification ul li .main-workspace-notification .left-col.A {
+  background: #e6ab5e;
+}
+
+.new-header-group-main .ping-dr-notification ul li .main-workspace-notification .left-col.B {
+  background: #3f62b5;
+}
+
+.new-header-group-main .ping-dr-notification ul li .main-workspace-notification .left-col.C {
+  background: #16b7ca;
 }

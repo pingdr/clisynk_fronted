@@ -33,6 +33,7 @@ import {AppointSuccessComponent} from '../shared/modals/appoint-success/appoint-
 import {ChangePasswordComponent} from '../shared/modals/change-password/change-password.component';
 import { SubmitfeedbackComponent } from '../shared/modals/submitfeedback/submitfeedback.component';
 import { CreateWorkspaceComponent } from '../shared/modals/create-workspace/create-workspace.component';
+import { MergeContactsComponent } from '../shared/modals/merge-contacts/merge-contacts.component';
 
 @Component({
     selector: 'app-internal',
@@ -161,6 +162,9 @@ export class InternalComponent implements OnDestroy {
                     break;
                 case 'createWorkspace':
                     this.http.showModal(CreateWorkspaceComponent, 'md');
+                    break;
+                case 'merge-contacts':
+                    this.http.showModal(MergeContactsComponent, 'md');
                     break;
                 // case 'submitfeedback':
                 //     this.http.showModal(SubmitfeedbackComponent, 'md');

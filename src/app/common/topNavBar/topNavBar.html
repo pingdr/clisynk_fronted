@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <nav class="navbar navbar-static-top" role="navigation" style="padding: 0">
 
-            <div class="col-6 col-md-3 navbar-header">
+            <div class="col-6 col-md-2 navbar-header">
                 <div class="row">
                     <a class="minimalize-styl-2 cursor" (click)="toggleNavigation()">
                         <img [src]="'assets/images/ic_menu.svg'">
@@ -98,13 +98,78 @@
                                             [src]="'/assets/images/note.svg'">
                                         Note</a></li>
                                 </ul>
-                            </div>
+                            </div> 
                         </div>
                     </div>
                 </section>
             </div>
 
-            <div class="col-5 btn-group header-links col-md-2">
+            <div class="col-5 btn-group header-links col-md-3 new-header-group-main">
+                <div class="dropdown global-add-button ping-dr-notification">
+                    <div class="btn-group add-btn" dropdown>
+                        <button id="button-basic1" dropdownToggle type="button" class="btn dropdown-toggle "
+                                aria-controls="dropdown-basic">
+                           PingDR(23)<i class="fas fa-angle-down"></i>
+                        </button>
+                        <ul id="dropdown-basic1" *dropdownMenu class="dropdown-menu" role="menu"
+                            aria-labelledby="button-basic">
+
+                            <li role="menuitem">
+                                <div class="main-workspace-notification">
+                                    <div class="left-col A">
+                                        A
+                                        <span class="badge-red">1</span>
+                                    </div>
+                                    <div class="right-col">
+                                        <span class="workspace-name">Workspace 1</span>
+                                        <span class="second-row">
+                                            <img src="../../../assets/images/users-bunch.svg" width="15">
+                                            13
+                                        </span>
+                                    </div>
+
+                                </div>
+                                    
+                            </li>
+                            <li role="menuitem">
+                                <div class="main-workspace-notification">
+                                    <div class="left-col B">
+                                        B
+                                        <span class="badge-red">10</span>
+                                    </div>
+                                    <div class="right-col">
+                                        <span class="workspace-name">Workspace 1</span>
+                                        <span class="second-row">
+                                            <img src="../../../assets/images/users-bunch.svg" width="15">
+                                            13
+                                        </span>
+                                    </div>
+
+                                </div>
+                                    
+                            </li>
+                            <li role="menuitem">
+                                <div class="main-workspace-notification">
+                                    <div class="left-col C">
+                                        C
+                                        <span class="badge-red">10</span>
+                                    </div>
+                                    <div class="right-col">
+                                        <span class="workspace-name">Workspace 1</span>
+                                        <span class="second-row">
+                                            <img src="../../../assets/images/users-bunch.svg" width="15">
+                                            13
+                                        </span>
+                                    </div>
+
+                                </div>
+                                    
+                            </li>
+
+                        
+                        </ul>
+                    </div> 
+                </div>
 
                 <ul>
                     <li>

@@ -185,7 +185,7 @@
 
 .main-edit-work-space-form .first-row label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 14px;
     font-size: 14px;
 }
 
@@ -193,9 +193,63 @@
     width: 100%;
     padding: 12px 10px;
     border-radius: 4px;
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
 }
 
-.main-edit-work-space-form .first-row input:focus{
+/* .main-edit-work-space-form .first-row input:focus{
     border: 1px solid blue !important;
+} */
+
+
+.selected-contacts {
+    text-align: right;
+    margin-bottom: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.selected-contacts span.number-for-selected {
+    font-size: 35px;
+    color: blue;
+    margin-right: 12px;
+}
+
+.Merge-btn {
+    text-align: right;
+}
+
+.Merge-btn button {
+    margin: 0;
+}
+
+
+.workspace-input {
+    position: relative;
+}
+
+
+.workspace-input label {
+    position: absolute;
+    top: 14px;
+    left: 12px;
+    font-size: 12px !important;
+    display: inline-block !important;
+    background: #ffff;
+    color: #8e8c8c !important;
+    transition: 0.4s all ease;
+    padding: 0px 5px;
+}
+
+.workspace-input input[type="text"] {
+    border: 1px solid #ccc;
+    transition: 0.4s all ease;
+}
+
+.workspace-input input[type="text"]:focus + label {
+    top: -6px;
+    transition: 0.4s all ease;
+    left: 8px;
+    font-size: 10px !important;
+    color: blue !important;
 }
