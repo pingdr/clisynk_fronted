@@ -1016,10 +1016,12 @@ export class ChatsComponent implements OnInit {
   // manage unread count using socket emit view event
   msgView() {
     let array = this.massageArray;
+    console.log(this.massageArray);
+
     if ((array.length > 0) && (array[array.length - 1].isViewed === false) && (array[array.length - 1].from.user !== this.adminId)) {
       this.socket.emit('viewed', {
         chatRoomId: this.selectedChat._id,
-        messageId: this.massageArray[0]._id
+        messageId: this.massageArray[this.massageArray.length - 1]._id
       });
       this.activeChatList[this.selectedChatIndex].unreadCount = 0;
     }
@@ -1047,12 +1049,14 @@ export class ChatsComponent implements OnInit {
           message: { content: this.message, ref: null },
           code: timestamp
         });
+        this.manageScroll();
       }
       else {
         this.socket.emit('new-message', {
           chatRoomId: this.selectedChat._id,
           message: { content: this.message, ref: this.replayData._id }
         });
+        this.manageScroll();
       }
     }
   }

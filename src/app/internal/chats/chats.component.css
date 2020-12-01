@@ -438,6 +438,7 @@
 }
 input[type=checkbox] {
   margin: 3px 0 0 0;
+  visibility: hidden;
   width: 30px;
   height: 18px;
 }
@@ -1188,6 +1189,7 @@ hr{
     /* border-radius: 5px 5px 0px 5px; */
     width: 246px;
     height: 150px;
+    object-fit: contain;
     cursor: pointer;
     /* border: 2px solid #0040DC; */
 }

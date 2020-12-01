@@ -88,10 +88,10 @@
                                         <div class="unread-text-blue">
                                             {{data?.lastMessage?.file ? data?.lastMessage?.file?.type : data?.lastMessage?.content}}
                                         </div>
-                                        <div class="unread-count">{{data?.unreadCount}}</div>
+                                        <!-- <div class="unread-count">{{data?.unreadCount}}</div> -->
                                     </div>
                                     <ng-template #lastMsgWithoutUnreadCount>
-                                        <div class="unread-text">
+                                        <div (click)="clickChat(data,i);" class="unread-text">
                                             {{data?.lastMessage?.file ?  data?.lastMessage?.file?.type : data?.lastMessage?.content}}
                                         </div>
                                     </ng-template>
@@ -2057,8 +2057,9 @@
                 <div class="embed-responsive embed-responsive-16by9">
                     <!-- <iframe class="embed-responsive-item" [src]="videoURL()" id="video"></iframe> -->
                     <div class="embed-responsive-item">
-                        <video style="width: 100% !important;height: 100% !important;" [src]="videoSrc" controls></video>
-                   </div>
+                        <video style="width: 100% !important;height: 100% !important;" [src]="videoSrc"
+                            controls></video>
+                    </div>
                 </div>
             </div>
         </div>
