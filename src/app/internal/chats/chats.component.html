@@ -341,10 +341,10 @@
                             <hr />
                             <div (click)="clearChatModal(openClearChatModal);sidenav.toggle()" style="cursor: pointer;">
                                 <span class="profile-name-list" style="color: #df3333;">Clear Chat</span>
+                                <hr />
                             </div>
 
-                            <div *ngIf="selectedChat?.chatType == 'GROUP'">
-                                <hr />
+                            <div style="overflow-y: scroll;height: 45vh;" *ngIf="selectedChat?.chatType == 'GROUP'">
                                 <!-- {{selectedChat?.users?.length}} participents -->
                                 <div *ngFor="let user of selectedChat?.users" style="display: flex;margin: 15px 0px;">
                                     <div class="user-circle">

@@ -1241,8 +1241,9 @@ hr{
   width: 100%;
   max-width: 400px;
   padding: 70px 25px;
+  transition: width 2s ease 2s;
   position: fixed;
-  transform: translate(0px, -1px) !important;
+  /* transform: translate(0px, -1px) !important; */
 }
 .profile-close-icon{
   width: 24px;

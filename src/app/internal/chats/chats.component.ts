@@ -910,9 +910,11 @@ export class ChatsComponent implements OnInit {
   // new msg get from socket
   getNewMassages() {
     this.socket.on('new-message', (data) => {
-      this.handlePushNotification(data);
+      console.log(data);
       if (data.chatRoomId === (this.selectedChat && this.selectedChat._id)) {
         this.massageArray = [...this.massageArray, data];
+      } else {
+        this.handlePushNotification(data);
       }
       this.manageScroll();
       this.getGroupMemberName();
@@ -923,24 +925,52 @@ export class ChatsComponent implements OnInit {
   handlePushNotification(data) {
     let currentUser = JSON.parse(localStorage.getItem('loginData'));
     // if (data.chatRoomId !== (this.selectedChat && this.selectedChat._id)) {
-    if (data.from.user !== currentUser._id) {
-      let options = {
-        body: data.content,
-        icon: "assets/images/chat-notify-img.png"
-      }
-      let userName;
-      this.activeChatList.map((user) => {
-        if ((user.temp && user.temp._id) == (data.from && data.from.user)) {
-          userName = user.temp.fullName;
-          user.unreadCount = (user.unreadCount ? user.unreadCount : 0) + 1;
-          user.lastMessage.content = data.content;
-        }
-      });
 
-      this._pushNotifications.create(userName, options).subscribe(
-        res => console.log(res),
-        err => console.log(err)
-      );
+    if (data.from.user !== currentUser._id) {
+      if (data.from.userType === 'ADMIN') {
+                let options = {
+          body: data.content,
+          icon: "assets/images/chat-notify-img.png"
+        }
+        let userName;
+        this.activeChatList.map((user) => {
+          console.log(user);
+          if (user._id === data.chatRoomId) {
+            user.admins.map((admin)=> {
+              if(data.from.user === admin._id) {
+                userName = admin.fullName;
+                user.unreadCount = (user.unreadCount ? user.unreadCount : 0) + 1;
+                user.lastMessage.content = data.content;
+              }
+            })
+          }
+        });
+        this._pushNotifications.create(userName, options).subscribe(
+          res => console.log(res),
+          err => console.log(err)
+        );
+       } else {
+        let options = {
+          body: data.content,
+          icon: "assets/images/chat-notify-img.png"
+        }
+        let userName;
+        this.activeChatList.map((user) => {
+          console.log(user);
+          if ((user.temp && user.temp._id) == (data.from && data.from.user)) {
+            userName = user.temp.fullName;
+            user.unreadCount = (user.unreadCount ? user.unreadCount : 0) + 1;
+            user.lastMessage.content = data.content;
+          } else if (user) {
+            userName = 'ADMIN'
+          }
+        });
+
+        this._pushNotifications.create(userName, options).subscribe(
+          res => console.log(res),
+          err => console.log(err)
+        );
+      }
     }
   }
 
@@ -1509,6 +1539,12 @@ export class ChatsComponent implements OnInit {
         if (msg.from.user === user._id) {
           // console.log('in if......',msg , user)
           msg.fromUserName = user.fullName ? user.fullName : user.name
+        } else {
+          this.selectedChat.admins.map((ad)=> {
+            if(msg.from.user === ad._id) {
+              msg.fromUserName = ad.fullName ? ad.fullName : ad.name
+            }
+          })
         }
       })
     })
