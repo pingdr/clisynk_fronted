@@ -961,9 +961,7 @@ export class ChatsComponent implements OnInit {
             userName = user.temp.fullName;
             user.unreadCount = (user.unreadCount ? user.unreadCount : 0) + 1;
             user.lastMessage.content = data.content;
-          } else if (user) {
-            userName = 'ADMIN'
-          }
+          } 
         });
 
         this._pushNotifications.create(userName, options).subscribe(
