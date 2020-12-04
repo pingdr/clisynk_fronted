@@ -1,5 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { HttpService } from 'src/app/services/http.service';
+import { FormBuilder } from '@angular/forms';
+import { Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-smart-form-create',
@@ -7,9 +9,12 @@ import { HttpService } from 'src/app/services/http.service';
   styleUrls: ['./smart-form-create.component.css']
 })
 export class SmartFormCreateComponent implements OnInit {
-  // @ViewChild('json') jsonElement?: ElementRef;
-  @ViewChild('json', { static: false }) JsonRef;
-
+//   @ViewChild('json') jsonElement?: ElementRef;
+//   @ViewChild('formName', { static: false }) formName;
+    formInfo = this.fb.group({
+        formName: ['', Validators.required],
+        formDescription: ['']
+    })
   public form: Object = {
     components: [
       {
@@ -118,16 +123,78 @@ export class SmartFormCreateComponent implements OnInit {
     }
     ]
   };
+  
+  public formToBeSend = this.form;
+  obj = {
+      name: '',
+      description: '',
+      formJson: {}
+  }
+  published = false;
+
+  onPublish(){
+    // console.log(this.formInfo.value.formName);
+    if(!this.formInfo.value.formDescription){
+        this.formInfo.value.formDescription = "---";
+    }
+    this.obj.name = this.formInfo.value.formName;
+    this.obj.description = this.formInfo.value.formDescription;
+    this.obj.formJson = this.formToBeSend;
+    console.log(this.obj);
+    // const obj = {
+    //     "name":"Smartform1",
+    //     "description":"Test Description",
+    //     "formJson": {components :{
+
+    //     }}
+    // }
+    this.http.postSmartForm(this.obj).subscribe(res => {
+        console.log(res);
+    });
+    this.published = true;
+  }
+
+  onDraft(){
+    if(!this.published){
+        if(!this.formInfo.value.formName && !this.formInfo.value.formDescription){
+            this.obj.name = "Untitled Form";
+            this.obj.description = "---";
+        }
+        else if(!this.formInfo.value.formName){
+            this.obj.name = "Untitled Form";
+            this.obj.description = this.formInfo.value.formDescription;
+        }
+        else if(!this.formInfo.value.formDescription){
+            this.obj.name = this.formInfo.value.formName;
+            this.obj.description = "---";
+        }
+        else{
+            this.obj.name = this.formInfo.value.formName;
+            this.obj.description = this.formInfo.value.formDescription;
+            this.obj.formJson = this.formToBeSend;
+        }
+        this.obj.formJson = this.formToBeSend;
+        console.log(this.obj);
+        this.http.postSmartForm(this.obj).subscribe(res => {
+            console.log(res);
+        });
+    }
+    
+  }
 
   onChange(event) {
-    console.log(event)
-    this.JsonRef.nativeElement.innerHTML = '';
-    this.JsonRef.nativeElement.appendChild(document.createTextNode(JSON.stringify(event.form, null, 2)));
+    // console.log(event);
+    // this.JsonRef.nativeElement.innerHTML = '';
+    // this.JsonRef.nativeElement.appendChild(document.createTextNode(JSON.stringify(event.form, null, 2)));
+    this.formToBeSend = event.form;
+    console.log(this.formToBeSend);
   }
 
-  constructor(public http:HttpService) { }
+  constructor(public http:HttpService, private fb: FormBuilder) { }
 
   ngOnInit() {
+    this.http.getSmartForm().subscribe(res => {
+        console.log(res);
+    });
   }
-
 }

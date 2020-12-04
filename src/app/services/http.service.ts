@@ -462,5 +462,17 @@ export class HttpService {
         return d.getTimezoneOffset();
     }
 
+    postSmartForm(Obj){
+        return this.http.post(this.apiEndpoint + "smartForms", Obj);
+    }
+
+    getSmartForm(){
+        return this.http.get<any>(this.apiEndpoint + "smartForms");
+    }
+
+    deleteSmartForm(Obj){
+        return this.http.delete<any>(this.apiEndpoint + "smartForms/" + Obj);
+    }
+
 }
 

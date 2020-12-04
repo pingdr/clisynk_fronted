@@ -20,48 +20,18 @@
                     <th class="description">Description</th>
                     <th class="added-on">Added On <button class="down-arrow"><img src="../../../../assets/images/down-blue-arrow.svg" width="20"></button></th>
                     <th class="status">Status</th>
-                    <th class="actions-table"></th>
-
+                    <th class="actions-table">Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td class="form-name">Untitled Form</td>
-                    <td class="description">---</td>
-                    <td class="added-on">9/10/2020</td>
-                    <td class="status"><button class="not-published">Not Published</button></td>
-                    <td class="actions-table"><button class="delete-icon"><img src="../../../../assets/images/trash-icon.svg" width="20"></button></td>
-                </tr>
-                <tr>
-                    <td class="form-name">Untitled Form</td>
-                    <td class="description">---</td>
-                    <td class="added-on">9/10/2020</td>
-                    <td class="status"><button class="not-published">Not Published</button></td>
-                    <td class="actions-table"><button class="delete-icon"><img src="../../../../assets/images/trash-icon.svg" width="20"></button></td>
-                </tr>
-                <tr>
-                    <td class="form-name">Untitled Form</td>
-                    <td class="description">---</td>
-                    <td class="added-on">9/10/2020</td>
-                    <td class="status"><button class="not-published">Not Published</button></td>
-                    <td class="actions-table"><button class="delete-icon"><img src="../../../../assets/images/trash-icon.svg" width="20"></button></td>
-                </tr>
-                <tr>
-                    <td class="form-name">asd</td>
-                    <td class="description">---</td>
-                    <td class="added-on">4/28/2020</td>
-                    <td class="status"><button class="not-published">Not Published</button></td>
-                    <td class="actions-table"><button class="delete-icon"><img src="../../../../assets/images/trash-icon.svg" width="20"></button></td>
-                </tr>
-                <tr>
-                    <td class="form-name">niche health care</td>
-                    <td class="description">use it</td>
-                    <td class="added-on">4/27/2020</td>
-                    <td class="status"><button class="published">Published</button></td>
-                    <td class="actions-table"><button class="delete-icon"><img src="../../../../assets/images/trash-icon.svg" width="20"></button></td>
+                <tr *ngFor="let f of formsList; let i=index">
+                    <td class="form-name">{{ f.name }}</td>
+                    <td class="description">{{ f.description }}</td>
+                    <td class="added-on">{{ f.createdAt.slice(0,10) }}</td>
+                    <td class="status"><span class="not-published">Not Published</span></td>
+                    <td class="actions-table"><button class="delete-icon" (click)="onDelete(f, i)"><img src="../../../../assets/images/trash-icon.svg" width="20"></button><button class="delete-icon"><img src="../../../../assets/images/copy.svg" alt="copy" width="20"></button></td>
                 </tr>
             </tbody>
-
 
         </table>
 

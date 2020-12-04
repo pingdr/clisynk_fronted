@@ -154,44 +154,13 @@
 .workspace-input {
     position: relative;
     margin-top: 10px;
-}
-.workspace-input label {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    font-size: 12px !important;
-    display: inline-block !important;
-    background: #ffff;
-    color: #8E8C8C !important;
-    transition: 0.4s all ease;
-    padding: 0px 5px;
+    width: 96% ;
 
 }
-.workspace-input input[type="text"] {
-    border: 1px solid #e5e6e7;
-    transition: 0.4s all ease;
-    width: 96%;
-    border-radius:11px;
-    padding: 11px 20px;
-}
-.workspace-input input[type="text"]:focus + label, .text-area-for-that textarea:focus + label {
-    top: -6px;
-    transition: 0.4s all ease;
-    left: 8px;
-    font-size: 10px !important;
-    color: blue !important;
-}
+
 
 .text-area-for-that {
     margin-top: 15px !important;
-}
-
-
-.text-area-for-that textarea {
     width: 96%;
-    border: 1px solid #e5e6e7;
-    transition: 0.4s all ease;
-    border-radius: 11px;
-    padding: 11px 20px;
-    height: 95px;
 }
+
