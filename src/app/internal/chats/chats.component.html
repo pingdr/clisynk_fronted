@@ -1097,30 +1097,33 @@
                                             role="menu" aria-labelledby="button-basic">
                                             <li role="menuitem" style="display: block" (click)="replayMsg(chat)">
                                                 <a class="dropdown-item">
-                                                    <span class="ellipsis">Replay</span>
+                                                  
+                                                    <span class="ellipsis">  <i class="fa fa-reply"
+                                                        style="font-size: 18px;cursor: pointer;"></i> Replay</span>
                                                 </a>
                                             </li>
                                             <li role="menuitem" style="display: block"
                                                 (click)="forwardMsg(openForwardModal,chat)">
                                                 <a class="dropdown-item">
-                                                    <span class="ellipsis">Forward message</span>
+                                                    <span class="ellipsis"><i class="fa fa-share"
+                                                        style="font-size: 18px;cursor: pointer;"></i> Forward message</span>
                                                 </a>
                                             </li>
                                             <li role="menuitem" style="display: block" *ngIf="chat?.pinnedBy.length > 0"
                                                 (click)="unpinMsg(chat)">
                                                 <a class="dropdown-item">
-                                                    <span class="ellipsis">Unpin message</span>
+                                                    <span class="ellipsis"><i class="fas fa-thumbtack"></i> Unpin message</span>
                                                 </a>
                                             </li>
                                             <li role="menuitem" style="display: block"
                                                 *ngIf="chat?.pinnedBy.length == 0" (click)="pinMsg(chat)">
                                                 <a class="dropdown-item">
-                                                    <span class="ellipsis">Pin message</span>
+                                                    <span class="ellipsis"><i class="fas fa-thumbtack"></i> Pin message</span>
                                                 </a>
                                             </li>
                                             <li role="menuitem" style="display: block" (click)="deleteMsg(chat)">
                                                 <a class="dropdown-item">
-                                                    <span class="ellipsis">Delete message</span>
+                                                    <span class="ellipsis"><i class="fas fa-trash"></i> Delete message</span>
                                                 </a>
                                             </li>
                                         </ul>
@@ -1613,30 +1616,32 @@
                                                 aria-labelledby="button-basic">
                                                 <li role="menuitem" style="display: block" (click)="replayMsg(chat)">
                                                     <a class="dropdown-item">
-                                                        <span class="ellipsis">Replay</span>
+                                                        <span class="ellipsis"><i class="fa fa-reply"
+                                                            style="font-size: 18px;cursor: pointer;"></i> Replay</span>
                                                     </a>
                                                 </li>
                                                 <li role="menuitem" style="display: block"
                                                     (click)="forwardMsg(openForwardModal,chat)">
                                                     <a class="dropdown-item">
-                                                        <span class="ellipsis">Forward message</span>
+                                                        <span class="ellipsis"><i class="fa fa-share"
+                                                            style="font-size: 18px;cursor: pointer;"></i> Forward message</span>
                                                     </a>
                                                 </li>
                                                 <li role="menuitem" style="display: block"
                                                     *ngIf="chat?.pinnedBy.length > 0" (click)="unpinMsg(chat)">
                                                     <a class="dropdown-item">
-                                                        <span class="ellipsis">Unpin message</span>
+                                                        <span class="ellipsis"><i class="fas fa-thumbtack"></i> Unpin message</span>
                                                     </a>
                                                 </li>
                                                 <li role="menuitem" style="display: block"
                                                     *ngIf="chat?.pinnedBy.length == 0" (click)="pinMsg(chat)">
                                                     <a class="dropdown-item">
-                                                        <span class="ellipsis">Pin message</span>
+                                                        <span class="ellipsis"><i class="fas fa-thumbtack"></i> Pin message</span>
                                                     </a>
                                                 </li>
                                                 <li role="menuitem" style="display: block" (click)="deleteMsg(chat)">
                                                     <a class="dropdown-item">
-                                                        <span class="ellipsis">Delete message</span>
+                                                        <span class="ellipsis"><i class="fas fa-trash"></i> Delete message</span>
                                                     </a>
                                                 </li>
                                             </ul>
