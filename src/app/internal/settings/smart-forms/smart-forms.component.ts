@@ -3,7 +3,6 @@ import { HttpService } from 'src/app/services/http.service';
 import { Subject } from 'rxjs';
 import { SmartFormCreateComponent } from 'src/app/shared/modals/smart-form-create/smart-form-create.component';
 import { BsModalService } from 'ngx-bootstrap';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-smart-forms',
@@ -36,7 +35,7 @@ export class SmartFormsComponent implements OnInit {
   openAddUser(data?) {
     const modalRef = this.http.showModal(SmartFormCreateComponent, 'custom-class-for-create-smart-form', data,);
     modalRef.content.onClose = new Subject<boolean>();
-    // modalRef.content.onClose.subscribe(() =>{
+    //modalRef.content.onClose.subscribe(() =>{
     //   this.getSmartFormList();  
     // })
     
