@@ -25,10 +25,10 @@
             </thead>
             <tbody>
                 <tr *ngFor="let f of formsList; let i=index">
-                    <td class="form-name">{{ f.name }}</td>
-                    <td class="description">{{ f.description }}</td>
-                    <td class="added-on">{{ f.createdAt.slice(0,10) }}</td>
-                    <td class="status"><span class="not-published">Not Published</span></td>
+                    <td class="form-name" (click)="onUpdate(f)">{{ f.name }}</td>
+                    <td class="description" (click)="onUpdate(f)">{{ f.description }}</td>
+                    <td class="added-on" (click)="onUpdate(f)">{{ f.createdAt.slice(0,10) }}</td>
+                    <td class="status" (click)="onUpdate(f)"><span class="not-published">Not Published</span></td>
                     <td class="actions-table"><button class="delete-icon" (click)="onDelete(f, i)"><img src="../../../../assets/images/trash-icon.svg" width="20"></button><button class="delete-icon"><img src="../../../../assets/images/copy.svg" alt="copy" width="28"></button></td>
                 </tr>
             </tbody>

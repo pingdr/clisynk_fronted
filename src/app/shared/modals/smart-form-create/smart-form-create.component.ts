@@ -15,7 +15,8 @@ export class SmartFormCreateComponent implements OnInit {
         formName: ['', Validators.required],
         formDescription: ['']
     })
-  public form: Object = {
+    modalData: any;
+    public form: Object = {
     components: [
       {
         "label": "First Name",
@@ -122,64 +123,123 @@ export class SmartFormCreateComponent implements OnInit {
         "tableView": false
     }
     ]
-  };
-  
-  public formToBeSend = this.form;
-  obj = {
-      name: '',
-      description: '',
-      formJson: {}
-  }
-  published = false;
-
-  onPublish(){
-    // console.log(this.formInfo.value.formName);
-    if(!this.formInfo.value.formDescription){
-        this.formInfo.value.formDescription = "---";
+    };
+    
+    public formToBeSend = this.form;
+    obj = {
+        name: '',
+        description: '',
+        formJson: {}
     }
-    this.obj.name = this.formInfo.value.formName;
-    this.obj.description = this.formInfo.value.formDescription;
-    this.obj.formJson = this.formToBeSend;
-    console.log(this.obj);
-    // const obj = {
-    //     "name":"Smartform1",
-    //     "description":"Test Description",
-    //     "formJson": {components :{
+    published = false;
+    update = false;
 
-    //     }}
-    // }
-    this.http.postSmartForm(this.obj).subscribe(res => {
+  getSmartFormData(){
+      this.http.getSmartForm().subscribe(res => {
         console.log(res);
     });
-    this.published = true;
-  }
+  }  
 
-  onDraft(){
-    if(!this.published){
-        if(!this.formInfo.value.formName && !this.formInfo.value.formDescription){
-            this.obj.name = "Untitled Form";
-            this.obj.description = "---";
-        }
-        else if(!this.formInfo.value.formName){
-            this.obj.name = "Untitled Form";
-            this.obj.description = this.formInfo.value.formDescription;
-        }
-        else if(!this.formInfo.value.formDescription){
-            this.obj.name = this.formInfo.value.formName;
-            this.obj.description = "---";
-        }
-        else{
-            this.obj.name = this.formInfo.value.formName;
-            this.obj.description = this.formInfo.value.formDescription;
-            this.obj.formJson = this.formToBeSend;
-        }
+  onPublish(){
+    if(this.update){
+        this.obj.name = this.formInfo.value.formName;
+        this.obj.description = this.formInfo.value.formDescription;
         this.obj.formJson = this.formToBeSend;
         console.log(this.obj);
+        this.http.updateSmartForm(this.obj, this.modalData._id).subscribe(res => {
+            console.log(res);
+        });
+        this.published = true;
+        this.update = false;
+    }
+    // console.log(this.formInfo.value.formName);
+    else{
+        if(!this.formInfo.value.formDescription){
+            this.formInfo.value.formDescription = "---";
+        }
+        this.obj.name = this.formInfo.value.formName;
+        this.obj.description = this.formInfo.value.formDescription;
+        this.obj.formJson = this.formToBeSend;
+        console.log(this.obj);
+        // const obj = {
+        //     "name":"Smartform1",
+        //     "description":"Test Description",
+        //     "formJson": {components :{
+    
+        //     }}
+        // }
         this.http.postSmartForm(this.obj).subscribe(res => {
             console.log(res);
         });
+        this.published = true;
     }
-    
+  }
+
+  onDraft(){
+    if(this.update){
+        if(!this.published){
+            // if(!this.formInfo.value.formName && !this.formInfo.value.formDescription){
+            //     this.obj.name = "Untitled Form";
+            //     this.obj.description = "---";
+            // }
+            // else if(!this.formInfo.value.formName){
+            //     this.obj.name = "Untitled Form";
+            //     this.obj.description = this.formInfo.value.formDescription;
+            // }
+            // else if(!this.formInfo.value.formDescription){
+            //     this.obj.name = this.formInfo.value.formName;
+            //     this.obj.description = "---";
+            // }
+            // else{
+            this.obj.name = this.formInfo.value.formName;
+            this.obj.description = this.formInfo.value.formDescription;
+            this.obj.formJson = this.formToBeSend;
+            this.obj.formJson = this.formToBeSend;
+            console.log(this.obj);
+            this.http.updateSmartForm(this.obj, this.modalData._id).subscribe(res => {
+                console.log(res);
+            });
+        }
+        this.update = false;
+    }
+    else{
+        if(!this.published){
+            if(!this.formInfo.value.formName && !this.formInfo.value.formDescription){
+                this.obj.name = "Untitled Form";
+                this.obj.description = "---";
+            }
+            else if(!this.formInfo.value.formName){
+                this.obj.name = "Untitled Form";
+                this.obj.description = this.formInfo.value.formDescription;
+            }
+            else if(!this.formInfo.value.formDescription){
+                this.obj.name = this.formInfo.value.formName;
+                this.obj.description = "---";
+            }
+            else{
+                this.obj.name = this.formInfo.value.formName;
+                this.obj.description = this.formInfo.value.formDescription;
+                this.obj.formJson = this.formToBeSend;
+            }
+            this.obj.formJson = this.formToBeSend;
+            console.log(this.obj);
+            this.http.postSmartForm(this.obj).subscribe(res => {
+                console.log(res);
+            });
+        }}
+  }
+
+  updateForm(data){
+      console.log(data);
+      this.form = data.formJson;
+      const { name, description } = data;
+        this.formInfo.patchValue({
+        formName: name, 
+        formDescription: description
+        });
+    // this.formToBeSend = this.form
+    console.log(this.formInfo);
+    this.update = true;
   }
 
   onChange(event) {
@@ -189,12 +249,13 @@ export class SmartFormCreateComponent implements OnInit {
     this.formToBeSend = event.form;
     console.log(this.formToBeSend);
   }
-
+  
   constructor(public http:HttpService, private fb: FormBuilder) { }
 
   ngOnInit() {
-    this.http.getSmartForm().subscribe(res => {
-        console.log(res);
-    });
+    this.getSmartFormData();  
+    if(this.modalData){
+        this.updateForm(this.modalData);
+    }
   }
 }

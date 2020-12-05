@@ -474,5 +474,9 @@ export class HttpService {
         return this.http.delete<any>(this.apiEndpoint + "smartForms/" + Obj);
     }
 
+    updateSmartForm(Obj, id){
+        return this.http.post<any>(this.apiEndpoint + "smartForms/" + id, Obj);
+    }
+
 }
 
