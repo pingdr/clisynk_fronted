@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { HttpService } from 'src/app/services/http.service';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-smart-form-create',
@@ -16,6 +17,8 @@ export class SmartFormCreateComponent implements OnInit {
         formDescription: ['']
     })
     modalData: any;
+    public onClose: Subject<boolean>;
+
     public form: Object = {
     components: [
       {
@@ -148,6 +151,8 @@ export class SmartFormCreateComponent implements OnInit {
         console.log(this.obj);
         this.http.updateSmartForm(this.obj, this.modalData._id).subscribe(res => {
             console.log(res);
+            this.onClose.next(true);
+            this.http.updateSmartFormList();
         });
         this.published = true;
         this.update = false;
@@ -170,6 +175,8 @@ export class SmartFormCreateComponent implements OnInit {
         // }
         this.http.postSmartForm(this.obj).subscribe(res => {
             console.log(res);
+            this.onClose.next(true);
+            this.http.updateSmartFormList();
         });
         this.published = true;
     }
@@ -197,7 +204,8 @@ export class SmartFormCreateComponent implements OnInit {
             this.obj.formJson = this.formToBeSend;
             console.log(this.obj);
             this.http.updateSmartForm(this.obj, this.modalData._id).subscribe(res => {
-                console.log(res);
+                this.onClose.next(true);
+                this.http.updateSmartFormList();
             });
         }
         this.update = false;
@@ -225,6 +233,8 @@ export class SmartFormCreateComponent implements OnInit {
             console.log(this.obj);
             this.http.postSmartForm(this.obj).subscribe(res => {
                 console.log(res);
+                this.onClose.next(true);
+                this.http.updateSmartFormList();
             });
         }}
   }

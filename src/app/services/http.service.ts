@@ -44,6 +44,9 @@ export class HttpService {
     private searchSubject = new BehaviorSubject<any>(null);
     public searchStatus = this.searchSubject.asObservable();
 
+    private updateSFListSubject = new BehaviorSubject<any>(null);
+    public SFReload = this.updateSFListSubject.asObservable();
+
     public heading: string;
     domain: string;
     loginData: any;
@@ -102,6 +105,10 @@ export class HttpService {
 
     contactUpdatedChat(data?) {
         this.contactUpdatedSubjectChat.next(data ? data : false);
+    }
+
+    updateSmartFormList(data?){
+        this.updateSFListSubject.next(data);
     }
 
     openModal(name, data?) {

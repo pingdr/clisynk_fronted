@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpService } from 'src/app/services/http.service';
 import { Subject } from 'rxjs';
 import { SmartFormCreateComponent } from 'src/app/shared/modals/smart-form-create/smart-form-create.component';
+import { SmartFormDeleteComponent } from "src/app/shared/modals/smart-form-delete/smart-form-delete.component";
 import { BsModalService } from 'ngx-bootstrap';
 
 @Component({
@@ -29,15 +30,18 @@ export class SmartFormsComponent implements OnInit {
     // console.log(data);
     const modalRef = this.http.showModal(SmartFormCreateComponent, 'custom-class-for-create-smart-form', data,);
     modalRef.content.onClose = new Subject<boolean>();
+    modalRef.content.onClose.subscribe(() =>{
+      this.getSmartFormList();  
+    })
     // }
   }
 
   openAddUser(data?) {
     const modalRef = this.http.showModal(SmartFormCreateComponent, 'custom-class-for-create-smart-form', data,);
     modalRef.content.onClose = new Subject<boolean>();
-    //modalRef.content.onClose.subscribe(() =>{
-    //   this.getSmartFormList();  
-    // })
+    modalRef.content.onClose.subscribe(() =>{
+      this.getSmartFormList();  
+    })
     
     // console.log(this.http.modalRef);
     
@@ -52,6 +56,20 @@ export class SmartFormsComponent implements OnInit {
   }
 
   onDelete(data, index) {
+    const modalRef = this.http.showModal(SmartFormDeleteComponent, 'xs', data);
+    modalRef.content.onClose = new Subject<boolean>();
+  //   modalRef.content.onClose.subscribe(res => {
+  //     if (res) {
+  //         this.myModel.hideTabs = true;
+  //         this.http.heading = 'Filtered';
+  //         this.tab = 'allContact';
+  //         this.myModel.contacts = res;
+  //     } else {
+  //         this.tab = 'contactList';
+  //         this.http.addQueryParams({});
+  //         this.listsFun();
+  //     }
+  // });
     if (confirm("Are you sure you want to delete?")) {
       console.log(data._id, index);
       this.http.deleteSmartForm(data._id).subscribe(res => {
