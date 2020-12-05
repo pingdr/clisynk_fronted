@@ -1098,32 +1098,30 @@
                                             <li role="menuitem" style="display: block" (click)="replayMsg(chat)">
                                                 <a class="dropdown-item">
                                                   
-                                                    <span class="ellipsis">  <i class="fa fa-reply"
-                                                        style="font-size: 18px;cursor: pointer;"></i> Replay</span>
+                                                    <span class="ellipsis"> <img src="../../../assets/images/reply.svg"> Reply</span>
                                                 </a>
                                             </li>
                                             <li role="menuitem" style="display: block"
                                                 (click)="forwardMsg(openForwardModal,chat)">
                                                 <a class="dropdown-item">
-                                                    <span class="ellipsis"><i class="fa fa-share"
-                                                        style="font-size: 18px;cursor: pointer;"></i> Forward message</span>
+                                                    <span class="ellipsis"><img src="../../../assets/images/forward.svg"> Forward message</span>
                                                 </a>
                                             </li>
                                             <li role="menuitem" style="display: block" *ngIf="chat?.pinnedBy.length > 0"
                                                 (click)="unpinMsg(chat)">
                                                 <a class="dropdown-item">
-                                                    <span class="ellipsis"><i class="fas fa-thumbtack"></i> Unpin message</span>
+                                                    <span class="ellipsis"><img src="../../../assets/images/pin_message.svg"> Unpin message</span>
                                                 </a>
                                             </li>
                                             <li role="menuitem" style="display: block"
                                                 *ngIf="chat?.pinnedBy.length == 0" (click)="pinMsg(chat)">
                                                 <a class="dropdown-item">
-                                                    <span class="ellipsis"><i class="fas fa-thumbtack"></i> Pin message</span>
+                                                    <span class="ellipsis"><img src="../../../assets/images/pin_message.svg"> Pin message</span>
                                                 </a>
                                             </li>
                                             <li role="menuitem" style="display: block" (click)="deleteMsg(chat)">
                                                 <a class="dropdown-item">
-                                                    <span class="ellipsis"><i class="fas fa-trash"></i> Delete message</span>
+                                                    <span class="ellipsis"><img src="../../../assets/images/trash.svg"> Delete message</span>
                                                 </a>
                                             </li>
                                         </ul>
@@ -1616,32 +1614,30 @@
                                                 aria-labelledby="button-basic">
                                                 <li role="menuitem" style="display: block" (click)="replayMsg(chat)">
                                                     <a class="dropdown-item">
-                                                        <span class="ellipsis"><i class="fa fa-reply"
-                                                            style="font-size: 18px;cursor: pointer;"></i> Replay</span>
+                                                        <span class="ellipsis"><img src="../../../assets/images/reply.svg"> Reply</span>
                                                     </a>
                                                 </li>
                                                 <li role="menuitem" style="display: block"
                                                     (click)="forwardMsg(openForwardModal,chat)">
                                                     <a class="dropdown-item">
-                                                        <span class="ellipsis"><i class="fa fa-share"
-                                                            style="font-size: 18px;cursor: pointer;"></i> Forward message</span>
+                                                        <span class="ellipsis"><img src="../../../assets/images/forward.svg"> Forward message</span>
                                                     </a>
                                                 </li>
                                                 <li role="menuitem" style="display: block"
                                                     *ngIf="chat?.pinnedBy.length > 0" (click)="unpinMsg(chat)">
                                                     <a class="dropdown-item">
-                                                        <span class="ellipsis"><i class="fas fa-thumbtack"></i> Unpin message</span>
+                                                        <span class="ellipsis"><img src="../../../assets/images/pin_message.svg"> Unpin message</span>
                                                     </a>
                                                 </li>
                                                 <li role="menuitem" style="display: block"
                                                     *ngIf="chat?.pinnedBy.length == 0" (click)="pinMsg(chat)">
                                                     <a class="dropdown-item">
-                                                        <span class="ellipsis"><i class="fas fa-thumbtack"></i> Pin message</span>
+                                                        <span class="ellipsis"><img src="../../../assets/images/pin_message.svg"> Pin message</span>
                                                     </a>
                                                 </li>
                                                 <li role="menuitem" style="display: block" (click)="deleteMsg(chat)">
                                                     <a class="dropdown-item">
-                                                        <span class="ellipsis"><i class="fas fa-trash"></i> Delete message</span>
+                                                        <span class="ellipsis"><img src="../../../assets/images/trash.svg"> Delete message</span>
                                                     </a>
                                                 </li>
                                             </ul>
