@@ -12,7 +12,6 @@
 
 
     <!-- ---------------------table for form listing ---------------------------->
-    <!-- <app-loader [showLoader]="loader" [length]="formsList?.length">     </app-loader>-->
     <div class="smart-form-listing-table">
         <table class="smart-table-list">
             <thead>
@@ -24,27 +23,6 @@
                     <th class="actions-table">Actions</th>
                 </tr>
             </thead>    
-        <ng-container *ngIf="loader">
-            <div class="fb-item" *ngFor="let val of ['','','']">
-                <div class="first-section-wrapper">
-                    <div class="gravatar">
-                        <ngx-skeleton-loader appearance="circle" [theme]="{ width: '55px', height: '55px' }">
-                        </ngx-skeleton-loader>
-                    </div>  
-                    <div class="gravatar-title">
-                        <div>
-                            <ngx-skeleton-loader
-                                    [theme]="{ width: '100%',   'border-radius': '0', height: '15px', 'margin-bottom': '10px'}"
-                            ></ngx-skeleton-loader>
-                        </div>
-                        <div>
-                            <ngx-skeleton-loader [theme]="{width: '25%','border-radius': '0',height: '15px'}">
-                            </ngx-skeleton-loader>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </ng-container>
             <tbody *ngIf="!loader">
                 <tr *ngFor="let f of formsList; let i=index">
                     <td class="form-name" (click)="onUpdate(f)">{{ f.name }}</td>
@@ -55,6 +33,30 @@
                 </tr>
             </tbody>
 
+        </table>
+
+        
+    </div>
+    <div class="smart-form-listing-table">
+        <table class="smart-table-list">
+        <ng-container *ngIf="loader">
+            <div class="fb-item" *ngFor="let val of ['','','']">
+                <div class="first-section-wrapper">
+                    <div class="gravatar-title">
+                        <div>
+                            <ngx-skeleton-loader
+                                    [theme]="{ width: '100%', 'border-radius': '0', height: '15px', 'margin-bottom': '10px' }"
+                            ></ngx-skeleton-loader>
+                        </div>
+                        <div>
+                            <ngx-skeleton-loader 
+                                    [theme]="{ width: '25%', 'border-radius': '0', height: '15px' }">
+                            </ngx-skeleton-loader>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
         </table>
 
         
