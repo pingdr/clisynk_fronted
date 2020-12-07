@@ -139,7 +139,7 @@ export class SmartFormCreateComponent implements OnInit {
 
   getSmartFormData(){
       this.http.getSmartForm().subscribe(res => {
-        console.log(res);
+        // console.log(res);
     });
   }  
 

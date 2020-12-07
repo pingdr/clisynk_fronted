@@ -13,6 +13,7 @@ import { ManageWorkspaceComponent } from './manage-workspace/manage-workspace.co
 import { MatTooltipModule, MatInputModule } from '@angular/material';
 import { EditWorkspaceComponent } from './edit-workspace/edit-workspace.component';
 import {MatChipsModule} from '@angular/material/chips';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 const routes: Routes = [
     {
@@ -74,6 +75,7 @@ const routes: Routes = [
         MatTooltipModule,
         MatChipsModule,
         MatInputModule,
+        NgxSkeletonLoaderModule
     ],
     declarations: [
         MyProfileComponent, SettingsComponent, BusinessProfileComponent, UsersComponent, ProductsComponent, LeadFormsComponent, SmartFormsComponent, ManageWorkspaceComponent, EditWorkspaceComponent

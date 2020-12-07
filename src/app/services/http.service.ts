@@ -108,7 +108,7 @@ export class HttpService {
     }
 
     updateSmartFormList(data?){
-        this.updateSFListSubject.next(data);
+        this.updateSFListSubject.next(data ? data : false);
     }
 
     openModal(name, data?) {
@@ -473,8 +473,9 @@ export class HttpService {
         return this.http.post(this.apiEndpoint + "smartForms", Obj);
     }
 
-    getSmartForm(){
-        return this.http.get<any>(this.apiEndpoint + "smartForms");
+    getSmartForm(isLoading?: boolean){
+        let params = new HttpParams();
+        return this.http.get<any>(this.apiEndpoint + "smartForms", {reportProgress: isLoading}); 
     }
 
     deleteSmartForm(Obj){

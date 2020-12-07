@@ -12,6 +12,7 @@ import { BsModalService } from 'ngx-bootstrap';
 })
 export class SmartFormsComponent implements OnInit {
   formsList: [{}];
+  loader: any;
   constructor(public http: HttpService, public modalService: BsModalService) { }
 
   ngOnInit() {
@@ -19,9 +20,14 @@ export class SmartFormsComponent implements OnInit {
   }
 
   getSmartFormList() {
+    // this.myModel = new TableModel();
+    this.loader = true;
     this.http.getSmartForm().subscribe(res => {
-      console.log(res.data);
-      this.formsList = res.data;
+        console.log(res.data);
+        this.loader = false;
+        this.formsList = res.data;
+    }, () => {
+        this.loader = false;
     });
   }
 
@@ -55,30 +61,14 @@ export class SmartFormsComponent implements OnInit {
     // })
   }
 
-  onDelete(data, index) {
+  onDelete(data) {
     const modalRef = this.http.showModal(SmartFormDeleteComponent, 'xs', data);
     modalRef.content.onClose = new Subject<boolean>();
-  //   modalRef.content.onClose.subscribe(res => {
-  //     if (res) {
-  //         this.myModel.hideTabs = true;
-  //         this.http.heading = 'Filtered';
-  //         this.tab = 'allContact';
-  //         this.myModel.contacts = res;
-  //     } else {
-  //         this.tab = 'contactList';
-  //         this.http.addQueryParams({});
-  //         this.listsFun();
-  //     }
-  // });
-    if (confirm("Are you sure you want to delete?")) {
-      console.log(data._id, index);
-      this.http.deleteSmartForm(data._id).subscribe(res => {
-        console.log(res);
+    modalRef.content.onClose.subscribe(res => {
+      if (res) {
         this.getSmartFormList();
-      });
-    } else {
-      
-    }
+      }
+    });
   }
 
 }

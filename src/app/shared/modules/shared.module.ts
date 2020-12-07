@@ -98,6 +98,7 @@ import { SmartFormCreateComponent } from '../modals/smart-form-create/smart-form
 import { FormioModule } from 'angular-formio';
 import { CreateWorkspaceComponent } from '../modals/create-workspace/create-workspace.component';
 import { MergeContactsComponent } from '../modals/merge-contacts/merge-contacts.component';
+import { SmartFormDeleteComponent } from '../modals/smart-form-delete/smart-form-delete.component';
 
 
 const entryList = [EmailFormatComponent, SendEmailComponent, ChangePasswordComponent, ContactDetailsComponent, AddNoteComponent,
@@ -112,7 +113,7 @@ const entryList = [EmailFormatComponent, SendEmailComponent, ChangePasswordCompo
     AppointBookComponent, AppointStep1Component, AppointStep2Component, AppointStep3Component, AppointStep4Component,
     EditAppointmentComponent, CalSlotComponent, BookModalComponent, ConfirmComponent, AppointTypeListComponent,
     AppointListComponent, AppointSuccessComponent, AddUserComponent, NotificationsComponent, DeleteContactComponent,
-    SmartFormCreateComponent, CreateWorkspaceComponent, MergeContactsComponent 
+    SmartFormCreateComponent, CreateWorkspaceComponent, MergeContactsComponent, SmartFormDeleteComponent
 ];
 
 const importExportList = [MatStepperModule, MatTabsModule, MatSliderModule, MatInputModule, MatSelectModule,

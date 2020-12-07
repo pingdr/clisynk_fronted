@@ -6693,3 +6693,7 @@ section.appt-list {
 .new-header-group-main .ping-dr-notification ul li .main-workspace-notification .left-col.C {
   background: #16b7ca;
 }
+
+.required:after{
+  display:none;
+}
