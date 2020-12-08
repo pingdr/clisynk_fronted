@@ -42,6 +42,7 @@ export class ChatsComponent implements OnInit {
   chatModel;
   loader = true;
   allSelect = new FormControl();
+  simmerLoader: boolean = false;
   searchName = new FormControl();
 
   // selected name var
@@ -207,7 +208,7 @@ export class ChatsComponent implements OnInit {
         this.callChatroomId = data.chatRoomId;
         if (data.fromUser._id !== this.adminId) {
           // this.incomingData = data;
-          this.callerName = data.fromUser.name;
+          this.callerName = data.fromUser.fullName;
           this.videoFlag = true;
           this.videoManage = true;
           this.outgoingFlag = false;
@@ -255,7 +256,7 @@ export class ChatsComponent implements OnInit {
         console.log('audio join event............................', data)
         this.voiceCallToken = data.accessToken;
         this.room = data.room;
-        // this.callerName = data.from.name;
+        this.callerName = data.fromUser.name;
         this.callId = data.callId;
         this.callChatroomId = data.chatRoomId;
         if (data.fromUser._id !== this.adminId) {
@@ -263,7 +264,7 @@ export class ChatsComponent implements OnInit {
           this.voiceFlag = true;
           this.videoManage = true;
           this.outgoingVoiceFlag = false;
-          this.callerName = data.fromUser.name;
+          this.callerName = data.fromUser.fullName;
         }
         else {
           // this.outgoingData = data;
@@ -375,7 +376,7 @@ export class ChatsComponent implements OnInit {
 
   deleteVideoCall() {
     this.socket.emit('video-call', {
-      chatRoomId: this.selectedChat._id,
+      chatRoomId: this.selectedChat._id ? this.selectedChat._id : this.callChatroomId,
       type: 'ended',
       room: this.room,
       callId: this.callId
@@ -928,7 +929,7 @@ export class ChatsComponent implements OnInit {
 
     if (data.from.user !== currentUser._id) {
       if (data.from.userType === 'ADMIN') {
-                let options = {
+        let options = {
           body: data.content,
           icon: "assets/images/chat-notify-img.png"
         }
@@ -936,8 +937,8 @@ export class ChatsComponent implements OnInit {
         this.activeChatList.map((user) => {
           console.log(user);
           if (user._id === data.chatRoomId) {
-            user.admins.map((admin)=> {
-              if(data.from.user === admin._id) {
+            user.admins.map((admin) => {
+              if (data.from.user === admin._id) {
                 userName = admin.fullName;
                 user.unreadCount = (user.unreadCount ? user.unreadCount : 0) + 1;
                 user.lastMessage.content = data.content;
@@ -949,7 +950,7 @@ export class ChatsComponent implements OnInit {
           res => console.log(res),
           err => console.log(err)
         );
-       } else {
+      } else {
         let options = {
           body: data.content,
           icon: "assets/images/chat-notify-img.png"
@@ -961,7 +962,7 @@ export class ChatsComponent implements OnInit {
             userName = user.temp.fullName;
             user.unreadCount = (user.unreadCount ? user.unreadCount : 0) + 1;
             user.lastMessage.content = data.content;
-          } 
+          }
         });
 
         this._pushNotifications.create(userName, options).subscribe(
@@ -1515,6 +1516,7 @@ export class ChatsComponent implements OnInit {
 
   // get chat old data
   getOldChat() {
+    this.simmerLoader = true;
     const obj = {
       chatRoomId: this.selectedChat._id,
       limit: 50,
@@ -1524,6 +1526,7 @@ export class ChatsComponent implements OnInit {
       this.massageArray = await (res.data.data).reverse();
       this.getGroupMemberName();
       this.msgTotal = res.data.totalCount;
+      this.simmerLoader = false;
       this.manageScroll();
       this.msgView()
     })
@@ -1538,8 +1541,8 @@ export class ChatsComponent implements OnInit {
           // console.log('in if......',msg , user)
           msg.fromUserName = user.fullName ? user.fullName : user.name
         } else {
-          this.selectedChat.admins.map((ad)=> {
-            if(msg.from.user === ad._id) {
+          this.selectedChat.admins.map((ad) => {
+            if (msg.from.user === ad._id) {
               msg.fromUserName = ad.fullName ? ad.fullName : ad.name
             }
           })
