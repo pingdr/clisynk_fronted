@@ -32,14 +32,14 @@ export class SmartFormsComponent implements OnInit {
   }
 
   onUpdate(data){
-    // if(form.status == "Not Published"){
-    // console.log(data);
+    if(data.status != "PUBLISHED"){
+    console.log(data);
     const modalRef = this.http.showModal(SmartFormCreateComponent, 'custom-class-for-create-smart-form', data,);
     modalRef.content.onClose = new Subject<boolean>();
     modalRef.content.onClose.subscribe(() =>{
       this.getSmartFormList();  
     })
-    // }
+    }
   }
 
   openAddUser(data?) {

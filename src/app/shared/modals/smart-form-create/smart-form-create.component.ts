@@ -132,7 +132,8 @@ export class SmartFormCreateComponent implements OnInit {
     obj = {
         name: '',
         description: '',
-        formJson: {}
+        formJson: {},
+        status: ''
     }
     published = false;
     update = false;
@@ -148,6 +149,7 @@ export class SmartFormCreateComponent implements OnInit {
         this.obj.name = this.formInfo.value.formName;
         this.obj.description = this.formInfo.value.formDescription;
         this.obj.formJson = this.formToBeSend;
+        this.obj.status = "PUBLISHED";
         console.log(this.obj);
         this.http.updateSmartForm(this.obj, this.modalData._id).subscribe(res => {
             console.log(res);
@@ -165,6 +167,7 @@ export class SmartFormCreateComponent implements OnInit {
         this.obj.name = this.formInfo.value.formName;
         this.obj.description = this.formInfo.value.formDescription;
         this.obj.formJson = this.formToBeSend;
+        this.obj.status = "PUBLISHED";
         console.log(this.obj);
         // const obj = {
         //     "name":"Smartform1",
@@ -201,7 +204,7 @@ export class SmartFormCreateComponent implements OnInit {
             this.obj.name = this.formInfo.value.formName;
             this.obj.description = this.formInfo.value.formDescription;
             this.obj.formJson = this.formToBeSend;
-            this.obj.formJson = this.formToBeSend;
+            this.obj.status = "DRAFT";
             console.log(this.obj);
             this.http.updateSmartForm(this.obj, this.modalData._id).subscribe(res => {
                 this.onClose.next(true);
@@ -227,9 +230,9 @@ export class SmartFormCreateComponent implements OnInit {
             else{
                 this.obj.name = this.formInfo.value.formName;
                 this.obj.description = this.formInfo.value.formDescription;
-                this.obj.formJson = this.formToBeSend;
             }
             this.obj.formJson = this.formToBeSend;
+            this.obj.status = "DRAFT";
             console.log(this.obj);
             this.http.postSmartForm(this.obj).subscribe(res => {
                 console.log(res);
@@ -244,8 +247,8 @@ export class SmartFormCreateComponent implements OnInit {
       this.form = data.formJson;
       const { name, description } = data;
         this.formInfo.patchValue({
-        formName: name, 
-        formDescription: description
+            formName: name, 
+            formDescription: description
         });
     // this.formToBeSend = this.form
     console.log(this.formInfo);

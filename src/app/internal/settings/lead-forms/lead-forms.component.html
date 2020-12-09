@@ -1,3 +1,37 @@
+
+<div class="header-for-lead-form-main">
+    <div class="inner-left-head">
+        <div class="Clients_list_heading">
+            <img [src]="'/assets/images/back-arrow.svg'" (click)="http.goBack()">
+            <h3 class="page-title">Public Form</h3>
+        </div>
+    </div>
+    <div class="right-col-three-btn">
+            <div class="comm-btn">
+                <button class="copy-btn">
+                    <img src="../../../../assets/images/copy-blue.svg" width="20">
+                     Copy code
+                </button>
+            </div>
+            <div class="comm-btn">
+                <button class="copy-btn">
+                    <img src="../../../../assets/images/copy-blue.svg" width="20">
+                    Copy link
+                </button>
+            </div>
+            <div class="comm-btn">
+                <button class="copy-btn go-to-form" [routerLink]="['/preview-lead-form']">
+                    <img src="../../../../assets/images/export-blue-icon.svg" width="20">
+                    Go to your form
+                </button>
+            </div>
+
+    </div>
+
+</div>
+<div class="form-description-inner-main">
+    Customize your public form with your business name and logo
+</div>
 <form [formGroup]="leadForm" (ngSubmit)="onSubmit()">
 <div class="main-lead-forms">
     <div class="left-col-lead">

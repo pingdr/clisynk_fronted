@@ -9,6 +9,7 @@ import {TodoComponent} from './internal/actions/todo/todo.component';
 import { BuildAutomationComponent } from './internal/automations/build-automation/build-automation.component';
 import { AddBuildautomationComponent } from './internal/automations/add-buildautomation/add-buildautomation.component';
 import { BuildThenautomationsComponent } from './internal/automations/build-thenautomations/build-thenautomations.component';
+import { PreviewLeadformComponent } from './internal/settings/preview-leadform/preview-leadform.component';
 
 
 const routes: Routes = [
@@ -21,6 +22,7 @@ const routes: Routes = [
     {path: 'add-build-automation', component: AddBuildautomationComponent},
     {path: 'build-then-automation', component: BuildThenautomationsComponent},
     {path: 'booking/:name', component: BookingComponent},
+    {path: 'preview-lead-form', component: PreviewLeadformComponent},
     {path: '', loadChildren: () => import('./internal/internal.module').then(m => m.InternalModule)}
 ];
 
