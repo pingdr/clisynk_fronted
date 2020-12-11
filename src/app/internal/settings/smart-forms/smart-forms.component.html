@@ -4,7 +4,7 @@
         <div class="Clients_list_heading">
             <img [src]="'/assets/images/back-arrow.svg'" (click)="http.goBack()">
             <h3 class="page-title">Smart Forms</h3>
-            <button class="btn-outline-primary t-r-btn" (click)="openAddUser()">Create form
+            <button class="btn-outline-primary t-r-btn" (click)="onCreateForm()">Create form
             </button>
         </div>
 
@@ -34,10 +34,10 @@
                     <td class="status" (click)="onUpdate(f)"><span *ngIf="f.status == 'DRAFT'" class="not-published">Not
                             Published</span><span *ngIf="f.status == 'PUBLISHED'" class="published">Published</span>
                     </td>
-                    <td class="actions-table"><button class="delete-icon" (click)="onDelete(f._id)"><img
-                                src="../../../../assets/images/trash-icon.svg" width="20"></button><button
-                            class="delete-icon"><img src="../../../../assets/images/copy.svg" alt="copy"
-                                width="28"></button></td>
+                    <td class="actions-table"><button class="delete-icon" (click)="onDelete(f._id)">
+                        <img src="../../../../assets/images/trash-icon.svg" width="20"></button>
+                        <button class="delete-icon"><img src="../../../../assets/images/copy.svg" alt="copy" width="28"></button>
+                    </td>
                 </tr>
             </tbody>
 

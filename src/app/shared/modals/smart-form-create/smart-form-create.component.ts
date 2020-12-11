@@ -20,112 +20,112 @@ export class SmartFormCreateComponent implements OnInit {
     public onClose: Subject<boolean>;
 
     public form: Object = {
-    components: [
-      {
-        "label": "First Name",
-        "placeholder": "First Name",
-        "tableView": true,
-        "validateOn": "blur",
-        "validate": {
-            "required": true
-        },
-        "key": "firstName",
-        "type": "textfield",
-        "input": true
-    },
-    {
-        "label": "Last Name",
-        "placeholder": "Last Name",
-        "tableView": true,
-        "validateOn": "blur",
-        "validate": {
-            "required": true
-        },
-        "key": "lastName",
-        "type": "textfield",
-        "input": true
-    },
-    {
-        "label": "Email address",
-        "placeholder": "Email address",
-        "tableView": true,
-        "validateOn": "blur",
-        "validate": {
-            "required": true,
-            "pattern": "/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$/",
-            "unique": true
-        },
-        "unique": true,
-        "key": "emailAddress1",
-        "type": "email",
-        "input": true
-    },
-    {
-        "label": "Phone",
-        "placeholder": "Phone",
-        "tableView": true,
-        "validate": {
-            "unique": true
-        },
-        "unique": true,
-        "errorLabel": "Invalid phone number",
-        "key": "phone",
-        "type": "phoneNumber",
-        "labelWidth": 20,
-        "input": true
-    },
-    {
-        "label": "Type",
-        "widget": "choicesjs",
-        "placeholder": "Type",
-        "tableView": true,
-        "data": {
-            "values": [
-                {
-                    "label": "Personal",
-                    "value": "personal"
-                },
-                {
-                    "label": "Office",
-                    "value": "office"
-                },
-                {
-                    "label": "Home",
-                    "value": "home"
-                },
-                {
-                    "label": "Other",
-                    "value": "other"
-                }
-            ]
-        },
-        "dataType": "string",
-        "selectThreshold": 0.3,
-        "key": "type",
-        "type": "select",
-        "indexeddb": {
-            "filter": {}
-        },
-        "input": true
-    },
-    {
-        "label": "Note",
-        "placeholder": "Add a note here..",
-        "autoExpand": false,
-        "tableView": true,
-        "key": "note",
-        "type": "textarea",
-        "input": true
-    },
-    {
-        "type": "button",
-        "label": "Submit",
-        "key": "submit",
-        "disableOnInvalid": true,
-        "input": true,
-        "tableView": false
-    }
-    ]
+        components: [
+            {
+              "label": "First Name",
+              "placeholder": "First Name",
+              "tableView": true,
+              "validateOn": "blur",
+              "validate": {
+                  "required": true
+              },
+              "key": "firstName",
+              "type": "textfield",
+              "input": true
+          },
+          {
+              "label": "Last Name",
+              "placeholder": "Last Name",
+              "tableView": true,
+              "validateOn": "blur",
+              "validate": {
+                  "required": true
+              },
+              "key": "lastName",
+              "type": "textfield",
+              "input": true
+          },
+          {
+              "label": "Email address",
+              "placeholder": "Email address",
+              "tableView": true,
+              "validateOn": "blur",
+              "validate": {
+                  "required": true,
+                  "pattern": "/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$/",
+                  "unique": true
+              },
+              "unique": true,
+              "key": "emailAddress1",
+              "type": "email",
+              "input": true
+          },
+          {
+              "label": "Phone",
+              "placeholder": "Phone",
+              "tableView": true,
+              "validate": {
+                  "unique": true
+              },
+              "unique": true,
+              "errorLabel": "Invalid phone number",
+              "key": "phone",
+              "type": "phoneNumber",
+              "labelWidth": 20,
+              "input": true
+          },
+          {
+              "label": "Type",
+              "widget": "choicesjs",
+              "placeholder": "Type",
+              "tableView": true,
+              "data": {
+                  "values": [
+                      {
+                          "label": "Personal",
+                          "value": "personal"
+                      },
+                      {
+                          "label": "Office",
+                          "value": "office"
+                      },
+                      {
+                          "label": "Home",
+                          "value": "home"
+                      },
+                      {
+                          "label": "Other",
+                          "value": "other"
+                      }
+                  ]
+              },
+              "dataType": "string",
+              "selectThreshold": 0.3,
+              "key": "type",
+              "type": "select",
+              "indexeddb": {
+                  "filter": {}
+              },
+              "input": true
+          },
+          {
+              "label": "Note",
+              "placeholder": "Add a note here..",
+              "autoExpand": false,
+              "tableView": true,
+              "key": "note",
+              "type": "textarea",
+              "input": true
+          },
+          {
+              "type": "button",
+              "label": "Submit",
+              "key": "submit",
+              "disableOnInvalid": true,
+              "input": true,
+              "tableView": false
+          }
+          ]
     };
     
     public formToBeSend = this.form;
@@ -134,7 +134,11 @@ export class SmartFormCreateComponent implements OnInit {
         description: '',
         formJson: {},
         status: ''
-    }
+    };
+    // objTest = {
+    //     smartFormId: "XXXXXXXXXXXXXX",
+    //     resultJson: {}
+    // };
     published = false;
     update = false;
 
@@ -169,6 +173,8 @@ export class SmartFormCreateComponent implements OnInit {
         this.obj.formJson = this.formToBeSend;
         this.obj.status = "PUBLISHED";
         console.log(this.obj);
+        // this.objTest.resultJson = this.formToBeSend;
+        // console.log(this.objTest);
         // const obj = {
         //     "name":"Smartform1",
         //     "description":"Test Description",

@@ -42,7 +42,7 @@ export class SmartFormsComponent implements OnInit {
     }
   }
 
-  openAddUser(data?) {
+  onCreateForm(data?) {
     const modalRef = this.http.showModal(SmartFormCreateComponent, 'custom-class-for-create-smart-form', data,);
     modalRef.content.onClose = new Subject<boolean>();
     modalRef.content.onClose.subscribe(() =>{
@@ -66,7 +66,11 @@ export class SmartFormsComponent implements OnInit {
     modalRef.content.onClose = new Subject<boolean>();
     modalRef.content.onClose.subscribe(res => {
       if (res) {
-        this.getSmartFormList();
+        this.formsList.forEach((form, i) => {
+          if(data == form['_id']){
+            console.log(this.formsList.splice(i, 1));
+          }
+        })
       }
     });
   }

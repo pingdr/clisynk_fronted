@@ -8,12 +8,12 @@
         <!-- <div class="lead-form-preview">Lead Form preview</div> -->
         
         <div class="right-edit-form-main">
-            <!-- --------bind-logo-here------------ -->
+          <!-- --------bind-logo-here------------ -->
             <div class="text-center" style="margin-bottom: 10px;">
                 <img src="../../../../assets/images/custom-1logo.png" width="300px" style="width: 180px; height: 90px; object-fit: cover;">
             </div>
             <span class="logo-text-both">Langermania</span>
-            <form class="main-edit-form">
+            <!-- <form class="main-edit-form">
                 <div class="input-field">
                     <mat-form-field class="full-width" appearance="outline">
                         <mat-label class="required">First Name</mat-label>
@@ -41,11 +41,11 @@
                 <div class="input-field">
                     <mat-form-field class="full-width select-height" appearance="outline">
                         <mat-label class="abc">Phone type</mat-label>
-                        <mat-select >
-                            <mat-option>Lorem Ipsum</mat-option>
-                            <mat-option>Lorem Ipsum</mat-option>
-                            <mat-option>Lorem Ipsum</mat-option>
-                            <mat-option>Lorem Ipsum</mat-option>
+                        <mat-select>
+                            <mat-option value="Personal">Personal</mat-option>
+                            <mat-option value="Office">Office</mat-option>
+                            <mat-option value="Home">Home</mat-option>
+                            <mat-option value="Other">Other</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
@@ -59,8 +59,12 @@
                     <button type="submit" class="btn btn-outline-primary">Submit</button>
                   
                 </div>
-            </form>
+            </form> -->
+            <formio [form]='form' (submit)="onSubmit($event)"></formio>
         </div>
+          
+        
+        
     </div>
 
 

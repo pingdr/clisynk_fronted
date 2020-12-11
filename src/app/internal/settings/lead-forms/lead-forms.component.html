@@ -20,7 +20,7 @@
                 </button>
             </div>
             <div class="comm-btn">
-                <button class="copy-btn go-to-form" [routerLink]="['/preview-lead-form']">
+                <button class="copy-btn go-to-form" [routerLink]="['/preview-lead-form']" (click)="onPreview()">
                     <img src="../../../../assets/images/export-blue-icon.svg" width="20">
                     Go to your form
                 </button>
@@ -32,7 +32,7 @@
 <div class="form-description-inner-main">
     Customize your public form with your business name and logo
 </div>
-<form [formGroup]="leadForm" (ngSubmit)="onSubmit()">
+<!-- <form [formGroup]="leadForm" (ngSubmit)="onSubmit()"> -->
 <div class="main-lead-forms">
     <div class="left-col-lead">
         <!-- ---------------first-strips----- -->
@@ -45,7 +45,7 @@
             <label class="label-name">Add your business name</label>
             <mat-form-field class="full-width" appearance="outline">
                 <mat-label class="required">Business Name</mat-label>
-                <input matInput type="text" formControlName="businessname">
+                <input matInput type="text"> <!-- formControlName="businessname" -->
 
             </mat-form-field>
         </div>
@@ -69,14 +69,14 @@
             <p>Adjust your intake information by adding or removing fields in the form builder.</p>
         </div>
 
-        <button type="button" class="btn btn-outline-primary edit-form-btn">Edit form</button>
+        <button type="button" class="btn btn-outline-primary edit-form-btn" (click)="onEdit()">Edit form</button>
 
     </div>
     <!-- ---------------right-col---------------->
     <div class="right-col-lead">
         <div class="lead-form-preview">Lead Form preview</div>
         <div class="right-edit-form-main">
-            <span class="logo-text-both">Langermania</span>
+            <!-- <span class="logo-text-both">Langermania</span>
                 <div class="input-field">
                     <mat-form-field class="full-width" appearance="outline">
                         <mat-label class="required">First Name</mat-label>
@@ -120,8 +120,9 @@
                 </div>
                 <div class="submit-btn-row">
                     <button type="submit" class="btn btn-primary" [disabled]="!leadForm.valid">Submit</button>
-                </div>
+                </div> -->
+                <formio [form]='form'></formio>                
         </div>
     </div>
 </div>
-</form>
+<!-- </form> -->
