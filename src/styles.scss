@@ -10,12 +10,7 @@ emoji-content{
   width: 500px !important;
 }
 .mat-drawer-inner-container{
-  // overflow: hidden !important;
-  width: 100%;
-  height: calc(100vh - 105px) !important;
-  // overflow: auto;
-  overflow: hidden !important;
-  min-height: 100vh !important;
+  overflow-x: hidden !important;
 }
 
 // chat style end
@@ -32,9 +27,8 @@ body {
   color: #242433;
   // font-family: Roboto, "Helvetica Neue", sans-serif;
 }
-.lb-data .lb-close {
-  right: 17% !important;
-}
+
+
 .modal-header.email_str_header {
   padding: 0px;
   height: 3.5rem;
@@ -6352,3 +6346,26 @@ section.appt-list {
   white-space: var(--text-wrap, nowrap);
   color: #242433;
 }
+
+
+.side-nav-group-main .mat-drawer-shown {
+  background: rgba(0,0,0,.2);
+}
+
+.side-nav-group-main .mat-drawer {
+    padding: 60px 0px;
+    overflow: hidden !important;
+    background: #ffff !important;
+    height: 100vh;
+}
+
+.side-nav-group-main .mat-drawer .mat-drawer-inner-container {
+  overflow: hidden;
+}
+
+
+.side-nav-group-main {
+    background: #ffff;
+}
+
+// ng serve --no-live-reload
