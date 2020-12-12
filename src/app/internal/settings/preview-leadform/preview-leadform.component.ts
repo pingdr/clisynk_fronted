@@ -10,15 +10,68 @@ export class PreviewLeadformComponent implements OnInit {
 
   constructor(public http: HttpService) { }
 
-  getForm(){
-      this.form = this.http.leadFormJson;
+  // leadForm = this.fb.group({
+  //   businessname:[null, [Validators.required]],
+  //   firstname: [null,[Validators.required]],
+  //   lastname: [null,[Validators.required]],
+  //   emailaddress: [null,[Validators.required, Validators.email]],
+  //   phone: [null],
+  //   phoneType: ["Personal"],
+  //   note: [null]
+  // })
+
+  loader = false;
+
+  obj = { 
+    smartFormId:"",
+    resultJson: {
+      addNote: "",
+      emailAddress: "",
+      firstName: "",
+      lastName: "",
+      phone: "",
+      phoneType: ""
+    }
+  }
+
+  async getForm(){
+    if(this.http.leadFormJson['formJson']){
+      this.form = this.http.leadFormJson['formJson'];
+      this.obj.smartFormId = this.http.leadFormJson['_id'];
+    }
+    else {
+      this.loader = true; 
+      const res = await this.http.getLeadForm().toPromise();
+      // console.log(res);
+      
+      console.log(res.data[0].formJson.components.length);
+      if((res.data[0].formJson != {}) && res.data[0].formJson.components.length){
+          // console.log(res);
+          this.obj.smartFormId = res.data[0]._id
+          this.form = res.data[0].formJson;
+          this.loader = false;
+      }
+    }
   }
 
   ngOnInit() {
-      this.getForm();
+    this.getForm();
   }
 
   public form: Object = {};
+
+  onSubmit(event){
+    // console.log(event.data);
+    this.obj.resultJson.addNote = event.data.addNote;
+    this.obj.resultJson.emailAddress = event.data.emailAddress;
+    this.obj.resultJson.firstName = event.data.firstName;
+    this.obj.resultJson.lastName = event.data.lastName;
+    this.obj.resultJson.phone = event.data.phone;
+    this.obj.resultJson.phoneType = event.data.phoneType;
+    this.http.postLeadForm(this.obj).subscribe(res => {
+      console.log(res);
+    })    
+  }
 
     //    "components": [
     //     {

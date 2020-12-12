@@ -100,6 +100,7 @@ import { CreateWorkspaceComponent } from '../modals/create-workspace/create-work
 import { MergeContactsComponent } from '../modals/merge-contacts/merge-contacts.component';
 import { SmartFormDeleteComponent } from '../modals/smart-form-delete/smart-form-delete.component';
 import { LeadFormCreateComponent } from '../modals/lead-form-create/lead-form-create.component';
+import { RxReactiveFormsModule } from "@rxweb/reactive-form-validators"
 
 
 const entryList = [EmailFormatComponent, SendEmailComponent, ChangePasswordComponent, ContactDetailsComponent, AddNoteComponent,
@@ -121,7 +122,7 @@ const importExportList = [MatStepperModule, MatTabsModule, MatSliderModule, MatI
     MatTableModule, MatPaginatorModule, MatAutocompleteModule, MatIconModule, MatButtonToggleModule, CKEditorModule,
     ReactiveFormsModule, FormsModule, MatCheckboxModule, NgxSkeletonLoaderModule, MatSnackBarModule, ScrollingModule,
     Ng2SearchPipeModule, MatDatepickerModule, MatNativeDateModule, ClickOutsideModule, TagInputModule, DragDropModule,
-    FullCalendarModule, ColorPickerModule, FormioModule
+    FullCalendarModule, ColorPickerModule, FormioModule, RxReactiveFormsModule
 
 ];
 

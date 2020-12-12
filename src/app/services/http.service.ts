@@ -475,8 +475,7 @@ export class HttpService {
         return this.http.post(this.apiEndpoint + "smartForms", Obj);
     }
 
-    submitSmartForm(Obj){
-        console.log("works");
+    postLeadForm(Obj){
         return this.http.post(this.apiEndpoint + "smartForms/submit", Obj);
     }
 

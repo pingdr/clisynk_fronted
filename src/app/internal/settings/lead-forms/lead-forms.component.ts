@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { RxwebValidators } from '@rxweb/reactive-form-validators';
 import { Subject } from 'rxjs';
 import { HttpService } from 'src/app/services/http.service';
 import { LeadFormCreateComponent } from 'src/app/shared/modals/lead-form-create/lead-form-create.component';
@@ -11,15 +12,14 @@ import { LeadFormCreateComponent } from 'src/app/shared/modals/lead-form-create/
 })
 export class LeadFormsComponent implements OnInit {
 
-  // leadForm = this.fb.group({
-  //   businessname:[null, [Validators.required]],
-  //   firstname: [null,[Validators.required]],
-  //   lastname: [null,[Validators.required]],
-  //   emailaddress: [null,[Validators.required, Validators.email]],
-  //   phone: [null],
-  //   phoneType: ["Personal"],
-  //   note: [null]
-  // })
+  leadForm = this.fb.group({
+    businessName:[null, [Validators.required]],
+    logo:['', [ 
+        RxwebValidators.image({ maxHeight: 300,maxWidth: 300 }),
+        RxwebValidators.extension({ extensions: ["jpeg","png","tiff"] })
+        ]       
+   ],
+  })
 
   obj = {
     "name":"Smartform1",
@@ -122,15 +122,17 @@ export class LeadFormsComponent implements OnInit {
   }
 
   async getLeadForm(){
+    this.loader = true;
     let gotForm = false;  
     const res = await this.http.getLeadForm().toPromise();
     console.log(res);
     
     console.log(res.data[0].formJson.components.length);
-    if(res.data[0].formJson != {} && res.data[0].formJson.components.length){
+    if((res.data[0].formJson != {}) && res.data[0].formJson.components.length){
         // console.log("hi");
         this.editForm = res.data[0] 
         this.form = res.data[0].formJson;
+        this.loader = false;
         gotForm = true;
     }
     else if(!gotForm){
@@ -139,13 +141,16 @@ export class LeadFormsComponent implements OnInit {
             console.log(res);
             this.editForm = res["data"];
             this.form = res["data"].formJson
+            this.loader = false;
         })
     }
   }
 
   onPreview(){
-      this.http.leadToPreview(this.form);
+      this.http.leadToPreview(this.editForm);
   }
+
+  loader: any;
 
   public editForm = {};
 

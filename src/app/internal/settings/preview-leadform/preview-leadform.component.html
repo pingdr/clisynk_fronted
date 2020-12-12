@@ -3,7 +3,7 @@
 <div class="main-lead-forms">
    
     <!-- ---------------right-col---------------->
-    <div class="right-col-lead">
+    <div class="right-col-lead"> <!-- *ngIf="!loader" -->
         
         <!-- <div class="lead-form-preview">Lead Form preview</div> -->
         
@@ -61,15 +61,19 @@
                 </div>
             </form> -->
             <formio [form]='form' (submit)="onSubmit($event)"></formio>
-        </div>
-          
-        
-        
+        </div>       
     </div>
-
-
-
-
 </div>
-
+    <!-- <div class="right-edit-form-main" *ngIf="loader">
+        <ng-container>
+            <div class="first-section-wrapper">
+                <div class="gravatar-title">
+                    <ngx-skeleton-loader
+                        count="5"
+                        [theme]="{ 'border-radius': '0', height: '60px', 'margin-bottom': '3px','z-index':'99','margin-left': '0px','margin-top': '0','border': 'none','left':'0'}">
+                    </ngx-skeleton-loader>
+                </div>
+            </div>
+        </ng-container>
+    </div> -->
 
