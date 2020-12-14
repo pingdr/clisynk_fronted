@@ -9,14 +9,6 @@
         
         <div class="right-edit-form-main">
           <!-- --------bind-logo-here------------ -->
-            <div *ngIf="logoUrl == undefined ? true : false" class="text-center" style="margin-bottom: 10px;">
-                <img src="../../../../assets/images/custom-1logo.png" width="300px" style="width: 180px; height: 90px; object-fit: cover;">
-            </div>
-            <div *ngIf="logoUrl == undefined ? false : true" class="business-logo">
-                <img src="{{logoUrl}}" height="100px" alt="Image preview...">
-            </div>
-            <span *ngIf="businessName == undefined ? true : false" class="logo-text-both">Langermania</span>
-            <span *ngIf="businessName == undefined ? false : true" class="logo-text-both">{{ businessName }}</span>
             <!-- <form class="main-edit-form">
                 <div class="input-field">
                     <mat-form-field class="full-width" appearance="outline">

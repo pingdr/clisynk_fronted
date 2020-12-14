@@ -3,6 +3,7 @@ import { HttpService } from 'src/app/services/http.service';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-smart-form-create',
@@ -162,6 +163,7 @@ export class SmartFormCreateComponent implements OnInit {
         });
         this.published = true;
         this.update = false;
+        this.router.navigate(['/preview-smartform']);
     }
     // console.log(this.formInfo.value.formName);
     else{
@@ -256,7 +258,7 @@ export class SmartFormCreateComponent implements OnInit {
             formName: name, 
             formDescription: description
         });
-    // this.formToBeSend = this.form
+    this.formToBeSend = this.form
     console.log(this.formInfo);
     this.update = true;
   }
@@ -269,7 +271,7 @@ export class SmartFormCreateComponent implements OnInit {
     console.log(this.formToBeSend);
   }
   
-  constructor(public http:HttpService, private fb: FormBuilder) { }
+  constructor(public http:HttpService, private fb: FormBuilder, public router: Router) { }
 
   ngOnInit() {
     this.getSmartFormData();  

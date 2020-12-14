@@ -10,6 +10,7 @@ import { BuildAutomationComponent } from './internal/automations/build-automatio
 import { AddBuildautomationComponent } from './internal/automations/add-buildautomation/add-buildautomation.component';
 import { BuildThenautomationsComponent } from './internal/automations/build-thenautomations/build-thenautomations.component';
 import { PreviewLeadformComponent } from './internal/settings/preview-leadform/preview-leadform.component';
+import { PreviewSmartformComponent } from './internal/settings/preview-smartform/preview-smartform.component';
 
 
 const routes: Routes = [
@@ -22,7 +23,8 @@ const routes: Routes = [
     {path: 'add-build-automation', component: AddBuildautomationComponent},
     {path: 'build-then-automation', component: BuildThenautomationsComponent},
     {path: 'booking/:name', component: BookingComponent},
-    {path: 'preview-lead-form', component: PreviewLeadformComponent},
+    {path: 'preview-leadform/:id', component: PreviewLeadformComponent},
+    {path: 'preview-smartform', component: PreviewSmartformComponent},
     {path: '', loadChildren: () => import('./internal/internal.module').then(m => m.InternalModule)}
 ];
 

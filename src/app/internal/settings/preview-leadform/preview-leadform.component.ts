@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from 'src/app/services/http.service';
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-preview-leadform',
@@ -8,7 +9,7 @@ import { HttpService } from 'src/app/services/http.service';
 })
 export class PreviewLeadformComponent implements OnInit {
 
-  constructor(public http: HttpService) { }
+  constructor(public http: HttpService, public route: ActivatedRoute) { }
 
   // leadForm = this.fb.group({
   //   businessname:[null, [Validators.required]],
@@ -21,6 +22,8 @@ export class PreviewLeadformComponent implements OnInit {
   // })
 
   loader = false;
+  businessName: '';
+  logoUrl: '';
 
   obj = { 
     smartFormId:"",
@@ -34,23 +37,26 @@ export class PreviewLeadformComponent implements OnInit {
     }
   }
 
-  async getForm(){
+  getForm(){    
     if(this.http.leadFormJson['formJson']){
       this.form = this.http.leadFormJson['formJson'];
       this.obj.smartFormId = this.http.leadFormJson['_id'];
+      this.logoUrl = this.http.leadFormJson['logoUrl'];
+      this.businessName = this.http.leadFormJson['businessName'];
     }
     else {
       this.loader = true; 
-      const res = await this.http.getLeadForm().toPromise();
-      // console.log(res);
-      
-      console.log(res.data[0].formJson.components.length);
-      if((res.data[0].formJson != {}) && res.data[0].formJson.components.length){
-          // console.log(res);
-          this.obj.smartFormId = res.data[0]._id
-          this.form = res.data[0].formJson;
+      this.http.getLeadFormById(this.route.snapshot.paramMap.get('id')).subscribe(res => {  
+        console.log(res);
+        if(res.data.formJson.components.length){
+            // console.log(res);
+            this.obj.smartFormId = res.data._id
+            this.form = res.data.formJson;
+            this.loader = false;
+        }
+      }, () => {
           this.loader = false;
-      }
+      });
     }
   }
 

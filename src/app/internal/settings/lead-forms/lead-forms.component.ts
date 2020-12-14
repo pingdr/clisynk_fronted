@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { RxwebValidators } from '@rxweb/reactive-form-validators';
 import { Subject } from 'rxjs';
 import { HttpService } from 'src/app/services/http.service';
@@ -18,7 +19,7 @@ export class LeadFormsComponent implements OnInit {
         RxwebValidators.image({ maxHeight: 300,maxWidth: 300 }),
         RxwebValidators.extension({ extensions: ["jpeg","png","tiff"] })
         ]       
-   ],
+    ],
   })
 
   obj = {
@@ -30,7 +31,8 @@ export class LeadFormsComponent implements OnInit {
             "label": "First Name",
             "tableView": true,
             "validate": {
-                "required": true
+                "required": true,
+                "maxLength": 40
             },
             "key": "firstName",
             "type": "textfield",
@@ -40,7 +42,8 @@ export class LeadFormsComponent implements OnInit {
             "label": "Last Name",
             "tableView": true,
             "validate": {
-                "required": true
+                "required": true,
+                "maxLength": 40
             },
             "key": "lastName",
             "type": "textfield",
@@ -118,17 +121,21 @@ export class LeadFormsComponent implements OnInit {
         }
     ]
     },
-      "tags":["lead"]
+      "tags":["lead"],
+    //   "businessName":"Tesla",
+    //   "businessLogo":"data:image/png;base64,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"
   }
+
+  imagePath: any;
+  logoUrl: any;
+  loader: any;
 
   async getLeadForm(){
     this.loader = true;
-    let gotForm = false;  
+    let gotForm = false;
     const res = await this.http.getLeadForm().toPromise();
     console.log(res);
-    
-    console.log(res.data[0].formJson.components.length);
-    if((res.data[0].formJson != {}) && res.data[0].formJson.components.length){
+    if(res.data[0].formJson.components.length){
         // console.log("hi");
         this.editForm = res.data[0] 
         this.form = res.data[0].formJson;
@@ -140,19 +147,33 @@ export class LeadFormsComponent implements OnInit {
             // console.log("hello");
             console.log(res);
             this.editForm = res["data"];
-            this.form = res["data"].formJson
+            this.form = res["data"].formJson;
+            this.loader = false;
+            // const { businessName, businessLogo } = res["data"];
+            // this.leadForm.patchValue({
+            //     businessName: businessName, 
+            //     logo: businessLogo
+            // });
+        }, () => {
             this.loader = false;
         })
     }
   }
 
   onPreview(){
-      this.http.leadToPreview(this.editForm);
+    if(this.leadForm.value.businessName){
+        this.editForm.businessName = this.leadForm.value.businessName;
+    } 
+    if(this.logoUrl){
+        this.editForm.logoUrl = this.logoUrl;
+    } 
+    this.http.leadToPreview(this.editForm);
+    // [routerLink]="['/preview-lead-form']" 
+    this.router.navigate(['/preview-leadform', this.editForm._id]);
   }
 
-  loader: any;
 
-  public editForm = {};
+  public editForm: any;
 
   public form: Object = {
     // "components": [
@@ -264,14 +285,36 @@ export class LeadFormsComponent implements OnInit {
     })
   }
 
-  constructor(private fb: FormBuilder, public http: HttpService) { }
+  constructor(private fb: FormBuilder, public http: HttpService, public router: Router) { }
 
   ngOnInit() {
     this.getLeadForm();
   }
 
-  // onSubmit(){
-    
-  // }
+  onSubmit(){
+    console.log(this.leadForm);
+  }
+
+  onImageChanged(event) {
+    console.log(event);
+    const files = event.target.files;
+    if (files.length === 0){
+        return;
+    }
+    else{
+        const reader = new FileReader();
+        this.imagePath = files;
+        reader.readAsDataURL(files[0]); 
+        reader.onload = (_event) => { 
+            this.logoUrl = reader.result;
+        }
+    }
+
+    // const mimeType = files[0].type;
+    // if (mimeType.match(/image\/*/) == null) {
+    //     this.message = "Only images are supported.";
+    //     return;
+    // }
+}
   
 }

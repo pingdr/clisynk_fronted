@@ -495,6 +495,10 @@ export class HttpService {
         return this.http.get<any>(this.apiEndpoint + "smartForms?tag=lead");
     }
 
+    getLeadFormById(id){
+        return this.http.get<any>(this.apiEndpoint + "smartForms/" + id);
+    }
+
     updateLeadForm(Obj, id){
         return this.http.post<any>(this.apiEndpoint + "smartForms/" + id, Obj);
     }
