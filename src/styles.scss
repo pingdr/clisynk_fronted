@@ -432,7 +432,7 @@ section#close button.icon-only:hover {
 }
 
 .iframe-wrapper.mobile {
-  background: url(assets/images/mobile_view.png) no-repeat top;
+  background: url('assets/images/mobile_view.png') no-repeat top;
   overflow: auto;
 }
 
@@ -6469,12 +6469,27 @@ section.appt-list {
 .formio-dialog-theme-default .formio-dialog-content {
   padding: 30px !important;
   background: #e4e4e4 !important;
+  position: unset !important;
 }
 
+.component-settings .formio-dialog-content button.formio-dialog-close {
+  background: red;
+  right: 130px;
+  top: 10px;
+  border-radius: 100%;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+}
 
 .formio-dialog-theme-default .formio-dialog-content .formio-dialog-close:before {
-  color: #000 !important;
-  font-size: 44px !important; 
+  color: #fff !important;
+  font-size: 21px !important;
+  position: relative;
+  top: -1px;
 }
 
 .formio-dialog.formio-dialog-theme-default .component-edit-container .row .lead {
