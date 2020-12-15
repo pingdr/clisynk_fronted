@@ -124,20 +124,21 @@ export class PreviewSmartformComponent implements OnInit {
     //   this.form = this.http.leadFormJson['formJson'];
     //   this.obj.smartFormId = this.http.leadFormJson['_id'];
     // }
-    // else {
-    //   this.loader = true; 
-    //   this.http.getLeadFormById(this.route.snapshot.paramMap.get('id')).subscribe(res => {  
-    //     console.log(res);
-    //     if(res.data.formJson.components.length){
-    //         // console.log(res);
-    //         this.obj.smartFormId = res.data._id
-    //         this.form = res.data.formJson;
-    //         this.loader = false;
-    //     }
-    //   }, () => {
-    //       this.loader = false;
-    //   });
-    // }
+    // else 
+    {
+      this.loader = true; 
+      this.http.getLeadFormById(this.route.snapshot.paramMap.get('id')).subscribe(res => {  
+        console.log(res);
+        if(res.data.formJson.components.length){
+            // console.log(res);
+            this.obj.smartFormId = res.data._id
+            this.form = res.data.formJson;
+            this.loader = false;
+        }
+      }, () => {
+          this.loader = false;
+      });
+    }
   }
 
   ngOnInit() {

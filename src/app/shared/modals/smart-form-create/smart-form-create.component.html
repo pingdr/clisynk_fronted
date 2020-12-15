@@ -8,7 +8,7 @@
     </div>
     <div class="right-col">
         <span class="all-changes-saved">All changes saved</span>
-        <button type="submit" class="btn-save btn-outline-primary" [disabled]="!formInfo.valid">Save and publish</button>
+        <button type="submit" class="btn-save btn-outline-primary" (click)="http.hideModal();" [disabled]="!formInfo.valid">Save and publish</button>
     </div>
 </div>
 

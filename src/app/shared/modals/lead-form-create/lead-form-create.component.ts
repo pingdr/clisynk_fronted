@@ -18,6 +18,8 @@ export class LeadFormCreateComponent implements OnInit {
       public onClose: Subject<boolean>;
   
       public form: Object = {};
+      
+      formData = new FormData();
 
       public defaultForm = {
         "components": [
@@ -117,11 +119,11 @@ export class LeadFormCreateComponent implements OnInit {
   };
       public tempForm:any;
       public formToBeSend: any;
-      obj = {
-          name: '',
-          description: '',
-          formJson: {},
-      };
+      // obj = {
+      //     name: '',
+      //     description: '',
+      //     formJson: {},
+      // };
       published = false;
       update = false;
   
@@ -131,10 +133,13 @@ export class LeadFormCreateComponent implements OnInit {
       if(!this.formInfo.value.formDescription){
           this.formInfo.value.formDescription = "---";
       }
-      this.obj.name = this.formInfo.value.formName;
-      this.obj.description = this.formInfo.value.formDescription;
-      this.obj.formJson = this.formToBeSend;
-      this.http.updateLeadForm(this.obj, this.modalData._id).subscribe(res => {
+      // this.obj.name = this.formInfo.value.formName;
+      // this.obj.description = this.formInfo.value.formDescription;
+      // this.obj.formJson = this.formToBeSend;
+      this.formData.append("name", this.formInfo.value.formName);
+      this.formData.append("description", this.formInfo.value.formDescription);
+      this.formData.append("formJson", JSON.stringify(this.formToBeSend));
+      this.http.updateLeadForm(this.formData, this.modalData._id).subscribe(res => {
         console.log(res);
         this.onClose.next(true);
         this.http.updateSmartFormList();

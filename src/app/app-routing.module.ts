@@ -24,7 +24,7 @@ const routes: Routes = [
     {path: 'build-then-automation', component: BuildThenautomationsComponent},
     {path: 'booking/:name', component: BookingComponent},
     {path: 'preview-leadform/:id', component: PreviewLeadformComponent},
-    {path: 'preview-smartform', component: PreviewSmartformComponent},
+    {path: 'preview-smartform/:id', component: PreviewSmartformComponent},
     {path: '', loadChildren: () => import('./internal/internal.module').then(m => m.InternalModule)}
 ];
 

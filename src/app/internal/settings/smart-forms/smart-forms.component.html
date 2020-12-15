@@ -36,7 +36,7 @@
                     </td>
                     <td class="actions-table"><button class="delete-icon" (click)="onDelete(f._id)">
                         <img src="../../../../assets/images/trash-icon.svg" width="20"></button>
-                        <button class="delete-icon"><img src="../../../../assets/images/copy.svg" alt="copy" width="28"></button>
+                        <button *ngIf="f.status == 'PUBLISHED'" class="delete-icon" (click)="copyLink(f._id)"><img src="../../../../assets/images/copy.svg" alt="copy" width="28"></button>
                     </td>
                 </tr>
             </tbody>

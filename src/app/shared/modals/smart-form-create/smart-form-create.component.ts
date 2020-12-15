@@ -3,7 +3,7 @@ import { HttpService } from 'src/app/services/http.service';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-smart-form-create',
@@ -53,11 +53,14 @@ export class SmartFormCreateComponent implements OnInit {
               "validateOn": "blur",
               "validate": {
                   "required": true,
-                  "pattern": "/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$/",
+                  "pattern": "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$",
                   "unique": true
               },
               "unique": true,
               "key": "emailAddress1",
+              "kickbox": {
+                  "enabled": true
+                },
               "type": "email",
               "input": true
           },
@@ -130,64 +133,44 @@ export class SmartFormCreateComponent implements OnInit {
     };
     
     public formToBeSend = this.form;
-    obj = {
-        name: '',
-        description: '',
-        formJson: {},
-        status: ''
-    };
-    // objTest = {
-    //     smartFormId: "XXXXXXXXXXXXXX",
-    //     resultJson: {}
-    // };
+    formData = new FormData();
     published = false;
     update = false;
 
   getSmartFormData(){
       this.http.getSmartForm().subscribe(res => {
-        // console.log(res);
     });
   }  
 
   onPublish(){
     if(this.update){
-        this.obj.name = this.formInfo.value.formName;
-        this.obj.description = this.formInfo.value.formDescription;
-        this.obj.formJson = this.formToBeSend;
-        this.obj.status = "PUBLISHED";
-        console.log(this.obj);
-        this.http.updateSmartForm(this.obj, this.modalData._id).subscribe(res => {
-            console.log(res);
+        this.formData.append("name", this.formInfo.value.formName);
+        this.formData.append("description", this.formInfo.value.formDescription);
+        this.formData.append("formJson", JSON.stringify(this.formToBeSend));
+        this.formData.append("status", "PUBLISHED");
+        this.http.updateSmartForm(this.formData, this.modalData._id).subscribe(res => {
+            // console.log(res);
             this.onClose.next(true);
             this.http.updateSmartFormList();
+            this.router.navigate([]).then(result => {  window.open("/preview-smartform/" + res["data"]._id, '_blank'); });
         });
         this.published = true;
         this.update = false;
-        this.router.navigate(['/preview-smartform']);
     }
     // console.log(this.formInfo.value.formName);
     else{
         if(!this.formInfo.value.formDescription){
             this.formInfo.value.formDescription = "---";
         }
-        this.obj.name = this.formInfo.value.formName;
-        this.obj.description = this.formInfo.value.formDescription;
-        this.obj.formJson = this.formToBeSend;
-        this.obj.status = "PUBLISHED";
-        console.log(this.obj);
-        // this.objTest.resultJson = this.formToBeSend;
-        // console.log(this.objTest);
-        // const obj = {
-        //     "name":"Smartform1",
-        //     "description":"Test Description",
-        //     "formJson": {components :{
-    
-        //     }}
-        // }
-        this.http.postSmartForm(this.obj).subscribe(res => {
-            console.log(res);
+        this.formData.append("name", this.formInfo.value.formName);
+        this.formData.append("description", this.formInfo.value.formDescription);
+        this.formData.append("formJson", JSON.stringify(this.formToBeSend));
+        this.formData.append("status", "PUBLISHED");
+        this.http.postSmartForm(this.formData).subscribe(res => {
+            // console.log(res);
             this.onClose.next(true);
             this.http.updateSmartFormList();
+            this.router.navigate([]).then(result => {  window.open("/preview-smartform/" + res["data"]._id, '_blank'); });
         });
         this.published = true;
     }
@@ -196,25 +179,11 @@ export class SmartFormCreateComponent implements OnInit {
   onDraft(){
     if(this.update){
         if(!this.published){
-            // if(!this.formInfo.value.formName && !this.formInfo.value.formDescription){
-            //     this.obj.name = "Untitled Form";
-            //     this.obj.description = "---";
-            // }
-            // else if(!this.formInfo.value.formName){
-            //     this.obj.name = "Untitled Form";
-            //     this.obj.description = this.formInfo.value.formDescription;
-            // }
-            // else if(!this.formInfo.value.formDescription){
-            //     this.obj.name = this.formInfo.value.formName;
-            //     this.obj.description = "---";
-            // }
-            // else{
-            this.obj.name = this.formInfo.value.formName;
-            this.obj.description = this.formInfo.value.formDescription;
-            this.obj.formJson = this.formToBeSend;
-            this.obj.status = "DRAFT";
-            console.log(this.obj);
-            this.http.updateSmartForm(this.obj, this.modalData._id).subscribe(res => {
+            this.formData.append("name", this.formInfo.value.formName);
+            this.formData.append("description", this.formInfo.value.formDescription);
+            this.formData.append("formJson", JSON.stringify(this.formToBeSend));
+            this.formData.append("status", "DRAFT");
+            this.http.updateSmartForm(this.formData, this.modalData._id).subscribe(res => {
                 this.onClose.next(true);
                 this.http.updateSmartFormList();
             });
@@ -224,25 +193,24 @@ export class SmartFormCreateComponent implements OnInit {
     else{
         if(!this.published){
             if(!this.formInfo.value.formName && !this.formInfo.value.formDescription){
-                this.obj.name = "Untitled Form";
-                this.obj.description = "---";
+                this.formData.append("name", "Untitled Form");
+                this.formData.append("description", "---");
             }
             else if(!this.formInfo.value.formName){
-                this.obj.name = "Untitled Form";
-                this.obj.description = this.formInfo.value.formDescription;
+                this.formData.append("name", "Untitled Form");
+                this.formData.append("description", this.formInfo.value.formDescription);
             }
             else if(!this.formInfo.value.formDescription){
-                this.obj.name = this.formInfo.value.formName;
-                this.obj.description = "---";
+                this.formData.append("name", this.formInfo.value.formName);
+                this.formData.append("description", "---");
             }
             else{
-                this.obj.name = this.formInfo.value.formName;
-                this.obj.description = this.formInfo.value.formDescription;
+                this.formData.append("name", this.formInfo.value.formName);
+                this.formData.append("description", this.formInfo.value.formDescription);
             }
-            this.obj.formJson = this.formToBeSend;
-            this.obj.status = "DRAFT";
-            console.log(this.obj);
-            this.http.postSmartForm(this.obj).subscribe(res => {
+            this.formData.append("formJson", JSON.stringify(this.formToBeSend));
+            this.formData.append("status", "DRAFT");
+            this.http.postSmartForm(this.formData).subscribe(res => {
                 console.log(res);
                 this.onClose.next(true);
                 this.http.updateSmartFormList();
@@ -271,7 +239,7 @@ export class SmartFormCreateComponent implements OnInit {
     console.log(this.formToBeSend);
   }
   
-  constructor(public http:HttpService, private fb: FormBuilder, public router: Router) { }
+  constructor(public http:HttpService, private fb: FormBuilder, public router: Router, public route: ActivatedRoute) { }
 
   ngOnInit() {
     this.getSmartFormData();  

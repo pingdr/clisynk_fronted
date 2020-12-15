@@ -23,7 +23,7 @@ export class PreviewLeadformComponent implements OnInit {
 
   loader = false;
   businessName: '';
-  logoUrl: '';
+  logoUrl: any;
 
   obj = { 
     smartFormId:"",
@@ -31,7 +31,7 @@ export class PreviewLeadformComponent implements OnInit {
       addNote: "",
       emailAddress: "",
       firstName: "",
-      lastName: "",
+      lastName: "", 
       phone: "",
       phoneType: ""
     }
@@ -52,7 +52,18 @@ export class PreviewLeadformComponent implements OnInit {
             // console.log(res);
             this.obj.smartFormId = res.data._id
             this.form = res.data.formJson;
-            this.loader = false;
+            if(res.data.businessName){
+              this.businessName = res.data.businessName;
+            }
+            // const reader = new FileReader();
+            // reader.readAsDataURL(res.data.businessLogo); 
+            // reader.onload = (_event) => { 
+            //     this.logoUrl = reader.result;
+            // }
+            if(res.data.businessLogo){
+              this.logoUrl = res.data.businessLogo;
+            }
+            this.loader = false; 
         }
       }, () => {
           this.loader = false;

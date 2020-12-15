@@ -14,7 +14,7 @@
                 </button>
             </div>
             <div class="comm-btn">
-                <button class="copy-btn">
+                <button class="copy-btn" (click)="copyLink()">
                     <img src="../../../../assets/images/copy-blue.svg" width="20">
                     Copy link
                 </button>
@@ -75,7 +75,7 @@
     <div class="right-col-lead">
         <div class="lead-form-preview">Lead Form preview</div>
         <div class="right-edit-form-main" *ngIf="!loader">
-            <div class="business-logo" *ngIf="leadForm.value.logo && leadForm.valid">
+            <div class="business-logo" *ngIf="logoUrl">
                 <img src="{{logoUrl}}" height="100px" alt="Image preview...">
             </div>
             <div class="business-name" *ngIf="leadForm.value.businessName">

@@ -68,11 +68,25 @@ export class SmartFormsComponent implements OnInit {
       if (res) {
         this.formsList.forEach((form, i) => {
           if(data == form['_id']){
-            console.log(this.formsList.splice(i, 1));
+            this.formsList.splice(i, 1);
           }
         })
       }
     });
   }
+
+  copyLink(id){
+    const selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = "localhost:4200/preview-smartform/" + id;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
+}
 
 }
