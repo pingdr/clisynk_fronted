@@ -128,7 +128,6 @@ export class LeadFormsComponent implements OnInit {
 
   formData = new FormData();
 
-  imagePath: any;
   logoUrl: any;
   loader: any;
   file: any = null;
@@ -138,15 +137,15 @@ export class LeadFormsComponent implements OnInit {
     let gotForm = false;
     const res = await this.http.getLeadForm().toPromise();
     console.log(res);
-    if(res.data[0].formJson.components.length){
-        // console.log("hi");
+    if(res.data[0].formJson.components.length){     //-----error prone
         this.editForm = res.data[0] 
         this.form = res.data[0].formJson;
-        const { businessName } = res.data[0];
+        const { businessName } = res.data[0];        
         this.leadForm.patchValue({
             businessName: businessName
         });
         this.logoUrl = res.data[0].businessLogo;
+        this.file = res.data[0].businessLogo;
         this.loader = false;
         gotForm = true;
     }
@@ -251,7 +250,6 @@ export class LeadFormsComponent implements OnInit {
         }));
         this.formData.append("tags", JSON.stringify(["lead"]));
         this.http.postSmartForm(this.formData).subscribe(res =>{
-            // console.log("hello");
             console.log(res);
             this.editForm = res["data"];
             this.form = res["data"].formJson;
@@ -264,21 +262,25 @@ export class LeadFormsComponent implements OnInit {
 
   onPreview(){
     if(this.leadForm.value.businessName){
-        this.editForm.businessName = this.leadForm.value.businessName;
-        this.formData.append("businessName", this.leadForm.value.businessName);       
+        console.log("if name");
+        this.formData.set("businessName", String(this.leadForm.value.businessName));  
     }
-    if(this.logoUrl){
-        this.editForm.logoUrl = this.logoUrl;
+    else{
+        console.log("else name");
+        this.formData.set("businessName", "");
     }
-    if(this.file != null){
-        this.formData.append("businessLogo", this.file);
+    if(this.file){
+        console.log("if logo");
+        this.formData.set("businessLogo", this.file);
     }
-    this.http.leadToPreview(this.editForm);
+    else{
+        console.log("else logo");
+        this.formData.set("businessLogo", "");
+    }
     this.http.updateLeadForm(this.formData, this.editForm._id).subscribe(res => {
         console.log(res);
     });
-    // [routerLink]="['/preview-lead-form']" 
-    this.router.navigate(['/preview-leadform', this.editForm._id]);
+    this.router.navigate([]).then(result => {  window.open("/preview-leadform/" + this.editForm._id, '_blank'); });
   }
 
 
@@ -383,8 +385,6 @@ export class LeadFormsComponent implements OnInit {
     // ]
   };
 
-//   formToBeSend = this.form;
-
   onEdit(data?) {
     console.log(this.editForm);
     const modalRef = this.http.showModal(LeadFormCreateComponent, 'custom-class-for-create-smart-form', this.editForm,);
@@ -398,6 +398,8 @@ export class LeadFormsComponent implements OnInit {
 
   ngOnInit() {
     this.getLeadForm();
+    this.formData.append("businessName", "");
+    this.formData.append("businessLogo", "");
   }
 
   onSubmit(){
@@ -405,40 +407,41 @@ export class LeadFormsComponent implements OnInit {
   }
 
   onImageChanged(event) {
-    console.log(event.target.files);
-    this.file = <File>event.target.files[0];
-    if (event.target.files === 0){
-        return;
-    }
-    else{
-        const reader = new FileReader();
-        this.imagePath = event.target.files;
-        console.log(this.file);
-        reader.readAsDataURL(this.file); 
-        reader.onload = (_event) => { 
-            this.logoUrl = reader.result;
+        console.log(event.target.files);
+        this.file = <File>event.target.files[0];
+        if (event.target.files === 0){
+            return;
+        }
+        else{
+            const reader = new FileReader();
+            console.log(this.file);
+            reader.readAsDataURL(this.file); 
+            reader.onload = (_event) => { 
+                this.logoUrl = reader.result;
+            }
+            this.formData.set("businessLogo", this.file);
         }
     }
 
-    // const mimeType = files[0].type;
-    // if (mimeType.match(/image\/*/) == null) {
-    //     this.message = "Only images are supported.";
-    //     return;
-    // }
+    copyLink(){
+        const copy = document.createElement('textarea');
+        copy.style.position = 'fixed';
+        copy.style.left = '0';
+        copy.style.top = '0';
+        copy.style.opacity = '0';        
+        copy.value = window.location.origin + "/preview-leadform/" + this.editForm._id;
+        document.body.appendChild(copy);
+        copy.focus();
+        copy.select();
+        document.execCommand('copy');
+        document.body.removeChild(copy);
     }
 
-    copyLink(){
-        const selBox = document.createElement('textarea');
-        selBox.style.position = 'fixed';
-        selBox.style.left = '0';
-        selBox.style.top = '0';
-        selBox.style.opacity = '0';
-        selBox.value = "localhost:4200/preview-leadform/" + this.editForm._id;
-        document.body.appendChild(selBox);
-        selBox.focus();
-        selBox.select();
-        document.execCommand('copy');
-        document.body.removeChild(selBox);
+    removeLogo(){
+        this.logoUrl = null;
+        this.leadForm.controls['logo'].setValue(null);
+        this.file = null;
+        this.formData.set("businessLogo", "");
     }
   
 }

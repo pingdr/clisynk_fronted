@@ -26,31 +26,30 @@ export class PreviewLeadformComponent implements OnInit {
   logoUrl: any;
 
   obj = { 
-    smartFormId:"",
-    resultJson: {
       addNote: "",
       emailAddress: "",
       firstName: "",
       lastName: "", 
       phone: "",
       phoneType: ""
-    }
   }
 
+  formData = new FormData();
+
   getForm(){    
-    if(this.http.leadFormJson['formJson']){
-      this.form = this.http.leadFormJson['formJson'];
-      this.obj.smartFormId = this.http.leadFormJson['_id'];
-      this.logoUrl = this.http.leadFormJson['logoUrl'];
-      this.businessName = this.http.leadFormJson['businessName'];
-    }
-    else {
+    // if(this.http.leadFormJson['formJson']){
+    //   this.form = this.http.leadFormJson['formJson'];
+    //   this.obj.smartFormId = this.http.leadFormJson['_id'];
+    //   this.logoUrl = this.http.leadFormJson['logoUrl'];
+    //   this.businessName = this.http.leadFormJson['businessName'];
+    // }
       this.loader = true; 
       this.http.getLeadFormById(this.route.snapshot.paramMap.get('id')).subscribe(res => {  
         console.log(res);
         if(res.data.formJson.components.length){
             // console.log(res);
-            this.obj.smartFormId = res.data._id
+            // this.obj.smartFormId = res.data._id;
+            this.formData.append("smartFormId", res["data"]._id);
             this.form = res.data.formJson;
             if(res.data.businessName){
               this.businessName = res.data.businessName;
@@ -68,7 +67,6 @@ export class PreviewLeadformComponent implements OnInit {
       }, () => {
           this.loader = false;
       });
-    }
   }
 
   ngOnInit() {
@@ -78,16 +76,17 @@ export class PreviewLeadformComponent implements OnInit {
   public form: Object = {};
 
   onSubmit(event){
-    // console.log(event.data);
-    this.obj.resultJson.addNote = event.data.addNote;
-    this.obj.resultJson.emailAddress = event.data.emailAddress;
-    this.obj.resultJson.firstName = event.data.firstName;
-    this.obj.resultJson.lastName = event.data.lastName;
-    this.obj.resultJson.phone = event.data.phone;
-    this.obj.resultJson.phoneType = event.data.phoneType;
-    this.http.postLeadForm(this.obj).subscribe(res => {
+    console.log(event.data);
+    this.obj.addNote = event.data.addNote;
+    this.obj.emailAddress = event.data.emailAddress;
+    this.obj.firstName = event.data.firstName;
+    this.obj.lastName = event.data.lastName;
+    this.obj.phone = event.data.phone;
+    this.obj.phoneType = event.data.phoneType;
+    this.formData.append("resultJson", JSON.stringify(this.obj));
+    this.http.postLeadForm(this.formData).subscribe(res => {
       console.log(res);
-    })    
+    });
   }
 
     //    "components": [

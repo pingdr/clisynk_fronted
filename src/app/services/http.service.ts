@@ -52,8 +52,6 @@ export class HttpService {
     loginData: any;
     myLoader = false;
 
-    public leadFormJson = {};
-
     test: EventEmitter<any> = new EventEmitter<any>();
 
     constructor(private router: Router, public http: HttpClient, public toastr: ToastrService,
@@ -501,10 +499,6 @@ export class HttpService {
 
     updateLeadForm(Obj, id){
         return this.http.post<any>(this.apiEndpoint + "smartForms/" + id, Obj);
-    }
-
-    leadToPreview(data){
-        this.leadFormJson = data;
     }
 
 }

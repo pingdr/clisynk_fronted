@@ -150,9 +150,9 @@ export class SmartFormCreateComponent implements OnInit {
         this.formData.append("status", "PUBLISHED");
         this.http.updateSmartForm(this.formData, this.modalData._id).subscribe(res => {
             // console.log(res);
+            this.router.navigate([]).then(result => {  window.open("/preview-smartform/" + res["data"]._id, '_blank'); });
             this.onClose.next(true);
             this.http.updateSmartFormList();
-            this.router.navigate([]).then(result => {  window.open("/preview-smartform/" + res["data"]._id, '_blank'); });
         });
         this.published = true;
         this.update = false;
@@ -168,9 +168,9 @@ export class SmartFormCreateComponent implements OnInit {
         this.formData.append("status", "PUBLISHED");
         this.http.postSmartForm(this.formData).subscribe(res => {
             // console.log(res);
+            this.router.navigate([]).then(result => {  window.open("/preview-smartform/" + res["data"]._id, '_blank'); });
             this.onClose.next(true);
             this.http.updateSmartFormList();
-            this.router.navigate([]).then(result => {  window.open("/preview-smartform/" + res["data"]._id, '_blank'); });
         });
         this.published = true;
     }

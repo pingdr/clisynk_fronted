@@ -1,8 +1,17 @@
 .main-lead-forms{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-column-gap: 80px;
-    padding: 20px 30px;
+    display: flex;
+}
+
+.main-lead-forms .right-col-lead {
+    width: 40%;
+    margin-top: -40px;
+    margin-left: 40px;
+    margin-right: 20px;
+}
+
+.main-lead-forms .left-col-lead {
+    width: 60%;
+    margin-left: 20px;
 }
 
 .first-alert-strips {
@@ -59,6 +68,7 @@
 
 .add-your-business-main {
     margin-top: 20px;
+    width: 45%;
 }
 
 .add-your-business-main .label-name {
@@ -334,4 +344,10 @@
     align-items: center;
     margin-bottom: 25px;
     margin-top: 10px;
+}
+
+.preview-logo {
+    margin-left: 28px;
+    margin-top: 20px; 
+    margin-bottom: 20px;
 }

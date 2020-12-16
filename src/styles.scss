@@ -6712,3 +6712,11 @@ section.appt-list {
 .required:after{
   display:none;
 }
+
+// -------------------description -------------------//
+.custom-tooltip{
+  max-width: unset !important;
+  font-size: 12px; 
+  position: static;
+  word-wrap: break-word;
+}

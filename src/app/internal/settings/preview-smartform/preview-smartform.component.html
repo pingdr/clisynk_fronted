@@ -8,6 +8,7 @@
         <!-- <div class="lead-form-preview">Lead Form preview</div> -->
         
         <div class="right-edit-form-main" *ngIf="!loader">
+        <span class="logo-text-both" *ngIf="formName">{{ formName }}</span>
           <!-- --------bind-logo-here------------ -->
             <!-- <form class="main-edit-form">
                 <div class="input-field">
@@ -58,9 +59,9 @@
             </form> -->
             <formio [form]='form' (submit)="onSubmit($event)"></formio>
         </div>
-        <div class="right-edit-form-main" *ngIf="loader">
+        <div class="right-edit-form-main"*ngIf="loader"> 
             <ng-container>
-                <div class="first-section-wrapper">
+                <div class="first-section-wrapper" style="margin-top:53px;" >
                     <div class="gravatar-title">
                         <ngx-skeleton-loader
                             count="5"

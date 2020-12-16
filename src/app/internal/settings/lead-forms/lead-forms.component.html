@@ -60,7 +60,13 @@
             </p>
 
         </div>
+        <div class="preview-logo">
+            <img src="{{logoUrl}}" width="300">
+        </div>
         <div class="info-about-logo">Logo should be at least 300px x 300px</div>
+        <div class="remove-btn-logo" *ngIf="logoUrl">
+            <button class="rm-btn" style="cursor:pointer" (click)="removeLogo()">Remove logo</button>
+        </div>
     </form>
         <!-- edit-form-strips -->
         <div class="Edit-your-form">
@@ -78,7 +84,7 @@
             <div class="business-logo" *ngIf="logoUrl">
                 <img src="{{logoUrl}}" height="100px" alt="Image preview...">
             </div>
-            <div class="business-name" *ngIf="leadForm.value.businessName">
+            <div class="business-name">
                 <h2>{{ leadForm.value.businessName }}</h2>
             </div>
             <!-- <span class="logo-text-both">Langermania</span>

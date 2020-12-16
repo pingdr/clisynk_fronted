@@ -25,6 +25,8 @@ export class PreviewSmartformComponent implements OnInit {
     }
   }
 
+  formName: string;
+
   getForm(){    
     this.form = {
       "components": [
@@ -133,6 +135,7 @@ export class PreviewSmartformComponent implements OnInit {
             // console.log(res);
             this.obj.smartFormId = res.data._id
             this.form = res.data.formJson;
+            this.formName = res.data.name
             this.loader = false;
         }
       }, () => {
@@ -149,15 +152,15 @@ export class PreviewSmartformComponent implements OnInit {
 
   onSubmit(event){
     // console.log(event.data);
-    this.obj.resultJson.addNote = event.data.addNote;
-    this.obj.resultJson.emailAddress = event.data.emailAddress;
-    this.obj.resultJson.firstName = event.data.firstName;
-    this.obj.resultJson.lastName = event.data.lastName;
-    this.obj.resultJson.phone = event.data.phone;
-    this.obj.resultJson.phoneType = event.data.phoneType;
-    this.http.postLeadForm(this.obj).subscribe(res => {
-      console.log(res);
-    })    
+    // this.obj.resultJson.addNote = event.data.addNote;
+    // this.obj.resultJson.emailAddress = event.data.emailAddress;
+    // this.obj.resultJson.firstName = event.data.firstName;
+    // this.obj.resultJson.lastName = event.data.lastName;
+    // this.obj.resultJson.phone = event.data.phone;
+    // this.obj.resultJson.phoneType = event.data.phoneType;
+    // this.http.postLeadForm(this.obj).subscribe(res => {
+    //   console.log(res);
+    // })    
   }
 
 }
