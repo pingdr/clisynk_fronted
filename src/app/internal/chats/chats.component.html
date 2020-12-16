@@ -340,28 +340,29 @@
                             margin-bottom: 10px; border-bottom: 1px solid rgba(0,0,0,.1);">
                                 <span class="profile-name-list" style="color: #df3333;">Clear Chat</span>
                             </div>
-
-                            <div *ngIf="selectedChat?.chatType == 'GROUP'" class="group-of-member-main-div">
-                                <!-- <hr/> -->
-                                <!-- {{selectedChat?.users?.length}} participents -->
-                                <div *ngFor="let user of selectedChat?.users" style="display: flex;margin: 15px 0px;">
-                                    <div class="user-circle">
-                                        <span *ngIf="user?.profileImage;else onlyName">
-                                            <img [src]="user?.profileImage?.thumbnail" class="profile-image-list" />
-                                        </span>
-                                        <ng-template #onlyName>
-                                            {{user?.fullName?.substr(0, 1)}}
-                                        </ng-template>
-                                    </div>
-                                    <div>
-                                        <div class="username-header">
-                                            {{user?.fullName}}
+                            <div class="main-group-member-box">
+                                <div *ngIf="selectedChat?.chatType == 'GROUP'" class="group-of-member-main-div">
+                                    <!-- <hr/> -->
+                                    <!-- {{selectedChat?.users?.length}} participents -->
+                                    <div *ngFor="let user of selectedChat?.users" style="display: flex;margin: 15px 0px;">
+                                        <div class="user-circle">
+                                            <span *ngIf="user?.profileImage;else onlyName">
+                                                <img [src]="user?.profileImage?.thumbnail" class="profile-image-list" />
+                                            </span>
+                                            <ng-template #onlyName>
+                                                {{user?.fullName?.substr(0, 1)}}
+                                            </ng-template>
                                         </div>
-                                        <div>{{user?.email}}</div>
+                                        <div>
+                                            <div class="username-header">
+                                                {{user?.fullName}}
+                                            </div>
+                                            <div>{{user?.email}}</div>
+                                        </div>
+                                        <hr/>
                                     </div>
-                                    <hr/>
+                                
                                 </div>
-                              
                             </div>
 
                         </div>
@@ -1694,13 +1695,13 @@
                 <div id="remote" #remoteVideo></div>
                
                 <div class="btn decline video-decline">
-                   <img src="assets/images/decline-call-icon.svg" (click)="deleteVideoCall()">
+                   <img src="assets/images/vintage-phone-receiver.svg" (click)="deleteVideoCall()">
                 </div>
-                <div *ngIf="!muteFlag" >
-                   <img src="assets/images/unmute-icon.svg" (click)="muteCall()" class="mute-btn">
+                <div *ngIf="!muteFlag" class="micro-phone" >
+                   <img src="assets/images/microphone-black-shape.svg" (click)="muteCall()" >
                 </div>
-                <div *ngIf="muteFlag" >
-                    <img src="assets/images/mute-icon.svg" class="unmute-btn" (click)="unMuteCall()">
+                <div *ngIf="muteFlag" class="micro-phone un-mute-micro" >
+                    <img src="assets/images/microphone-black-shape.svg"  (click)="unMuteCall()">
                 </div>
             </div>
 
@@ -1712,15 +1713,21 @@
                         {{callStatus}}
                     </div>
                 </div>
+                <!-- ----------------inner-call---------------------- -->
+                <div class="main-caller-id-div">
+
+                        <span class="call-id-first-letter skype-call-pannel">M</span>
+
+                </div>
                 
                 <div class="btn decline video-decline">
-                    <img src="assets/images/decline-call-icon.svg" (click)="deleteVoiceCall()">
+                    <img src="assets/images/vintage-phone-receiver.svg" (click)="deleteVoiceCall()">
                 </div>
-                <div *ngIf="!muteFlag">
-                    <img src="assets/images/unmute-icon.svg"  (click)="muteCall()" class="mute-btn">
+                <div *ngIf="!muteFlag" class="micro-phone">
+                    <img src="assets/images/microphone-black-shape.svg"  (click)="muteCall()" >
                 </div>
-                <div *ngIf="muteFlag">
-                    <img src="assets/images/mute-icon.svg" class="unmute-btn" (click)="unMuteCall()">
+                <div *ngIf="muteFlag" class="micro-phone un-mute-micro">
+                    <img src="assets/images/microphone-black-shape.svg" (click)="unMuteCall()">
                 </div>
             </div>
 

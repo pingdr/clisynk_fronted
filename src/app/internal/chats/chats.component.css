@@ -23,7 +23,7 @@
   display: block;
 }
 .video-container{
-  background-color: gray;
+  background-color: #272727;
   /* width: 100%; */
   /* height: 100%; */
 }
@@ -195,14 +195,14 @@
 }
 
 .video-container{
-  height: calc(100% - 60px);
+  height: calc(100% - 55px);
     position: relative;
 }
 
 .video-header{
-  background: #252323;
+  background: #5a5a5a;
   height: auto;
-  padding: 15px 0px;
+  padding: 20px 0px;
   display: flex;
   flex-direction: column;
   font-size: 16px;
@@ -211,18 +211,19 @@
   justify-content: center;
   align-items: center;
   color: #ffff;
-  box-shadow: 0px 0px 30px #585858;
+  z-index: 999 !important;
+  position: relative;
 }
 
 .video-header .video-call-status {
   display: block;
-  font-size: 12px;
-  color: #989a9a;
+  font-size: 13px;
+  color: #ffff;
 }
 
 .show-video-view div#local {
-  width: 160px !important;
-  height: 250px !important;
+  /* width: 260px !important;
+    height: 180px !important;
   overflow: hidden;
   margin-top: auto;
   margin-bottom: 0;
@@ -230,7 +231,26 @@
   margin-right: 0;
   position: absolute;
   right: 15px;
-  bottom: 15px;
+  bottom: 15px; */
+  /* ---------full-screen-using-outgoing---------- */
+  /* width: 100% !important;
+    height: 100% !important;
+    top: 0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+     */
+     /* ---------------after-recived-call */
+     width: 23% !important;
+     height: 23% !important;
+     /* top: 0; */
+     position: absolute;
+     bottom: 20px;
+     /* left: 0; */
+     right: 20px;
+     margin: auto;
 }
 .show-video-view #local video {
   object-fit: cover !important;
@@ -249,9 +269,17 @@
 .video-decline{
   position: absolute;
   bottom: 30px;
-  left: 0;
+  left: 100px;
   right: 0;
   animation: inherit;
+  background: red;
+    overflow: hidden;
+    width: 55px;
+    height: 55px;
+}
+.video-decline img {
+  width: 29px;
+  margin: auto;
 }
 
 .mute-btn {
@@ -1588,11 +1616,11 @@ span.search-icon img {
   padding: 40px 30px;
 } */
 
-.group-of-member-main-div {
+/* .group-of-member-main-div {
   height: 570px;
   overflow: scroll;
   overflow-x: hidden;
-}
+} */
 
 .side-nav-group-main .mat-drawer .mat-drawer-inner-container {
   overflow: hidden;
@@ -1633,6 +1661,118 @@ span.search-icon img {
 }
 
 
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   width: 2px;
+} */
+
+
+.micro-phone {
+  position: absolute;
+    bottom: 30px;
+    width: 55px;
+    height: 55px;
+    overflow: hidden;
+    background: #9c9c9c;
+    border-radius: 100%;
+    left: -80px;
+    right: 0;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.micro-phone img {
+  width: 25px;
+  margin: auto;
+}
+
+
+.un-mute-micro:before {
+  position: absolute;
+  content: '';
+  background: #fff;
+  width: 3px;
+  top: 0;
+  bottom: 0;
+  height: 40px;
+  z-index: 9;
+  margin: auto;
+  transform: rotate(37deg);
+}
+
+
+.main-caller-id-div {
+  /* background: #fff; */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+.main-caller-id-div span.call-id-first-letter {
+  background: #cfd5ff;
+  width: 150px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 70px;
+  border-radius: 100%;
+  color: #000;
+}
+
+
+.skype-call-pannel {
+  background: #fff;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  backface-visibility: hidden;
+  width: 200px;
+  height: 200px;
+  position: relative;
+  margin: 0 auto;
+  border-radius: 150px;
+  animation: play 3.5s ease infinite;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+@keyframes play {
+  0% {
+    transform: scale(1);
+  }
+  15% {
+    box-shadow: 0 0 0 20px rgba(255, 255, 255, 0.2);
+  }
+  25% {
+    box-shadow: 0 0 0 20px rgba(255, 255, 255, 0.2), 0 0 0 40px rgba(255, 255, 255, 0.2);
+  }
+  30% {
+    transform: scale(1.2);
+  }
+  50% {
+    /* box-shadow: 0 0 0 20px rgba(255, 255, 255, 0.2), 0 0 0 40px rgba(255, 255, 255, 0.2), 0 0 0 60px rgba(255, 255, 255, 0.2); */
+    transform: scale(1);
+  }
+  /* 80% {
+    transform: scale(1);
+  } */
+}
+
+.main-group-member-box {
+  overflow: hidden;
+  height: 500px !important;
+  padding-bottom: 0;
+}
+
+.group-of-member-main-div{
+  overflow: scroll;
+  overflow-x: hidden;
+  height: 100%;
 }
