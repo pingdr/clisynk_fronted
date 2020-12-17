@@ -154,7 +154,7 @@
     width: 28%;
     margin: auto;
     margin-top: 60px;
-    min-height: 800px;
+    min-height: 700px;
 }
 
 .right-edit-form-main span.logo-text-both {
@@ -326,4 +326,25 @@
 
 .remove-btn-logo button.rm-btn:hover{
     text-decoration: underline;
+}
+
+.submission-text{
+    display: block;
+    text-align: center;
+    font-size: 25px;
+    margin-top: 30px;
+    margin-bottom: -15px;
+}
+
+.submission-display{
+    font-size: 22px;
+    background: #fff;
+    box-shadow: 0px 1px 4px #828282;
+    padding: 35px;
+    border-radius: 20px;
+    width: 30%;
+    margin: auto;
+    margin-top: 40px;
+    min-height: 100px;
+    text-align: center;
 }

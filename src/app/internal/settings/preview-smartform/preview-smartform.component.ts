@@ -26,6 +26,7 @@ export class PreviewSmartformComponent implements OnInit {
   }
 
   formName: string;
+  submitted = false;
 
   getForm(){    
     this.form = {
@@ -151,6 +152,7 @@ export class PreviewSmartformComponent implements OnInit {
   public form: Object = {};
 
   onSubmit(event){
+    this.submitted = true
     // console.log(event.data);
     // this.obj.resultJson.addNote = event.data.addNote;
     // this.obj.resultJson.emailAddress = event.data.emailAddress;
