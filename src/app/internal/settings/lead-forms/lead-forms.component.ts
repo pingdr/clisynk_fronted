@@ -132,7 +132,7 @@ export class LeadFormsComponent implements OnInit {
   loader: any;
   file: any = null;
   oldFile: any = null;
-  change = false;
+  copied = false;
 
   async getLeadForm(){
     this.loader = true;
@@ -285,7 +285,10 @@ export class LeadFormsComponent implements OnInit {
     this.http.updateLeadForm(this.formData, this.editForm._id).subscribe(res => {
         console.log(res);
     });
-    this.router.navigate([]).then(result => {  window.open("/preview-leadform/" + this.editForm._id, '_blank'); });
+    if(!this.copied){
+        this.router.navigate([]).then(result => {  window.open("/preview-leadform/" + this.editForm._id, '_blank'); });
+    }
+    this.copied = false;
   }
 
 
@@ -429,6 +432,8 @@ export class LeadFormsComponent implements OnInit {
     }
 
     copyLink(){
+        this.copied = true;
+        this.onPreview();
         const copy = document.createElement('textarea');
         copy.style.position = 'fixed';
         copy.style.left = '0';
@@ -440,6 +445,26 @@ export class LeadFormsComponent implements OnInit {
         copy.select();
         document.execCommand('copy');
         document.body.removeChild(copy);
+        this.http.openSnackBar('Form link copied successfully');
+    }
+
+    copyCode(){
+        const copy = document.createElement('textarea');
+        copy.style.position = 'fixed';
+        copy.style.left = '0';
+        copy.style.top = '0';
+        copy.style.opacity = '0';      
+        let object = {};
+        // this.formData.forEach(function(value, key){
+        //     object[key] = value;
+        // });
+        copy.value = JSON.stringify(this.editForm, null, 2);
+        document.body.appendChild(copy);
+        copy.focus();
+        copy.select();
+        document.execCommand('copy');
+        document.body.removeChild(copy);
+        this.http.openSnackBar('Code copied successfully');
     }
 
     removeLogo(){

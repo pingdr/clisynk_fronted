@@ -8,7 +8,7 @@
         </div>
         <div class="right-col-three-btn">
             <div class="comm-btn">
-                <button class="copy-btn">
+                <button class="copy-btn" (click)="copyCode()">
                     <img src="../../../../assets/images/copy-blue.svg" width="20">
                     Copy code
                 </button>
@@ -52,7 +52,7 @@
         <!-- logo-upload -->
         <div class="label-name add-your-logo-heading">Add your logo (optional)</div>
         <div class="upload-logo-optional">
-            <input [writeFile]="true" type="file" formControlName="logo" class="upload-btn" (change)="onImageChanged($event)">
+            <input #fileInput (click)="fileInput.value = null" [writeFile]="true" type="file" formControlName="logo" class="upload-btn" (change)="onImageChanged($event)">
             <img src="../../../../assets/images/upload-icon.png" width="70">
             <h3 class="logo-heading">Upload logo</h3>
             <p class="text-description">

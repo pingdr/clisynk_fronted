@@ -90,6 +90,7 @@ export class SmartFormsComponent implements OnInit {
     selBox.select();
     document.execCommand('copy');
     document.body.removeChild(selBox);
+    this.http.openSnackBar('Form link copied successfully');
 }
 
 }
