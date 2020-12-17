@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { HttpService } from 'src/app/services/http.service';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
@@ -19,23 +19,127 @@ export class LeadFormCreateComponent implements OnInit {
   
       public form: Object = {};
       
-      public formToBeSend = this.form;
-      obj = {
-          name: '',
-          description: '',
-          formJson: {},
-      };
+      formData = new FormData();
+
+      public defaultForm = {
+        "components": [
+        {
+            "label": "First Name",
+            "tableView": true,
+            "validate": {
+                "required": true,
+                "maxLength": 40
+            },
+            "key": "firstName",
+            "type": "textfield",
+            "input": true
+        },
+        {
+            "label": "Last Name",
+            "tableView": true,
+            "validate": {
+                "required": true,
+                "maxLength": 40
+            },
+            "key": "lastName",
+            "type": "textfield",
+            "input": true
+        },
+        {
+            "label": "Email Address",
+            "tableView": true,
+            "validate": {
+                "required": true
+            },
+            "key": "emailAddress",
+            "type": "textfield",
+            "input": true
+        },
+        {
+            "label": "Phone",
+            "placeholder": "Phone",
+            "tableView": true,
+            "validate": {
+                "required": true
+            },
+            "key": "phone",
+            "type": "phoneNumber",
+            "input": true
+        },
+        {
+            "label": "Phone Type",
+            "widget": "choicesjs",
+            "tableView": true,
+            "defaultValue": "office",
+            "data": {
+                "values": [
+                    {
+                        "label": "Personal",
+                        "value": "personal"
+                    },
+                    {
+                        "label": "Office",
+                        "value": "office"
+                    },
+                    {
+                        "label": "Home",
+                        "value": "home"
+                    },
+                    {
+                        "label": "Other",
+                        "value": "other"
+                    }
+                ]
+            },
+            "selectThreshold": 0.3,
+            "key": "phoneType",
+            "type": "select",
+            "indexeddb": {
+                "filter": {}
+            },
+            "input": true
+        },
+        {
+            "label": "Add Note",
+            "autoExpand": false,
+            "tableView": true,
+            "key": "addNote",
+            "type": "textarea",
+            "input": true
+        },
+        {
+            "type": "button",
+            "label": "Submit",
+            "key": "submit",
+            "disableOnInvalid": true,
+            "input": true,
+            "tableView": false
+        }
+    ]
+  };
+      public tempForm:any;
+      public formToBeSend: any;
+      // obj = {
+      //     name: '',
+      //     description: '',
+      //     formJson: {},
+      // };
       published = false;
       update = false;
   
     onUpdate(){
+      // if(this.formToBeSend.){
+      // }
       if(!this.formInfo.value.formDescription){
           this.formInfo.value.formDescription = "---";
       }
-      this.obj.name = this.formInfo.value.formName;
-      this.obj.description = this.formInfo.value.formDescription;
-      this.obj.formJson = this.formToBeSend;
-      this.http.updateLeadForm(this.obj, this.modalData._id).subscribe(res => {
+      // this.obj.name = this.formInfo.value.formName;
+      // this.obj.description = this.formInfo.value.formDescription;
+      // this.obj.formJson = this.formToBeSend;
+      this.formData.append("name", this.formInfo.value.formName);
+      this.formData.append("description", this.formInfo.value.formDescription);
+      this.formData.append("formJson", JSON.stringify(this.formToBeSend));
+      this.http.updateLeadForm(this.formData, this.modalData._id).subscribe(res => {
         console.log(res);
         this.onClose.next(true);
         this.http.updateSmartFormList();
@@ -131,6 +235,7 @@ export class LeadFormCreateComponent implements OnInit {
         console.log(data);
         if(data.name || data.description){
           this.formToBeSend = this.form = data.formJson;
+          this.tempForm = data.formJson;
           const { name, description } = data;
             this.formInfo.patchValue({
                 formName: name, 
@@ -139,6 +244,7 @@ export class LeadFormCreateComponent implements OnInit {
         }
         else{
           this.formToBeSend = this.form = data.formJson;
+          this.tempForm = data.formJson;
           this.formInfo.patchValue({
             formName: "Untitled Form", 
             formDescription: "---"
@@ -149,11 +255,22 @@ export class LeadFormCreateComponent implements OnInit {
     }
   
     onChange(event) {
-      this.formToBeSend = event.form;
-      console.log(this.formToBeSend);
+      console.log(event);
+      if((event.type == "deleteComponent") && (event.component.key == "firstName" || event.component.key == "lastName" || event.component.key == "emailAddress" || event.component.key == "phone" || event.component.key == "phoneType" || event.component.key == "addNote" || event.component.key == "submit")){
+        console.log("deleted");
+        console.log(this.tempForm);
+        this.form = this.tempForm;
+        this.formToBeSend = this.tempForm; 
+        // this.changeDetect.detectChanges();
+      }
+      else{
+        this.formToBeSend = event.form;
+        this.tempForm = event.form;
+        // console.log(this.formToBeSend);
+      }
     }
     
-    constructor(public http:HttpService, private fb: FormBuilder) { }
+    constructor(public http:HttpService, private fb: FormBuilder,public changeDetect: ChangeDetectorRef) { }
   
     ngOnInit() { 
       if(this.modalData){

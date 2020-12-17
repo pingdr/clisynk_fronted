@@ -14,13 +14,13 @@
                 </button>
             </div>
             <div class="comm-btn">
-                <button class="copy-btn">
+                <button class="copy-btn" (click)="copyLink()">
                     <img src="../../../../assets/images/copy-blue.svg" width="20">
                     Copy link
                 </button>
             </div>
             <div class="comm-btn">
-                <button class="copy-btn go-to-form" [routerLink]="['/preview-lead-form']" (click)="onPreview()">
+                <button class="copy-btn go-to-form" (click)="onPreview()">
                     <img src="../../../../assets/images/export-blue-icon.svg" width="20">
                     Go to your form
                 </button>
@@ -39,18 +39,19 @@
             <label class="alert-icon"></label>
             <p>All users on this Clisynk account will be notified whenever a new lead is submitted. Updating your business name and logo here will update your account settings.</p>
         </div>
-    <form [formGroup]="leadForm">
+    <form [formGroup]="leadForm" (ngSubmit)="onSubmit()">
         <div class="input-field add-your-business-main">
             <label class="label-name">Add your business name</label>
             <mat-form-field class="full-width" appearance="outline">
                 <mat-label class="required">Business Name</mat-label>
-                <input matInput type="text" formControlName="businessName">
+                <input matInput #input maxlength="40" type="text" formControlName="businessName">
+                <mat-hint align="end">{{ input.value?.length || 0 }}/40</mat-hint>
             </mat-form-field>
         </div>
         <!-- logo-upload -->
         <div class="label-name add-your-logo-heading">Add your logo (optional)</div>
         <div class="upload-logo-optional">
-            <input [writeFile]="true" type="file" formControlName="logo" class="upload-btn">
+            <input [writeFile]="true" type="file" formControlName="logo" class="upload-btn" (change)="onImageChanged($event)">
             <img src="../../../../assets/images/upload-icon.png" width="70">
             <h3 class="logo-heading">Upload logo</h3>
             <p class="text-description">
@@ -59,7 +60,13 @@
             </p>
 
         </div>
-        <div class="info-about-logo">Logo should be at least 300px x 300px</div>     
+        <div class="preview-logo">
+            <img src="{{logoUrl}}" width="300">
+        </div>
+        <div class="info-about-logo">Logo should be at least 300px x 300px</div>
+        <div class="remove-btn-logo" *ngIf="logoUrl">
+            <button class="rm-btn" style="cursor:pointer" (click)="removeLogo()">Remove logo</button>
+        </div>
     </form>
         <!-- edit-form-strips -->
         <div class="Edit-your-form">
@@ -74,6 +81,12 @@
     <div class="right-col-lead">
         <div class="lead-form-preview">Lead Form preview</div>
         <div class="right-edit-form-main" *ngIf="!loader">
+            <div class="business-logo" *ngIf="logoUrl">
+                <img src="{{logoUrl}}" height="100px" alt="Image preview...">
+            </div>
+            <div class="business-name">
+                <h2>{{ leadForm.value.businessName }}</h2>
+            </div>
             <!-- <span class="logo-text-both">Langermania</span>
                 <div class="input-field">
                     <mat-form-field class="full-width" appearance="outline">

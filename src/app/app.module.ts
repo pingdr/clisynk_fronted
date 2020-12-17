@@ -38,6 +38,7 @@ import { BuildThenautomationsComponent } from './internal/automations/build-then
 import { SubmitfeedbackComponent } from './shared/modals/submitfeedback/submitfeedback.component';
 import { MatChipsModule } from '@angular/material';
 import { PreviewLeadformComponent } from './internal/settings/preview-leadform/preview-leadform.component';
+import { PreviewSmartformComponent } from './internal/settings/preview-smartform/preview-smartform.component';
 
 
 
@@ -47,7 +48,7 @@ import { PreviewLeadformComponent } from './internal/settings/preview-leadform/p
 @NgModule({
     declarations: [
         CapitalizePipe, AppComponent, LoginComponent, PrivacyComponent, ForgotPasswordComponent,SubmitfeedbackComponent,
-        ReceiptComponent, BookingComponent, TodoComponent, BuildAutomationComponent, AddBuildautomationComponent, BuildThenautomationsComponent, PreviewLeadformComponent
+        ReceiptComponent, BookingComponent, TodoComponent, BuildAutomationComponent, AddBuildautomationComponent, BuildThenautomationsComponent, PreviewLeadformComponent, PreviewSmartformComponent
     ],
     imports: [
         SharedModule, BrowserModule, AppRoutingModule, HttpClientModule,NgxEmojiPickerModule,NgxDocViewerModule,

@@ -13,6 +13,8 @@ import { BsModalService } from 'ngx-bootstrap';
 export class SmartFormsComponent implements OnInit {
   formsList: [{}];
   loader: any;
+  // displayedColumns: string[] = ['name', 'description', 'createdAt', 'status'];
+  // dataSource: [{}];
   constructor(public http: HttpService, public modalService: BsModalService) { }
 
   ngOnInit() {
@@ -26,6 +28,7 @@ export class SmartFormsComponent implements OnInit {
         console.log(res.data);
         this.loader = false;
         this.formsList = res.data;
+        // this.dataSource = res.data;
     }, () => {
         this.loader = false;
     });
@@ -68,11 +71,25 @@ export class SmartFormsComponent implements OnInit {
       if (res) {
         this.formsList.forEach((form, i) => {
           if(data == form['_id']){
-            console.log(this.formsList.splice(i, 1));
+            this.formsList.splice(i, 1);
           }
         })
       }
     });
   }
+
+  copyLink(id){
+    const selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = window.location.origin + "/preview-smartform/" + id;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
+}
 
 }

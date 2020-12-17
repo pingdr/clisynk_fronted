@@ -8,15 +8,8 @@
         <!-- <div class="lead-form-preview">Lead Form preview</div> -->
         
         <div class="right-edit-form-main" *ngIf="!loader">
+        <span class="logo-text-both" *ngIf="formName">{{ formName }}</span>
           <!-- --------bind-logo-here------------ -->
-            <!-- <div *ngIf="logoUrl == undefined ? true : false" class="text-center" style="margin-bottom: 10px;">
-                <img src="../../../../assets/images/custom-1logo.png" width="300px" style="width: 180px; height: 90px; object-fit: cover;">
-            </div> -->
-            <div *ngIf="logoUrl == undefined ? false : true" class="business-logo">
-                <img src="{{logoUrl}}" height="100px" alt="Image preview...">
-            </div>
-            <!-- <span *ngIf="businessName == undefined ? true : false" class="logo-text-both">Langermania</span> -->
-            <span *ngIf="businessName == undefined ? false : true" class="logo-text-both">{{ businessName }}</span>
             <!-- <form class="main-edit-form">
                 <div class="input-field">
                     <mat-form-field class="full-width" appearance="outline">
@@ -66,18 +59,18 @@
             </form> -->
             <formio [form]='form' (submit)="onSubmit($event)"></formio>
         </div>
-        <div class="right-edit-form-main" *ngIf="loader">
+        <div class="right-edit-form-main"*ngIf="loader"> 
             <ng-container>
-                <div class="first-section-wrapper" style="margin-top:185px;">
+                <div class="first-section-wrapper" style="margin-top:53px;" >
                     <div class="gravatar-title">
                         <ngx-skeleton-loader
-                            count="7"
+                            count="5"
                             [theme]="{ 'border-radius': '0', height: '60px', 'margin-bottom': '3px','z-index':'99','margin-left': '0px','margin-top': '0','border': 'none','left':'0'}">
                         </ngx-skeleton-loader>
                     </div>
                 </div>
             </ng-container>
-        </div>       
+        </div>      
     </div>
 </div>
     

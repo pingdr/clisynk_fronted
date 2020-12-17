@@ -327,11 +327,3 @@
 .remove-btn-logo button.rm-btn:hover{
     text-decoration: underline;
 }
-
-.business-logo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
-    margin-top: 15px;
-}

@@ -28,7 +28,7 @@
                 <tr *ngFor="let f of formsList; let i=index">
                     <td class="form-name" (click)="onUpdate(f)">{{ f.name }}</td>
                     <td class="description new-description" style="width: 500px;" (click)="onUpdate(f)">
-                        <p>{{ f.description }}</p>
+                        <p matTooltip="{{f.description}}" matTooltipClass="custom-tooltip">{{ f.description }}</p>
                     </td>
                     <td class="added-on" (click)="onUpdate(f)">{{ f.createdAt.slice(0,10) }}</td>
                     <td class="status" (click)="onUpdate(f)"><span *ngIf="f.status == 'DRAFT'" class="not-published">Not
@@ -36,12 +36,49 @@
                     </td>
                     <td class="actions-table"><button class="delete-icon" (click)="onDelete(f._id)">
                         <img src="../../../../assets/images/trash-icon.svg" width="20"></button>
-                        <button class="delete-icon"><img src="../../../../assets/images/copy.svg" alt="copy" width="28"></button>
+                        <button *ngIf="f.status == 'PUBLISHED'" class="delete-icon" (click)="copyLink(f._id)"><img src="../../../../assets/images/copy.svg" alt="copy" width="28"></button>
                     </td>
                 </tr>
             </tbody>
 
         </table>
+        <!-- <table mat-table [dataSource]="dataSource"  class="smart-table-list" class="mat-elevation-z8">
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef>Form Name</th>
+                <td mat-cell *matCellDef="let f"> {{f.name}} </td>
+            </ng-container>
+            <ng-container matColumnDef="description">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let f"> {{f.description}} </td>
+            </ng-container>
+            <thead>
+                <tr>
+                    <th class="form-name">Form Name</th>
+                    <th class="description">Description</th>
+                    <th class="added-on">Added On <button class="down-arrow"><img
+                                src="../../../../assets/images/down-blue-arrow.svg" width="20"></button></th>
+                    <th class="status">Status</th>
+                    <th class="actions-table">Actions</th>
+                </tr>
+            </thead>
+            <tbody *ngIf="!loader">
+                <tr *ngFor="let f of formsList; let i=index">
+                    <td class="form-name" (click)="onUpdate(f)">{{ f.name }}</td>
+                    <td class="description new-description" style="width: 500px;" (click)="onUpdate(f)">
+                        <p matTooltip="{{f.description}}" matTooltipClass="custom-tooltip">{{ f.description }}</p>
+                    </td>
+                    <td class="added-on" (click)="onUpdate(f)">{{ f.createdAt.slice(0,10) }}</td>
+                    <td class="status" (click)="onUpdate(f)"><span *ngIf="f.status == 'DRAFT'" class="not-published">Not
+                            Published</span><span *ngIf="f.status == 'PUBLISHED'" class="published">Published</span>
+                    </td>
+                    <td class="actions-table"><button class="delete-icon" (click)="onDelete(f._id)">
+                        <img src="../../../../assets/images/trash-icon.svg" width="20"></button>
+                        <button *ngIf="f.status == 'PUBLISHED'" class="delete-icon" (click)="copyLink(f._id)"><img src="../../../../assets/images/copy.svg" alt="copy" width="28"></button>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table> -->
     </div>
     <ng-container *ngIf="loader">
         <div class="first-section-wrapper">

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from 'src/app/services/http.service';
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-preview-leadform',
@@ -8,7 +9,7 @@ import { HttpService } from 'src/app/services/http.service';
 })
 export class PreviewLeadformComponent implements OnInit {
 
-  constructor(public http: HttpService) { }
+  constructor(public http: HttpService, public route: ActivatedRoute) { }
 
   // leadForm = this.fb.group({
   //   businessname:[null, [Validators.required]],
@@ -21,37 +22,51 @@ export class PreviewLeadformComponent implements OnInit {
   // })
 
   loader = false;
+  businessName: '';
+  logoUrl: any;
 
   obj = { 
-    smartFormId:"",
-    resultJson: {
       addNote: "",
       emailAddress: "",
       firstName: "",
-      lastName: "",
+      lastName: "", 
       phone: "",
       phoneType: ""
-    }
   }
 
-  async getForm(){
-    if(this.http.leadFormJson['formJson']){
-      this.form = this.http.leadFormJson['formJson'];
-      this.obj.smartFormId = this.http.leadFormJson['_id'];
-    }
-    else {
+  formData = new FormData();
+
+  getForm(){    
+    // if(this.http.leadFormJson['formJson']){
+    //   this.form = this.http.leadFormJson['formJson'];
+    //   this.obj.smartFormId = this.http.leadFormJson['_id'];
+    //   this.logoUrl = this.http.leadFormJson['logoUrl'];
+    //   this.businessName = this.http.leadFormJson['businessName'];
+    // }
       this.loader = true; 
-      const res = await this.http.getLeadForm().toPromise();
-      // console.log(res);
-      
-      console.log(res.data[0].formJson.components.length);
-      if((res.data[0].formJson != {}) && res.data[0].formJson.components.length){
-          // console.log(res);
-          this.obj.smartFormId = res.data[0]._id
-          this.form = res.data[0].formJson;
+      this.http.getLeadFormById(this.route.snapshot.paramMap.get('id')).subscribe(res => {  
+        console.log(res);
+        if(res.data.formJson.components.length){
+            // console.log(res);
+            // this.obj.smartFormId = res.data._id;
+            this.formData.append("smartFormId", res["data"]._id);
+            this.form = res.data.formJson;
+            if(res.data.businessName){
+              this.businessName = res.data.businessName;
+            }
+            // const reader = new FileReader();
+            // reader.readAsDataURL(res.data.businessLogo); 
+            // reader.onload = (_event) => { 
+            //     this.logoUrl = reader.result;
+            // }
+            if(res.data.businessLogo){
+              this.logoUrl = res.data.businessLogo;
+            }
+            this.loader = false; 
+        }
+      }, () => {
           this.loader = false;
-      }
-    }
+      });
   }
 
   ngOnInit() {
@@ -61,16 +76,17 @@ export class PreviewLeadformComponent implements OnInit {
   public form: Object = {};
 
   onSubmit(event){
-    // console.log(event.data);
-    this.obj.resultJson.addNote = event.data.addNote;
-    this.obj.resultJson.emailAddress = event.data.emailAddress;
-    this.obj.resultJson.firstName = event.data.firstName;
-    this.obj.resultJson.lastName = event.data.lastName;
-    this.obj.resultJson.phone = event.data.phone;
-    this.obj.resultJson.phoneType = event.data.phoneType;
-    this.http.postLeadForm(this.obj).subscribe(res => {
+    console.log(event.data);
+    this.obj.addNote = event.data.addNote;
+    this.obj.emailAddress = event.data.emailAddress;
+    this.obj.firstName = event.data.firstName;
+    this.obj.lastName = event.data.lastName;
+    this.obj.phone = event.data.phone;
+    this.obj.phoneType = event.data.phoneType;
+    this.formData.append("resultJson", JSON.stringify(this.obj));
+    this.http.postLeadForm(this.formData).subscribe(res => {
       console.log(res);
-    })    
+    });
   }
 
     //    "components": [
