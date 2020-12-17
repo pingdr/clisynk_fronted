@@ -13,6 +13,7 @@
     width: 60%;
     margin-left: 20px;
     margin-bottom: 30px;
+    
 }
 
 .first-alert-strips {
@@ -69,7 +70,7 @@
 
 .add-your-business-main {
     margin-top: 20px;
-    width: 45%;
+    width: 70%;
 }
 
 .add-your-business-main .label-name {
@@ -152,8 +153,10 @@
 }
 
 .lead-form-preview {
-    font-size: 18px;
+    font-size: 21px;
     font-weight: 400;
+    margin-top: -1px;
+    margin-bottom: -4px;
 }
 
 
@@ -326,7 +329,7 @@
     background: transparent;
     border: none;
     padding: 0;
-    font-size: 15px;
+    font-size: 18px;
     color: #ff3500;
 }
 
@@ -348,7 +351,7 @@
 }
 
 .preview-logo {
-    margin-left: 28px;
+    margin-left: 15px;
     margin-top: 20px; 
     margin-bottom: 20px;
 }

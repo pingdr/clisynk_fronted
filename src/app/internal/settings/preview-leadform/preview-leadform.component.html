@@ -1,6 +1,6 @@
 
 
-<div class="main-lead-forms">
+<div class="main-lead-forms" *ngIf="!submitted">
    
     <!-- ---------------right-col---------------->
     <div class="right-col-lead"> <!-- *ngIf="!loader" -->
@@ -78,6 +78,15 @@
                 </div>
             </ng-container>
         </div>       
+    </div>
+</div>
+<div class="main-lead-forms" *ngIf="submitted">
+    <div class="right-col-lead">
+        <span *ngIf="businessName == undefined ? false : true" class="submission-text">{{ businessName }}</span>
+        <div class="submission-display">
+            <span>Thank you!</span><br>
+            <span style="font-size: 16px;">We appreciate you reaching out and will be in touch soon.</span>
+        </div>
     </div>
 </div>
     

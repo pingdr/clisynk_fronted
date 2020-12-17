@@ -131,6 +131,8 @@ export class LeadFormsComponent implements OnInit {
   logoUrl: any;
   loader: any;
   file: any = null;
+  oldFile: any = null;
+  change = false;
 
   async getLeadForm(){
     this.loader = true;
@@ -145,7 +147,7 @@ export class LeadFormsComponent implements OnInit {
             businessName: businessName
         });
         this.logoUrl = res.data[0].businessLogo;
-        this.file = res.data[0].businessLogo;
+        this.oldFile = this.file = res.data[0].businessLogo;
         this.loader = false;
         gotForm = true;
     }
@@ -276,6 +278,9 @@ export class LeadFormsComponent implements OnInit {
     else{
         console.log("else logo");
         this.formData.set("businessLogo", "");
+    }
+    if(this.oldFile == this.file){
+        this.formData.delete("businessLogo");
     }
     this.http.updateLeadForm(this.formData, this.editForm._id).subscribe(res => {
         console.log(res);

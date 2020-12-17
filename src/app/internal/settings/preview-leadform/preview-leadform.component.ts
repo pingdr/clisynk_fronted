@@ -24,6 +24,7 @@ export class PreviewLeadformComponent implements OnInit {
   loader = false;
   businessName: '';
   logoUrl: any;
+  submitted = false;
 
   obj = { 
       addNote: "",
@@ -76,7 +77,6 @@ export class PreviewLeadformComponent implements OnInit {
   public form: Object = {};
 
   onSubmit(event){
-    console.log(event.data);
     this.obj.addNote = event.data.addNote;
     this.obj.emailAddress = event.data.emailAddress;
     this.obj.firstName = event.data.firstName;
@@ -86,6 +86,9 @@ export class PreviewLeadformComponent implements OnInit {
     this.formData.append("resultJson", JSON.stringify(this.obj));
     this.http.postLeadForm(this.formData).subscribe(res => {
       console.log(res);
+      if(res['statusCode'] == 200){
+        this.submitted = true;
+      }
     });
   }
 
