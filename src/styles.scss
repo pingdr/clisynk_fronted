@@ -6468,14 +6468,15 @@ section.appt-list {
 
 .formio-dialog-theme-default .formio-dialog-content {
   padding: 30px !important;
-  background: #e4e4e4 !important;
+  background: #f8f8f8 !important;
   position: unset !important;
+  font-family: 'Sul Sans';
 }
 
 .component-settings .formio-dialog-content button.formio-dialog-close {
   background: red;
-  right: 130px;
-  top: 10px;
+  right: 9.5%;
+  top: 9px;
   border-radius: 100%;
   padding: 10px;
   display: flex;
@@ -6499,6 +6500,11 @@ section.appt-list {
   font-size: 22px;
   font-weight: 300;
   font-family: "Sul Sans" !important;
+}
+
+.formio-dialog-theme-default .card {
+  border: 1px solid #e8e8e8;
+  overflow: hidden;
 }
 
 .formio-dialog.formio-dialog-theme-default .component-edit-container .row .float-right {
@@ -6711,4 +6717,78 @@ section.appt-list {
 
 .required:after{
   display:none;
+}
+
+// -------------_New-login-page---------------//
+.login-card-main .login-form-field-main .form-group {
+  margin-bottom: 12px;
+}
+
+
+.login-card-main .login-form-field-main .form-group .mat-form-field .mat-form-field-flex {
+  margin-top: 0 !important;
+  border: 1px solid #c7c7c7 !important;
+  border-radius: 5px;
+} 
+
+.login-card-main .login-form-field-main .form-group .mat-form-field .mat-form-field-flex .mat-form-field-outline {
+  color: #C7C7C7 !important;
+  top: 0px !important;
+  display: none !important;
+}
+
+.login-card-main .login-form-field-main .form-group .mat-form-field .mat-form-field-flex .mat-form-field-infix {
+  padding-top: 15px !important;
+  padding-bottom: 15px !important;
+  // font-family: 'Sul Sans' !important;
+}
+
+.login-card-main .login-form-field-main .form-group .mat-form-field .mat-form-field-flex .mat-form-field-infix input {
+  margin-top: 0 !important;
+}
+
+
+.login-card-main .login-form-field-main .form-group .mat-form-field .mat-form-field-flex .mat-form-field-suffix {
+  top: 6px !important;
+}
+
+.login-card-main .login-form-field-main .form-group .mat-form-field .mat-form-field-flex .mat-form-field-suffix mat-icon {
+  color: #C7C7C7 !important;
+}
+
+.login-form-field-main .mat-form-field-subscript-wrapper {
+  margin-top: 11px !important;
+}
+
+.login-form-field-main .mat-form-field-subscript-wrapper .mat-error {
+  font-size: 11px !important;
+  color: red !important;
+  font-weight: 400;
+}
+
+.email-group .full-width {
+  position: relative;
+}
+
+.email-group .full-width::before {
+  position: absolute;
+  content: '';
+  background: #fff url('assets/images/login-email.svg') no-repeat;
+  background-size: 39px 12px;
+    height: 18px;
+    width: 26px;
+    right: 13px;
+    top: -18px;
+    bottom: 0;
+    margin: auto;
+    z-index: 999;
+    background-position: center left -5px;
+}
+
+// -----------auto-fill-----------------//
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
