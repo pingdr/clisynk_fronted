@@ -12,6 +12,7 @@
 .main-lead-forms .left-col-lead {
     width: 60%;
     margin-left: 20px;
+    margin-bottom: 30px;
 }
 
 .first-alert-strips {
@@ -189,12 +190,12 @@
 }
 
 @media(max-width:1500px){
-    .main-lead-forms{
+    /* .main-lead-forms{
         grid-column-gap: 50px;
-    }
+    } */
     .first-alert-strips p{
-        font-size: 15px;
-        line-height: 22px;
+        font-size: 13px;
+        line-height: 19px;
     }
     .add-your-business-main .label-name{
         margin-bottom: 5px;
@@ -206,7 +207,7 @@
         
     }
     .upload-logo-optional{
-        width: 80%;
+        width: 55%;
     }
     .upload-logo-optional .logo-heading{
         font-size: 18px;
@@ -350,4 +351,49 @@
     margin-left: 28px;
     margin-top: 20px; 
     margin-bottom: 20px;
+}
+
+
+.preview-logo img {
+    width: 90px;
+}
+
+
+
+@media (max-width:1590px){
+    .main-lead-forms .left-col-lead{
+        width: 50%;
+    }
+    .main-lead-forms .right-col-lead{
+        width: 50%;
+        margin-left: 60px;
+    }
+    .add-your-business-main{
+        width: 65%;
+    }
+}
+
+
+@media (max-width:1500px){
+    .first-alert-strips{
+        padding: 22px 20px;
+    }
+    .first-alert-strips label.alert-icon{
+        width: 25px;
+        height: 25px;
+        border: 2px solid #000;
+        padding: 12px;
+    }
+    .first-alert-strips label.alert-icon:before{
+        height: 8px;
+    }
+    .first-alert-strips label.alert-icon:after{
+        bottom: 5px;
+    }
+    .form-description-inner-main{
+        font-size:14px;
+    }
+    .main-lead-forms .right-col-lead{
+        margin-top: -29px;
+    }
 }
