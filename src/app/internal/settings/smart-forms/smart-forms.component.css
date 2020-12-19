@@ -111,3 +111,7 @@
     text-overflow: ellipsis;
     margin-bottom: 0px;
 }
+
+::ng-deep .mat-sort-header-arrow {
+    color: rgb(75, 145, 224);
+}

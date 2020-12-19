@@ -4,6 +4,8 @@ import { Subject } from 'rxjs';
 import { SmartFormCreateComponent } from 'src/app/shared/modals/smart-form-create/smart-form-create.component';
 import { SmartFormDeleteComponent } from "src/app/shared/modals/smart-form-delete/smart-form-delete.component";
 import { BsModalService } from 'ngx-bootstrap';
+import { Sort } from '@angular/material/sort';
+import { format } from 'date-fns'
 
 @Component({
   selector: 'app-smart-forms',
@@ -11,10 +13,10 @@ import { BsModalService } from 'ngx-bootstrap';
   styleUrls: ['./smart-forms.component.css']
 })
 export class SmartFormsComponent implements OnInit {
-  formsList: [{}];
+  formsList: any;
+  sortedData: any;
   loader: any;
-  // displayedColumns: string[] = ['name', 'description', 'createdAt', 'status'];
-  // dataSource: [{}];
+  
   constructor(public http: HttpService, public modalService: BsModalService) { }
 
   ngOnInit() {
@@ -26,9 +28,15 @@ export class SmartFormsComponent implements OnInit {
     this.loader = true;
     this.http.getSmartForm().subscribe(res => {
         console.log(res.data);
+        if(res){
+          this.formsList = res.data;
+          this.formsList.forEach( res => {
+            let date = new Date(res.createdAt);
+            res.createdAt = date;
+          })
+          this.sortedData = this.formsList.slice();
+        }
         this.loader = false;
-        this.formsList = res.data;
-        // this.dataSource = res.data;
     }, () => {
         this.loader = false;
     });
@@ -69,6 +77,11 @@ export class SmartFormsComponent implements OnInit {
     modalRef.content.onClose = new Subject<boolean>();
     modalRef.content.onClose.subscribe(res => {
       if (res) {
+        this.sortedData.forEach((form, i) => {
+          if(data == form['_id']){
+            this.sortedData.splice(i, 1);
+          }
+        })
         this.formsList.forEach((form, i) => {
           if(data == form['_id']){
             this.formsList.splice(i, 1);
@@ -92,5 +105,27 @@ export class SmartFormsComponent implements OnInit {
     document.body.removeChild(selBox);
     this.http.openSnackBar('Form link copied successfully');
 }
+
+  sortData(sort: Sort) {
+    const data = this.formsList.slice();
+    if (!sort.active || sort.direction === '') {
+      this.sortedData = data;
+      return;
+    }
+
+    this.sortedData = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'name': return this.compare(a.name.toLowerCase(), b.name.toLowerCase(), isAsc);
+        case 'addedOn': return this.compare(format(a.createdAt, 't'), format(b.createdAt, 't'), isAsc);
+        case 'status': return this.compare(a.status, b.status, isAsc);
+        default: return 0;
+      }
+    });
+  }
+
+  compare(a: number | string, b: number | string, isAsc: boolean) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  }
 
 }

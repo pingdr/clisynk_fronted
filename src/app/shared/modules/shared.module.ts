@@ -10,7 +10,7 @@ import {SharedComponent} from './shared.component';
 import {
     MatSliderModule, MatInputModule, MatSelectModule, MatTableModule, MatPaginatorModule,
     MatTabsModule, MatAutocompleteModule, MatIconModule, MatSnackBarModule, MatNativeDateModule,
-    MatButtonToggleModule, MatStepperModule, MatCheckboxModule, MatDatepickerModule, MatTooltipModule 
+    MatButtonToggleModule, MatStepperModule, MatCheckboxModule, MatDatepickerModule, MatTooltipModule , MatSortModule
 } from '@angular/material';
 import {AddContactComponent} from '../modals/add-contact/add-contact.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -122,7 +122,7 @@ const importExportList = [MatStepperModule, MatTabsModule, MatSliderModule, MatI
     MatTableModule, MatPaginatorModule, MatAutocompleteModule, MatIconModule, MatButtonToggleModule, CKEditorModule,
     ReactiveFormsModule, FormsModule, MatCheckboxModule, NgxSkeletonLoaderModule, MatSnackBarModule, ScrollingModule,
     Ng2SearchPipeModule, MatDatepickerModule, MatNativeDateModule, ClickOutsideModule, TagInputModule, DragDropModule,
-    FullCalendarModule, ColorPickerModule, FormioModule, RxReactiveFormsModule, MatTooltipModule
+    FullCalendarModule, ColorPickerModule, FormioModule, RxReactiveFormsModule, MatTooltipModule, MatSortModule
 
 ];
 

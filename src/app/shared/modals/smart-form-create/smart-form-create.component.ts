@@ -235,7 +235,9 @@ export class SmartFormCreateComponent implements OnInit {
     // console.log(event);
     // this.JsonRef.nativeElement.innerHTML = '';
     // this.JsonRef.nativeElement.appendChild(document.createTextNode(JSON.stringify(event.form, null, 2)));
-    this.formToBeSend = event.form;
+    if(event.form){
+        this.formToBeSend = event.form;
+    }
     console.log(this.formToBeSend);
   }
   

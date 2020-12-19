@@ -141,13 +141,11 @@ export class LeadFormsComponent implements OnInit {
     console.log(res);
     if(res.data[0].formJson.components.length){     //-----error prone
         this.editForm = res.data[0] 
-        this.form = res.data[0].formJson;
-        const { businessName } = res.data[0];        
+        this.form = res.data[0].formJson;       
         this.leadForm.patchValue({
-            businessName: businessName
+            businessName: res.data[0].businessName
         });
-        this.logoUrl = res.data[0].businessLogo;
-        this.oldFile = this.file = res.data[0].businessLogo;
+        this.oldFile = this.file = this.logoUrl = res.data[0].businessLogo; // one is to display one is to store one is to compare
         this.loader = false;
         gotForm = true;
     }
@@ -408,6 +406,7 @@ export class LeadFormsComponent implements OnInit {
     this.getLeadForm();
     this.formData.append("businessName", "");
     this.formData.append("businessLogo", "");
+    this.formData.append("status", "PUBLISHED");
   }
 
   onSubmit(){
