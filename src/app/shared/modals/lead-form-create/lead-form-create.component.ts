@@ -263,7 +263,7 @@ export class LeadFormCreateComponent implements OnInit {
         this.formToBeSend = this.tempForm; 
         // this.changeDetect.detectChanges();
       }
-      else{
+      else if(event.form){
         this.formToBeSend = event.form;
         this.tempForm = event.form;
         // console.log(this.formToBeSend);

@@ -26,40 +26,18 @@ export class PreviewLeadformComponent implements OnInit {
   logoUrl: any;
   submitted = false;
 
-  obj = { 
-      addNote: "",
-      emailAddress: "",
-      firstName: "",
-      lastName: "", 
-      phone: "",
-      phoneType: ""
-  }
-
   formData = new FormData();
 
-  getForm(){    
-    // if(this.http.leadFormJson['formJson']){
-    //   this.form = this.http.leadFormJson['formJson'];
-    //   this.obj.smartFormId = this.http.leadFormJson['_id'];
-    //   this.logoUrl = this.http.leadFormJson['logoUrl'];
-    //   this.businessName = this.http.leadFormJson['businessName'];
-    // }
+  getForm(){
       this.loader = true; 
       this.http.getLeadFormById(this.route.snapshot.paramMap.get('id')).subscribe(res => {  
         console.log(res);
-        if(res.data.formJson.components.length){
-            // console.log(res);
-            // this.obj.smartFormId = res.data._id;
+        if(Array.isArray(res.data.formJson.components) && res.data.formJson.components.length){
             this.formData.append("smartFormId", res["data"]._id);
             this.form = res.data.formJson;
             if(res.data.businessName){
               this.businessName = res.data.businessName;
             }
-            // const reader = new FileReader();
-            // reader.readAsDataURL(res.data.businessLogo); 
-            // reader.onload = (_event) => { 
-            //     this.logoUrl = reader.result;
-            // }
             if(res.data.businessLogo){
               this.logoUrl = res.data.businessLogo;
             }
@@ -77,13 +55,7 @@ export class PreviewLeadformComponent implements OnInit {
   public form: Object = {};
 
   onSubmit(event){
-    this.obj.addNote = event.data.addNote;
-    this.obj.emailAddress = event.data.emailAddress;
-    this.obj.firstName = event.data.firstName;
-    this.obj.lastName = event.data.lastName;
-    this.obj.phone = event.data.phone;
-    this.obj.phoneType = event.data.phoneType;
-    this.formData.append("resultJson", JSON.stringify(this.obj));
+    this.formData.append("resultJson", JSON.stringify(event.data));
     this.http.postLeadForm(this.formData).subscribe(res => {
       console.log(res);
       if(res['statusCode'] == 200){
@@ -91,7 +63,6 @@ export class PreviewLeadformComponent implements OnInit {
       }
     });
   }
-
     //    "components": [
     //     {
     //         "label": "First Name",
