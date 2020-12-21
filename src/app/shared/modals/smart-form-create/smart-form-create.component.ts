@@ -57,7 +57,7 @@ export class SmartFormCreateComponent implements OnInit {
                   "unique": true
               },
               "unique": true,
-              "key": "emailAddress1",
+              "key": "email",
               "kickbox": {
                   "enabled": true
                 },

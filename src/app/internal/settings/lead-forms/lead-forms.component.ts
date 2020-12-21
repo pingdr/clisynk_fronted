@@ -79,7 +79,7 @@ export class LeadFormsComponent implements OnInit {
                 "validate": {
                     "required": true
                 },
-                "key": "emailAddress",
+                "key": "email",
                 "type": "textfield",
                 "input": true
             },
@@ -189,104 +189,7 @@ export class LeadFormsComponent implements OnInit {
 
   public editForm: any;
 
-  public form: Object = {
-    // "components": [
-    //     {
-    //         "label": "First Name",
-    //         "placeholder": "First Name",
-    //         "tableView": true,
-    //         "validate": {
-    //             "required": true
-    //         },
-    //         "key": "firstName",
-    //         "type": "textfield",
-    //         "input": true
-    //     },
-    //     {
-    //         "label": "Last Name",
-    //         "placeholder": "Last Name",
-    //         "tableView": true,
-    //         "validate": {
-    //             "required": true
-    //         },
-    //         "key": "lastName",
-    //         "type": "textfield",
-    //         "input": true
-    //     },
-    //     {
-    //         "label": "Email Address",
-    //         "placeholder": "Email Address",
-    //         "tableView": true,
-    //         "validate": {
-    //             "required": true
-    //         },
-    //         "key": "emailAddress",
-    //         "type": "textfield",
-    //         "input": true
-    //     },
-    //     {
-    //       "label": "Phone",
-    //         "placeholder": "Phone",
-    //         "tableView": true,
-    //         "validate": {
-    //             "required": true
-    //         },
-    //         "key": "phone",
-    //         "type": "phoneNumber",
-    //         "input": true
-    //   },
-    //     {
-    //         "label": "Phone Type",
-    //         "placeholder": "Type",
-    //         "widget": "choicesjs",
-    //         "tableView": true,
-    //         "data": {
-    //             "values": [
-    //                 {
-    //                     "label": "Personal",
-    //                     "value": "personal"
-    //                 },
-    //                 {
-    //                     "label": "Office",
-    //                     "value": "office"
-    //                 },
-    //                 {
-    //                     "label": "Home",
-    //                     "value": "home"
-    //                 },
-    //                 {
-    //                     "label": "Other",
-    //                     "value": "other"
-    //                 }
-    //             ]
-    //         },
-    //         "selectThreshold": 0.3,
-    //         "key": "phoneType",
-    //         "type": "select",
-    //         "indexeddb": {
-    //             "filter": {}
-    //         },
-    //         "input": true
-    //     },
-    //     {
-    //         "label": "Add Note",
-    //         "placeholder": "Add a note here..",
-    //         "autoExpand": false,
-    //         "tableView": true,
-    //         "key": "addNote",
-    //         "type": "textarea",
-    //         "input": true
-    //     },
-    //     {
-    //         "type": "button",
-    //         "label": "Submit",
-    //         "key": "submit",
-    //         "disableOnInvalid": true,
-    //         "input": true,
-    //         "tableView": false
-    //     }
-    // ]
-  };
+  public form: Object = {};
 
   onEdit(data?) {
     console.log(this.editForm);
