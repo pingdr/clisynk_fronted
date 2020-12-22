@@ -306,7 +306,7 @@ section#close button.icon-only:hover {
 
 .select-opt .mat-select-arrow-wrapper {
   position: relative;
-  top: 7px;
+  top: 0px;
 }
 
 .add_field a {
@@ -6748,6 +6748,10 @@ section.appt-list {
   margin-top: 0 !important;
 }
 
+.login-card-main .login-form-field-main .form-group .mat-form-field .mat-form-field-flex .mat-form-field-infix input {
+  font-size: 15px;
+}
+
 
 .login-card-main .login-form-field-main .form-group .mat-form-field .mat-form-field-flex .mat-form-field-suffix {
   top: 6px !important;
@@ -6799,8 +6803,44 @@ input:-webkit-autofill:active  {
   font-size: 12px; 
   position: static;
   word-wrap: break-word;
-<<<<<<< HEAD
 
-=======
->>>>>>> 36c7a1bdc3d16cd4c00df6f0faa08b57f2aa5459
+}
+
+// -----------------------validation-message------------//
+.login-form-field-main .mat-form-field-invalid {
+  position: relative;
+}
+
+
+.login-form-field-main .mat-form-field-invalid .mat-form-field-subscript-wrapper {
+  background: #ff0101;
+  margin-top: 10px !important;
+  padding: 0;
+  padding-left: 8px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  width: auto;
+  padding-right: 10px;
+  left: 13px;
+  box-shadow: 0px 2px 6px #bbb;
+  border-radius: 2px;
+}
+
+.login-form-field-main .mat-form-field-invalid:after {
+  position: absolute;
+  content: '';
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid red;
+  top: auto;
+  bottom: 15px;
+  left: 21px;
+}
+
+
+.login-form-field-main .mat-form-field-invalid .mat-form-field-subscript-wrapper .mat-error {
+  color: #fff !important;
+  font-size: 11px !important;
 }

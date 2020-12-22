@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     myModel: any;
     loader = true;
 
+
     public constructor(public http: HttpService, public router: Router, public appoint: AppointmentService) {
         this.myModel = new TableModel();
         this.myModel.subscription = this.http.eventStatus.subscribe(data => {

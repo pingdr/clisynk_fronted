@@ -36,13 +36,15 @@ $col-1: #368eba;
 .container-login100::after{
   position: absolute;
   content: '';
-  background: url(../../../assets/images/login-vector.png) no-repeat;
+  background: url(../../../assets/images/login-vector-main.svg) no-repeat;
   // background-size: cover;
-  background-size: 100% 100%;
   width: 100%;
-  height: 100vh;
   z-index: 1;
-  background-position: center bottom;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background-position: left bottom;
+  background-size: auto 100%;
 }
 
 
@@ -167,9 +169,9 @@ $col-1: #368eba;
 }
 
 .login-card-main .form-group label {
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   color: #001534;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .login-card-main button.btn.login-btn {
@@ -248,5 +250,218 @@ $col-1: #368eba;
       width: 190px;
       height: 314px;
       border-radius: 0px 0px 0px 240px;
+  }
+}
+
+
+// -----------------new-animations----------------//
+
+
+
+.left-img-vector-main {
+  position: absolute;
+  left: 60px;
+  z-index: 99;
+  bottom: 10px;
+}
+
+
+.left-img-vector-main .main-img-login {
+  height: 620px;
+  width: auto;
+}
+
+.img-login-vector .inner-img-desktop {
+  position: absolute;
+  top: 56.2%;
+  left: 55.4%;
+  transform: translate(-55%, -56%);
+}
+
+
+
+.circle-of-animation-main {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+
+.first-circle {
+  width: 120px;
+  height: 120px;
+  border: 2px dashed #0440db;
+  border-radius: 100%;
+  position: absolute;
+  top: 46%;
+  left: 48%;
+  // transform: translate(-55%, -54%);
+  margin: auto;
+  padding: 28px;
+  animation: rotation 38s linear infinite;
+}
+
+
+.second-circle {
+  width: 170px;
+  height: 170px;
+  border: 2px dashed #0440db;
+  border-radius: 100%;
+  position: absolute;
+  left: 44.6%;
+  top: 41%;
+  // transform: translate(0%, 0%);
+  padding: 88px;
+  animation: rotationnew 35s linear infinite;
+
+}
+
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+@keyframes rotationnew {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+
+.img-1-rotation {
+  position: absolute;
+  top: -13px;
+}
+
+
+.img-2-rotation {
+  position: absolute;
+  top: 0px;
+  left: -94px;
+  transform: translate(80px, 90px);
+}
+
+.img-3-rotation {
+  position: absolute;
+  top: 120px;
+  left: 150px;
+}
+
+
+.img-3-rotation {
+  position: absolute;
+  top: 160px;
+  left: 210px;
+  transform: translate(-70px, -30px);
+}
+
+
+.in-img-1-rotation {
+  position: absolute;
+  top: 7px;
+  left: auto;
+  right: 0;
+}
+
+
+.in-img-2-rotation {
+  position: absolute;
+  left: -5px;
+  right: auto;
+  top: 70px;
+}
+
+
+
+@media (max-width:1550px){
+  .left-img-vector-main{
+    left: 30px;
+    bottom: 40px;
+  }
+  .left-img-vector-main .main-img-login{
+    height: 580px;
+  }
+  .second-circle{
+    padding:86px;
+    width: 150px;
+    height: 150px;
+  }
+  .second-circle img, .first-circle img {
+    width: 22px;
+  }
+
+  .first-circle{
+    width: 110px;
+    height: 110px;
+    top: 47%;
+    left: 48.6%;
+    padding: 13px;
+  }
+  .img-login-vector .inner-img-desktop img {
+    width: 40px;
+    position: relative;
+    top: 6px;
+    left: 3px;
+  }
+
+}
+
+
+@media (max-width:1450px){
+  .left-img-vector-main .main-img-login{
+      height: 500px;
+  }
+
+  .first-circle{
+    width: 100px;
+    height: 100px;
+    border: 1px dashed #0440db;
+    top: 46%;
+  }
+
+  .second-circle{
+    padding: 44px;
+    width: 140px;
+    height: 140px;
+    left: 45.6%;
+    top: 42%;
+    border: 1px dashed #0440db;
+  }
+  .in-img-2-rotation{
+    left: 2px;
+    top: 68px;
+  }
+  .in-img-1-rotation{
+    top: 9px;
+  }
+  .second-circle img, .first-circle img{
+      width: 20px;
+  }
+  .img-2-rotation{
+    left: -93px;
+    transform: translate(88px, 90px);
+  }
+  .img-3-rotation{
+    top: 120px;
+    left: 193px;
+  }
+  .img-login-vector .inner-img-desktop img{
+    width: 37px;
+    position: relative;
+    top: 0px;
+    left: 5px;
   }
 }
