@@ -53,8 +53,6 @@ export class SmartFormCreateComponent implements OnInit {
               "validateOn": "blur",
               "validate": {
                   "required": true,
-                  "pattern": "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$",
-                  "unique": true
               },
               "unique": true,
               "key": "email",

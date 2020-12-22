@@ -45,7 +45,7 @@
             <label class="label-name">Add your business name</label>
             <mat-form-field class="full-width" appearance="outline">
                 <mat-label class="required">Business Name</mat-label>
-                <input matInput #input maxlength="40" type="text" formControlName="businessName">
+                <input matInput #input maxlength="40" type="text" (change)="onInputChange($event)" formControlName="businessName">
                 <mat-hint align="end">{{ input.value?.length || 0 }}/40</mat-hint>
             </mat-form-field>
         </div>
@@ -90,16 +90,18 @@
             </div>
                 <formio [form]='form'></formio>              
         </div>
-        <ng-container *ngIf="loader">
-            <div class="first-section-wrapper">
-                <div class="gravatar-title">
-                    <ngx-skeleton-loader
-                        count="5"
-                        [theme]="{ 'border-radius': '0', height: '60px', 'margin-bottom': '3px','margin-left': '0px','margin-top': '0','border': 'none','left':'0'}">
-                    </ngx-skeleton-loader>
+        <div class="right-edit-form-main" *ngIf="loader">
+            <ng-container>
+                <div class="first-section-wrapper" style="margin-top:185px;">
+                    <div class="gravatar-title">
+                        <ngx-skeleton-loader
+                            count="7"
+                            [theme]="{ 'border-radius': '0', height: '60px', 'margin-bottom': '3px','z-index':'99','margin-left': '0px','margin-top': '0','border': 'none','left':'0'}">
+                        </ngx-skeleton-loader>
+                    </div>
                 </div>
-            </div>
-        </ng-container> 
+            </ng-container>
+        </div>       
     </div>
 </div>
 <!-- </form> -->

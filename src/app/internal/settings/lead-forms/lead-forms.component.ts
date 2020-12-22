@@ -30,6 +30,7 @@ export class LeadFormsComponent implements OnInit {
   file: any = null;
   oldFile: any = null;
   copied = false;
+  inputTouched = false;
 
   async getLeadForm(){
     this.loader = true;
@@ -37,14 +38,21 @@ export class LeadFormsComponent implements OnInit {
     const res = await this.http.getLeadForm().toPromise();
     console.log(res);
     if(Array.isArray(res.data[0].formJson.components) && res.data[0].formJson.components.length){
-        this.editForm = res.data[0] 
-        this.form = res.data[0].formJson;       
-        this.leadForm.patchValue({
-            businessName: res.data[0].businessName
-        });
-        this.oldFile = this.file = this.logoUrl = res.data[0].businessLogo; // one is to display one is to store one is to compare
-        this.loader = false;
-        gotForm = true;
+        let temp = true;
+        for (let i in res.data){
+            if((res.data[i].addedBy._id == JSON.parse(localStorage.getItem('loginData'))._id) && temp){
+                this.editForm = res.data[i] 
+                this.form = res.data[i].formJson;
+                this.leadForm.patchValue({
+                    businessName: res.data[i].businessName
+                });
+                this.oldFile = this.file = this.logoUrl = res.data[i].businessLogo; // one is to display one is to store one is to compare
+                console.log(res.data[i]);
+                temp = false;
+                gotForm = true;
+                this.loader = false;
+            }
+        }
     }
     if(!gotForm){
         this.formData.append("name", "Smartform1");
@@ -77,9 +85,12 @@ export class LeadFormsComponent implements OnInit {
                 "label": "Email Address",
                 "tableView": true,
                 "validate": {
-                    "required": true
+                    "required": true,
                 },
                 "key": "email",
+                "kickbox": {
+                    "enabled": true
+                },
                 "type": "textfield",
                 "input": true
             },
@@ -193,9 +204,13 @@ export class LeadFormsComponent implements OnInit {
 
   onEdit(data?) {
     console.log(this.editForm);
+    if(this.inputTouched){
+        this.editForm.businessName = this.leadForm.value.businessName;
+        this.inputTouched = false;
+    }
     const modalRef = this.http.showModal(LeadFormCreateComponent, 'custom-class-for-create-smart-form', this.editForm,);
-    modalRef.content.onClose = new Subject<boolean>();
-    modalRef.content.onClose.subscribe(() =>{
+        modalRef.content.onClose = new Subject<boolean>();
+        modalRef.content.onClose.subscribe(() =>{
         this.getLeadForm();
     })
   }
@@ -228,6 +243,10 @@ export class LeadFormsComponent implements OnInit {
             }
             this.formData.set("businessLogo", this.file);
         }
+    }
+    
+    onInputChange(event){
+        this.inputTouched = true;
     }
 
     copyLink(){
