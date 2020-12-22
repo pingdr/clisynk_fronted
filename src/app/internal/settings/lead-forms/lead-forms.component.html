@@ -8,7 +8,7 @@
         </div>
         <div class="right-col-three-btn">
             <div class="comm-btn">
-                <button class="copy-btn">
+                <button class="copy-btn" (click)="copyCode()">
                     <img src="../../../../assets/images/copy-blue.svg" width="20">
                     Copy code
                 </button>
@@ -45,14 +45,14 @@
             <label class="label-name">Add your business name</label>
             <mat-form-field class="full-width" appearance="outline">
                 <mat-label class="required">Business Name</mat-label>
-                <input matInput #input maxlength="40" type="text" formControlName="businessName">
+                <input matInput #input maxlength="40" type="text" (change)="onInputChange($event)" formControlName="businessName">
                 <mat-hint align="end">{{ input.value?.length || 0 }}/40</mat-hint>
             </mat-form-field>
         </div>
         <!-- logo-upload -->
         <div class="label-name add-your-logo-heading">Add your logo (optional)</div>
         <div class="upload-logo-optional">
-            <input [writeFile]="true" type="file" formControlName="logo" class="upload-btn" (change)="onImageChanged($event)">
+            <input #fileInput (click)="fileInput.value = null" [writeFile]="true" type="file" formControlName="logo" class="upload-btn" (change)="onImageChanged($event)">
             <img src="../../../../assets/images/upload-icon.png" width="70">
             <h3 class="logo-heading">Upload logo</h3>
             <p class="text-description">
@@ -88,63 +88,20 @@
             <div class="business-name">
                 <h2>{{ leadForm.value.businessName }}</h2>
             </div>
-            <!-- <span class="logo-text-both">Langermania</span>
-                <div class="input-field">
-                    <mat-form-field class="full-width" appearance="outline">
-                        <mat-label class="required">First Name</mat-label>
-                        <input matInput type="text" formControlName="firstname">                   
-                    </mat-form-field>
-                </div>
-                <div class="input-field">
-                    <mat-form-field class="full-width" appearance="outline">
-                        <mat-label class="required">Last Name</mat-label>
-                        <input matInput type="text" formControlName="lastname">                   
-                    </mat-form-field>
-                </div>
-                <div class="input-field">
-                    <mat-form-field class="full-width" appearance="outline">
-                        <mat-label class="required">Email address</mat-label>
-                        <input matInput type="text" formControlName="emailaddress">                   
-                    </mat-form-field>
-                </div>
-                <div class="input-field">
-                    <mat-form-field class="full-width" appearance="outline">
-                        <mat-label>Phone</mat-label>
-                        <input matInput type="text" formControlName="phone">                   
-                    </mat-form-field>
-                </div>
-                <div class="input-field">
-                    <mat-form-field class="full-width select-height" appearance="outline">
-                        <mat-label class="abc">Phone type</mat-label>
-                        <mat-select formControlName="phoneType">
-                            <mat-option value="Personal">Personal</mat-option>
-                            <mat-option value="Office">Office</mat-option>
-                            <mat-option value="Home">Home</mat-option>
-                            <mat-option value="Other">Other</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-                <div class="input-field">
-                    <mat-form-field class="full-width select-height" appearance="outline">
-                        <mat-label>Add Note</mat-label>
-                        <textarea matInput type="text" rows="4" formControlName="note"></textarea>        
-                    </mat-form-field>
-                </div>
-                <div class="submit-btn-row">
-                    <button type="submit" class="btn btn-primary" [disabled]="!leadForm.valid">Submit</button>
-                </div> -->
                 <formio [form]='form'></formio>              
         </div>
-        <ng-container *ngIf="loader">
-            <div class="first-section-wrapper">
-                <div class="gravatar-title">
-                    <ngx-skeleton-loader
-                        count="5"
-                        [theme]="{ 'border-radius': '0', height: '60px', 'margin-bottom': '3px','z-index':'99','margin-left': '0px','margin-top': '0','border': 'none','left':'0'}">
-                    </ngx-skeleton-loader>
+        <div class="right-edit-form-main" *ngIf="loader">
+            <ng-container>
+                <div class="first-section-wrapper" style="margin-top:185px;">
+                    <div class="gravatar-title">
+                        <ngx-skeleton-loader
+                            count="7"
+                            [theme]="{ 'border-radius': '0', height: '60px', 'margin-bottom': '3px','z-index':'99','margin-left': '0px','margin-top': '0','border': 'none','left':'0'}">
+                        </ngx-skeleton-loader>
+                    </div>
                 </div>
-            </div>
-        </ng-container> 
+            </ng-container>
+        </div>       
     </div>
 </div>
 <!-- </form> -->

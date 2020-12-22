@@ -53,11 +53,9 @@ export class SmartFormCreateComponent implements OnInit {
               "validateOn": "blur",
               "validate": {
                   "required": true,
-                  "pattern": "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$",
-                  "unique": true
               },
               "unique": true,
-              "key": "emailAddress1",
+              "key": "email",
               "kickbox": {
                   "enabled": true
                 },
@@ -235,7 +233,9 @@ export class SmartFormCreateComponent implements OnInit {
     // console.log(event);
     // this.JsonRef.nativeElement.innerHTML = '';
     // this.JsonRef.nativeElement.appendChild(document.createTextNode(JSON.stringify(event.form, null, 2)));
-    this.formToBeSend = event.form;
+    if(event.form){
+        this.formToBeSend = event.form;
+    }
     console.log(this.formToBeSend);
   }
   

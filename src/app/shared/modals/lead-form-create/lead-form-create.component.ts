@@ -1,7 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { HttpService } from 'src/app/services/http.service';
 import { FormBuilder } from '@angular/forms';
-import { Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -11,7 +10,7 @@ import { Subject } from 'rxjs';
 })
 export class LeadFormCreateComponent implements OnInit {
       formInfo = this.fb.group({
-          formName: ['', Validators.required],
+          formName: [''],
           formDescription: ['']
       })
       modalData: any;
@@ -136,7 +135,7 @@ export class LeadFormCreateComponent implements OnInit {
       // this.obj.name = this.formInfo.value.formName;
       // this.obj.description = this.formInfo.value.formDescription;
       // this.obj.formJson = this.formToBeSend;
-      this.formData.append("name", this.formInfo.value.formName);
+      this.formData.set("businessName", this.formInfo.value.formName);
       this.formData.append("description", this.formInfo.value.formDescription);
       this.formData.append("formJson", JSON.stringify(this.formToBeSend));
       this.http.updateLeadForm(this.formData, this.modalData._id).subscribe(res => {
@@ -236,9 +235,9 @@ export class LeadFormCreateComponent implements OnInit {
         if(data.name || data.description){
           this.formToBeSend = this.form = data.formJson;
           this.tempForm = data.formJson;
-          const { name, description } = data;
+          const { businessName, description } = data;
             this.formInfo.patchValue({
-                formName: name, 
+                formName: businessName, 
                 formDescription: description
             });
         }
@@ -263,7 +262,7 @@ export class LeadFormCreateComponent implements OnInit {
         this.formToBeSend = this.tempForm; 
         // this.changeDetect.detectChanges();
       }
-      else{
+      else if(event.form){
         this.formToBeSend = event.form;
         this.tempForm = event.form;
         // console.log(this.formToBeSend);
@@ -273,6 +272,7 @@ export class LeadFormCreateComponent implements OnInit {
     constructor(public http:HttpService, private fb: FormBuilder,public changeDetect: ChangeDetectorRef) { }
   
     ngOnInit() { 
+      this.formData.append("businessName", "");
       if(this.modalData){
           this.updateForm(this.modalData);
       }
