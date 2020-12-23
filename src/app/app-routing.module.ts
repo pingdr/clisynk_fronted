@@ -11,11 +11,13 @@ import { AddBuildautomationComponent } from './internal/automations/add-buildaut
 import { BuildThenautomationsComponent } from './internal/automations/build-thenautomations/build-thenautomations.component';
 import { PreviewLeadformComponent } from './internal/settings/preview-leadform/preview-leadform.component';
 import { PreviewSmartformComponent } from './internal/settings/preview-smartform/preview-smartform.component';
+import { ForgotPasswordComponent } from './external/forgot-password/forgot-password.component';
 
 
 const routes: Routes = [
     {path: '', redirectTo: '/login', pathMatch: 'full'},
     {path: 'login', component: LoginComponent, canActivate: [ExternalAuthguardService]},
+    {path: 'forgotpassword', component: ForgotPasswordComponent},
     {path: 'privacy', component: PrivacyComponent},
     {path: 'receipt', component: ReceiptComponent},
     {path: 'ngrx', component: TodoComponent},

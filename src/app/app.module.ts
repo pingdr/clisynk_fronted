@@ -18,7 +18,7 @@ import {LightboxModule} from 'ngx-lightbox';
 import {AsyncPipe} from '@angular/common';
 import {PrivacyComponent} from './external/privacy/privacy.component';
 import {ExternalAuthguardService} from './services/externalAuthguard.service';
-import {ForgotPasswordComponent} from './shared/modals/forgot-password/forgot-password.component';
+// import {ForgotPasswordComponent} from './shared/modals/forgot-password/forgot-password.component';
 import {ReceiptComponent} from './external/receipt/receipt.component';
 import {BookingComponent} from './internal/appointments/booking/booking.component';
 import {ShoppingReducer} from './internal/actions/reducer';
@@ -39,6 +39,7 @@ import { SubmitfeedbackComponent } from './shared/modals/submitfeedback/submitfe
 import { MatChipsModule } from '@angular/material';
 import { PreviewLeadformComponent } from './internal/settings/preview-leadform/preview-leadform.component';
 import { PreviewSmartformComponent } from './internal/settings/preview-smartform/preview-smartform.component';
+import { ForgotPasswordComponent } from './external/forgot-password/forgot-password.component';
 
 
 
@@ -47,8 +48,10 @@ import { PreviewSmartformComponent } from './internal/settings/preview-smartform
 
 @NgModule({
     declarations: [
-        CapitalizePipe, AppComponent, LoginComponent, PrivacyComponent, ForgotPasswordComponent,SubmitfeedbackComponent,
-        ReceiptComponent, BookingComponent, TodoComponent, BuildAutomationComponent, AddBuildautomationComponent, BuildThenautomationsComponent, PreviewLeadformComponent, PreviewSmartformComponent
+        CapitalizePipe, AppComponent, LoginComponent, PrivacyComponent, SubmitfeedbackComponent,
+        ReceiptComponent, BookingComponent, TodoComponent, BuildAutomationComponent, AddBuildautomationComponent, BuildThenautomationsComponent, PreviewLeadformComponent, PreviewSmartformComponent,
+        ForgotPasswordComponent
+        
     ],
     imports: [
         SharedModule, BrowserModule, AppRoutingModule, HttpClientModule,NgxEmojiPickerModule,NgxDocViewerModule,

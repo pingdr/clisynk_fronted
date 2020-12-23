@@ -12,7 +12,7 @@ import {AclService} from '../../services/acl.service';
 })
 export class LoginComponent implements OnInit {
 
-    public form: FormGroup;
+    public form: FormGroup; 
     public loader = false;
     rememberMeControl = new FormControl(false);
     showPassword : boolean = true;

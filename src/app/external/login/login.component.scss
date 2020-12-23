@@ -194,6 +194,9 @@ $col-1: #368eba;
   font-weight: 400;
 }
 
+.login-card-main a.pull-right:hover{
+  text-decoration: underline;
+}
 
 @media (max-width:1660px){
   .container-login100:before{
