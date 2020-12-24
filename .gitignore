@@ -69,3 +69,4 @@ testem.log
 Thumbs.db
 
 !/.idea
+debug.log

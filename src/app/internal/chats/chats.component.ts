@@ -1,27 +1,29 @@
-import { Component, OnInit , TemplateRef , ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, ElementRef } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { DomSanitizer} from '@angular/platform-browser';
-import { BsModalRef , BsModalService } from 'ngx-bootstrap/modal';
+import { DomSanitizer } from '@angular/platform-browser';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { HttpService } from '../../services/http.service';
 import { ApiUrl } from '../../services/apiUrls';
-import { FormControl, FormGroup , FormBuilder } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { TableModel } from '../../shared/models/table.common.model';
 import * as io from 'socket.io-client';
 import * as _ from 'lodash';
 import * as $ from 'jquery';
-import {Subject} from 'rxjs';
-import {DeleteContactComponent} from '../../shared/modals/delete-contact/delete-contact.component';
+import { Subject } from 'rxjs';
+import { DeleteContactComponent } from '../../shared/modals/delete-contact/delete-contact.component';
 import { MatSidenav } from '@angular/material/sidenav';
-import { PushNotificationsService} from 'ng-push';
+import { PushNotificationsService } from 'ng-push';
 // import { connect, ConnectOptions, LocalTrack, Room, createLocalTracks, TwilioError } from 'twilio-video';
 import { TwilioService } from '../../services/twilio.service';
 import { environment } from '../../../environments/environment';
+import { SimpleTimer } from 'ng2-simple-timer';
 
 // var FileSaver = require('file-saver');
 import * as FileSaver from 'file-saver';
 
 declare var jQuery: any;
-
+import * as RecordRTC from 'recordrtc';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-chats',
   templateUrl: './chats.component.html',
@@ -29,17 +31,18 @@ declare var jQuery: any;
 })
 export class ChatsComponent implements OnInit {
 
-  @ViewChild('sidenav', { static: false }) sidenav: MatSidenav; 
-  @ViewChild('localVideo' , {static : true}) localVideo: ElementRef;
-  @ViewChild('remoteVideo' , {static : true}) remoteVideo: ElementRef;
+  @ViewChild('sidenav', { static: false }) sidenav: MatSidenav;
+  @ViewChild('localVideo', { static: true }) localVideo: ElementRef;
+  @ViewChild('remoteVideo', { static: true }) remoteVideo: ElementRef;
 
   mode = new FormControl('over');
-  form :FormGroup;
+  form: FormGroup;
   tab = 'chats';
   tab1 = '';
   chatModel;
   loader = true;
-  allSelect = new FormControl();   
+  allSelect = new FormControl();
+  simmerLoader: boolean = false;
   searchName = new FormControl();
 
   // selected name var
@@ -69,7 +72,7 @@ export class ChatsComponent implements OnInit {
   searchIndex = 0;
   searchArray = [];
   searchFlag = false;
-
+  isRecording: boolean = false;
   loading = false;
   forwardArray = [];
 
@@ -78,14 +81,16 @@ export class ChatsComponent implements OnInit {
   profileLinkMsgArray = [];
   openMediaFlag = false;
   openPinMsgFlag = false;
+  openCallLogFlag = false;
   profilePinArray = [];
+  profileCallLogArray = [];
   profileMediaArray = [];
   allBlockUsers = [];
   unBlockFlag = false;
   defaultScreenFlag = true;
   toggleProfileOpen = true;
-  
-  msgTotal : '';
+
+  msgTotal: '';
   isLoading = false;
   typingFlag = false;
   mediaFlag = false;
@@ -95,7 +100,7 @@ export class ChatsComponent implements OnInit {
 
   // call var
   videoCallToken = '';
-  room : '';
+  room: '';
   videoFlag = false;
   callStatus = "";
   callerName = '';
@@ -111,6 +116,11 @@ export class ChatsComponent implements OnInit {
   outgoingData = "";
   incomingData = '';
 
+  timerName = 'call';
+  timerId = '';
+  counter = 0;
+  record: any;
+  isRecordStart: boolean = false;
 
   @ViewChild('scrollMe', { static: false }) scrollDiv;
   modalRef: BsModalRef;
@@ -125,9 +135,9 @@ export class ChatsComponent implements OnInit {
   accessToken = localStorage.getItem('accessToken');
   adminData = JSON.parse(localStorage.getItem('loginData'));
   adminId: string;
-  
-  constructor(public http: HttpService, private modalService: BsModalService,private _pushNotifications: PushNotificationsService, 
-    private _sanitizer: DomSanitizer , private twilioService: TwilioService) {
+
+  constructor(public http: HttpService, private modalService: BsModalService, private _pushNotifications: PushNotificationsService, public httpBlob: HttpClient,
+    private _sanitizer: DomSanitizer, private twilioService: TwilioService, private st: SimpleTimer) {
     this._pushNotifications.requestPermission();
 
     this.twilioService.msgSubject.subscribe(r => {
@@ -139,7 +149,7 @@ export class ChatsComponent implements OnInit {
     this.chatModel.contactsType = '';
 
     this.form = this.http.fb.group({
-      contactId : ['']
+      contactId: ['']
     })
 
     let token = this.accessToken;
@@ -179,31 +189,31 @@ export class ChatsComponent implements OnInit {
     this.getNewMassages();
     this.getAcknowledgement();
     this.typingMsg();
-    window.scrollTo(0,0)
+    window.scrollTo(0, 0)
     // this.msgView();
     this.msgReceived();
     this.getVideoCallEvent();
     this.getVoiceCallEvent();
-
+    this.subscribeTimer();
   }
 
-  getVideoCallEvent(){
+  getVideoCallEvent() {
     this.socket.on('video-call', (data) => {
-      if(data.type == 'join'){
-        console.log('video join event............................',data)
+      if (data.type == 'join') {
+        console.log('video join event............................', data)
         this.videoCallToken = data.accessToken;
         this.room = data.room;
         // this.callerName = data.from.name;
         this.callId = data.callId;
         this.callChatroomId = data.chatRoomId;
-        if(data.fromUser._id !== this.adminId){
+        if (data.fromUser._id !== this.adminId) {
           // this.incomingData = data;
-          this.callerName = data.fromUser.name;
+          this.callerName = data.fromUser.fullName;
           this.videoFlag = true;
           this.videoManage = true;
           this.outgoingFlag = false;
         }
-       else{
+        else {
           // this.outgoingData = data;
           this.outgoingFlag = true;
           this.callerName = this.selectedChat.temp.name;
@@ -213,48 +223,50 @@ export class ChatsComponent implements OnInit {
           this.twilioService.startLocalVideo();
         }
       }
-      if(data.type == "rejected" || data.type == "ended"){
+      if (data.type == "rejected" || data.type == "ended") {
         this.videoManage = false;
         this.videoFlag = false;
         this.outgoingFlag = false;
         this.twilioService.removeTrack();
       }
-      if(data.type == "accepted"){
+      if (data.type == "accepted") {
         this.outgoingFlag = true;
         this.videoManage = true;
         this.videoFlag = false;
         this.videoCall();
         // this.twilioService.startLocalVideo();
       }
-      if(data.type == 'userStatus'){
-        if(this.selectedChat){
-          if(data.onlineUsers && data.onlineUsers.includes(this.callChatroomId)){
+      if (data.type == 'userStatus') {
+        this.callerName = this.selectedChat.temp.name;
+        if (this.selectedChat) {
+          if (data.onlineUsers && data.onlineUsers.includes(this.callChatroomId)) {
             this.callStatus = "Ringing.....";
-          }else{
+          } else {
             this.callStatus = "Connecting....";
           }
         }
       }
-    }); 
+    });
   }
 
-  getVoiceCallEvent(){
+  getVoiceCallEvent() {
     this.socket.on('audio-call', (data) => {
-      if(data.type == 'join'){
-        console.log('audio join event............................',data)
+      console.log('data....................................', data)
+      if (data.type == 'join') {
+        console.log('audio join event............................', data)
         this.voiceCallToken = data.accessToken;
         this.room = data.room;
-        // this.callerName = data.from.name;
+        this.callerName = data.fromUser.name;
         this.callId = data.callId;
         this.callChatroomId = data.chatRoomId;
-        if(data.fromUser._id !== this.adminId){
+        if (data.fromUser._id !== this.adminId) {
           // this.incomingData = data;
           this.voiceFlag = true;
           this.videoManage = true;
           this.outgoingVoiceFlag = false;
-          this.callerName = data.fromUser.name;
+          this.callerName = data.fromUser.fullName;
         }
-       else{
+        else {
           // this.outgoingData = data;
           this.callerName = this.selectedChat.temp.name;
           this.outgoingVoiceFlag = true;
@@ -263,37 +275,49 @@ export class ChatsComponent implements OnInit {
           // this.twilioService.startLocalVideo();
         }
       }
-      if(data.type == "rejected" || data.type == "ended"){
+      if (data.type == "rejected" || data.type == "ended") {
         this.videoManage = false;
         this.voiceFlag = false;
         this.outgoingVoiceFlag = false;
         this.twilioService.removeTrack();
       }
-      if(data.type == "accepted"){
+      if (data.type == "accepted") {
         this.outgoingVoiceFlag = true;
         this.videoManage = true;
         this.voiceFlag = false;
         this.voiceCall();
+        this.st.newTimer(this.timerName, 1, true);
+        this.callStatus = String(this.counter);
         // this.twilioService.startLocalVideo();
       }
-      if(data.type == 'userStatus'){
-        if(this.selectedChat){
-          if(data.onlineUsers && data.onlineUsers.includes(this.callChatroomId)){
+      if (data.type == 'userStatus') {
+        this.callerName = this.selectedChat.temp.name;
+        if (this.selectedChat) {
+          if (data.onlineUsers && data.onlineUsers.includes(this.callChatroomId)) {
             this.callStatus = "Ringing.....";
-          }else{
+          } else {
             this.callStatus = "Connecting....";
           }
         }
       }
-    }); 
+    });
   }
 
-  acceptVideoCall(){
+  subscribeTimer() {
+    this.timerId = this.st.subscribe(this.timerName, () => this.timercallback());
+  }
+
+  timercallback() {
+    this.counter++;
+    console.log('counter is............', this.counter)
+  }
+
+  acceptVideoCall() {
     this.socket.emit('video-call', {
       chatRoomId: this.callChatroomId,
-      type : 'accepted',
-      room : this.room ,
-      callId : this.callId
+      type: 'accepted',
+      room: this.room,
+      callId: this.callId
     });
     this.outgoingFlag = true;
     this.videoManage = true;
@@ -302,73 +326,76 @@ export class ChatsComponent implements OnInit {
     this.twilioService.startLocalVideo();
   }
 
-  acceptVoiceCall(){
+  acceptVoiceCall() {
     this.socket.emit('audio-call', {
       chatRoomId: this.callChatroomId,
-      type : 'accepted',
-      room : this.room ,
-      callId : this.callId
+      type: 'accepted',
+      room: this.room,
+      callId: this.callId
     });
     this.outgoingVoiceFlag = true;
     this.videoManage = true;
     this.voiceFlag = false;
     this.voiceCall();
+    this.st.newTimer(this.timerName, 1, true);
   }
 
-  declineVideoCall(){
+  declineVideoCall() {
     this.socket.emit('video-call', {
-      chatRoomId: this.callChatroomId ,
-      type : 'rejected',
-      room : this.room ,
-      callId : this.callId
+      chatRoomId: this.callChatroomId,
+      type: 'rejected',
+      room: this.room,
+      callId: this.callId
     });
     this.videoManage = false;
     this.videoFlag = false;
     this.outgoingFlag = false;
   }
 
-  declineVoiceCall(){
+  declineVoiceCall() {
     this.socket.emit('audio-call', {
-      chatRoomId: this.callChatroomId ,
-      type : 'rejected',
-      room : this.room ,
-      callId : this.callId
+      chatRoomId: this.callChatroomId,
+      type: 'rejected',
+      room: this.room,
+      callId: this.callId
     });
     this.videoManage = false;
     this.voiceFlag = false;
     this.outgoingVoiceFlag = false;
   }
 
-  muteCall(){
+  muteCall() {
     this.muteFlag = true;
     this.twilioService.mute();
   }
 
-  unMuteCall(){
+  unMuteCall() {
     this.muteFlag = false;
     this.twilioService.unmute();
   }
 
-  deleteVideoCall(){
+  deleteVideoCall() {
     this.socket.emit('video-call', {
-      chatRoomId: this.selectedChat._id ,
-      type : 'ended',
-      room : this.room ,
-      callId : this.callId
+      chatRoomId: this.selectedChat._id ? this.selectedChat._id : this.callChatroomId,
+      type: 'ended',
+      room: this.room,
+      callId: this.callId
     });
     this.videoManage = false;
     this.videoFlag = false;
     this.outgoingFlag = false;
     this.twilioService.removeTrack();
     this.twilioService.detachParticipantTracks();
+    $('#local').remove();
+    $('#remote').remove();
   }
 
-  deleteVoiceCall(){
+  deleteVoiceCall() {
     this.socket.emit('audio-call', {
-      chatRoomId: this.selectedChat._id ,
-      type : 'ended',
-      room : this.room ,
-      callId : this.callId
+      chatRoomId: this.selectedChat._id,
+      type: 'ended',
+      room: this.room,
+      callId: this.callId
     });
     this.videoManage = false;
     this.voiceFlag = false;
@@ -379,82 +406,220 @@ export class ChatsComponent implements OnInit {
     }
   }
 
-  videoCall(){
+  videoCall() {
     this.twilioService.connectToRoom(this.videoCallToken, { name: this.room, video: true })
   }
 
-  voiceCall(){
+  voiceCall() {
     this.twilioService.connectToRoom(this.voiceCallToken, { name: this.room, audio: true })
   }
 
   // video call function
-  handleVideo(){
+  handleVideo() {
     this.videoManage = true;
 
     this.socket.emit('video-call', {
-      chatRoomId: this.selectedChat._id ,
-      type : 'new-call'
+      chatRoomId: this.selectedChat._id,
+      type: 'new-call'
     });
   }
 
   // audio call function
-  handleAudio(){
+  handleAudio() {
     this.videoManage = true;
-     // this.outgoingVoiceFlag = true;
+    // this.outgoingVoiceFlag = true;
 
     this.socket.emit('audio-call', {
-      chatRoomId: this.selectedChat._id ,
-      type : 'new-call'
+      chatRoomId: this.selectedChat._id,
+      type: 'new-call'
     });
 
   }
 
   // group tab
-  redirectToGroup(){
+  redirectToGroup() {
     this.tab = 'groups';
     this.getAllGroupData(null);
   }
 
   // contact tab
-  redirectToContact(){
+  redirectToContact() {
     this.tab = 'allContact';
     this.getAllContact(null);
   }
 
   // chat search display or not
-  displaySearch(){
+  displaySearch() {
     this.searchFlag = true;
   }
 
   // profile media tab
-  openMedia(){
+  openMedia() {
     this.tab1 = 'mediaTab';
     this.openMediaFlag = true;
     this.getProfileImages();
   }
 
   // default open profile
-  openMediaProfile(){
-    window.scrollTo(0,0);
+  openMediaProfile() {
+    window.scrollTo(0, 0);
 
     this.getProfileImages();
   }
 
   // profile pin msgs
-  openPinMsg(){
+  openPinMsg() {
     this.openPinMsgFlag = true;
     let payload = {
-      chatRoomId : this.selectedChat._id
+      chatRoomId: this.selectedChat._id
     }
     this.http.getData(ApiUrl.PROFILE_PIN_MSG, payload).subscribe(async res => {
-      if(res.data && res.data[0].messages){
+      if (res.data && res.data[0].messages) {
         this.profilePinArray = res.data[0].messages.reverse();
       }
     })
   }
 
+  // profile call logs
+  openCallLog() {
+    this.openCallLogFlag = true;
+    this.profileCallLogArray = [];
+    this.loader = true;
+    let payload = {
+      chatRoomId: this.selectedChat._id
+    }
+    this.http.getData(ApiUrl.CALL_LOG, payload).subscribe(async res => {
+      if (res.data && res.data) {
+        this.profileCallLogArray = res.data;
+        this.loader = false;
+        // console.log('call logs..............',res.data)
+      }
+    })
+  }
+  recordAudio() {
+    navigator.mediaDevices.enumerateDevices().then((res: any) => {
+      if (res[0]['kind'] === 'audioinput') {
+        navigator.mediaDevices.getUserMedia({ audio: true })
+          .then(stream => {
+            let options = {
+              mimeType: "audio/mp3",
+              numberOfAudioChannels: 1,
+              desiredSampRate: 16000,
+            };
+            const StereoAudioRecorder = RecordRTC.StereoAudioRecorder
+            this.record = new StereoAudioRecorder(stream, options);
+            this.record.record();
+            this.isRecordStart = true;
+            this.isRecording = true;
+          }, err => {
+            console.log(err);
+            this.isRecordStart = false;
+            this.isRecording = false;
+          });
+      } else {
+        this.http.openSnackBar('Please check permission or connectivity of microphone.');
+      }
+    })
+  }
+  stopRecord() {
+    this.isRecordStart = false;
+    this.isRecording = false;
+    this.record.stop((blob) => {
+      let file = new File([blob], "audio" + new Date().toISOString() + '.mp3', { type: 'audio/wav' });
+      console.log(file);
+      let url = this._sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(blob));
+      this.mediaFlag = false;
+      let temp = [];
+      var obj = {
+        file: {
+          type: 'AUDIO',
+          original:
+            'assets/images/loading.gif',
+          thumbnail:
+            'assets/images/loading.gif',
+        },
+        from: {
+          user: this.adminId
+        },
+        loading: true,
+        pinnedBy: [],
+      }
+
+      temp.push({ ...obj, _id: `1${1}` })
+      this.massageArray = [...this.massageArray, ...temp];
+      this.manageScroll();
+      let formData = new FormData();
+      formData.append('chatRoomId', this.selectedChat._id);
+      formData.append('file', file)
+      if (this.replayFlag === true) {
+        formData.append('ref', this.replayData._id)
+      }
+
+      this.docArray = [];
+      this.replayFlag = false;
+      this.http.postChatImage(ApiUrl.SEND_IMAGE, formData).subscribe(res => {
+        this.massageArray = _.without(this.massageArray, ...temp);
+        this.massageArray = [...this.massageArray, ...res.data];
+        this.sidebarUpdateMsg(res.data);
+        this.manageScroll();
+        this.message = '';
+        this.loading = false;
+      })
+
+      // console.log(url['changingThisBreaksApplicationSecurity'].replace('blob:',''));
+    })
+    // this.record.stop(this.processRecording.bind(this));
+  }
+  /**
+   * processRecording Do what ever you want with blob
+   * @param  {any} blob Blog
+   */
+  // processRecording(blob) {
+
+  //   let url = window.URL.createObjectURL(blob);
+  //   console.log("blob", blob);
+  //   console.log("url", this.url);
+
+  //   this.mediaFlag = false;
+  //   let temp = [];
+  //   var obj = {
+  //     file: {
+  //       type: 'AUDIO',
+  //       original:
+  //         'assets/images/loading.gif',
+  //       thumbnail:
+  //         'assets/images/loading.gif',
+  //     },
+  //     from: {
+  //       user: this.adminId
+  //     },
+  //     loading: true,
+  //     pinnedBy: [],
+  //   }
+
+  //   temp.push({ ...obj, _id: `1${1}` })
+  //   this.massageArray = [...this.massageArray, ...temp];
+  //   this.manageScroll();
+  //   let formData = new FormData();
+  //   formData.append('chatRoomId', this.selectedChat._id);
+  //   formData.append('file', blob)
+  //   if (this.replayFlag === true) {
+  //     formData.append('ref', this.replayData._id)
+  //   }
+
+  //   this.docArray = [];
+  //   this.replayFlag = false;
+  //   this.http.postChatImage(ApiUrl.SEND_IMAGE, formData).subscribe(res => {
+  //     this.massageArray = _.without(this.massageArray, ...temp);
+  //     this.massageArray = [...this.massageArray, ...res.data];
+  //     this.sidebarUpdateMsg(res.data);
+  //     this.manageScroll();
+  //     this.message = '';
+  //     this.loading = false;
+  //   })
+  // }
   // modal open for clear chat confirmation
-  clearChatModal(openClearChatModal: TemplateRef<any>){
+  clearChatModal(openClearChatModal: TemplateRef<any>) {
     this.modalRef = this.modalService.show(
       openClearChatModal,
       Object.assign({}, { class: 'gray modal-xs' })
@@ -462,56 +627,58 @@ export class ChatsComponent implements OnInit {
   }
 
   // clear chat
-  clearChat(){
+  clearChat() {
     let payload = {
-      chatRoomId : this.selectedChat._id
+      chatRoomId: this.selectedChat._id
     }
     this.http.postData(ApiUrl.CLEAR_CHAT, payload).subscribe(async res => {
-      if(res){
+      if (res) {
         this.massageArray = [];
       }
     })
   }
 
   // close profile
-  closeProfile(){
+  closeProfile() {
     this.openMediaFlag = false;
     this.openPinMsgFlag = false;
   }
 
   // back arrow from profile pages
-  clickProfileBack(){
+  clickProfileBack() {
     this.toggleProfileOpen = true;
     this.openMediaFlag = false;
     this.openPinMsgFlag = false;
+    this.openCallLogFlag = false;
     this.profileLinkMsgArray = [];
     this.profileMediaArray = [];
     this.tab1 = '';
   }
 
   // block contact
-  blockContact(){
+  blockContact() {
     let payload = {
-      userId : this.selectedChat.temp._id
+      userId: this.selectedChat.temp._id
     }
     this.http.postData(ApiUrl.BLOCK_USER, payload).subscribe(async res => {
-      if(res){
+      if (res) {
         this.allBlockUsers.push(this.selectedChat.temp._id)
       }
     })
   }
 
   // get profile images
-  getProfileImages(){
+  getProfileImages() {
+    this.openCallLogFlag = false;
     let payload = {
-      chatRoomId : this.selectedChat._id,
-      type : 'MEDIA'
+      chatRoomId: this.selectedChat._id,
+      type: 'MEDIA'
     }
     this.profileImageArray = [];
     this.http.getData(ApiUrl.CHAT_MSG, payload).subscribe(async res => {
       this.profileMediaArray = res.data.data;
       res.data && res.data.data.map((img) => {
-        if(img.file.type === 'IMAGE'){
+        if (img.file.type === 'IMAGE') {
           this.profileImageArray.push(img);
         }
       })
@@ -520,19 +687,19 @@ export class ChatsComponent implements OnInit {
   }
 
   // get profile links
-  getProfileLink(){
+  getProfileLink() {
     const obj = {
       chatRoomId: this.selectedChat._id
     };
-    this.http.getData(ApiUrl.CHAT_MSG, obj).subscribe(async res =>  {
-      if(res.data.data){
+    this.http.getData(ApiUrl.CHAT_MSG, obj).subscribe(async res => {
+      if (res.data.data) {
         this.profileLinkMsgArray = await (res.data.data).reverse();
       }
     })
   }
 
   // close chat search
-  closeSearchChat(){
+  closeSearchChat() {
     // this.searchArray = [];
     this.searchFlag = false;
   }
@@ -548,17 +715,17 @@ export class ChatsComponent implements OnInit {
       this.http.getData(ApiUrl.MSG_SEARCH, payload).subscribe(async res => {
         if (res.data.data.length > 0) {
           this.searchArray = [];
-          this.searchIndex = 0;
           this.searchTotalCount = res.data.totalCount
-         await res.data.data.map((msg) => {
+          await res.data.data.map((msg) => {
             this.searchArray.push(msg._id)
           });
           let msgId = await this.searchArray[0];
-          document.getElementById(msgId).scrollIntoView({ behavior : 'smooth' , block :'start' , inline : 'center'});
+          this.searchIndex = 1;
+          document.getElementById(msgId).scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'center' });
         }
       })
     }
-    else{
+    else {
       this.searchArray = [];
       this.searchIndex = 0;
       this.searchFlag = false;
@@ -567,47 +734,47 @@ export class ChatsComponent implements OnInit {
   }
 
   // scroll to bottom button
-  scrollToBottom(){
+  scrollToBottom() {
     let temp = this.massageArray.length;
     let index = this.massageArray[temp - 1]._id;
-    document.getElementById(index).scrollIntoView({ behavior : 'smooth' , block :'end' })
+    document.getElementById(index).scrollIntoView({ behavior: 'smooth', block: 'end' })
   }
 
   // chat , gorup , contacts search
-  generalSearch(event){
+  generalSearch(event) {
     this.searchName = event.target.value;
-      if(this.tab === 'chats'){
-        this.getAllActiveChat(event.target.value);
-      }
-      else if(this.tab === 'groups'){
-        this.getAllGroupData(event.target.value);
-      }
-      else{
-        this.getAllContact(event.target.value);
-      }
-   
+    if (this.tab === 'chats') {
+      this.getAllActiveChat(event.target.value);
+    }
+    else if (this.tab === 'groups') {
+      this.getAllGroupData(event.target.value);
+    }
+    else {
+      this.getAllContact(event.target.value);
+    }
+
   }
 
   //forward modal search
-  forwardSearch(event){
+  forwardSearch(event) {
     let value = event.target.value;
     this.loader = true;
     this.forwardArray = [];
     let payload = {
-      search : value ? value : ''
+      search: value ? value : ''
     }
     this.http.getData(ApiUrl.CHAT_ROOM, payload, false).subscribe(async res => {
       if (res && res.data) {
         this.loader = false;
         let array = [];
         const promise = res.data.map(async element => {
-          array = [...element.users , ...element.admins] 
+          array = [...element.users, ...element.admins]
           array.filter((admin) => {
-              if(admin._id !== this.adminId){
-                element.temp = admin;
-              }
-            })
-            return element
+            if (admin._id !== this.adminId) {
+              element.temp = admin;
+            }
+          })
+          return element
         });
         const results = await Promise.all(promise);
         this.forwardArray = results;
@@ -616,18 +783,24 @@ export class ChatsComponent implements OnInit {
   }
 
   // chat serach scroll up
-  handleSearchScrollUp(){
+  handleSearchScrollUp() {
+    let msgId = this.searchArray[this.searchIndex];
+    document.getElementById(msgId).scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'center' });
     this.searchIndex = this.searchIndex + 1;
-    let msgId =  this.searchArray[this.searchIndex];
-    document.getElementById(msgId).scrollIntoView({ behavior : 'smooth' , block :'start' , inline : 'center'});  
   }
 
   // chat search scroll down
-   handleSearchScrollDown(){
-    this.searchIndex = this.searchIndex - 1;
-    let msgId =  this.searchArray[this.searchIndex];
-    document.getElementById(msgId).scrollIntoView({ behavior : 'smooth', block :'start' , inline : 'center'});
-    
+  handleSearchScrollDown() {
+    console.log('search index.........', this.searchIndex, this.searchArray)
+    if (this.searchArray.length <= (this.searchIndex + 1)) {
+      console.log('in if....')
+      this.searchIndex = this.searchIndex - 1;
+      let msgId = this.searchArray[this.searchIndex - 1];
+      document.getElementById(msgId).scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'center' });
+    }
+    else {
+      console.log('in else')
+    }
   }
 
   // select emoji
@@ -638,101 +811,191 @@ export class ChatsComponent implements OnInit {
   // select all chat for delete
   selectAllContact() {
     if (this.allSelect.value) {
-        this.showSelected = !this.showSelected;
-        this.activeChatList.forEach((val) => {
-            val.isSelected = true;
-        });
-        this.getSelectedCount();
+      this.showSelected = !this.showSelected;
+      this.activeChatList.forEach((val) => {
+        val.isSelected = true;
+      });
+      this.getSelectedCount();
     } else {
-        this.activeChatList.forEach((val) => {
-            val.isSelected = false;
-        });
-        this.selectedContactCount = 0;
+      this.unselectAll();
     }
-}
+  }
 
-// get selected delete count
-getSelectedCount() {
-  let tempCount = 0;
-  this.activeChatList.forEach((val) => {
+  // select all group
+  selectAllGroup() {
+    if (this.allSelect.value) {
+      this.showSelected = !this.showSelected;
+      this.groupData.forEach((val) => {
+        val.isSelected = true;
+      });
+      this.getSelectedCountGroup();
+    } else {
+      this.unselectAllGroup();
+    }
+  }
+
+  // active chat
+  unselectAll() {
+    this.activeChatList.forEach((val) => {
+      val.isSelected = false;
+    });
+    this.selectedContactCount = 0;
+    this.allSelect.patchValue('');
+  }
+
+  // group
+  unselectAllGroup() {
+    this.groupData.forEach((val) => {
+      val.isSelected = false;
+    });
+    this.selectedContactCount = 0;
+    this.allSelect.patchValue('');
+  }
+
+  // get selected delete count
+  getSelectedCount() {
+    let tempCount = 0;
+    this.activeChatList.forEach((val) => {
       if (val.isSelected) {
-          tempCount++;
+        tempCount++;
       }
-  });
-  this.selectedContactCount = tempCount;
-}
+      else {
+        this.allSelect.patchValue('');
+      }
+    });
+    if (tempCount == this.activeChatList.length) {
+      this.activeChatList.forEach((val) => {
+        val.isSelected = true;
+      });
+      this.allSelect.patchValue(true)
+    }
+    this.selectedContactCount = tempCount;
+  }
 
-// delete chatroom
-deleteChatroom(){
-  const modalRef = this.http.showModal(DeleteContactComponent, 'xs', this.activeChatList);
-  modalRef.content.onClose = new Subject<boolean>();
-  modalRef.content.onClose.subscribe(() => {
+  // get selected group count
+  getSelectedCountGroup() {
+    let tempCount = 0;
+    this.groupData.forEach((val) => {
+      if (val.isSelected) {
+        tempCount++;
+      }
+      else {
+        this.allSelect.patchValue('');
+      }
+    });
+    if (tempCount == this.groupData.length) {
+      this.groupData.forEach((val) => {
+        val.isSelected = true;
+      });
+      this.allSelect.patchValue(true)
+    }
+    this.selectedContactCount = tempCount;
+  }
+
+  // delete chatroom
+  deleteChatroom() {
+    const modalRef = this.http.showModal(DeleteContactComponent, 'xs', this.activeChatList);
+    modalRef.content.onClose = new Subject<boolean>();
+    modalRef.content.onClose.subscribe(() => {
       this.selectedChat = {};
       this.selectedContactCount = 0;
       this.http.openSnackBar('Contact have been deleted');
       this.getAllActiveChat(null);
+      this.getSelectedCount();
       this.http.contactUpdatedChat();
       this.allSelect.patchValue('');
       this.defaultScreenFlag = true;
-  });
-}
+    });
+  }
 
-// new msg get from socket
+  // new msg get from socket
   getNewMassages() {
     this.socket.on('new-message', (data) => {
-      this.handlePushNotification(data);
-      this.massageArray = [...this.massageArray, data];
+      console.log(data);
+      if (data.chatRoomId === (this.selectedChat && this.selectedChat._id)) {
+        this.massageArray = [...this.massageArray, data];
+      } else {
+        this.handlePushNotification(data);
+      }
+      this.manageScroll();
       this.getGroupMemberName();
     });
   }
 
   // push notification function
   handlePushNotification(data) {
-    if (data.chatRoomId !== (this.selectedChat && this.selectedChat._id)) {      
+    let currentUser = JSON.parse(localStorage.getItem('loginData'));
+    // if (data.chatRoomId !== (this.selectedChat && this.selectedChat._id)) {
 
-      let options = { 
-        body: data.content,
-        icon: "assets/images/chat-notify-img.png" 
-      }
-      let userName;
-      this.activeChatList.map((user) => {
-        if ((user.temp && user.temp._id) == (data.from && data.from.user)) {
-          userName = user.temp.name;
-          user.unreadCount = (user.unreadCount ? user.unreadCount : 0) + 1;
-          user.lastMessage.content = data.content; 
+    if (data.from.user !== currentUser._id) {
+      if (data.from.userType === 'ADMIN') {
+        let options = {
+          body: data.content,
+          icon: "assets/images/chat-notify-img.png"
         }
-      });
+        let userName;
+        this.activeChatList.map((user) => {
+          console.log(user);
+          if (user._id === data.chatRoomId) {
+            user.admins.map((admin) => {
+              if (data.from.user === admin._id) {
+                userName = admin.fullName;
+                user.unreadCount = (user.unreadCount ? user.unreadCount : 0) + 1;
+                user.lastMessage.content = data.content;
+              }
+            })
+          }
+        });
+        this._pushNotifications.create(userName, options).subscribe(
+          res => console.log(res),
+          err => console.log(err)
+        );
+      } else {
+        let options = {
+          body: data.content,
+          icon: "assets/images/chat-notify-img.png"
+        }
+        let userName;
+        this.activeChatList.map((user) => {
+          console.log(user);
+          if ((user.temp && user.temp._id) == (data.from && data.from.user)) {
+            userName = user.temp.fullName;
+            user.unreadCount = (user.unreadCount ? user.unreadCount : 0) + 1;
+            user.lastMessage.content = data.content;
+          }
+        });
 
-      this._pushNotifications.create(userName, options).subscribe( 
-        res => console.log(res),
-        err => console.log(err)
-      );
+        this._pushNotifications.create(userName, options).subscribe(
+          res => console.log(res),
+          err => console.log(err)
+        );
+      }
     }
   }
 
 
   // socket ack. event
-getAcknowledgement() {
+  getAcknowledgement() {
     this.socket.on('ack', (data) => {
       this.replayFlag = false;
       this.replayData = false;
       this.message = '';
       this.forwardMsgContact = [];
       this.forwardData = '';
-      if(data.message.chatRoomId == this.selectedChat._id){
-        this.massageArray = [...this.massageArray, data.message]; 
+      if (data.message.chatRoomId == this.selectedChat._id) {
+        this.massageArray = [...this.massageArray, data.message];
         this.manageScroll();
       }
       this.activeChatList.map((user) => {
         if (user._id == data.message.chatRoomId) {
-          user.lastMessage.content = data.message.content; 
+          user.lastMessage.content = data.message.content;
         }
       });
     });
   }
 
   // get socket typing events
-  typingMsg(){
+  typingMsg() {
     this.socket.on('typing', (data) => {
       if (data.chatRoomId == (this.selectedChat && this.selectedChat._id)) {
         this.typingFlag = true;
@@ -747,11 +1010,11 @@ getAcknowledgement() {
 
   // scroll to msgs and default scroll to bottom
   manageScroll() {
-      let len = this.massageArray.length - 1;
-      let msgId = this.massageArray[len];
-      setTimeout(() => {
-        document.getElementById(msgId._id).scrollIntoView({ block: 'end' })
-      }, 50);
+    let len = this.massageArray.length - 1;
+    let msgId = this.massageArray[len];
+    setTimeout(() => {
+      document.getElementById(msgId._id).scrollIntoView({ block: 'end' })
+    }, 50);
   }
 
   // forward msg contact select - unselect
@@ -770,7 +1033,7 @@ getAcknowledgement() {
   }
 
   // forward msg socket event
-  sendForwardMsg(){
+  sendForwardMsg() {
     this.forwardMsgContact.map((chatRoomId) => {
       this.socket.emit('forward', {
         chatRoomId: chatRoomId,
@@ -782,10 +1045,12 @@ getAcknowledgement() {
   // manage unread count using socket emit view event
   msgView() {
     let array = this.massageArray;
-    if ((array.length > 0 ) && (array[array.length - 1].isViewed === false) && (array[array.length - 1].from.user !== this.adminId)) {
+    console.log(this.massageArray);
+
+    if ((array.length > 0) && (array[array.length - 1].isViewed === false) && (array[array.length - 1].from.user !== this.adminId)) {
       this.socket.emit('viewed', {
         chatRoomId: this.selectedChat._id,
-        messageId: this.massageArray[0]._id
+        messageId: this.massageArray[this.massageArray.length - 1]._id
       });
       this.activeChatList[this.selectedChatIndex].unreadCount = 0;
     }
@@ -795,7 +1060,7 @@ getAcknowledgement() {
   msgReceived() {
     this.socket.on('viewed', (data) => {
       this.massageArray.map((msg) => {
-        if(msg._id == data.messageId){
+        if (msg._id == data.messageId) {
           msg.isViewed = true;
         }
       })
@@ -804,27 +1069,29 @@ getAcknowledgement() {
 
   // chat send msg
   sendMessage(value) {
-      if (value !== '') {
-        let timestamp = new Date().valueOf().toString();
-        this.message = value;
-        if (this.replayFlag === false) {
-          this.socket.emit('new-message', {
-            chatRoomId: this.selectedChat._id,
-            message: { content: this.message, ref: null },
-            code: timestamp
-          });
-        }
-        else {
-          this.socket.emit('new-message', {
-            chatRoomId: this.selectedChat._id,
-            message: { content: this.message, ref: this.replayData._id }
-          });
-        }
+    if (value !== '') {
+      let timestamp = new Date().valueOf().toString();
+      this.message = value;
+      if (this.replayFlag === false) {
+        this.socket.emit('new-message', {
+          chatRoomId: this.selectedChat._id,
+          message: { content: this.message, ref: null },
+          code: timestamp
+        });
+        this.manageScroll();
       }
+      else {
+        this.socket.emit('new-message', {
+          chatRoomId: this.selectedChat._id,
+          message: { content: this.message, ref: this.replayData._id }
+        });
+        this.manageScroll();
+      }
+    }
   }
 
   // chat uplaod img
-  uploadImage(){
+  uploadImage() {
     this.mediaFlag = false;
     let temp = [];
     var obj = {
@@ -835,35 +1102,35 @@ getAcknowledgement() {
         thumbnail:
           'assets/images/loading.gif',
       },
-      from : {
-        user : this.adminId
+      from: {
+        user: this.adminId
       },
-      loading : true,
-      pinnedBy : [],
+      loading: true,
+      pinnedBy: [],
     }
     var length = this.imageArray.length;
-    for(var i=1;i<=length; i++){
-      temp.push({...obj , _id : `1${i+1}` })
+    for (var i = 1; i <= length; i++) {
+      temp.push({ ...obj, _id: `1${i + 1}` })
     }
-    
-    this.massageArray = [...this.massageArray , ...temp];
+
+    this.massageArray = [...this.massageArray, ...temp];
     this.manageScroll();
     let formData = new FormData();
     formData.append('chatRoomId', this.selectedChat._id);
 
-     this.imageArray.map(singleImage  => {
-     
+    this.imageArray.map(singleImage => {
+
       formData.append('file', singleImage.file)
     });
 
-    if(this.replayFlag === true){
+    if (this.replayFlag === true) {
       formData.append('ref', this.replayData._id)
     }
     this.imageArray = [];
     this.replayFlag = false;
     this.http.postChatImage(ApiUrl.SEND_IMAGE, formData).subscribe(res => {
-      this.massageArray = _.without(this.massageArray , ...temp);
-      this.massageArray = [...this.massageArray , ...res.data];
+      this.massageArray = _.without(this.massageArray, ...temp);
+      this.massageArray = [...this.massageArray, ...res.data];
       this.sidebarUpdateMsg(res.data);
       this.manageScroll();
       this.message = '';
@@ -871,16 +1138,16 @@ getAcknowledgement() {
   }
 
   // update msg in sidebar when get new msg
-  sidebarUpdateMsg(data){
+  sidebarUpdateMsg(data) {
     this.activeChatList.map((user) => {
       if ((user._id) == data[0].chatRoomId) {
-        user.lastMessage.content = data[0].file && data[0].file.type; 
+        user.lastMessage.content = data[0].file && data[0].file.type;
       }
     });
   }
 
   // chat uplaod doc
-  uploadDoc(){
+  uploadDoc() {
     this.mediaFlag = false;
     let temp = [];
     var obj = {
@@ -891,33 +1158,33 @@ getAcknowledgement() {
         thumbnail:
           'assets/images/loading.gif',
       },
-      from : {
-        user : this.adminId
+      from: {
+        user: this.adminId
       },
-      loading : true ,
-      pinnedBy : [],
+      loading: true,
+      pinnedBy: [],
     }
     var length = this.docArray.length;
-    for(var i=1;i<=length; i++){
-      temp.push({...obj ,_id : `1${i+1}` })
+    for (var i = 1; i <= length; i++) {
+      temp.push({ ...obj, _id: `1${i + 1}` })
     }
-    
-    this.massageArray = [...this.massageArray , ...temp];
+
+    this.massageArray = [...this.massageArray, ...temp];
     this.manageScroll();
     let formData = new FormData();
     formData.append('chatRoomId', this.selectedChat._id);
-     this.docArray.map(singleDoc  => {
+    this.docArray.map(singleDoc => {
       formData.append('file', singleDoc.file)
     });
-    if(this.replayFlag === true){
+    if (this.replayFlag === true) {
       formData.append('ref', this.replayData._id)
     }
 
     this.docArray = [];
     this.replayFlag = false;
     this.http.postChatImage(ApiUrl.SEND_IMAGE, formData).subscribe(res => {
-      this.massageArray = _.without(this.massageArray , ...temp);
-      this.massageArray = [...this.massageArray , ...res.data];
+      this.massageArray = _.without(this.massageArray, ...temp);
+      this.massageArray = [...this.massageArray, ...res.data];
       this.sidebarUpdateMsg(res.data);
       this.manageScroll();
       this.message = '';
@@ -926,7 +1193,7 @@ getAcknowledgement() {
   }
 
   // chat uplaod video
-  uploadVideo(){
+  uploadVideo() {
     this.mediaFlag = false;
     let temp = [];
     var obj = {
@@ -937,35 +1204,35 @@ getAcknowledgement() {
         thumbnail:
           'assets/images/loading.gif',
       },
-      from : {
-        user : this.adminId
+      from: {
+        user: this.adminId
       },
-      loading : true,
-      pinnedBy : [],
+      loading: true,
+      pinnedBy: [],
     }
     var length = this.videoArray.length;
-    for(var i=1;i<=length; i++){
-      temp.push({...obj , _id : `1${i+1}`})
+    for (var i = 1; i <= length; i++) {
+      temp.push({ ...obj, _id: `1${i + 1}` })
     }
-    this.massageArray = [...this.massageArray , ...temp];
+    this.massageArray = [...this.massageArray, ...temp];
     this.manageScroll();
 
     let formData = new FormData();
     formData.append('chatRoomId', this.selectedChat._id);
-  
-     this.videoArray.map(singleVideo  => {
+
+    this.videoArray.map(singleVideo => {
       formData.append('file', singleVideo.file)
     });
 
-    if(this.replayFlag === true){
+    if (this.replayFlag === true) {
       formData.append('ref', this.replayData._id)
     }
 
     this.videoArray = [];
     this.replayFlag = false;
     this.http.postChatImage(ApiUrl.SEND_IMAGE, formData).subscribe(res => {
-      this.massageArray = _.without(this.massageArray , ...temp)
-      this.massageArray = [...this.massageArray , ...res.data];
+      this.massageArray = _.without(this.massageArray, ...temp)
+      this.massageArray = [...this.massageArray, ...res.data];
       this.sidebarUpdateMsg(res.data);
       this.manageScroll();
       this.message = '';
@@ -978,27 +1245,27 @@ getAcknowledgement() {
       messageId: chat._id,
       chatRoomId: this.selectedChat._id
     });
-    this.massageArray.filter((data,index) => {
-      if(data._id === chat._id){
-        this.massageArray.splice(index , 1)
+    this.massageArray.filter((data, index) => {
+      if (data._id === chat._id) {
+        this.massageArray.splice(index, 1)
       }
     })
   }
 
   // replay msg 
-  replayMsg(chat){
+  replayMsg(chat) {
     this.replayFlag = true;
     this.replayData = chat;
   }
 
   // remove replay msg
-  closeReplayMsg(){
+  closeReplayMsg() {
     this.replayFlag = false;
     this.replayData = '';
   }
 
   // forward msg modal
-  forwardMsg(openForwardModal: TemplateRef<any>,chat) {
+  forwardMsg(openForwardModal: TemplateRef<any>, chat) {
     this.forwardData = chat;
     this.forwardModalFlag = true;
     this.forwardArray = this.activeChatList;
@@ -1009,59 +1276,62 @@ getAcknowledgement() {
   }
 
   // pin msg
-  pinMsg(chat){
+  pinMsg(chat) {
     let payload = {
-      messageId : chat._id
+      messageId: chat._id
     }
     this.http.postData(ApiUrl.PIN_MSG, payload).subscribe(res => {
-        this.massageArray.map((msg , index) => {
-          if(chat._id == msg._id){
-              this.massageArray[index].pinnedBy = this.adminId 
-          }
-        })
+      this.massageArray.map((msg, index) => {
+        if (chat._id == msg._id) {
+          this.massageArray[index].pinnedBy = this.adminId
+        }
+      })
     })
   }
 
   // unpin msg
-  unpinMsg(chat){
+  unpinMsg(chat) {
     let payload = {
-      messageId : chat._id
+      messageId: chat._id
     }
     this.http.postData(ApiUrl.UNPIN_MSG, payload).subscribe(res => {
-      this.massageArray.map((msg , index) => {
-        if(chat._id == msg._id){
-            this.massageArray[index].pinnedBy = [] 
+      this.massageArray.map((msg, index) => {
+        if (chat._id == msg._id) {
+          this.massageArray[index].pinnedBy = []
         }
       })
     })
   }
 
   // unpin msg from profile
-  unPinFromProfile(chat){
+  unPinFromProfile(chat) {
     let payload = {
-      messageId : chat._id
+      messageId: chat._id
     }
     this.http.postData(ApiUrl.UNPIN_MSG, payload).subscribe(res => {
-      this.profilePinArray.map((msg , index) => {
-        if(chat._id == msg._id){
-            this.profilePinArray.splice(index , 1)
+      this.profilePinArray.map((msg, index) => {
+        if (chat._id == msg._id) {
+          this.profilePinArray.splice(index, 1)
         }
       });
-      this.massageArray.map((msg , index) => {
-        if(chat._id == msg._id){
-            this.massageArray[index].pinnedBy = [] 
+      this.massageArray.map((msg, index) => {
+        if (chat._id == msg._id) {
+          this.massageArray[index].pinnedBy = []
         }
       })
     })
   }
 
   // get all conatct data
-  getAllContact(value) {
+  getAllContact(value?) {
     this.defaultScreenFlag = true;
+    this.isRecordStart = false;
+    this.isRecording = false;
+    this.sidenav.close();
     let payload = {
-      search : value ? value : ''
+      search: value ? value : ''
     }
-    this.loader = true; 
+    this.loader = true;
     this.http.getData(ApiUrl.CHAT_CONTACT_DATA, payload).subscribe(res => {
       this.loader = false;
       this.chatModel.contacts = res.data.data;
@@ -1071,10 +1341,15 @@ getAcknowledgement() {
   }
 
   // get all group data
-  getAllGroupData(value) {
+  getAllGroupData(value?) {
+    this.allSelect.patchValue('');
+    this.isRecordStart = false;
+    this.isRecording = false;
+    this.selectedContactCount = 0;
     this.defaultScreenFlag = true;
+    this.sidenav.close();
     let payload = {
-      search : value ? value : ''
+      search: value ? value : ''
     }
     this.loader = true;
     this.http.getData(ApiUrl.CHAT_GROUP_DATA, payload).subscribe(res => {
@@ -1086,11 +1361,17 @@ getAcknowledgement() {
   }
 
   // get active chatroom list
-  getAllActiveChat(value) {
+  getAllActiveChat(value?) {
+    this.allSelect.patchValue("");
+    this.selectedContactCount = 0;
+    this.isRecordStart = false;
+    this.isRecording = false;
+    this.defaultScreenFlag = true;
+    // this.sidenav.close();
     this.loader = true;
     this.activeChatList = [];
     let payload = {
-      search : value ? value : ''
+      search: value ? value : ''
     }
     this.http.getData(ApiUrl.CHAT_ROOM, payload, false).subscribe(async res => {
       if (res && res.data) {
@@ -1098,13 +1379,13 @@ getAcknowledgement() {
         this.massageArray = [];
         let array = [];
         const promise = res.data.map(async element => {
-          array = [...element.users , ...element.admins] 
+          array = [...element.users, ...element.admins]
           array.filter((admin) => {
-              if(admin._id !== this.adminId){
-                element.temp = admin;
-              }
-            })
-            return element
+            if (admin._id !== this.adminId) {
+              element.temp = admin;
+            }
+          })
+          return element
         });
         const results = await Promise.all(promise);
         this.activeChatList = results;
@@ -1113,19 +1394,21 @@ getAcknowledgement() {
   }
 
   // get msg for perticular chat
-  clickChat(data , index) {
+  clickChat(data, index) {
     this.sidenav.close();
+    this.isRecordStart = false;
+    this.isRecording = false;
     this.defaultScreenFlag = false;
     this.selectedChat = data;
-    console.log('selected chat is.......................',this.selectedChat)
+    console.log('selected chat is.......................', this.selectedChat)
     this.selectedChatIndex = index;
     this.getOldChat();
     this.fetchAllBlockUsers();
   }
 
   // fetch all block users
-  fetchAllBlockUsers(){
-    this.http.getData(ApiUrl.FETCH_BLOCK_USERS, {}).subscribe(async res =>  {
+  fetchAllBlockUsers() {
+    this.http.getData(ApiUrl.FETCH_BLOCK_USERS, {}).subscribe(async res => {
       res.data && res.data.map((user) => {
         this.allBlockUsers.push(user._id)
       });
@@ -1133,7 +1416,7 @@ getAcknowledgement() {
   }
 
   // unblock user modal
-  unBlockUser(openUnBlockModal: TemplateRef<any>){
+  unBlockUser(openUnBlockModal: TemplateRef<any>) {
     this.openPinMsgFlag = false;
     this.unBlockFlag = true;
     this.modalRef = this.modalService.show(
@@ -1143,7 +1426,7 @@ getAcknowledgement() {
   }
 
   // block user modal
-  blockUser(openUnBlockModal: TemplateRef<any>){
+  blockUser(openUnBlockModal: TemplateRef<any>) {
     this.openPinMsgFlag = false;
     this.unBlockFlag = false;
     this.modalRef = this.modalService.show(
@@ -1153,12 +1436,12 @@ getAcknowledgement() {
   }
 
   // unblock user
-  unblock(){
+  unblock() {
     let payload = {
-      userId : this.selectedChat.temp._id
+      userId: this.selectedChat.temp._id
     }
-    this.http.postData(ApiUrl.UNBLOCK_USER, payload).subscribe(async res =>  {
-      if(res){
+    this.http.postData(ApiUrl.UNBLOCK_USER, payload).subscribe(async res => {
+      if (res) {
         let position = this.allBlockUsers.indexOf(payload.userId);
         this.allBlockUsers.splice(position, 1);
       }
@@ -1166,11 +1449,11 @@ getAcknowledgement() {
   }
 
   // image select with prerview in chat
-  choosePhoto(event){
+  choosePhoto(event) {
     if (event.target.files && event.target.files[0]) {
       this.mediaFlag = true;
       var temp = Object.values(event.target.files);
-      temp.map((file : any, index) => {
+      temp.map((file: any, index) => {
         if (file.type === 'video/mp4') {
           var reader = new FileReader();
           reader.onload = (event: any) => {
@@ -1178,7 +1461,7 @@ getAcknowledgement() {
           }
           reader.readAsDataURL(event.target.files[index]);
         }
-        else{
+        else {
           var reader = new FileReader();
           reader.onload = (event: any) => {
             this.imageArray.push({ file, url: event.target.result });
@@ -1191,7 +1474,7 @@ getAcknowledgement() {
   }
 
   // doc select with preview
-  chooseDoc(event){
+  chooseDoc(event) {
     if (event.target.files && event.target.files[0]) {
       this.mediaFlag = true;
 
@@ -1208,59 +1491,69 @@ getAcknowledgement() {
   }
 
   // delete img from preview imgs before uplaod
-  deleteImage(url , index){
-    this.imageArray.splice(index , 1);
-    if(this.imageArray.length == 0){
+  deleteImage(url, index) {
+    this.imageArray.splice(index, 1);
+    if (this.imageArray.length == 0) {
       this.mediaFlag = false;
     }
   }
 
-   // delete video from preview video before uplaod
-  deleteVideo(url , index){
-    this.videoArray.splice(index , 1);
-    if(this.videoArray.length == 0){
+  // delete video from preview video before uplaod
+  deleteVideo(url, index) {
+    this.videoArray.splice(index, 1);
+    if (this.videoArray.length == 0) {
       this.mediaFlag = false;
     }
   }
 
   // delete doc from preview doc before uplaod
-  deleteDoc(url , index){
-    this.docArray.splice(index , 1);
-    if(this.docArray.length == 0){
+  deleteDoc(url, index) {
+    this.docArray.splice(index, 1);
+    if (this.docArray.length == 0) {
       this.mediaFlag = false;
     }
   }
 
   // get chat old data
   getOldChat() {
+    this.simmerLoader = true;
     const obj = {
       chatRoomId: this.selectedChat._id,
-      limit : 50,
-      skip : 0
+      limit: 50,
+      skip: 0
     };
-    this.http.getData(ApiUrl.CHAT_MSG, obj).subscribe(async res =>  {
+    this.http.getData(ApiUrl.CHAT_MSG, obj).subscribe(async res => {
       this.massageArray = await (res.data.data).reverse();
       this.getGroupMemberName();
       this.msgTotal = res.data.totalCount;
+      this.simmerLoader = false;
       this.manageScroll();
       this.msgView()
     })
   }
 
-  getGroupMemberName(){
-    this.selectedChat.users = [...this.selectedChat.users , this.selectedChat.temp];
+  getGroupMemberName() {
+    this.selectedChat.users = [...this.selectedChat.users, this.selectedChat.temp];
+    console.log('...................', this.massageArray, this.selectedChat.users)
     this.massageArray.length > 0 && this.massageArray.map((msg) => {
-        this.selectedChat.users.map((user) => {
-          if(msg.from.user === user._id){
-            msg.fromUserName = user.fullName ? user.fullName : user.name
-          }
-        })
+      this.selectedChat.users.map((user) => {
+        if (msg.from.user === user._id) {
+          // console.log('in if......',msg , user)
+          msg.fromUserName = user.fullName ? user.fullName : user.name
+        } else {
+          this.selectedChat.admins.map((ad) => {
+            if (msg.from.user === ad._id) {
+              msg.fromUserName = ad.fullName ? ad.fullName : ad.name
+            }
+          })
+        }
+      })
     })
   }
 
   // manage socket typing event
-  textChange(event: any){
-    if(event.target.value.length > 0){
+  textChange(event: any) {
+    if (event.target.value.length > 0) {
       this.socket.emit('typing', { chatRoomId: this.selectedChat._id });
 
       setTimeout(() => {
@@ -1270,13 +1563,13 @@ getAcknowledgement() {
   }
 
   // call api on scroll up
-  onScroll(event){
+  onScroll(event) {
 
-    if(event.target.offsetHeight + event.target.scrollTop >= (event.target.scrollHeight - 200)){
-      $(".scroll-to-bottom").css('display' , 'none')
+    if (event.target.offsetHeight + event.target.scrollTop >= (event.target.scrollHeight - 200)) {
+      $(".scroll-to-bottom").css('display', 'none')
     }
-    else{
-      $(".scroll-to-bottom").css('display' , 'block')
+    else {
+      $(".scroll-to-bottom").css('display', 'block')
     }
 
     const startingScrollHeight = event.target.scrollHeight;
@@ -1284,11 +1577,11 @@ getAcknowledgement() {
       if ((this.massageArray.length < Number(this.msgTotal)) && !this.isLoading) {
         const obj = {
           chatRoomId: this.selectedChat._id,
-          limit : 50,
-          skip : this.massageArray.length
+          limit: 50,
+          skip: this.massageArray.length
         };
         this.isLoading = true;
-        this.http.getData(ApiUrl.CHAT_MSG, obj).subscribe(async res =>  {
+        this.http.getData(ApiUrl.CHAT_MSG, obj).subscribe(async res => {
           const data = await (res.data.data);
           this.massageArray = [...data, ...this.massageArray];
           this.isLoading = false;
@@ -1309,17 +1602,19 @@ getAcknowledgement() {
       chatType: 'PRIVATE',
       dataId: data._id
     }
+    this.isRecordStart = false;
+    this.isRecording = false;
     this.defaultScreenFlag = false;
     this.selectedChat = data;
     this.http.postData(ApiUrl.CREATE_CHATROOM, payload).subscribe(async res => {
       if (res && res.data) {
         let array = [];
-          array = [...res.data.users , ...res.data.admins] 
-          array.filter((admin) => {
-              if(admin._id !== this.adminId){
-                res.data.temp = admin;
-              }
-          })
+        array = [...res.data.users, ...res.data.admins]
+        array.filter((admin) => {
+          if (admin._id !== this.adminId) {
+            res.data.temp = admin;
+          }
+        })
         this.selectedChat = res.data;
         this.getOldChat();
       }
@@ -1327,26 +1622,27 @@ getAcknowledgement() {
   }
 
   // create chatrrom from group
-  createChatRoomGroup(data){
+  createChatRoomGroup(data) {
     let payload = {
       chatType: 'GROUP',
       dataId: data._id,
       groupDetails: {
-        name : data.name
+        name: data.name
       }
     }
-
+    this.isRecordStart = false;
+    this.isRecording = false;
     this.defaultScreenFlag = false;
     this.selectedChat = data;
     this.http.postChatImage(ApiUrl.CREATE_CHATROOM, payload).subscribe(async res => {
       if (res && res.data) {
         let array = [];
-          array = [...res.data.users , ...res.data.admins] 
-          array.filter((admin) => {
-              if(admin._id !== this.adminId){
-                res.data.temp = admin;
-              }
-          })
+        array = [...res.data.users, ...res.data.admins]
+        array.filter((admin) => {
+          if (admin._id !== this.adminId) {
+            res.data.temp = admin;
+          }
+        })
         this.selectedChat = res.data;
         this.getOldChat();
       }
@@ -1354,28 +1650,34 @@ getAcknowledgement() {
   }
 
   // preview image
-  previewImage(url){
+  previewImage(url) {
     this.http.openLightBox(url)
   }
 
   // preview file
-  previewFile(url , name){
+  previewFile(url, name) {
     FileSaver.saveAs(url, name);
   }
 
   playVideo(src) {
     this.videoSrc = src;
-    $('#myModal').on('show', function (e) {
-      
-    });
-    $('#myModal').on('hide.bs.modal', function (e) {
-      // a poor man's stop video
-      $("#video").attr('src', src);
-    })
-  }
+    // $('#myModal').on('show', function (e) {
 
-  videoURL(){
-    if(this.videoSrc){
+    // });
+    // $('#myModal').on('hide.bs.modal', function (e) {
+    //   // a poor man's stop video
+    //   console.log('-----');
+    //   // $("#video").attr('src', src);
+    //   $("#video").stop();
+    // })
+  }
+  closeVideo() {
+    console.log('-----');
+    $("#video").stop();
+    this.videoSrc = null;
+  }
+  videoURL() {
+    if (this.videoSrc) {
       return this._sanitizer.bypassSecurityTrustResourceUrl(this.videoSrc)
     }
   }

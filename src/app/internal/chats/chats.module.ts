@@ -7,6 +7,7 @@ import {AuthGuardService as AuthGuard} from '../../services/authguard.service';
 import  {  NgxEmojiPickerModule  }  from  'ngx-emoji-picker';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {NgxDocViewerModule} from 'ngx-doc-viewer';
+import { SimpleTimer } from 'ng2-simple-timer';
 // import { VideoCallComponent } from './video-call/video-call/video-call.component';
 // import { FileSaverModule } from 'ngx-filesaver';
 
@@ -34,6 +35,9 @@ const routes: Routes = [
     ],
     declarations: [
       ChatsComponent,
+    ],
+    providers : [
+        SimpleTimer
     ]
 })
 export class ChatsModule {

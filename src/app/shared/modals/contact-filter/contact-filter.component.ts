@@ -52,7 +52,7 @@ export class ContactFilterComponent implements OnInit {
     }
 
     addFilter() {
-        if (this.filters.name && this.filters.selectList.length) {
+        if (this.filters.name && this.filters.selectList.length && this.filters.selectList[0].value) {
             const obj: any = {
                 name: this.filters.name,
                 filters: JSON.stringify(this.filters.selectList)
@@ -61,9 +61,10 @@ export class ContactFilterComponent implements OnInit {
             this.http.postData(ApiUrl.ADD_FILTER, obj).subscribe(() => {
                         this.http.openSnackBar('List Added Successfully');
                         this.onClose.next(false);
-                    },
-                    () => {
-                    });
+            });
+        }
+        else{
+            this.http.openSnackBar('Please add require details of contact.');
         }
     }
 

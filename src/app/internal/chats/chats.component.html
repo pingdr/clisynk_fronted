@@ -4,10 +4,10 @@
     <div class="contact">
         <div class="contact-header">
             <ng-container>
-                <div style="padding : 20px;">
+                <div class="title-pading-inner">
                     <span class="page-title1">Chats</span>
                 </div>
-                <div class="invoices-page-table">
+                <div class="invoices-page-table chat-search-bar-left-side">
                     <div class="search-bar" style="margin : 0 1.5rem">
                         <div class="input-field no-label">
                             <input id="" type="search" name="" placeholder="Search" maxlength="232" pattern=".*"
@@ -16,7 +16,7 @@
                     </div>
                 </div>
 
-                <ul class="nav nav-pills mb-3 contact-h-tab-heading mt-2">
+                <ul class="nav nav-pills mb-3 contact-h-tab-heading mt-2 chat-left-tabs-main">
                     <li class="nav-item" [ngClass]="{'tab-btn':tab == 'chats'}"
                         (click)="selected='';tab='chats';getAllActiveChat()">
                         Chats
@@ -33,17 +33,17 @@
             </ng-container>
 
             <!-- all chats list -->
-            <div class="tab-content contact-v-tab-heading" id="pills-tabContent" *ngIf="tab == 'chats'">
+            <div class="tab-content contact-v-tab-heading all-chat-listing-inner" id="pills-tabContent" *ngIf="tab == 'chats'">
                 <div class="tab-pane1" id="pills-home">
                     <div class="nav flex-column nav-pills" id="v-pills-tab" aria-orientation="vertical">
-                        <div class="select-all">
+                        <div class="select-all custom-select-all">
                             <label class="custom-checkbox">Select all
                                 <input type="checkbox" [formControl]="allSelect" (change)="selectAllContact()">
                                 <span class="checkmark"></span>
                             </label>
                         </div>
 
-                        <cdk-virtual-scroll-viewport itemSize="20" class="full-port">
+                        <cdk-virtual-scroll-viewport itemSize="20" class="full-port left-side-chat-history">
                             <app-loader [showLoader]="loader" [length]="activeChatList?.length">
                             </app-loader>
                             <div *cdkVirtualFor="let data of activeChatList;let i = index">
@@ -84,14 +84,14 @@
                                     </h4>
 
                                     <div *ngIf="data?.unreadCount > 0;else lastMsgWithoutUnreadCount"
-                                        (click)="clickChat(data);" style="display: flex;">
+                                        (click)="clickChat(data);" style="display: flex;" class="video-small">
                                         <div class="unread-text-blue">
                                             {{data?.lastMessage?.file ? data?.lastMessage?.file?.type : data?.lastMessage?.content}}
                                         </div>
                                         <div class="unread-count">{{data?.unreadCount}}</div>
                                     </div>
                                     <ng-template #lastMsgWithoutUnreadCount>
-                                        <div class="unread-text">
+                                        <div class="unread-text" class="video-small">
                                             {{data?.lastMessage?.file ?  data?.lastMessage?.file?.type : data?.lastMessage?.content}}
                                         </div>
                                     </ng-template>
@@ -103,10 +103,10 @@
             </div>
 
             <!-- all groups list-->
-            <div class="tab-content contact-v-tab-heading" id="pills-tabContent" *ngIf="tab == 'groups'">
+            <div class="tab-content contact-v-tab-heading all-chat-listing-inner" id="pills-tabContent" *ngIf="tab == 'groups'">
                 <div class="tab-pane1" id="pills-home">
                     <div class="nav flex-column nav-pills" id="v-pills-tab" aria-orientation="vertical">
-                        <div class="select-all">
+                        <div class="select-all custom-select-all">
                             <label class="custom-checkbox">Select all
                                 <input type="checkbox" [formControl]="allSelect">
                                 <span class="checkmark"></span>
@@ -117,7 +117,7 @@
                             <app-loader [showLoader]="loader" [length]="groupData?.length"></app-loader>
                             <div *cdkVirtualFor="let data of groupData;let i = index">
 
-                                <a class="nav-link" [ngClass]="{'active': selectedIndex == i}">
+                                <a class="nav-link group-add-main" [ngClass]="{'active': selectedIndex == i}">
                                     <span class="circle">
                                         <label class="custom-checkbox">
                                             <input type="checkbox" (change)="getSelectedCount()"
@@ -138,10 +138,10 @@
             </div>
 
             <!-- all contact list-->
-            <div class="tab-content contact-v-tab-heading" id="pills-tabContent" *ngIf="tab == 'allContact'">
+            <div class="tab-content contact-v-tab-heading all-chat-listing-inner" id="pills-tabContent" *ngIf="tab == 'allContact'">
                 <div class="tab-pane1" id="pills-home">
                     <div class="nav flex-column nav-pills" id="v-pills-tab" aria-orientation="vertical">
-                        <div class="select-all">
+                        <div class="select-all custom-select-all">
                             <label class="custom-checkbox">Select all
                                 <input type="checkbox" [formControl]="allSelect" (change)="selectAllContact()">
                                 <span class="checkmark"></span>
@@ -152,7 +152,7 @@
                             </app-loader>
                             <div *cdkVirtualFor="let data of chatModel?.contacts;let i = index">
 
-                                <a class="nav-link" [ngClass]="{'active': selectedIndex == i}">
+                                <a class="nav-link group-add-main-contact" [ngClass]="{'active': selectedIndex == i}">
                                     <span class="circle" style="margin-top: 10px;">
                                         <label class="custom-checkbox">
                                             <input type="checkbox" (change)="getSelectedCount()"
@@ -186,9 +186,9 @@
 
 
     <!-- profile section -->
-    <mat-sidenav-container class="example-container" style="width: 100%;">
+    <mat-sidenav-container class="example-container side-nav-group-main" >
 
-        <mat-sidenav #sidenav [mode]="mode.value" style="overflow :visible">
+        <mat-sidenav #sidenav [mode]="mode.value" class="group-information-main-side-nav">
 
             <!-- pin msgs profile  -->
             <div *ngIf="openPinMsgFlag;else mediaContent">
@@ -242,7 +242,7 @@
             <!-- media profile tab -->
             <ng-template #mediaContent>
                 <div *ngIf="openMediaFlag;else defaultContent">
-                    <i class="fa fa-arrow-left" aria-hidden="true" style="float: right;font-size: 20px;cursor: pointer;"
+                    <i class="fa fa-arrow-left" aria-hidden="true" style="float: right;font-size: 20px;cursor: pointer; color: #c5c5c5;"
                         (click)="clickProfileBack()"></i>
                     <ng-container>
                         <ul class="nav nav-pills mb-3 contact-h-tab-heading pt-4">
@@ -293,7 +293,7 @@
                         <div class="username">
                             {{selectedChat?.chatType == 'GROUP' ? selectedChat?.groupDetails?.name : (selectedChat?.temp?.name ? selectedChat?.temp?.name : selectedChat?.temp?.fullName) }}
                         </div>
-                        <div style="padding: 40px 0px;">
+                        <div style="padding: 35px 0px;">
                             <div (click)="openMedia()">
                                 <span class="profile-name-list">Media, Links and Docs</span>
                                 <span class="arrow-icon">
@@ -336,31 +336,33 @@
                                 </ng-template>
                             </div>
                             <hr />
-                            <div (click)="clearChatModal(openClearChatModal);sidenav.toggle()" style="cursor: pointer;">
+                            <div (click)="clearChatModal(openClearChatModal);sidenav.toggle()" style="cursor: pointer; padding-bottom: 10px;
+                            margin-bottom: 10px; border-bottom: 1px solid rgba(0,0,0,.1);">
                                 <span class="profile-name-list" style="color: #df3333;">Clear Chat</span>
                             </div>
-
-                            <div *ngIf="selectedChat?.chatType == 'GROUP'">
-                                <hr/>
-                                <!-- {{selectedChat?.users?.length}} participents -->
-                                <div *ngFor="let user of selectedChat?.users" style="display: flex;margin: 15px 0px;">
-                                    <div class="user-circle">
-                                        <span *ngIf="user?.profileImage;else onlyName">
-                                            <img [src]="user?.profileImage?.thumbnail" class="profile-image-list" />
-                                        </span>
-                                        <ng-template #onlyName>
-                                            {{user?.fullName?.substr(0, 1)}}
-                                        </ng-template>
-                                    </div>
-                                    <div>
-                                        <div class="username-header">
-                                            {{user?.fullName}}
+                            <div class="main-group-member-box">
+                                <div *ngIf="selectedChat?.chatType == 'GROUP'" class="group-of-member-main-div">
+                                    <!-- <hr/> -->
+                                    <!-- {{selectedChat?.users?.length}} participents -->
+                                    <div *ngFor="let user of selectedChat?.users" style="display: flex;margin: 15px 0px;">
+                                        <div class="user-circle">
+                                            <span *ngIf="user?.profileImage;else onlyName">
+                                                <img [src]="user?.profileImage?.thumbnail" class="profile-image-list" />
+                                            </span>
+                                            <ng-template #onlyName>
+                                                {{user?.fullName?.substr(0, 1)}}
+                                            </ng-template>
                                         </div>
-                                        <div>{{user?.email}}</div>
+                                        <div>
+                                            <div class="username-header">
+                                                {{user?.fullName}}
+                                            </div>
+                                            <div>{{user?.email}}</div>
+                                        </div>
+                                        <hr/>
                                     </div>
-                                    <hr/>
+                                
                                 </div>
-                              
                             </div>
 
                         </div>
@@ -995,29 +997,34 @@
                                             role="menu" aria-labelledby="button-basic">
                                             <li role="menuitem" style="display: block" (click)="replayMsg(chat)">
                                                 <a class="dropdown-item">
+                                                    <img src="../../../assets/images/reply.svg" width="15" class="groupo-img"> 
                                                     <span class="ellipsis">Replay</span>
                                                 </a>
                                             </li>
                                             <li role="menuitem" style="display: block"
                                                 (click)="forwardMsg(openForwardModal,chat)">
                                                 <a class="dropdown-item">
+                                                    <img src="../../../assets/images/forward.svg" width="15" class="groupo-img"> 
                                                     <span class="ellipsis">Forward message</span>
                                                 </a>
                                             </li>
                                             <li role="menuitem" style="display: block" *ngIf="chat?.pinnedBy.length > 0"
                                                 (click)="unpinMsg(chat)">
                                                 <a class="dropdown-item">
+                                                    <img src="../../../assets/images/pin-message.svg" width="15" class="groupo-img"> 
                                                     <span class="ellipsis">Unpin message</span>
                                                 </a>
                                             </li>
                                             <li role="menuitem" style="display: block"
                                                 *ngIf="chat?.pinnedBy.length == 0" (click)="pinMsg(chat)">
                                                 <a class="dropdown-item">
+                                                    <img src="../../../assets/images/pin-message.svg" width="15" class="groupo-img"> 
                                                     <span class="ellipsis">Pin message</span>
                                                 </a>
                                             </li>
                                             <li role="menuitem" style="display: block" (click)="deleteMsg(chat)">
                                                 <a class="dropdown-item">
+                                                    <img src="../../../assets/images/trash.svg" width="15" class="groupo-img"> 
                                                     <span class="ellipsis">Delete message</span>
                                                 </a>
                                             </li>
@@ -1446,29 +1453,34 @@
                                                 aria-labelledby="button-basic">
                                                 <li role="menuitem" style="display: block" (click)="replayMsg(chat)">
                                                     <a class="dropdown-item">
+                                                        <img src="../../../assets/images/reply.svg" width="15" class="groupo-img"> 
                                                         <span class="ellipsis">Replay</span>
                                                     </a>
                                                 </li>
                                                 <li role="menuitem" style="display: block"
                                                     (click)="forwardMsg(openForwardModal,chat)">
                                                     <a class="dropdown-item">
+                                                        <img src="../../../assets/images/forward.svg" width="15" class="groupo-img"> 
                                                         <span class="ellipsis">Forward message</span>
                                                     </a>
                                                 </li>
                                                 <li role="menuitem" style="display: block"
                                                     *ngIf="chat?.pinnedBy.length > 0" (click)="unpinMsg(chat)">
                                                     <a class="dropdown-item">
+                                                        <img src="../../../assets/images/pin-message.svg" width="15" class="groupo-img"> 
                                                         <span class="ellipsis">Unpin message</span>
                                                     </a>
                                                 </li>
                                                 <li role="menuitem" style="display: block"
                                                     *ngIf="chat?.pinnedBy.length == 0" (click)="pinMsg(chat)">
                                                     <a class="dropdown-item">
+                                                        <img src="../../../assets/images/pin-message.svg" width="15" class="groupo-img"> 
                                                         <span class="ellipsis">Pin message</span>
                                                     </a>
                                                 </li>
                                                 <li role="menuitem" style="display: block" (click)="deleteMsg(chat)">
                                                     <a class="dropdown-item">
+                                                        <img src="../../../assets/images/trash.svg" width="15" class="groupo-img"> 
                                                         <span class="ellipsis">Delete message</span>
                                                     </a>
                                                 </li>
@@ -1591,7 +1603,7 @@
                                 </div>
 
                                 <img src="assets/images/send.svg" width="25px"
-                                    style="margin-left: 10px;cursor: pointer;" *ngIf="message.length > 0"
+                                    style="margin-left: 10px;cursor: pointer; width:16px" *ngIf="message.length > 0"
                                     (click)="sendMessage(message)" />
                                 <!-- emoji -->
                                 <i class='attachment' (click)="toggled = !toggled" [(emojiPickerIf)]="toggled"
@@ -1683,13 +1695,13 @@
                 <div id="remote" #remoteVideo></div>
                
                 <div class="btn decline video-decline">
-                   <img src="assets/images/decline-call-icon.svg" (click)="deleteVideoCall()">
+                   <img src="assets/images/vintage-phone-receiver.svg" (click)="deleteVideoCall()">
                 </div>
-                <div *ngIf="!muteFlag" >
-                   <img src="assets/images/unmute-icon.svg" (click)="muteCall()" class="mute-btn">
+                <div *ngIf="!muteFlag" class="micro-phone" >
+                   <img src="assets/images/microphone-black-shape.svg" (click)="muteCall()" >
                 </div>
-                <div *ngIf="muteFlag" >
-                    <img src="assets/images/mute-icon.svg" class="unmute-btn" (click)="unMuteCall()">
+                <div *ngIf="muteFlag" class="micro-phone un-mute-micro" >
+                    <img src="assets/images/microphone-black-shape.svg"  (click)="unMuteCall()">
                 </div>
             </div>
 
@@ -1701,15 +1713,21 @@
                         {{callStatus}}
                     </div>
                 </div>
+                <!-- ----------------inner-call---------------------- -->
+                <div class="main-caller-id-div">
+
+                        <span class="call-id-first-letter skype-call-pannel">M</span>
+
+                </div>
                 
                 <div class="btn decline video-decline">
-                    <img src="assets/images/decline-call-icon.svg" (click)="deleteVoiceCall()">
+                    <img src="assets/images/vintage-phone-receiver.svg" (click)="deleteVoiceCall()">
                 </div>
-                <div *ngIf="!muteFlag">
-                    <img src="assets/images/unmute-icon.svg"  (click)="muteCall()" class="mute-btn">
+                <div *ngIf="!muteFlag" class="micro-phone">
+                    <img src="assets/images/microphone-black-shape.svg"  (click)="muteCall()" >
                 </div>
-                <div *ngIf="muteFlag">
-                    <img src="assets/images/mute-icon.svg" class="unmute-btn" (click)="unMuteCall()">
+                <div *ngIf="muteFlag" class="micro-phone un-mute-micro">
+                    <img src="assets/images/microphone-black-shape.svg" (click)="unMuteCall()">
                 </div>
             </div>
 

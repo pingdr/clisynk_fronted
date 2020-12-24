@@ -6346,3 +6346,26 @@ section.appt-list {
   white-space: var(--text-wrap, nowrap);
   color: #242433;
 }
+
+
+.side-nav-group-main .mat-drawer-shown {
+  background: rgba(0,0,0,.2);
+}
+
+.side-nav-group-main .mat-drawer {
+    padding: 60px 0px;
+    overflow: hidden !important;
+    background: #ffff !important;
+    height: 100vh;
+}
+
+.side-nav-group-main .mat-drawer .mat-drawer-inner-container {
+  overflow: hidden;
+}
+
+
+.side-nav-group-main {
+    background: #ffff;
+}
+
+// ng serve --no-live-reload
