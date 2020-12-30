@@ -1,0 +1,76 @@
+<div class="contact-header">
+    <div class="Clients_list_heading">
+        <img [src]="'/assets/images/back-arrow.svg'" (click)="http.goBack()">
+        <h3 class="page-title">Manage Workspace</h3>
+    </div>
+
+</div>
+
+
+<div class="main-edit-work-space-form">
+    <div class="first-row">
+        <label>From Workspace</label>
+        <div class="workspace-input">
+          <input type="text" >
+          <label>Workspace Name</label>
+        </div>
+        <!-- <mat-form-field class="full-width" appearance="outline">
+          <mat-label class="required">Business Name</mat-label>
+          <input matInput type="text" formControlName="businessname" #input1>
+      </mat-form-field> -->
+    </div>
+    <div class="second-row">
+      <label class="sub-heading">To Workspace</label>
+      <mat-form-field class="example-chip-list">
+          <mat-chip-list #chipList aria-label="Fruit selection">
+            <mat-chip
+              *ngFor="let fruit of fruits"
+              [selectable]="selectable"
+              [removable]="removable"
+              (removed)="remove(fruit)">
+              {{fruit}}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input
+              placeholder="To Workspace"
+              #fruitInput
+              [formControl]="fruitCtrl"
+              [matAutocomplete]="auto"
+              [matChipInputFor]="chipList"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              (matChipInputTokenEnd)="add($event)">
+          </mat-chip-list>
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+            <mat-option *ngFor="let fruit of filteredFruits | async" [value]="fruit">
+              {{fruit}}
+            </mat-option>
+          </mat-autocomplete>
+      </mat-form-field>
+    </div>
+    <div class="second-row third-row">
+      <label class="sub-heading">Contacts</label>
+      <mat-form-field class="example-chip-list">
+        <mat-chip-list #chipList>
+          <mat-chip>Dhruval Ramani (xyz@GMAIL.COM)</mat-chip>
+          <mat-chip>VIRAJ UPADHYAY (VIRAJUPADHYAY7@GMAIL.COM)</mat-chip>
+        </mat-chip-list>
+        <input [matChipInputFor]="chipList">
+      </mat-form-field>
+    </div>
+    <div class="second-row fourth-row">
+      <label class="sub-heading">Contacts by tag</label>
+      <mat-form-field class="example-chip-list">
+        <mat-chip-list #chipList>
+          <mat-chip>Designer</mat-chip>
+        </mat-chip-list>
+        <input [matChipInputFor]="chipList">
+      </mat-form-field>
+    </div>
+    <div class="selected-contacts">
+        <span class="number-for-selected">70</span>
+        Contacts selected
+    </div>
+    <div class="Merge-btn">
+       <button class="btn-outline-primary" (click)="http.openModal('merge-contacts')">Merge </button>
+    </div>
+</div>

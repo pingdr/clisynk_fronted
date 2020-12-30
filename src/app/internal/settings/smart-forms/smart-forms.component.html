@@ -1,0 +1,56 @@
+<div class="profile-section">
+
+    <div class="contact-header">
+        <div class="Clients_list_heading">
+            <img [src]="'/assets/images/back-arrow.svg'" (click)="http.goBack()">
+            <h3 class="page-title">Smart Forms</h3>
+            <button class="btn-outline-primary t-r-btn" (click)="onCreateForm()">Create form
+            </button>
+        </div>
+
+    </div>
+
+
+    <!-- ---------------------table for form listing ---------------------------->
+    <div class="smart-form-listing-table">
+        <table class="smart-table-list" matSort (matSortChange)="sortData($event)">
+            <thead>
+                <tr>
+                    <th class="form-name" mat-sort-header="name">Form Name</th>
+                    <th class="description">Description</th>
+                    <th class="added-on" mat-sort-header="addedOn">Added On</th><!-- <button class="down-arrow"><img src="../../../../assets/images/down-blue-arrow.svg" width="20"></button> -->
+                    <th class="status" mat-sort-header="status">Status</th>
+                    <th class="actions-table">Actions</th>
+                </tr>
+            </thead>
+            <tbody *ngIf="!loader">
+                <tr *ngFor="let f of sortedData; let i=index">
+                    <td class="form-name" (click)="onUpdate(f)">{{ f.name }}</td>
+                    <td class="description new-description" style="width: 500px;" (click)="onUpdate(f)">
+                        <p matTooltip="{{f.description}}" matTooltipClass="custom-tooltip">{{ f.description }}</p>
+                    </td>
+                    <td class="added-on" (click)="onUpdate(f)">{{ f.createdAt | date: 'dd/MM/y'}}</td>
+                    <td class="status" (click)="onUpdate(f)"><span *ngIf="f.status == 'DRAFT'" class="not-published">Not
+                            Published</span><span *ngIf="f.status == 'PUBLISHED'" class="published">Published</span>
+                    </td>
+                    <td class="actions-table"><button class="delete-icon" (click)="onDelete(f._id)">
+                        <img src="../../../../assets/images/trash-icon.svg" width="20"></button>
+                        <button *ngIf="f.status == 'PUBLISHED'" class="delete-icon" (click)="copyLink(f._id)"><img src="../../../../assets/images/copy.svg" alt="copy" width="28"></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <ng-container *ngIf="loader">
+        <div class="first-section-wrapper">
+            <div class="gravatar-title">
+                <div>
+                    <ngx-skeleton-loader
+                        count="3"
+                        [theme]="{ width: '100%', 'border-radius': '0', height: '60px', 'margin-bottom': '3px','z-index':'99','margin-left': '0px','margin-top': '0','border': 'none','left':'0'}">
+                    </ngx-skeleton-loader>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>

@@ -239,7 +239,7 @@
         line-height: 22px;
     }
     .main-automations .right-col-main .right-body-content-main .free-grid-main .inner-grid-main .short-description-main .sub-heading{
-        font-size: 13px;
+        font-size: 11px;
         margin-bottom: 4px;
     }
     .submit-feedback-main{
@@ -250,14 +250,42 @@
         margin-bottom: 10px;
     }
     .main-automations .left-col-main .left-header-main .heading-main{
-        font-size: 20px;
+        font-size: 16px;
         font-weight: 300;
     }
     .main-automations .right-col-main .right-header-main{
-        padding: 21.5px 20px;
+        padding: 20.5px 20px;
     }
     .main-automations .right-col-main .right-body-content-main .free-grid-main {        
         grid-column-gap: 10px;
+    }
+    .comman-row-main .title-main .main-menu-title{
+        font-size: 12px;
+        line-height: 15px;
+    }
+    .comman-row-main .title-main .status-for-document{
+        font-size: 10px;
+    }
+    .comman-row-main img {
+        width: 20px !important;
+    }
+    .main-automations .right-col-main .right-header-main .header-title-main{
+        font-size: 16px;
+    }
+    .main-automations[_ngcontent-ien-c1] .right-col-main[_ngcontent-ien-c1] .right-body-content-main[_ngcontent-ien-c1] .free-grid-main[_ngcontent-ien-c1] .inner-grid-main[_ngcontent-ien-c1] .short-description-main[_ngcontent-ien-c1] .sub-heading[_ngcontent-ien-c1]{
+        font-size: 14px;
+    }
+    .main-automations .right-col-main .right-body-content-main .free-grid-main .card-title-main .heading{
+        font-size: 16px;
+    }
+    .comman-row-main .right-menu-thing button img{
+        width: 10px !important;
+    }
+    .main-automations .left-col-main .left-header-main .right-add-icon a img{
+        width: 18px !important;
+    }
+    .main-automations .right-col-main .right-body-content-main .free-grid-main .inner-grid-main .icon-row-main img{
+        width: 18px;
     }
 }
 

@@ -29,7 +29,7 @@ export class UsersComponent implements OnInit {
         const modalRef = this.http.showModal(AddUserComponent, 'md', data);
         modalRef.content.onClose = new Subject<boolean>();
         modalRef.content.onClose.subscribe(res => {
-            this.getList();
+            this.getList(); 
         });
     }
 

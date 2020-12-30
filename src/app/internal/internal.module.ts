@@ -11,6 +11,7 @@ import {ChartsModule} from 'ng2-charts';
 import {RouterModule, Routes} from '@angular/router';
 import { TodoComponent } from './actions/todo/todo.component';
 
+
 const routes: Routes = [{
     path: '', component: InternalComponent,
     children: [

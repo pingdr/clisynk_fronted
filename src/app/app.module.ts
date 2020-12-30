@@ -18,7 +18,7 @@ import {LightboxModule} from 'ngx-lightbox';
 import {AsyncPipe} from '@angular/common';
 import {PrivacyComponent} from './external/privacy/privacy.component';
 import {ExternalAuthguardService} from './services/externalAuthguard.service';
-import {ForgotPasswordComponent} from './shared/modals/forgot-password/forgot-password.component';
+// import {ForgotPasswordComponent} from './shared/modals/forgot-password/forgot-password.component';
 import {ReceiptComponent} from './external/receipt/receipt.component';
 import {BookingComponent} from './internal/appointments/booking/booking.component';
 import {ShoppingReducer} from './internal/actions/reducer';
@@ -33,11 +33,26 @@ import { PushNotificationsModule } from 'ng-push';
 // firebase
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { AngularFireModule } from '@angular/fire';
+import { BuildAutomationComponent } from './internal/automations/build-automation/build-automation.component';
+import { AddBuildautomationComponent } from './internal/automations/add-buildautomation/add-buildautomation.component';
+import { BuildThenautomationsComponent } from './internal/automations/build-thenautomations/build-thenautomations.component';
+import { SubmitfeedbackComponent } from './shared/modals/submitfeedback/submitfeedback.component';
+import { MatChipsModule } from '@angular/material';
+import { PreviewLeadformComponent } from './internal/settings/preview-leadform/preview-leadform.component';
+import { PreviewSmartformComponent } from './internal/settings/preview-smartform/preview-smartform.component';
+import { ForgotPasswordComponent } from './external/forgot-password/forgot-password.component';
+
+
+
+
+
 
 @NgModule({
     declarations: [
-        CapitalizePipe, AppComponent, LoginComponent, PrivacyComponent, ForgotPasswordComponent,
-        ReceiptComponent, BookingComponent, TodoComponent
+        CapitalizePipe, AppComponent, LoginComponent, PrivacyComponent, SubmitfeedbackComponent,
+        ReceiptComponent, BookingComponent, TodoComponent, BuildAutomationComponent, AddBuildautomationComponent, BuildThenautomationsComponent, PreviewLeadformComponent, PreviewSmartformComponent,
+        ForgotPasswordComponent
+        
     ],
     imports: [
         SharedModule, BrowserModule, AppRoutingModule, HttpClientModule,NgxEmojiPickerModule,NgxDocViewerModule,
@@ -56,6 +71,7 @@ import { AngularFireModule } from '@angular/fire';
         }),
         LightboxModule,
         AngularFireMessagingModule,
+        MatChipsModule,
         AngularFireModule.initializeApp(environment.firebase)
     ],
 
@@ -69,7 +85,7 @@ import { AngularFireModule } from '@angular/fire';
     ],
     bootstrap: [AppComponent],
     exports: [CapitalizePipe],
-    entryComponents: [ForgotPasswordComponent]
+    entryComponents: [ForgotPasswordComponent, SubmitfeedbackComponent]
     // HttpService,
 })
 

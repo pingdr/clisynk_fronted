@@ -306,7 +306,7 @@ section#close button.icon-only:hover {
 
 .select-opt .mat-select-arrow-wrapper {
   position: relative;
-  top: 7px;
+  top: 0px;
 }
 
 .add_field a {
@@ -432,7 +432,7 @@ section#close button.icon-only:hover {
 }
 
 .iframe-wrapper.mobile {
-  background: url(assets/images/mobile_view.png) no-repeat top;
+  background: url('assets/images/mobile_view.png') no-repeat top;
   overflow: auto;
 }
 
@@ -6369,3 +6369,542 @@ section.appt-list {
 }
 
 // ng serve --no-live-reload
+// ------------------------------smart-form-build-----------------------------//
+.modal-custom-class-for-create-smart-form {
+  width: 100%;
+  max-width: 100%;
+  margin-top: 0;
+  margin-bottom: 0;
+  height: 100%;
+}
+
+.modal-custom-class-for-create-smart-form .modal-content {
+    height: 100%;
+    border-radius: 0;
+    padding: 0;
+    overflow-y: auto;
+    box-shadow: none;
+    border: none;
+    overflow-x: hidden;
+}
+
+
+// -----------------smart-form--------------//
+
+.smart-form-builder-main .formio.builder {
+  width: 90% !important;
+  margin: auto !important;
+  flex-wrap: inherit !important;
+}
+
+.smart-form-builder-main-form .formbuilder {
+  width: 90% !important;
+  margin: auto !important;
+  flex-wrap: inherit !important;
+  padding-bottom: 70px;
+  
+}
+
+.smart-form-builder-main-form .formbuilder .formcomponents {
+  width: 60% !important;
+  flex: inherit !important;
+  max-width: 60% !important;
+  padding: 0 !important;
+  padding-right: 40px !important;
+}
+
+.smart-form-builder-main-form .formbuilder .formarea {
+  width: 40% !important;
+  max-width: 40% !important;
+  flex: inherit !important;
+  padding: 25px 30px;
+  background: #fff;
+  box-shadow: 0px 0px 10px #dcdcdccc;
+  border-radius: 20px;
+  position: absolute;
+  right: 0;
+  top: -354px;
+}
+
+.smart-form-builder-main-form .formbuilder .formcomponents .accordion .builder-sidebar_search {
+  margin-bottom: 20px;
+  padding: 22px 20px;
+  font-size: 14px;
+  border-radius: 5px !important;
+}
+
+.smart-form-builder-main-form .formbuilder .formcomponents .form-builder-panel {
+  box-shadow: 0px 0px 3px #ccc;
+  border-radius: 5px !important;
+  border: none !important;
+  margin-bottom: 15px;
+}
+
+.smart-form-builder-main-form .formbuilder .formcomponents .form-builder-panel .card-header {
+  border: none;
+  background: #6097ec;
+  padding: 8px 15px;
+}
+
+.smart-form-builder-main-form .formbuilder .formcomponents .form-builder-panel .card-header button {
+  font-size: 16px;
+  padding: 0;
+  color: #fff;
+  font-weight: 300;
+}
+
+.smart-form-builder-main-form .formbuilder .formcomponents .form-builder-panel .card-body {
+  padding: 10px !important;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr) !important;
+  grid-column-gap: 3px;
+  grid-row-gap: 3px;
+}
+
+.smart-form-builder-main-form .formbuilder .formcomponents .form-builder-panel .card-body span.btn{
+  // background: #03a9f4bf !important;
+  background: #f3f3f3 !important;
+  color: #000 !important;
+  border: none;
+  padding: 15px 10px !important;
+  font-size: 12px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.smart-form-builder-main-form .formbuilder .formarea .formio-form .builder-components .builder-component .component-btn-group .component-settings-button {
+  box-shadow: 0px 0px 3px #7b7b7b;
+}
+
+.smart-form-builder-main-form .formbuilder .formarea .formio-form .builder-components .builder-component .component-btn-group .component-settings-button-remove i.fa-remove:before {
+  content: "\f1f8";
+}
+
+.smart-form-builder-main-form .formbuilder .formarea .formio-form .builder-components .builder-component .component-btn-group .component-settings-button-move {
+  display: none;
+}
+
+.formio-dialog-theme-default .formio-dialog-content {
+  padding: 30px !important;
+  background: #f8f8f8 !important;
+  position: unset !important;
+  font-family: 'Sul Sans';
+}
+
+.component-settings .formio-dialog-content button.formio-dialog-close {
+  background: red;
+  right: 9.5%;
+  top: 9px;
+  border-radius: 100%;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+}
+
+.formio-dialog-theme-default .formio-dialog-content .formio-dialog-close:before {
+  color: #fff !important;
+  font-size: 21px !important;
+  position: relative;
+  top: -1px;
+}
+
+.formio-dialog.formio-dialog-theme-default .component-edit-container .row .lead {
+  color: #000;
+  margin-bottom: 28px;
+  padding-top: 10px;
+  font-size: 22px;
+  font-weight: 300;
+  font-family: "Sul Sans" !important;
+}
+
+.formio-dialog-theme-default .card {
+  border: 1px solid #e8e8e8;
+  overflow: hidden;
+}
+
+.formio-dialog.formio-dialog-theme-default .component-edit-container .row .float-right {
+  display: none;
+}
+
+// .formio-dialog.formio-dialog-theme-default .component-edit-container .formio-component-form .formio-form .card .card-header {
+//   background: #168edc;
+// }
+
+.formio-dialog.formio-dialog-theme-default .component-edit-container .formio-component-form .formio-form .card .card-header .card-header-tabs li.nav-item {
+  margin-bottom: 0;
+}
+
+.formio-dialog.formio-dialog-theme-default .component-edit-container .formio-component-form .formio-form .card .card-header .card-header-tabs {
+  margin-bottom: 0;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.formio-dialog.formio-dialog-theme-default .component-edit-container .formio-component-form .formio-form .card .card-header .card-header-tabs li.nav-item a {
+  // color: #fff;
+  height: auto !important;
+  padding: 10px 10px;
+  line-height: 0px;
+  font-size: 14px;
+}
+
+.formio-dialog.formio-dialog-theme-default .component-edit-container .formio-component-form .formio-form .card .card-header .card-header-tabs li.active a.nav-link.active {
+  // background: #d8a27a !important;
+  border: none !important;
+  border-radius: 3px !important;
+  background: #1e4dda !important;
+  color: #fff !important;
+}
+
+.formio-component-form .form-check.checkbox input.form-check-input {
+  left: 0;
+}
+
+.formio-component-form .form-radio.radio .form-check input {
+  left: 0;
+}
+
+// -----------------edit-manage-workspace-----------------//
+.main-edit-work-space-form{
+  .first-row{
+    .mat-form-field-wrapper{
+      padding-bottom: 0px !important;
+    }    
+  }
+}
+
+
+.main-edit-work-space-form{
+  .second-row{
+    margin-bottom: 20px;
+    label.sub-heading{
+      display: block;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+    .example-chip-list {
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 10px 20px;
+      height: 45px;
+      overflow: auto;
+      &:hover{
+        border: 1px solid #000;
+      }
+      .mat-form-field-wrapper{
+        padding-bottom: 0px;
+        .mat-form-field-underline{
+          display: none !important;
+        }
+        .mat-form-field-infix{
+          padding: 0px !important;
+          span.mat-form-field-label-wrapper{
+            label{
+              top: 0px !important;
+              left: -8px;
+              background: #fff !important;
+              width: 90px !important
+            }
+          }
+          .mat-chip{
+            font-size: 12px;
+            .mat-chip-remove.mat-icon{
+              width: 14px;
+              height: 14px;
+              font-size: 14px;
+            }
+          }
+          .mat-standard-chip{
+            min-height: 26px;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+.main-edit-work-space-form .fourth-row {
+  margin-bottom: 0;
+}
+
+
+.new-header-group-main {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    .ping-dr-notification{
+        margin-right: 10px;
+        .btn-group{
+          margin-top:0px;
+          .btn{
+            border: none;
+            color: #3a3a3a;
+            font-size: 14px;
+            font-weight: 400;
+            padding: 0;
+            &:hover{
+              color: #2d2dc3;
+            }
+          }
+        }
+    }
+}
+
+
+.new-header-group-main .ping-dr-notification ul {
+  text-align: left;
+}
+
+.new-header-group-main .ping-dr-notification ul li {
+  width: 100%;
+  padding: 8px 15px;
+  
+}
+
+.new-header-group-main .ping-dr-notification ul li .main-workspace-notification {
+  display: flex;
+  align-items: center;
+}
+
+.new-header-group-main .ping-dr-notification ul li .main-workspace-notification .left-col {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  background: #e6ab5e;
+  margin-right: 18px;
+  color: #ffff;
+  justify-content: center;
+  font-size: 18px;
+  border-radius: 100%;
+  position: relative;
+  box-shadow: 0px 0px 6px #cccaca;
+}
+
+.new-header-group-main .ping-dr-notification ul li .main-workspace-notification .left-col span.badge-red {
+  display: block;
+  position: absolute;
+  background: #ff0000;
+  width: 20px;
+  height: 20px;
+  font-size: 11px;
+  text-align: center;
+  border-radius: 100%;
+  top: -4px;
+  right: -4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 3px #fffefe;
+  font-weight: 400;
+}
+
+.new-header-group-main .ping-dr-notification ul li .main-workspace-notification .right-col span.workspace-name {
+  display: block;
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.new-header-group-main .ping-dr-notification ul li .main-workspace-notification .right-col span.second-row {
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+}
+
+.new-header-group-main .ping-dr-notification ul li .main-workspace-notification .right-col span.second-row img {
+  width: 12px;
+  margin-right: 8px;
+}
+// --------------notification-color----------------//
+.new-header-group-main .ping-dr-notification ul li .main-workspace-notification .left-col.A {
+  background: #e6ab5e;
+}
+
+.new-header-group-main .ping-dr-notification ul li .main-workspace-notification .left-col.B {
+  background: #3f62b5;
+}
+
+.new-header-group-main .ping-dr-notification ul li .main-workspace-notification .left-col.C {
+  background: #16b7ca;
+}
+
+.required:after{
+  display:none;
+}
+
+
+// -------------_New-login-page---------------//
+.login-card-main .login-form-field-main .form-group {
+  margin-bottom: 12px;
+}
+
+
+.login-card-main .login-form-field-main .form-group .mat-form-field .mat-form-field-flex {
+  margin-top: 0 !important;
+  border: 1px solid #c7c7c7 !important;
+  border-radius: 5px;
+} 
+
+.login-card-main .login-form-field-main .form-group .mat-form-field .mat-form-field-flex .mat-form-field-outline {
+  color: #C7C7C7 !important;
+  top: 0px !important;
+  display: none !important;
+}
+
+.login-card-main .login-form-field-main .form-group .mat-form-field .mat-form-field-flex .mat-form-field-infix {
+  padding-top: 15px !important;
+  padding-bottom: 15px !important;
+  // font-family: 'Sul Sans' !important;
+}
+
+.login-card-main .login-form-field-main .form-group .mat-form-field .mat-form-field-flex .mat-form-field-infix input {
+  margin-top: 0 !important;
+}
+
+.login-card-main .login-form-field-main .form-group .mat-form-field .mat-form-field-flex .mat-form-field-infix input {
+  font-size: 15px;
+}
+
+
+.login-card-main .login-form-field-main .form-group .mat-form-field .mat-form-field-flex .mat-form-field-suffix {
+  top: 6px !important;
+}
+
+.login-card-main .login-form-field-main .form-group .mat-form-field .mat-form-field-flex .mat-form-field-suffix mat-icon {
+  color: #C7C7C7 !important;
+}
+
+.login-form-field-main .mat-form-field-subscript-wrapper {
+  margin-top: 11px !important;
+}
+
+.login-form-field-main .mat-form-field-subscript-wrapper .mat-error {
+  font-size: 11px !important;
+  color: red !important;
+  font-weight: 400;
+}
+
+.email-group .full-width {
+  position: relative;
+}
+
+.email-group .full-width::before {
+  position: absolute;
+  content: '';
+  background: #fff url('assets/images/login-email.svg') no-repeat;
+  background-size: 39px 12px;
+    height: 18px;
+    width: 26px;
+    right: 13px;
+    top: -18px;
+    bottom: 0;
+    margin: auto;
+    z-index: 999;
+    background-position: center left -5px;
+}
+
+// -----------auto-fill-----------------//
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+// -------------------description -------------------//
+.custom-tooltip{
+  max-width: 600px !important;
+  font-size: 12px; 
+  position: static;
+  word-wrap: break-word;
+
+}
+
+// -----------------------validation-message------------//
+.login-form-field-main .mat-form-field-invalid {
+  position: relative;
+}
+
+
+.login-form-field-main .mat-form-field-invalid .mat-form-field-subscript-wrapper {
+  background: #ff0101;
+  margin-top: 10px !important;
+  padding: 0;
+  padding-left: 8px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  width: auto;
+  padding-right: 10px;
+  left: 13px;
+  box-shadow: 0px 2px 6px #bbb;
+  border-radius: 2px;
+}
+
+.login-form-field-main .mat-form-field-invalid:after {
+  position: absolute;
+  content: '';
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid red;
+  top: auto;
+  bottom: 15px;
+  left: 21px;
+}
+
+
+.login-form-field-main .mat-form-field-invalid .mat-form-field-subscript-wrapper .mat-error {
+  color: #fff !important;
+  font-size: 11px !important;
+}
+
+.right-col-card-main .email-group .full-width .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix {
+  padding-top: 18px !important;
+  padding-bottom: 15px !important;
+  font-size: 14px;
+  color: #000;
+}
+
+
+.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick{
+  color: #000000 !important;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline-thick{
+  color: #000000 !important;
+}
+
+
+.forgot-mai-password-inner-div .mat-form-field-invalid .mat-form-field-subscript-wrapper {
+  width: auto;
+  left: 10px;
+  margin: 9px 0px;
+  background: #fb0303;
+  padding: 3px 10px;
+  box-shadow: 0px 0px 3px #c1bfbf;
+}
+
+.forgot-mai-password-inner-div .mat-form-field-invalid .mat-form-field-subscript-wrapper .mat-error {
+  color: #fff;
+  font-size: 10px;
+}
+
+.forgot-mai-password-inner-div .mat-form-field-invalid:after {
+  position: absolute;
+  content: '';
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid red;
+  bottom: 15px;
+  left: 16px;
+}

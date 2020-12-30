@@ -44,6 +44,9 @@ export class HttpService {
     private searchSubject = new BehaviorSubject<any>(null);
     public searchStatus = this.searchSubject.asObservable();
 
+    private updateSFListSubject = new BehaviorSubject<any>(null);
+    public SFReload = this.updateSFListSubject.asObservable();
+
     public heading: string;
     domain: string;
     loginData: any;
@@ -102,6 +105,10 @@ export class HttpService {
 
     contactUpdatedChat(data?) {
         this.contactUpdatedSubjectChat.next(data ? data : false);
+    }
+
+    updateSmartFormList(data?){
+        this.updateSFListSubject.next(data ? data : false);
     }
 
     openModal(name, data?) {
@@ -460,6 +467,38 @@ export class HttpService {
     getTimeZone() {
         const d = new Date();
         return d.getTimezoneOffset();
+    }
+
+    postSmartForm(Obj){
+        return this.http.post(this.apiEndpoint + "smartForms", Obj);
+    }
+
+    postLeadForm(Obj){
+        return this.http.post(this.apiEndpoint + "smartForms/submit", Obj);
+    }
+
+    getSmartForm(isLoading?: boolean){
+        return this.http.get<any>(this.apiEndpoint + "smartForms", {reportProgress: isLoading}); 
+    }
+
+    deleteSmartForm(Obj){
+        return this.http.delete<any>(this.apiEndpoint + "smartForms/" + Obj);
+    }
+
+    updateSmartForm(Obj, id){
+        return this.http.post<any>(this.apiEndpoint + "smartForms/" + id, Obj);
+    }
+
+    getLeadForm(){
+        return this.http.get<any>(this.apiEndpoint + "smartForms?tag=lead");
+    }
+
+    getLeadFormById(id){
+        return this.http.get<any>(this.apiEndpoint + "smartForms/" + id);
+    }
+
+    updateLeadForm(Obj, id){
+        return this.http.post<any>(this.apiEndpoint + "smartForms/" + id, Obj);
     }
 
 }
