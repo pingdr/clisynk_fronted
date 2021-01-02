@@ -27,107 +27,11 @@ export class LeadFormCreateComponent implements OnInit {
       public onClose: Subject<boolean>;
       public form: Object = {};
       formData = new FormData();
-
-      private defaultForm: FormioForm = {
-        "components": [
-        {
-            "label": "First Name",
-            "tableView": true,
-            "validate": {
-                "required": true,
-                "maxLength": 40
-            },
-            "key": "firstName",
-            "type": "textfield",
-            "input": true
-        },
-        {
-            "label": "Last Name",
-            "tableView": true,
-            "validate": {
-                "required": true,
-                "maxLength": 40
-            },
-            "key": "lastName",
-            "type": "textfield",
-            "input": true
-        },
-        {
-            "label": "Email Address",
-            "tableView": true,
-            "validate": {
-                "required": true
-            },
-            "key": "email",
-            "type": "textfield",
-            "input": true
-        },
-        {
-            "label": "Phone",
-            "placeholder": "Phone",
-            "tableView": true,
-            "validate": {
-                "required": true
-            },
-            "key": "phone",
-            "type": "phoneNumber",
-            "input": true
-        },
-        {
-            "label": "Phone Type",
-            "widget": "choicesjs",
-            "tableView": true,
-            "defaultValue": "office",
-            "data": {
-                "values": [
-                    {
-                        "label": "Personal",
-                        "value": "personal"
-                    },
-                    {
-                        "label": "Office",
-                        "value": "office"
-                    },
-                    {
-                        "label": "Home",
-                        "value": "home"
-                    },
-                    {
-                        "label": "Other",
-                        "value": "other"
-                    }
-                ]
-            },
-            "selectThreshold": 0.3,
-            "key": "phoneType",
-            "type": "select",
-            "indexeddb": {
-                "filter": {}
-            },
-            "input": true
-        },
-        {
-            "label": "Add Note",
-            "autoExpand": false,
-            "tableView": true,
-            "key": "addNote",
-            "type": "textarea",
-            "input": true
-        },
-        {
-            "type": "button",
-            "label": "Submit",
-            "key": "submit",
-            "disableOnInvalid": true,
-            "input": true,
-            "tableView": false
-        }
-    ]
-      };
       public tempForm:FormioForm;
       public formToBeSend: FormioForm;
       published = false;
       update = false;
+          
       
 
       @ViewChild('myForm', {static: true}) 
@@ -229,60 +133,28 @@ export class LeadFormCreateComponent implements OnInit {
       onChange(event: FormBuilderChangeEvent) {
         console.log(event);
         // console.log(myForm);
-        let tempForm: FormioForm = this.getDefaultForm(); 
-        let currentFormComponent: ExtendedComponentSchema[] = event.form.components;
-        let extraComponents: { index: number, component : ExtendedComponentSchema}[] = [];
         if(event.type == "deleteComponent")
         {
-          let deltedComp = event.component;
-          let deltedCompIndex = event.index;
-          if(tempForm.components.find(x => x.key == event.component.key)){
-            // Default component is deleted.
+          if(this.isDefaultComponent(event.component)){
             console.log("default deleted");
-            // rebuild form
-            // TODO: find out what is extra component from currentFormComponet with their index numbers
-              currentFormComponent.forEach((c, i) => {
-                  let exists = tempForm.components.find(x => x.key == c.key);
-                   if(!exists) { extraComponents.push( {index: i, component: c });}
-                })
-            // TODO: insert extra component at their respective index places.
-            console.log("Extra Components" + JSON.stringify(extraComponents))
-              extraComponents.forEach(x => {
-                tempForm.components.splice(x.index, 0, x.component);
-              })
-            
-            this.leadFormbuilder.rebuildForm(tempForm);
-          }else {
-            // Extra Component is deleted.
-            
+            event.form.components.splice(event.index,0, event.component);
             this.leadFormbuilder.rebuildForm(event.form);
+          }else {
             console.log("extra deleted");
+            this.leadFormbuilder.rebuildForm(event.form);
           }
+        } else if(event.type == "addComponent"){
+            this.leadFormbuilder.rebuildForm(event.form);
         } else {
-          console.log("----")
+            console.log("----");
         }
-        // if((event.type == "deleteComponent") && (event.component.key == "firstName" || event.component.key == "lastName" || event.component.key == "emailAddress" || event.component.key == "phone" || event.component.key == "phoneType" || event.component.key == "addNote" || event.component.key == "submit")){
-        //   console.log("deleted");
-        //   currentFormComponent.forEach(c => {
-        //     let exists = this.defaultForm.components.find(x => x.key == c.key);
-        //      if(!exists) { extraComponents.push(exists);}
-        //   })
-          
-
-        //  this.defaultForm.components.push(...extraComponents)
-        //  this.myForm.rebuildForm(this.defaultForm);
-        //  //  alert("You can not delete default form components");
-        //   // this.form = this.tempForm;
-        //   // this.formToBeSend = this.tempForm; 
-
-        //   // this.changeDetect.detectChanges();
-        // }
-        // else if(event.form){
-        //   this.formToBeSend = event.form;
-        //   this.tempForm = event.form;
-        //   // console.log(this.formToBeSend);
-        // }
       }
+
+      private isDefaultComponent(component: ExtendedComponentSchema) {
+        let defaultForm = this.getDefaultForm()
+        return defaultForm.components.find(x => x.key == component.key) ? true : false;
+      }
+
 
  
       onDraft(){
