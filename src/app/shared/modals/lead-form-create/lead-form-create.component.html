@@ -44,7 +44,9 @@
     </div>
     </form>
     
-    <form-builder [form]="form" (change)="onChange($event)" class="smart-form-builder-main-form"></form-builder>
+    <form-builder
+    #myForm
+    [form]="form" (change)="onChange($event)" class="smart-form-builder-main-form"></form-builder>
     <!-- <div>
         <div class="well jsonviewer">
             <pre id="json"><code class="language-json" #json></code></pre>

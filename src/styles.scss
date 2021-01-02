@@ -6495,9 +6495,7 @@ section.appt-list {
 }
 
 .component-settings .formio-dialog-content button.formio-dialog-close {
-  background: red;
-  right: 9.5%;
-  top: 9px;
+  background:transparent;
   border-radius: 100%;
   padding: 10px;
   display: flex;
@@ -6505,11 +6503,14 @@ section.appt-list {
   justify-content: center;
   width: 30px;
   height: 30px;
+  position: relative;
+  right: -25px;
+  top: -23px;
 }
 
 .formio-dialog-theme-default .formio-dialog-content .formio-dialog-close:before {
-  color: #fff !important;
-  font-size: 21px !important;
+  color: #000 !important;
+  font-size: 40px !important;
   position: relative;
   top: -1px;
 }
@@ -6907,4 +6908,19 @@ input:-webkit-autofill:active  {
   border-bottom: 8px solid red;
   bottom: 15px;
   left: 16px;
+}
+
+
+.custom-width {
+  max-width: 100%;
+}
+
+
+.formio-dialog.formio-dialog-theme-default .formio-dialog-content::-webkit-scrollbar{
+  width: 0px !important;
+} 
+
+.btn-secondary:not(:disabled):not(.disabled).active, .btn-secondary:not(:disabled):not(.disabled):active, .show>.btn-secondary.dropdown-toggle{
+  background: transparent;
+  color: #000;
 }
