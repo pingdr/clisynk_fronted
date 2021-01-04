@@ -37,7 +37,7 @@ export class LeadFormsComponent implements OnInit {
     let gotForm = false;
     const res = await this.http.getLeadForm().toPromise();
     console.log(res);
-    if(res.data.length > 0 && Array.isArray(res.data[0].formJson.components) && res.data[0].formJson.components.length){
+    if(Array.isArray(res.data[0].formJson.components) && res.data[0].formJson.components.length){
         let temp = true;
         for (let i in res.data){
             if((res.data[i].addedBy._id == JSON.parse(localStorage.getItem('loginData'))._id) && temp){
@@ -54,7 +54,7 @@ export class LeadFormsComponent implements OnInit {
             }
         }
     }
-    else {
+    if(!gotForm){
         this.formData.append("name", "Smartform1");
         this.formData.append("description", "Test Description");
         this.formData.append("formJson", JSON.stringify({
