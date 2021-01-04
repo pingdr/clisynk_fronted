@@ -1574,14 +1574,14 @@
                             <!-- icons -->
 
                             <div class="form-wrapper" *ngIf="!mediaFlag && (imageArray.length == 0 || videoArray.length == 0 || docArray.length == 0)">
-                                <div dropdown>
+                                <div dropdown class="drop-photos-doc">
                                     <img class="plus-icon" src="assets/images/plusblue-docside.svg" id="button-create"
                                         dropdownToggle aria-controls="dropdown-basic" />
                                     <ul id="dropdown-create" *dropdownMenu class="dropdown-menu chat-menu" role="menu"
                                         aria-labelledby="button-basic" style="top: -100px;">
                                         <li role="menuitem" style="display: block">
                                             <a class="dropdown-item" (click)="file.click()">
-                                                <span class="ellipsis"><img src="assets/images/gallery-gray.svg" />
+                                                <span class="ellipsis"><img src="../../../assets/images/gallery-white-doc.svg" />
                                                     Photo & Video</span>
                                                 <input #file type="file" multiple="true" (change)="choosePhoto($event)"
                                                     accept="image/*,Video/*" style="display: none;">
@@ -1590,7 +1590,7 @@
                                         <li role="menuitem" style="display: block">
                                             <a class="dropdown-item" (click)="doc.click()">
                                                 <span class="ellipsis"><img
-                                                        src="assets/images/document-chat.svg" />Documents</span>
+                                                        src="../../../assets/images/file-white-doc.svg" />Documents</span>
                                                 <input #doc type="file" multiple="true" (change)="chooseDoc($event)"
                                                     accept=".doc,.docx,.txt,.pdf" style="display: none;">
                                             </a>
@@ -1598,7 +1598,7 @@
                                     </ul>
                                 </div>
                                 <div class="input-wrapper">
-                                    <input placeholder="Input text here" [(ngModel)]="message"
+                                    <input placeholder="Send a Message" [(ngModel)]="message"
                                         (input)="textChange($event)" (keyup.enter)="sendMessage(message)" />
                                 </div>
 
