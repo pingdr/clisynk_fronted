@@ -115,3 +115,44 @@
 ::ng-deep .mat-sort-header-arrow {
     color: rgb(75, 145, 224);
 }
+
+.Clients_list_heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.Clients_list_heading .left-col-heading-smrt {
+    display: flex;
+    align-items: center;
+}
+
+.Clients_list_heading .right-col-heading-smrt {
+    display: flex;
+    align-items: center;
+}
+
+.Clients_list_heading .right-col-heading-smrt .search-bar-filed {
+    margin-right: 20px;
+    position: relative;
+}
+
+.Clients_list_heading .right-col-heading-smrt .search-bar-filed button.btn-search-form {
+    background: transparent;
+    border: none;
+    padding: 0;
+    position: absolute;
+    right: 0;
+}
+
+.Clients_list_heading .right-col-heading-smrt .search-bar-filed input {
+    padding: 10px 40px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding-left: 20px;
+    font-size: 12px;
+}
+
+.Clients_list_heading .right-col-heading-smrt .search-bar-filed button.btn-search-form img {
+    width: 28px;
+}

@@ -2,10 +2,23 @@
 
     <div class="contact-header">
         <div class="Clients_list_heading">
+            <div class="left-col-heading-smrt">
             <img [src]="'/assets/images/back-arrow.svg'" (click)="http.goBack()">
             <h3 class="page-title">Smart Forms</h3>
-            <button class="btn-outline-primary t-r-btn" (click)="onCreateForm()">Create form
+            </div>
+
+            <div class="right-col-heading-smrt">
+             <div class="search-bar-filed">
+                    <input  type="text" placeholder="Search Smart Form "/>
+                    <button class="btn-search-form">
+                        <img src="../../../../assets/images/search.svg" >
+                    </button>
+
+             </div>   
+                
+            <button class="btn-outline-primary " (click)="onCreateForm()">Create form
             </button>
+            </div>
         </div>
 
     </div>

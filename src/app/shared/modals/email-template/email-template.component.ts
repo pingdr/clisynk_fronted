@@ -4,9 +4,10 @@ import {HttpService} from '../../../services/http.service';
 import {TableModel} from '../../models/table.common.model';
 import {ApiUrl} from '../../../services/apiUrls';
 import {EditorContent} from '../../models/editor.model';
-import {Subject} from 'rxjs';
+import {forkJoin, Subject} from 'rxjs';
 import {DeleteComponent} from '../delete/delete.component';
 import {AppointmentService} from '../../../internal/appointments/appointment.service';
+import { map, mergeMap, toArray } from 'rxjs/operators';
 
 @Component({
     selector: 'app-email-template',
@@ -41,12 +42,24 @@ export class EmailTemplateComponent implements OnInit {
             skip: 0,
             limit: 30
         };
-        this.http.getData(ApiUrl.TEMPLATE_LIST, obj).subscribe(res => {
-            this.templates = res.data.data;
-            this.selectedTemplate = this.templates[0];
-            this.selectTemplate(this.templates[0]);
-        }, () => {
-        });
+        // this.http.getData(ApiUrl.TEMPLATE_LIST, obj).subscribe(res => {
+        //     this.templates = res.data.data;
+        //     this.selectedTemplate = this.templates[0];
+        //     this.selectTemplate(this.templates[0]);
+        // }, () => {
+        // });
+
+        this.http.getMailTemplates().subscribe(res => {
+            let allTemplates: {name:string, _id:number}[] = res.data;
+            const requests: any[] = [];
+            allTemplates.forEach(template => {
+                requests.push(this.http.getMailTemplateById(template._id));
+            })
+            forkJoin(requests)
+            .subscribe((res: any[]) => {
+                this.templates = res.map(x => x.data)
+            })
+        })
 
     }
 

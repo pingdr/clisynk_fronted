@@ -501,5 +501,13 @@ export class HttpService {
         return this.http.post<any>(this.apiEndpoint + "smartForms/" + id, Obj);
     }
 
+    getMailTemplates() {
+        return this.http.get<any>(this.apiEndpoint + "email-templates");
+    }
+
+    getMailTemplateById(id) {
+        return this.http.get<any>(this.apiEndpoint + "email-templates/search?id=" + id);
+    }
+
 }
 
