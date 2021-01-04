@@ -243,6 +243,10 @@ export class LeadFormsComponent implements OnInit {
             reader.readAsDataURL(this.file); 
             reader.onload = (_event) => { 
                 this.logoUrl = reader.result;
+                this.editForm.businessLogo = this.logoUrl;
+                this.http.updateLeadForm(this.formData, this.editForm._id).subscribe(res => {
+                    this.logoUrl = res.data.businessLogo;
+                });
             }
             this.formData.set("businessLogo", this.file);
         }
@@ -289,6 +293,10 @@ export class LeadFormsComponent implements OnInit {
         this.leadForm.controls['logo'].setValue(null);
         this.file = null;
         this.formData.set("businessLogo", "");
+        this.http.updateLeadForm(this.formData, this.editForm._id).subscribe(res => {
+            console.log(res);
+            this.logoUrl = res.data.businessLogo;
+        });
     }
   
 }
