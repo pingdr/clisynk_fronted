@@ -46,7 +46,10 @@ export class LeadFormsComponent implements OnInit {
                 this.leadForm.patchValue({
                     businessName: res.data[i].businessName
                 });
-                this.oldFile = this.file = this.logoUrl = res.data[i].businessLogo; // one is to display one is to store one is to compare
+                // this.oldFile = this.file = this.logoUrl = res.data[i].businessLogo; // one is to display one is to store one is to compare
+                if(res.data[i].businessLogo) {
+                   this.logoUrl = this.oldFile = this.file = res.data[i].businessLogo; 
+                }
                 console.log(res.data[i]);
                 temp = false;
                 gotForm = true;

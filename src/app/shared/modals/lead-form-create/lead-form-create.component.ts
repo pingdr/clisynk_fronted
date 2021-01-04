@@ -48,7 +48,7 @@ export class LeadFormCreateComponent implements OnInit {
       onUpdate(){
         // if(this.formToBeSend.){
         // }
-        
+
         if(!this.formInfo.value.formDescription){
             this.formInfo.value.formDescription = "---";
         }
@@ -139,12 +139,15 @@ export class LeadFormCreateComponent implements OnInit {
             console.log("default deleted");
             event.form.components.splice(event.index,0, event.component);
             this.leadFormbuilder.rebuildForm(event.form);
-          }else {
+            this.formToBeSend = event.form;
+        }else {
             console.log("extra deleted");
             this.leadFormbuilder.rebuildForm(event.form);
-          }
+            this.formToBeSend = event.form;
+        }
         } else if(event.type == "addComponent"){
             this.leadFormbuilder.rebuildForm(event.form);
+            this.formToBeSend = event.form;
         } else {
             console.log("----");
         }
