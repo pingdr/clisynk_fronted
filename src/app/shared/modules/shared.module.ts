@@ -1,3 +1,4 @@
+import { NgxSummernoteModule } from 'ngx-summernote';
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {GoogleplaceDirective} from '../directives/googlePlaces.directive';
@@ -131,7 +132,7 @@ const importExportList = [MatStepperModule, MatTabsModule, MatSliderModule, MatI
         NgMultiSelectDropDownModule.forRoot(), BsDatepickerModule.forRoot(), TimepickerModule.forRoot(),
         CommonModule, PaginationModule.forRoot(), BsDropdownModule.forRoot(), TabsModule.forRoot(),
         ModalModule.forRoot(), CollapseModule.forRoot(), AccordionModule.forRoot(), PopoverModule.forRoot(),
-        
+        NgxSummernoteModule,        
         ...importExportList
     ],
     declarations: [FirstCharacterPipe, CopyClipboardDirective, GoogleplaceDirective, TimeAgoPipe, NumberOnlyDirective,

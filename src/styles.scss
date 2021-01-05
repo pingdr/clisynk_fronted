@@ -6924,3 +6924,11 @@ input:-webkit-autofill:active  {
   background: transparent;
   color: #000;
 }
+
+
+// ................tempory-css-----------//
+.email-content {
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  height: calc(100% - 170px) !important;
+}

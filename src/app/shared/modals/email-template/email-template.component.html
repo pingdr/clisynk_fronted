@@ -51,8 +51,20 @@
 
                     <div class="email-content" style="border-bottom: 1px solid #d1d1d1;">
                         <div class="form-group">
-                            <ckeditor formControlName="html" debounce="500" [config]="ckeConfig" (blur)="finalSubmit()">
-                            </ckeditor>
+                            <!-- <ckeditor 
+                            #editor 
+                            id="editor"
+                            formControlName="html"
+                            debounce="500" 
+                            [config]="ckeConfig"
+                            (blur)="finalSubmit()"
+                            >
+                            </ckeditor> -->
+                            <div
+                            #html
+                            formControlName="html"
+                            [ngxSummernoteView]="selectedTemplate?.html"
+                            [ngxSummernote]></div>
                         </div>
                     </div>
 

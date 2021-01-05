@@ -138,6 +138,7 @@ export class LeadFormCreateComponent implements OnInit {
           if(this.isDefaultComponent(event.component)){
             console.log("default deleted");
             event.form.components.splice(event.index,0, event.component);
+            this.http.openSnackBar("You Cannot Delete Default Form Fields !!", "OK");
             this.leadFormbuilder.rebuildForm(event.form);
             this.formToBeSend = event.form;
         }else {

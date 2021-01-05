@@ -1,3 +1,4 @@
+import { BsModalRef } from 'ngx-bootstrap/modal';
 import {ChangeDetectorRef, Component, NgZone, OnInit} from '@angular/core';
 import {FormGroup, Validators} from '@angular/forms';
 import {HttpService} from '../../../services/http.service';
@@ -9,6 +10,7 @@ import {DeleteComponent} from '../delete/delete.component';
 import {AppointmentService} from '../../../internal/appointments/appointment.service';
 import { map, mergeMap, toArray } from 'rxjs/operators';
 
+declare var CKEDITOR: any;
 @Component({
     selector: 'app-email-template',
     templateUrl: './email-template.component.html'
@@ -19,7 +21,7 @@ export class EmailTemplateComponent implements OnInit {
     allData;
     myModel: any;
     modalData: any;
-    templates: any = [];
+    templates: any[] = [];
     ckeConfig: any = EditorContent;
 
     public onClose: Subject<boolean>;
@@ -50,7 +52,7 @@ export class EmailTemplateComponent implements OnInit {
         // });
 
         this.http.getMailTemplates().subscribe(res => {
-            let allTemplates: {name:string, _id:number}[] = res.data;
+            let allTemplates: {name:string, _id:string}[] = res.data;
             const requests: any[] = [];
             allTemplates.forEach(template => {
                 requests.push(this.http.getMailTemplateById(template._id));
@@ -60,6 +62,7 @@ export class EmailTemplateComponent implements OnInit {
                 this.templates = res.map(x => x.data)
             })
         })
+        console.log(this.templates);
 
     }
 
