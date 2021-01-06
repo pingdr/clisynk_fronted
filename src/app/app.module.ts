@@ -49,10 +49,8 @@ import { ForgotPasswordComponent } from './external/forgot-password/forgot-passw
 
 @NgModule({
     declarations: [
-        CapitalizePipe, AppComponent, LoginComponent, PrivacyComponent, SubmitfeedbackComponent,
+        CapitalizePipe, AppComponent, LoginComponent, PrivacyComponent, SubmitfeedbackComponent,ForgotPasswordComponent,
         ReceiptComponent, BookingComponent, TodoComponent, BuildAutomationComponent, AddBuildautomationComponent, BuildThenautomationsComponent, PreviewLeadformComponent, PreviewSmartformComponent,
-        ForgotPasswordComponent
-        
     ],
     imports: [
         SharedModule, BrowserModule, AppRoutingModule, HttpClientModule,NgxEmojiPickerModule,NgxDocViewerModule,
@@ -85,7 +83,7 @@ import { ForgotPasswordComponent } from './external/forgot-password/forgot-passw
     ],
     bootstrap: [AppComponent],
     exports: [CapitalizePipe],
-    entryComponents: [ForgotPasswordComponent, SubmitfeedbackComponent]
+    entryComponents: [ForgotPasswordComponent,SubmitfeedbackComponent]
     // HttpService,
 })
 

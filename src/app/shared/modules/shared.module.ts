@@ -101,6 +101,7 @@ import { MergeContactsComponent } from '../modals/merge-contacts/merge-contacts.
 import { SmartFormDeleteComponent } from '../modals/smart-form-delete/smart-form-delete.component';
 import { LeadFormCreateComponent } from '../modals/lead-form-create/lead-form-create.component';
 import { RxReactiveFormsModule } from "@rxweb/reactive-form-validators"
+import { ForgotPasswordComponent } from '../modals/forgot-password/forgot-password.component';
 
 
 const entryList = [EmailFormatComponent, SendEmailComponent, ChangePasswordComponent, ContactDetailsComponent, AddNoteComponent,
@@ -113,6 +114,7 @@ const entryList = [EmailFormatComponent, SendEmailComponent, ChangePasswordCompo
     AddDealComponent, DealDetailsComponent, MoveDealModalComponent, AutoConfigComponent, ContactPipelineComponent,
     AddContactToDealComponent, DealNoteComponent, EditDealNoteComponent, AddPipelineTaskComponent, PipelineSendEmailComponent,
     AppointBookComponent, AppointStep1Component, AppointStep2Component, AppointStep3Component, AppointStep4Component,
+    ForgotPasswordComponent,
     EditAppointmentComponent, CalSlotComponent, BookModalComponent, ConfirmComponent, AppointTypeListComponent,
     AppointListComponent, AppointSuccessComponent, AddUserComponent, NotificationsComponent, DeleteContactComponent,
     SmartFormCreateComponent, CreateWorkspaceComponent, MergeContactsComponent, SmartFormDeleteComponent, LeadFormCreateComponent
