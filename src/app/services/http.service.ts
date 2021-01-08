@@ -47,6 +47,9 @@ export class HttpService {
     private updateSFListSubject = new BehaviorSubject<any>(null);
     public SFReload = this.updateSFListSubject.asObservable();
 
+    private documentUpdatedSubject = new BehaviorSubject<any>(null);
+    public documentUpdatedStatus = this.documentUpdatedSubject.asObservable();
+
     public heading: string;
     domain: string;
     loginData: any;
@@ -94,7 +97,19 @@ export class HttpService {
         }
         this.eventSubject.next(obj);
     }
+    updateDocument(url, obj, isLoading?: boolean) {
+        const formData = new FormData();
+        Object.keys(obj).forEach(key => {
+            if (obj[key] !== '' && obj[key] !== undefined) {
+                formData.append(key, obj[key]);
+            }
+        });
+        return this.http.post<any>(this.apiEndpoint + url, obj, {reportProgress: isLoading});
+    }
 
+    documentUpdated(data?) {
+        this.documentUpdatedSubject.next(data ? data : false);
+    }
     sendSearch(data) {
         this.searchSubject.next(data);
     }
