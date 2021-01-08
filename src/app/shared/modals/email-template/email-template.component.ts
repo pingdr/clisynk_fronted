@@ -9,8 +9,11 @@ import {forkJoin, Subject} from 'rxjs';
 import {DeleteComponent} from '../delete/delete.component';
 import {AppointmentService} from '../../../internal/appointments/appointment.service';
 import { map, mergeMap, toArray } from 'rxjs/operators';
+import { MailTemplateListResponse, MailTemplateListData } from './../../models/mail-template-list.model';
+import { MailTemplateData, MailTemplateResponse } from '../../models/mail-template.model';
 
 declare var CKEDITOR: any;
+declare var $: any;
 @Component({
     selector: 'app-email-template',
     templateUrl: './email-template.component.html'
@@ -21,7 +24,7 @@ export class EmailTemplateComponent implements OnInit {
     allData;
     myModel: any;
     modalData: any;
-    templates: any[] = [];
+    templates: MailTemplateData[] = [];
     ckeConfig: any = EditorContent;
 
     public onClose: Subject<boolean>;
@@ -39,6 +42,12 @@ export class EmailTemplateComponent implements OnInit {
         this.getAppointments();
     }
 
+    ngAfterViewInit() {
+        $('.note-statusbar').hide(); 
+        $(".note-editable").height(400);
+        $('.note-toolbar').css("background-color","white");
+    }
+
     templateList() {
         const obj = {
             skip: 0,
@@ -51,15 +60,15 @@ export class EmailTemplateComponent implements OnInit {
         // }, () => {
         // });
 
-        this.http.getMailTemplates().subscribe(res => {
-            let allTemplates: {name:string, _id:string}[] = res.data;
+        this.http.getMailTemplates().subscribe((res: MailTemplateListResponse) => {
+            let allTemplates: MailTemplateListData[] = res.data;
             const requests: any[] = [];
-            allTemplates.forEach(template => {
+            allTemplates.forEach((template:MailTemplateListData) => {
                 requests.push(this.http.getMailTemplateById(template._id));
             })
             forkJoin(requests)
-            .subscribe((res: any[]) => {
-                this.templates = res.map(x => x.data)
+            .subscribe((res: MailTemplateResponse[]) => {
+                this.templates = res.map(x => x.data);
             })
         })
         console.log(this.templates);
