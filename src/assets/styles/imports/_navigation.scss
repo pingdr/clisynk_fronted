@@ -13,9 +13,10 @@
 }
 
 .navbar-default .nav > li > a:hover, .navbar-default .nav > li > a:focus {
-  background-color: $light-blue;
+  // background-color: $light-blue;
   color: $main;
   border-radius: 0 24px 24px 0;
+  background-color: #c3ecf36b;
 }
 
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
@@ -581,6 +582,6 @@ body.canvas-menu.mini-navbar nav.navbar-static-side {
 .mat-elevation-z8 {
   box-shadow: none;
 }
-.navbar-nav{
-  width: 223px;
-}
+// .navbar-nav{
+//   width: 223px;
+// }

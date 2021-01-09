@@ -262,11 +262,11 @@
                             </div>
                         </div>
 
-                        <section style="margin-top:40px">
+                        <section style="margin-top:80px">
                             <div class="empty-state" *ngIf="allData?.appointments?.length === 0">
 
                                 <div class="image-wrapper">
-                                    <img src="/assets/images/empty-appointments-widget-not-connected-gray.svg">
+                                    <img src="/assets/images/empty-appointments-widget-not-connected-gray.svg" style="width:75px !important" >
                                 </div>
                                 <div class="details-wrapper">
                                     <h3 class="empty-state-title">Easily book appointments<br> online</h3>
@@ -326,7 +326,7 @@
                         <h3>Tasks</h3>
                     </div>
                     <div class="content recent-activity">
-                        <div class="empty-state">
+                        <div class="empty-state" style="margin-top: 30px;">
                             <div class="image-wrapper">
                                 <img src="/assets/images/empty-appointments-widget-not-connected-gray.svg">
                             </div>
@@ -372,7 +372,7 @@
 
                     <div class="content recent-activity" *ngIf="allData?.recentActivity?.length === 0">
                         <div class="empty-state">
-                            <div class="image-wrapper">
+                            <div class="image-wrapper new-stat-blanks">
                                 <img src="/assets/images/empty-appointments-widget-not-connected-gray.svg">
                             </div>
                             <div class="details-wrapper">

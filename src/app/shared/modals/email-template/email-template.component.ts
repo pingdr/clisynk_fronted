@@ -11,6 +11,7 @@ import {AppointmentService} from '../../../internal/appointments/appointment.ser
 import { map, mergeMap, toArray } from 'rxjs/operators';
 import { MailTemplateListResponse, MailTemplateListData } from './../../models/mail-template-list.model';
 import { MailTemplateData, MailTemplateResponse } from '../../models/mail-template.model';
+import { DomSanitizer } from '@angular/platform-browser'
 
 declare var CKEDITOR: any;
 declare var $: any;
@@ -30,7 +31,7 @@ export class EmailTemplateComponent implements OnInit {
     public onClose: Subject<boolean>;
     selectedTemplate: any = {};
 
-    constructor(public http: HttpService, public appoint: AppointmentService) {
+    constructor(public http: HttpService, public appoint: AppointmentService, private sanitized: DomSanitizer) {
         this.myModel = new TableModel();
         this.ckeConfig.height = '370px';
     }
@@ -68,11 +69,25 @@ export class EmailTemplateComponent implements OnInit {
             })
             forkJoin(requests)
             .subscribe((res: MailTemplateResponse[]) => {
-                this.templates = res.map(x => x.data);
+                this.templates = res.map(x => {
+                    x.data.html = this.getHtmlFromJson(x.data.html);
+                    return x.data;
+                });
             })
         })
         console.log(this.templates);
 
+    }
+
+    getHtmlFromJson(jsonHtml:string): string {
+        let html:string;
+        jsonHtml = JSON.stringify(jsonHtml);
+        html = jsonHtml.replace(/\\n/gm,'');
+        html = html.replace(/\\"/gm,'"');
+        html = html.replace(/\s"/gm,'');
+        let styleData = html.match(new RegExp("<style>" + "(.*)" + "<\/style>"));
+        console.log(html);
+        return html;
     }
 
     formInit() {
