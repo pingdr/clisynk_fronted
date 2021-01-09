@@ -2,7 +2,8 @@ export const environment = {
     production: true,
     // apiBaseUrl: 'http://35.160.125.8:8000/',
     // apiBaseUrl: 'https://87512188fb99.ngrok.io/',
-    apiBaseUrl: 'https://apitest.clisynk.com/',
+    // apiBaseUrl: 'https://apitest.clisynk.com/',
+    apiBaseUrl: 'https://liveapi.clisynk.com:8000/',
     firebase: {
         apiKey: "AIzaSyD1FqM_Jn6UQedTzzU_Rz8IblOEwkOl_Tw",
         authDomain: "clisynk-37ff0.firebaseapp.com",
