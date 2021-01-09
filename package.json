@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "s": "ng serve --port 1100 --open",
-    "build": "node --max_old_space_size=8192 node_modules/@angular/cli/bin/ng build --prod",
+    "build": "node --max_old_space_size=10192 node_modules/@angular/cli/bin/ng build --prod",
     "master": "ng build --prod && git add . && git commit -am 'code updated' && git push origin newdev",
     "server": "sudo ssh -i ../pem/Clisynk.pem ubuntu@35.160.125.8"
   },
