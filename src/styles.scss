@@ -1,6 +1,211 @@
 /* Import main Inspinia style */
 @import "assets/styles/style";
 
+// documents style
+.tab1-documents-container {
+  padding: 20px;
+  background-color: #E5E5E5;
+  height: 320px;
+  border-radius: 8px;
+}
+
+.tab3-documents-container {
+  padding: 30px 65px;
+  background-color: white;
+  height: 320px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.blank-page {
+  background: #FFFFFF;
+  border-radius: 3px;
+  width: 122px;
+  height: 160px;
+  padding: 10px;
+}
+
+.add-icon-doc {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.modal-doc-add {
+  padding: 20px 0px 0px 20px;
+  box-shadow: 0 6px 10px -4px rgba(0 0 0/ 56%);
+}
+
+.blank-text {
+  color: #80808094;
+}
+
+.recent-text-doc {
+  margin-bottom: 15px;
+  color: gray;
+}
+
+.tab-btn-doc {
+  border-bottom: 4px solid #0040db !important;
+  margin-bottom: 1px;
+}
+
+.upload-title-doc {
+  width: 100%;
+  max-width: 490px;
+  text-align: left;
+  color: #4A4A4A;
+  mix-blend-mode: normal;
+  opacity: 0.59;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.upload-text1-doc {
+  color: black;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.select-btn-doc {
+  background: #0040db;
+  color: white;
+  font-size: 16px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.297476);
+  border-radius: 5px;
+}
+
+.select-btn-doc:hover {
+  color: white;
+}
+
+gridster-item {
+  overflow: visible;
+  z-index: 1 !important;
+}
+
+
+// -------------------------editor------------------------///
+.cke_editable {
+  margin: 0px 5px !important;
+  overflow: hidden !important;
+}
+
+
+/* -------------------------------tree-view------------------ */
+
+.treeview-container {
+  display: flex !important;
+  padding: 0 !important;
+  outline: none !important;
+  cursor: pointer;
+  margin-bottom: 5px !important;
+  align-items: center !important;
+  max-height: inherit !important;
+  overflow-y: visible !important;
+}
+
+.treeview-container ngx-treeview-item {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.form-inline i {
+  color: #9b9b9b;
+  margin-right: 8px !important;
+}
+
+.form-inline i svg {
+  width: 15px;
+  height: 15px;
+}
+
+.form-check-label {
+  padding-left: 30px;
+  position: relative;
+  font-size: 12px;
+}
+
+.form-check-label:before {
+  position: absolute;
+  content: '';
+  background: url('assets/images/document_folder.svg') no-repeat;
+  width: 18px;
+  height: 13px;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  background-size: 16px;
+}
+
+// .treeview-item .treeview-item {
+//   margin-left: 1rem !important;
+// }
+.form-inline {
+  margin-bottom: 9px !important;
+  padding: 9px 18px;
+}
+
+.form-inline:hover {
+  background: rgba(216, 216, 216, 0.585965);
+  transition: 0.5s all ease;
+}
+
+.treeview-item .treeview-item {
+  margin-left: 1rem !important;
+  padding-left: 0;
+}
+
+.treeview-item .form-inline {
+  position: relative;
+}
+
+.treeview-item .form-inline i {
+  left: 15px;
+  position: absolute;
+  z-index: 99;
+}
+
+.treeview-item .form-inline tr.selectable-row {
+  width: 100%;
+}
+
+.treeview-item .form-inline tr.selectable-row .form-check {
+  justify-content: flex-start;
+  padding-left: 25px;
+}
+
+.treeview-item .form-inline tr.selectable-row td.table-th {
+  position: absolute;
+  right: 0;
+}
+// Dropdown Menu 
+.dropdown-menu {
+  background-color: #fff;
+  box-shadow: 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12), 0 2px 4px -1px rgba(0,0,0,.2);
+  border-radius: 5px;
+  padding: 4px 0;
+  min-width: 170px !important;
+
+li {
+
+  a {
+    padding: 10px 15px;
+    margin: 0;
+    font-size: 13px;
+
+    &:hover {
+      background: #f1f1f1;
+    }
+
+    img {
+      width: 17px;
+      margin-right: 10px;
+    }
+  }
+}
+}
+
 // chat style
 
 emoji-picker{
