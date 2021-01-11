@@ -9,8 +9,8 @@
     </section>
 </div>
 
-<div class="modal-body">
-    <section class="top" *ngIf="!addBtn">
+<div class="modal-body  custom-code-using">
+    <!-- <section class="top" *ngIf="!addBtn">
         <h5 style="margin-bottom: 10px;">Sort Contacts</h5>
         <br>
         <div class="input-field btn-group add-btn select-opt">
@@ -77,9 +77,10 @@
                 </div>
             </div>
         </section>
-    </section>
+    </section> -->
 
-    <div class="multiselect-field">
+    <!------- old code commanted ------>
+    <!-- <div class="multiselect-field">
         <div class="btn-group add-btn select-opt">
             <mat-form-field class="full-width select-height" appearance="outline">
                 <mat-label>Add a filter</mat-label>
@@ -93,6 +94,30 @@
                 </mat-select>
             </mat-form-field>
         </div>
+    </div> -->
+
+    <!-- ----------------------updated-new-cod e------------------- -->
+    <div class="new-form-field-main">
+        <div class="input-field">
+            <label>Name</label>
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label class="required">Name</mat-label>
+                <input matInput type="text">
+            </mat-form-field>
+        </div>
+        <div class="form-group Associated-Contact">
+            <label>Contact</label>
+            <ng-multiselect-dropdown [placeholder]="'Select Contact'"
+                                     [data]="data1" [settings]="settings">
+            </ng-multiselect-dropdown>
+        </div>
+        <div class="form-group Associated-Contact">
+            <label>Tag</label>
+            <ng-multiselect-dropdown [placeholder]="'Select Tag'"
+                                     [data]="data2" [settings]="settings">
+            </ng-multiselect-dropdown>
+        </div>
+
     </div>
 
 

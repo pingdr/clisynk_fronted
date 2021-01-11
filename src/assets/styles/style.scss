@@ -1950,15 +1950,17 @@ section.contact-details-section {
   span.circle {
     display: inline-block;
     background: #91919c;
-    width: 76px;
+    width: 70px;
     color: #fff;
-    height: 76px;
+    height: 70px;
     border-radius: 50px;
     text-align: center;
-    line-height: 76px;
+    line-height: 73px;
     text-transform: uppercase;
-    font-size: 35px;
+    font-size: 25px;
     margin-bottom: 10px;
+    margin-top:15px;
+    // box-shadow:0px 0px 10px #c3c3c3;
   }
 
   .btn-close {
@@ -2030,7 +2032,8 @@ $gray-text: rgba(128, 128, 128, 0.9);
 .modal-text p {
   color: #807e7e;
   font-weight: 100;
-  font-size: 14px;
+  font-size: 12px;
+  margin-bottom:20px;
 }
 
 .iconlist {
@@ -2075,7 +2078,8 @@ $gray-text: rgba(128, 128, 128, 0.9);
 }
 
 .list-group-item.active i {
-  background-color: rgb(74, 74, 87);
+  // background-color: rgb(74, 74, 87);
+  background-color:#a4a4a9;
   color: #fff;
 }
 
@@ -2104,7 +2108,7 @@ $gray-text: rgba(128, 128, 128, 0.9);
 }
 
 .list-group-horizontal .list-group-item:hover i {
-  background-color: #4a4a57;
+  background-color: #a4a4a9;
   color: #fff;
 }
 
@@ -2126,22 +2130,23 @@ $gray-text: rgba(128, 128, 128, 0.9);
   background: #8080800d;
 }
 
-.email-section {
-  // min-width: 100%;
-  // margin-top: 10px;
-  // margin-left: 20px;
-  // padding: 1rem;
-}
+// .email-section {
+//   // min-width: 100%;
+//   // margin-top: 10px;
+//   // margin-left: 20px;
+//   // padding: 1rem;
+// }
 
 .Contact-Activity-inner {
   padding: 1rem;
 }
 
 .Contact-Activity-inner h5 {
-  font-size: 20px;
+  font-size: 18px;
   color: #242433;
   font-weight: 100;
   margin-bottom: 20px;
+  margin-top:10px;
 }
 
 
@@ -2392,7 +2397,9 @@ $gray-text: rgba(128, 128, 128, 0.9);
     }
 
     .task-activity-item {
-      font-size: 14px;
+      font-size: 13px;
+      margin-top: 10px;
+      line-height: 19px;
 
       span {
         color: #b1b1ba;
@@ -3099,6 +3106,7 @@ app-contact-detail {
 .side-icon {
   width: 23px;
   vertical-align: middle;
+  height: 21px;
 }
 
 .image-circle {
@@ -4357,6 +4365,9 @@ body.mini-navbar .navbar-static-side .navbar-nav span.nav-label{
   }
   .dashboard-grid .col-md-6{
     max-width: 40%;
+  }
+  .wrapper.border-bottom.white-bg.custom-contact-list-main .contact{
+    max-width:350px;
   }
 }
 

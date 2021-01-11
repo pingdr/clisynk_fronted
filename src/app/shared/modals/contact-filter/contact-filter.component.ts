@@ -16,6 +16,9 @@ export class ContactFilterComponent implements OnInit {
     addBtn = false;
     modalData: any;
     filters = FILTERS;
+    public data1 = [];
+    public data2 = []; 
+  public settings = {};
     public onClose: Subject<boolean>;
 
     constructor(public http: HttpService) {
@@ -24,6 +27,42 @@ export class ContactFilterComponent implements OnInit {
     }
 
     ngOnInit(): void {
+
+
+        this.data1 = [
+            { item_id: 1, item_text: 'Lorem ipsum' },
+            { item_id: 2, item_text: 'Lorem ipsum2' },
+            { item_id: 3, item_text: 'Lorem ipsum3' },
+            { item_id: 4, item_text: 'Lorem ipsum4' },
+            { item_id: 5, item_text: 'Lorem ipsum5' }
+          ];
+
+          this.data2 = [
+            { item_id: 1, item_text: 'Tags1' },
+            { item_id: 2, item_text: 'Tags2' },
+            { item_id: 3, item_text: 'Tags3' },
+            { item_id: 4, item_text: 'Tags4' },
+            { item_id: 5, item_text: 'Tags5' }
+          ];
+          // setting and support i18n
+          this.settings = {
+            singleSelection: false,
+            idField: 'item_id',
+            textField: 'item_text',
+            enableCheckAll: true,
+            selectAllText: 'Select all',
+            unSelectAllText: 'Search Contact',
+            allowSearchFilter: true,
+            limitSelection: -1,
+            clearSearchFilter: true,
+            maxHeight: 197,
+            itemsShowLimit: 4,
+            searchPlaceholderText: 'Search',
+            closeDropDownOnSelection: false,
+            showSelectedItemsAtTop: false,
+            defaultOpen: false
+          };
+
         if (this.modalData.addBtn) {
             this.addBtn = this.modalData.addBtn;
         }

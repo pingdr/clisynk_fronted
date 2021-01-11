@@ -26,7 +26,7 @@
             </ng-container>
 
             <ng-container *ngIf="myModel?.contactsType">
-                <div class="Clients_list_heading">
+                <div class="Clients_list_heading custom-color-code">
                     <img [src]="'/assets/images/back-arrow.svg'"
                          (click)="myModel.contactsType=null; tab='contactList';http.addQueryParams({})">
                     <h3 class="page-title" *ngIf="myModel.contactsType == 1">Leads</h3>
@@ -66,10 +66,15 @@
                         (click)="selected='';tab='allContact';http.addQueryParams({});">All
                         Contacts
                     </li>
-                    <li class="nav-item" (click)="unselectAll();selected='';tab='contactList';this.listsFun();"
+                    <!-- <li class="nav-item" (click)="unselectAll();selected='';tab='contactList';this.listsFun();"
                         *ngIf="!myModel?.hideTabs"
                         [ngClass]="{'tab-btn':tab == 'contactList'}">
                         Contacts lists
+                    </li> -->
+                    <li class="nav-item" (click)="unselectAll();selected='';tab='contactList';this.listsFun();"
+                        *ngIf="!myModel?.hideTabs"
+                        [ngClass]="{'tab-btn':tab == 'contactList'}">
+                        Groups 
                     </li>
                 </ul>
             </ng-container>

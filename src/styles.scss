@@ -7172,6 +7172,26 @@ input:-webkit-autofill:active  {
   min-height: 100vh;
 }
 
+.custom-color-code {
+    background: #f5f5f5;
+}
+.custom-color-code .page-title {
+  padding: 0 !important;
+  padding-bottom: 0px !important;
+}
+
+
+//-----contact-screen----//
+.custom-code-using{
+  padding:20px 31px 0px 31px;
+}
+
+.custom-code-using .new-form-field-main label {
+  font-size: 15px;
+  margin-bottom: 8px;
+}
+
+
 // -------------------Global-Responsive------------------//
 @media (max-width:1500px){
   .wrapper-content{

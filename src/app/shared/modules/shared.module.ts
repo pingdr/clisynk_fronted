@@ -111,6 +111,7 @@ import { CreateFolderComponent } from './../modals/create-folder/create-folder.c
 import { NgxSummernoteModule } from 'ngx-summernote';
 
 
+
 const entryList = [EmailFormatComponent, SendEmailComponent, ChangePasswordComponent, ContactDetailsComponent, AddNoteComponent,
     ContactOptionsComponent, AddTaskComponent, LoaderComponent, ContactDetailComponent, ActivityListComponent, ContactFilterComponent,
     ImportContactComponent, ReviewPopupComponent, AddContactComponent, NoteListComponent, EditNoteComponent, DeleteComponent,
