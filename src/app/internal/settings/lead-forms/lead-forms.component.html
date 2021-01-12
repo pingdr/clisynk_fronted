@@ -7,12 +7,12 @@
             </div>
         </div>
         <div class="right-col-three-btn">
-            <div class="comm-btn">
+            <!-- <div class="comm-btn">
                 <button class="copy-btn" (click)="copyCode()">
                     <img src="../../../../assets/images/copy-blue.svg" width="20">
                     Copy code
                 </button>
-            </div>
+            </div> -->
             <div class="comm-btn">
                 <button class="copy-btn" (click)="copyLink()">
                     <img src="../../../../assets/images/copy-blue.svg" width="20">
@@ -45,7 +45,8 @@
             <label class="label-name">Add your business name</label>
             <mat-form-field class="full-width" appearance="outline">
                 <mat-label class="required">Business Name</mat-label>
-                <input matInput #input maxlength="40" type="text" (change)="onInputChange($event)" formControlName="businessName">
+                <input matInput #input maxlength="40" type="text" 
+                (change)="onInputChange($event)" formControlName="businessName">
                 <mat-hint align="end">{{ input.value?.length || 0 }}/40</mat-hint>
             </mat-form-field>
         </div>
@@ -70,12 +71,12 @@
         </div>
     </form>
         <!-- edit-form-strips -->
-        <div class="Edit-your-form">
+        <!-- <div class="Edit-your-form">
             <label class="label-name">Edit your form</label>
             <p>Adjust your intake information by adding or removing fields in the form builder.</p>
         </div>
 
-        <button type="button" class="btn btn-outline-primary edit-form-btn" (click)="onEdit()">Edit form</button>
+        <button type="button" class="btn btn-outline-primary edit-form-btn" (click)="onEdit()">Edit form</button> -->
 
     </div>
     <!-- ---------------right-col---------------->

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RxwebValidators } from '@rxweb/reactive-form-validators';
 import { Subject } from 'rxjs';
@@ -13,7 +13,7 @@ import { LeadFormCreateComponent } from 'src/app/shared/modals/lead-form-create/
 })
 export class LeadFormsComponent implements OnInit {
 
-  leadForm = this.fb.group({
+  leadForm:FormGroup = this.fb.group({
     businessName:[null, [Validators.required]],
     logo:['', [ 
         RxwebValidators.image({ maxHeight: 300,maxWidth: 300 }),
@@ -23,7 +23,7 @@ export class LeadFormsComponent implements OnInit {
   })
 
 
-  formData = new FormData();
+  formData: FormData = new FormData(); 
 
   logoUrl: any;
   loader: any;
@@ -172,25 +172,12 @@ export class LeadFormsComponent implements OnInit {
   }
 
   onPreview(){
-    if(this.leadForm.value.businessName){
-        // console.log("if name");
-        this.formData.set("businessName", String(this.leadForm.value.businessName));  
-    }
-    else{
-        // console.log("else name");
-        this.formData.set("businessName", "");
-    }
-    if(this.file){
-        // console.log("if logo");
-        this.formData.set("businessLogo", this.file);
-    }
-    else{
-        // console.log("else logo");
-        this.formData.set("businessLogo", "");
-    }
-    if(this.oldFile == this.file){
-        this.formData.delete("businessLogo");
-    }
+    this.leadForm.value.businessName ? this.formData.set("businessName", String(this.leadForm.value.businessName))
+                                     : this.formData.set("businessName", "");
+    
+    this.file ? this.formData.set("businessLogo", this.file) : this.formData.set("businessLogo", "");
+    this.oldFile == this.file ? this.formData.delete("businessLogo") : "";
+    
     this.http.updateLeadForm(this.formData, this.editForm._id).subscribe(res => {
         console.log(res);
     });
@@ -254,6 +241,12 @@ export class LeadFormsComponent implements OnInit {
     
     onInputChange(event){
         this.inputTouched = true;
+        this.formData.set("businessName", this.leadForm.get("businessName").value);
+        this.http.updateLeadForm(this.formData, this.editForm._id)
+        .subscribe(res => {
+            this.logoUrl = res.data.businessLogo;
+            this.leadForm.value.businessName = res.data.businessName;
+        });
     }
 
     copyLink(){
