@@ -47,6 +47,9 @@ export class HttpService {
     private updateSFListSubject = new BehaviorSubject<any>(null);
     public SFReload = this.updateSFListSubject.asObservable();
 
+    private workspaceListSubject = new BehaviorSubject<any>(null);
+    public workspaceList = this.workspaceListSubject.asObservable();
+
     public heading: string;
     domain: string;
     loginData: any;
@@ -473,6 +476,10 @@ export class HttpService {
         return this.http.post(this.apiEndpoint + "smartForms", Obj);
     }
 
+    postWorkspaceForm(url,Obj){
+        return this.http.post(this.apiEndpoint + url, Obj);
+    }
+
     postLeadForm(Obj){
         return this.http.post(this.apiEndpoint + "smartForms/submit", Obj);
     }
@@ -483,6 +490,10 @@ export class HttpService {
 
     deleteSmartForm(Obj){
         return this.http.delete<any>(this.apiEndpoint + "smartForms/" + Obj);
+    }
+
+    deleteWorkspace(url){
+        return this.http.delete<any>(this.apiEndpoint + url);
     }
 
     updateSmartForm(Obj, id){
@@ -509,5 +520,13 @@ export class HttpService {
         return this.http.get<any>(this.apiEndpoint + "email-templates/search?id=" + id);
     }
 
+    updateWorkspaceList(data?) {
+        this.workspaceListSubject.next(data);
+    }
+
+    getRandomColor() {
+        let color = Math.floor(0x1000000 * Math.random()).toString(16);
+        return '#' + ('000000' + color).slice(-6);
+    }
 }
 

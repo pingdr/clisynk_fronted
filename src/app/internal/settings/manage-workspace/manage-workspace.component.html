@@ -1,137 +1,102 @@
-
 <div class="profile-section">
-
-    <div class="contact-header">
-        <div class="Clients_list_heading">
-            <img [src]="'/assets/images/back-arrow.svg'" (click)="http.goBack()">
-            <h3 class="page-title">Workspace</h3>
-            <button class="btn-outline-primary t-r-btn" (click)="http.openModal('createWorkspace')">Create a Workspace
+  <div class="contact-header">
+    <div class="Clients_list_heading">
+      <img [src]="'/assets/images/back-arrow.svg'" (click)="http.goBack()" />
+      <h3 class="page-title">Workspace</h3>
+      <button
+        class="btn-outline-primary t-r-btn"
+        (click)="http.openModal('createWorkspace')"
+      >
+        Create a Workspace
+      </button>
+    </div>
+  </div>
+  <!-- ---------------------table for form listing ---------------------------->
+  <div class="smart-form-listing-table">
+    <table class="smart-table-list">
+      <thead>
+        <tr>
+          <th class="form-name">Name</th>
+          <th class="description">Description</th>
+          <th class="added-on">Created On</th>
+          <th class="actions-table">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let workspace of allData">
+          <td class="form-name">
+            <div class="first-col-inner-main">
+              <div
+                class="first-later-name"
+                [ngStyle]="{
+                  'background-color': workspace.backgroundColor
+                }"
+              >
+                {{ workspace?.name.toUpperCase().charAt(0) }}
+              </div>
+              <div class="worked-name">
+                {{ workspace?.name }}
+                <!--<span>
+                  <img
+                    src="../../../../assets/images/users-bunch.svg"
+                    width="15"
+                  />
+                  13
+                </span>-->
+              </div>
+            </div>
+          </td>
+          <td class="description">{{ workspace?.description }}</td>
+          <td class="added-on">
+            {{ workspace?.createdAt | date: "dd/MM/yy" }}
+          </td>
+          <td class="actions-table">
+            <button
+              class="delete-icon"
+              matTooltip="Edit"
+              (click)="openEditWorkspace(workspace)"
+            >
+              <img
+                src="../../../../assets/images/edit-button-gray.svg"
+                width="20"
+              />
             </button>
-        </div>
-
-    </div>
-
-
-    <!-- ---------------------table for form listing ---------------------------->
-    <div class="smart-form-listing-table">
-        <table class="smart-table-list">
-            <thead>
-                <tr>
-                    <th class="form-name">Name</th>
-                    <th class="description">Description</th>
-                    <th class="added-on">Created On</th>
-                    <th class="actions-table"></th>
-
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="form-name">
-                        <div class="first-col-inner-main">
-                            <div class="first-later-name A">
-                                A
-                            </div>
-                            <div class="worked-name">A-Clysync-2 
-                                <span>
-                                    <img src="../../../../assets/images/users-bunch.svg" width="15"> 13
-                                </span> 
-                            </div>
-                        </div>
-                    </td>
-                    <td class="description">This is description</td>
-                    <td class="added-on">9/10/2020</td>
-                    <td class="actions-table">
-                        <button class="delete-icon" matTooltip="Edit" routerLink="/settings/edit-workspace"><img src="../../../../assets/images/edit-button-gray.svg" width="20"></button>
-                        <button class="delete-icon" matTooltip="Delete"><img src="../../../../assets/images/trash-icon.svg" width="20"></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="form-name">
-                        <div class="first-col-inner-main">
-                            <div class="first-later-name B">
-                                B 
-                            </div>
-                            <div class="worked-name">B-Clysync-Group-3
-                                <span>
-                                    <img src="../../../../assets/images/users-bunch.svg" width="15"> 13
-                                </span> 
-                            </div>
-                        </div>
-                    </td>
-                    <td class="description">This is description</td>
-                    <td class="added-on">9/10/2020</td>
-                    <td class="actions-table">
-                        <button class="delete-icon" matTooltip="Edit"><img src="../../../../assets/images/edit-button-gray.svg" width="20"></button>
-                        <button class="delete-icon" matTooltip="Delete"><img src="../../../../assets/images/trash-icon.svg" width="20"></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="form-name">
-                        <div class="first-col-inner-main">
-                            <div class="first-later-name C">
-                                C
-                            </div>
-                            <div class="worked-name">Clysync-2 
-                                <span>
-                                    <img src="../../../../assets/images/users-bunch.svg" width="15"> 13
-                                </span> 
-                            </div>
-                        </div>
-                    </td>
-                    <td class="description">This is description</td>
-                    <td class="added-on">9/10/2020</td>
-                    <td class="actions-table">
-                        <button class="delete-icon" matTooltip="Edit"><img src="../../../../assets/images/edit-button-gray.svg" width="20"></button>
-                        <button class="delete-icon" matTooltip="Delete"><img src="../../../../assets/images/trash-icon.svg" width="20"></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="form-name">
-                        <div class="first-col-inner-main">
-                            <div class="first-later-name D">
-                                D
-                            </div>
-                            <div class="worked-name">D-Clysync-2 
-                                <span>
-                                    <img src="../../../../assets/images/users-bunch.svg" width="15"> 13
-                                </span> 
-                            </div>
-                        </div>
-                    </td>
-                    <td class="description">This is description</td>
-                    <td class="added-on">4/28/2020</td>
-                    <td class="actions-table">
-                        <button class="delete-icon" matTooltip="Edit"><img src="../../../../assets/images/edit-button-gray.svg" width="20"></button>
-                        <button class="delete-icon" matTooltip="Delete"><img src="../../../../assets/images/trash-icon.svg" width="20"></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="form-name">
-                        <div class="first-col-inner-main">
-                            <div class="first-later-name E">
-                                E
-                            </div>
-                            <div class="worked-name">E-Clysync-2 
-                                <span>
-                                    <img src="../../../../assets/images/users-bunch.svg" width="15"> 13
-                                </span> 
-                            </div>
-                        </div>
-                    </td>
-                    <td class="description">This is description</td>
-                    <td class="added-on">4/27/2020</td>
-                    <td class="actions-table">
-                        <button class="delete-icon"  matTooltip="Edit"><img src="../../../../assets/images/edit-button-gray.svg" width="20"></button>
-                        <button class="delete-icon" matTooltip="Delete"><img src="../../../../assets/images/trash-icon.svg" width="20"></button>
-                    </td>
-                </tr>
-            </tbody>
-
-
-        </table>
-
-        
-    </div>
-
-
+            <button
+              class="delete-icon"
+              matTooltip="Delete"
+              (click)="deleteWorkspace(deletePopup, workspace?._id)"
+            >
+              <img src="../../../../assets/images/trash-icon.svg" width="20" />
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
+
+<ng-template #deletePopup>
+  <div class="delete-comp xs">
+    <div class="delete-comp-inner">
+      <h4>Delete workspace</h4>
+      <p>Are you sure you want to delete this workspace?</p>
+      <div class="button-row form-group">
+        <button
+          class="delete-btn"
+          type="submit"
+          (click)="http.hideModal(); changeStatus(4)"
+        >
+          Delete
+        </button>
+        <button
+          class="text-button"
+          type="button"
+          aria-label="Close"
+          (click)="http.hideModal()"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>

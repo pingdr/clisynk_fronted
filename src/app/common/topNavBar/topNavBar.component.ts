@@ -26,10 +26,13 @@ export class TopNavBarComponent implements OnInit {
     searchName = new FormControl();
     notifications: any = [];
     contacts: any = [];
+    workspaces: any = [];
     loader = false;
     loginData: any;
     showClose = false;
     chatToggle = false;
+
+    message:string= 'secondChild';
 
     unreadCount = 0;
 
@@ -52,6 +55,8 @@ export class TopNavBarComponent implements OnInit {
         // this.loginData = JSON.parse(localStorage.getItem('loginData'));
         this.loginData = this.http.loginData;
         this.notificationList();
+        this.getAllWorkspaces();
+        
         const secondsCounter = interval(30000);
         secondsCounter.subscribe(n => {
             this.notificationList();
@@ -145,9 +150,7 @@ export class TopNavBarComponent implements OnInit {
         if (readAll) {
             obj.readAll = true;
         }
-
         this.http.getData(ApiUrl.NOTIFICATIONS, obj).subscribe(res => {
-
             if (res.data.data.length) {
                 for (const key of res.data.data) {
                     if (key.type === 5) {
@@ -159,7 +162,6 @@ export class TopNavBarComponent implements OnInit {
                     }
                 }
             }
-
             this.notifications = res.data;
             this.unreadCount = res.data.unreadCount;
         });
@@ -169,6 +171,16 @@ export class TopNavBarComponent implements OnInit {
         document.getElementById('notifications-panel').style.width = '0';
     }
 
+    getAllWorkspaces(){
+        const obj: any = {};
+        this.http.getData(ApiUrl.WORKSPACE, obj).subscribe(res => {
+            res.data.map(wps => {
+                wps.backgroundColor = this.http.getRandomColor();
+            });
+            this.http.updateWorkspaceList(res.data);
+            this.http.workspaceList.subscribe(wps=> this.workspaces = wps);
+        }, () => {});
+    }
 }
 
 

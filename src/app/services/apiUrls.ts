@@ -96,6 +96,9 @@ export const ApiUrl = {
     UNBLOCK_USER : 'chat/unblock-user',
     FETCH_BLOCK_USERS : 'chat/fetch-blocked-users',
     DELETE_CHATROOM : 'chat/delete-chatroom',
-    CALL_LOG : 'chat/calls'
+    CALL_LOG : 'chat/calls',
+
+    //Workspace api's
+    WORKSPACE: 'workspaces'
 };
 
