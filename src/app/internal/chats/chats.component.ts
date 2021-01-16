@@ -376,7 +376,7 @@ export class ChatsComponent implements OnInit {
 
   deleteVideoCall() {
     this.socket.emit('video-call', {
-      chatRoomId: this.selectedChat._id ? this.selectedChat._id : this.callChatroomId,
+      chatRoomId: this.callChatroomId ? this.callChatroomId : this.selectedChat._id,
       type: 'ended',
       room: this.room,
       callId: this.callId
@@ -392,7 +392,7 @@ export class ChatsComponent implements OnInit {
 
   deleteVoiceCall() {
     this.socket.emit('audio-call', {
-      chatRoomId: this.selectedChat._id,
+      chatRoomId: this.callChatroomId ? this.callChatroomId : this.selectedChat._id,
       type: 'ended',
       room: this.room,
       callId: this.callId
@@ -417,7 +417,7 @@ export class ChatsComponent implements OnInit {
   // video call function
   handleVideo() {
     this.videoManage = true;
-
+    this.outgoingFlag = true;
     this.socket.emit('video-call', {
       chatRoomId: this.selectedChat._id,
       type: 'new-call'
@@ -427,7 +427,7 @@ export class ChatsComponent implements OnInit {
   // audio call function
   handleAudio() {
     this.videoManage = true;
-    // this.outgoingVoiceFlag = true;
+    this.outgoingVoiceFlag = true;
 
     this.socket.emit('audio-call', {
       chatRoomId: this.selectedChat._id,
@@ -758,6 +758,8 @@ export class ChatsComponent implements OnInit {
   //forward modal search
   forwardSearch(event) {
     let value = event.target.value;
+    console.log(value);
+    
     this.loader = true;
     this.forwardArray = [];
     let payload = {
@@ -912,7 +914,7 @@ export class ChatsComponent implements OnInit {
   getNewMassages() {
     this.socket.on('new-message', (data) => {
       console.log(data);
-      if (data.chatRoomId === (this.selectedChat && this.selectedChat._id)) {
+      if (data.chatRoomId._id === (this.selectedChat && this.selectedChat._id)) {
         this.massageArray = [...this.massageArray, data];
       } else {
         this.handlePushNotification(data);
@@ -1078,6 +1080,7 @@ export class ChatsComponent implements OnInit {
           message: { content: this.message, ref: null },
           code: timestamp
         });
+        this.clickChat(this.selectedChat,this.selectedChatIndex);
         this.manageScroll();
       }
       else {
@@ -1085,6 +1088,7 @@ export class ChatsComponent implements OnInit {
           chatRoomId: this.selectedChat._id,
           message: { content: this.message, ref: this.replayData._id }
         });
+        this.clickChat(this.selectedChat,this.selectedChatIndex);
         this.manageScroll();
       }
     }
@@ -1537,11 +1541,13 @@ export class ChatsComponent implements OnInit {
     console.log('...................', this.massageArray, this.selectedChat.users)
     this.massageArray.length > 0 && this.massageArray.map((msg) => {
       this.selectedChat.users.map((user) => {
-        if (msg.from.user === user._id) {
+        console.log(user);
+        if (user && msg.from.user === user._id) {
           // console.log('in if......',msg , user)
           msg.fromUserName = user.fullName ? user.fullName : user.name
         } else {
           this.selectedChat.admins.map((ad) => {
+            console.log(ad);
             if (msg.from.user === ad._id) {
               msg.fromUserName = ad.fullName ? ad.fullName : ad.name
             }

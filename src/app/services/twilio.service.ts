@@ -1,5 +1,5 @@
 import { Injectable, ElementRef } from '@angular/core';
-import { connect, createLocalVideoTrack } from 'twilio-video';
+import { connect, createLocalVideoTrack} from 'twilio-video';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
@@ -65,7 +65,7 @@ export class TwilioService {
   removeTrack() {
     console.log('rrom obj is..................', this.roomObj)
     this.roomObj.localParticipant.tracks.forEach(function (track) {
-      track.stop();
+      track.track.stop();
     });
   }
 
@@ -117,7 +117,7 @@ export class TwilioService {
 
   detachTracks(tracks): void {
     tracks.forEach(function (track) {
-      track.detach().forEach(function (detachedElement) {
+      track.track.detach().forEach(function (detachedElement) {
         detachedElement.remove();
       });
     });
