@@ -4465,3 +4465,10 @@ body.mini-navbar .navbar-static-side .navbar-nav span.nav-label{
 
 
 }
+
+// Summernote CSS 
+.note-editor .note-editing-area .note-editable table td,
+.note-editor .note-editing-area .note-editable table th {
+  border: none !important;
+  padding: 5px 3px !important;
+} 

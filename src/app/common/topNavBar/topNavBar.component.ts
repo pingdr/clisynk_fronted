@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { SendEmailComponent } from './../../shared/modals/send-email/send-email.component';
 import {Component, OnInit} from '@angular/core';
 import {smoothlyMenu} from '../../app.helpers';
 import {HttpService} from '../../services/http.service';
@@ -10,7 +12,8 @@ import * as moment from 'moment';
 import $ from 'jquery';
 
 declare var jQuery: any;
-import {interval} from 'rxjs';
+import {interval, Subject} from 'rxjs';
+import { MailTemplateData } from 'src/app/shared/models/mail-template.model';
 
 @Component({
     selector: 'app-top-nav-bar',
@@ -18,7 +21,7 @@ import {interval} from 'rxjs';
 })
 export class TopNavBarComponent implements OnInit {
 
-    constructor(public http: HttpService) {
+    constructor(public http: HttpService, public router: Router) {
     }
 
     title: string;
@@ -30,6 +33,7 @@ export class TopNavBarComponent implements OnInit {
     loginData: any;
     showClose = false;
     chatToggle = false;
+    private mailTemplates: MailTemplateData[];
 
     unreadCount = 0;
 
@@ -56,6 +60,10 @@ export class TopNavBarComponent implements OnInit {
         secondsCounter.subscribe(n => {
             this.notificationList();
         });
+        const obj = {skip: 0, limit: 30};
+        this.http.getData(ApiUrl.TEMPLATE_LIST, obj).subscribe(res => {
+            this.mailTemplates = res.data.data;
+        });
     }
 
     openAddContact(data?) {
@@ -66,6 +74,39 @@ export class TopNavBarComponent implements OnInit {
         this.http.showModal(AddContactComponent, 'new-md', obj);
         this.searchName.patchValue('');
         this.contacts = [];
+    }
+
+    openSendEmail(data?) {
+        let obj: MailTemplateData= new MailTemplateData();
+        
+        let firedMailTemplate = this.getTemplateByCurrentRoute();
+        firedMailTemplate ? obj = firedMailTemplate : obj;
+        
+        const modalRef = this.http.showModal(SendEmailComponent, 'md', obj);
+        modalRef.content.onClose = new Subject<boolean>();
+        modalRef.content.onClose.subscribe(() =>{
+            console.log("close")
+        })
+        this.searchName.patchValue('');
+ 
+    }
+    
+    private getTemplateByCurrentRoute(): MailTemplateData {
+        let currentRoute = this.router.url;
+        let mailTemplates: MailTemplateData[] = this.mailTemplates;
+        currentRoute = currentRoute.slice(1, currentRoute.length);
+        if(currentRoute == 'contacts') {
+            return mailTemplates.find(x => x.name.trim() == 'Contact Information');
+        } else if(currentRoute == 'tasks') {
+            return mailTemplates.find(x => x.name.trim() == 'Task Assignment');
+        } else if(currentRoute == 'appointments') {
+            return mailTemplates.find(x => x.name.trim() == 'New Appointment confirmation');
+        } else if(currentRoute == 'money') {
+            return mailTemplates.find(x => x.name.trim() == 'Invoice Generation');
+        } else if(currentRoute == 'settings/smart-forms') {
+            return mailTemplates.find(x => x.name.trim() == 'SmartForm Details Confirmation');
+        } 
+        return null;
     }
 
     searchChange() {

@@ -1,5 +1,5 @@
-export interface MailTemplateData {
-    _id: string;
+export class MailTemplateData {
+    _id?: string;
     subject: string;
     canDeleted: boolean;
     isDeleted: boolean;
