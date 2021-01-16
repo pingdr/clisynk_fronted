@@ -1480,9 +1480,9 @@ tr.mat-footer-row, tr.mat-row:hover {
 
 .nav li a {
   font-weight: 100;
-  font-size: 14px;
+  font-size: 16px;
   padding: 0px 20px 0px 22px;
-  line-height: 44px;
+  line-height: 48px;
 }
 
 
@@ -1827,14 +1827,14 @@ section.contact-details-section {
               overflow: hidden;
               font-weight: 400;
               color: rgb(95, 95, 107);
-              font-size: 15px;
+              font-size:20px;
             }
 
             .number {
-              // font-size: 32px;
-              // color: #0040db;
-              font-size: 22px;
-              color: #ff7827;
+              font-size: 32px;
+              color: #0040db;
+              // font-size: 22px;
+              // color: #ff7827;
             }
           }
 
@@ -2078,8 +2078,8 @@ $gray-text: rgba(128, 128, 128, 0.9);
 }
 
 .list-group-item.active i {
-  // background-color: rgb(74, 74, 87);
-  background-color:#a4a4a9;
+  background-color: rgb(74, 74, 87);
+  // background-color:#a4a4a9;
   color: #fff;
 }
 
@@ -2142,7 +2142,7 @@ $gray-text: rgba(128, 128, 128, 0.9);
 }
 
 .Contact-Activity-inner h5 {
-  font-size: 18px;
+  font-size: 20px;
   color: #242433;
   font-weight: 100;
   margin-bottom: 20px;
@@ -2585,7 +2585,7 @@ $gray-text: rgba(128, 128, 128, 0.9);
   h3 {
     font-weight: 400;
     max-width: 31.25rem;
-    font-size: 16px;
+    font-size: 24px;
     margin: 0 auto;
   }
 
@@ -2648,7 +2648,7 @@ $gray-text: rgba(128, 128, 128, 0.9);
     }
 
     h3 {
-      font-size: 17px;
+      font-size: 20px;
       color: #242433;
       margin: 10px 0 15px;
       font-weight: 100;
@@ -2660,7 +2660,7 @@ $gray-text: rgba(128, 128, 128, 0.9);
 
       .number {
         span {
-          font-size: 18px;
+          font-size: 26px;
           margin-right: 10px;
           color: #000;
           margin-left: 15px;
@@ -2678,7 +2678,7 @@ $gray-text: rgba(128, 128, 128, 0.9);
 
       .stat-desc {
         p {
-          font-size: 16px;
+          font-size: 20px;
           color: #5f5f6bc4;
           margin-top: 6px;
           margin-left: 15px;
@@ -2755,7 +2755,7 @@ $gray-text: rgba(128, 128, 128, 0.9);
       margin: 0 0 15px;
 
       h3 {
-        font-size: 18px;
+        font-size: 22px;
         color: #5f5f6b;
         text-align: left;
         font-weight: 100;
@@ -2766,7 +2766,7 @@ $gray-text: rgba(128, 128, 128, 0.9);
       .empty-state {
         .details-wrapper {
           h3 {
-            font-size: 15px;
+            font-size: 20px;
             font-weight: 400;
             margin-bottom: 30px;
           }
@@ -3952,6 +3952,7 @@ img.logo-img {
 .days-div .btn-group tabset.tab-container a.nav-link span {
   color: #0040db !important;
   margin-left: 0px;
+  position:relative;
 }
 
 .days-div .btn-group tabset.tab-container ul.nav.nav-tabs {
@@ -4313,21 +4314,21 @@ body.mini-navbar .navbar-static-side .navbar-nav span.nav-label{
     flex: auto;
     max-width: 33.33%;
   }
-  .activity-item li .title{
-    font-size: 12px;
-  }
-  .activity-item li .task-activity-item{
-    font-size: 11px;
-  }
+  // .activity-item li .title{
+  //   font-size: 12px;
+  // }
+  // .activity-item li .task-activity-item{
+  //   font-size: 11px;
+  // }
   .activity-item .time::before{
     width: 13px;
     height: 14px;
     left: -3px;
 
   }
-  .activity-date span{
-    font-size: 11px;
-  }
+  // .activity-date span{
+  //   font-size: 11px;
+  // }
 }
 
 
@@ -4335,10 +4336,10 @@ body.mini-navbar .navbar-static-side .navbar-nav span.nav-label{
   .lifecycle-dashboard{
     margin-bottom: 20px;
   }
-  .lifecycle-dashboard .lifecycle-widget .cta-btn .link-btn{
-    max-width: 175px;
-    font-size: 12px;
-  }
+  // .lifecycle-dashboard .lifecycle-widget .cta-btn .link-btn{
+  //   max-width: 175px;
+  //   font-size: 12px;
+  // }
   .activity-item .time{
     font-size: 10px;
   }
@@ -4353,12 +4354,9 @@ body.mini-navbar .navbar-static-side .navbar-nav span.nav-label{
   .navbar-static-side{
     top: 68px;
   }
-  .nav li a{
-    font-size: 12px;
-    line-height: 42px;
-  }
+
   .side-icon{
-    width: 20px;
+    width: 23px;
   }
   .dashboard-grid .col-md-3{
     max-width: 30%;
@@ -4367,18 +4365,18 @@ body.mini-navbar .navbar-static-side .navbar-nav span.nav-label{
     max-width: 40%;
   }
   .wrapper.border-bottom.white-bg.custom-contact-list-main .contact{
-    max-width:350px;
+    max-width:340px;
   }
 }
 
 @media (max-width:1400px){
-  .empty-state h3{
-    font-size:14px;
-  }
-  .dashboard-grid .card .content .empty-state .details-wrapper h3{
-    font-size:14px;
-    margin-bottom: 25px;
-  }
+  // .empty-state h3{
+  //   font-size:14px;
+  // }
+  // .dashboard-grid .card .content .empty-state .details-wrapper h3{
+  //   font-size:14px;
+  //   margin-bottom: 25px;
+  // }
   .new-card .footer-label{
     font-size: 12px;
   }
@@ -4393,28 +4391,28 @@ body.mini-navbar .navbar-static-side .navbar-nav span.nav-label{
     max-width: 100%;
     margin-top: 20px;
   }
-  .lifecycle-dashboard .lifecycle-widget h3{
-    font-size: 15px;
-  }
-  .lifecycle-dashboard .lifecycle-widget .stats .number span{
-    font-size: 15px;
-  }
-  .lifecycle-dashboard .lifecycle-widget .stats .number svg{
-    width: 14px;
-    top: 2px;
-  }
-  .lifecycle-dashboard .lifecycle-widget .stats .stat-desc .desc{
-    font-size: 10px;
-    font-weight: 400;
-  }
+  // .lifecycle-dashboard .lifecycle-widget h3{
+  //   font-size: 15px;
+  // }
+  // .lifecycle-dashboard .lifecycle-widget .stats .number span{
+  //   font-size: 15px;
+  // }
+  // .lifecycle-dashboard .lifecycle-widget .stats .number svg{
+  //   width: 14px;
+  //   top: 2px;
+  //}
+  // .lifecycle-dashboard .lifecycle-widget .stats .stat-desc .desc{
+  //   font-size: 10px;
+  //   font-weight: 400;
+  // }
   .lifecycle-dashboard .lifecycle-widget .lifecycle-widget-arrow svg{
     width: 15px;
     left: 3px;
     bottom: 6px;
   }
-  .lifecycle-dashboard .lifecycle-widget .stats .stat-desc p{
-    font-size:14px;
-  }
+  // .lifecycle-dashboard .lifecycle-widget .stats .stat-desc p{
+  //   font-size:14px;
+  // }
   .top-height .navbar-static-top .col-md-7 {
     flex: inherit !important;
     max-width: 40% !important;
@@ -4441,11 +4439,11 @@ body.mini-navbar .navbar-static-side .navbar-nav span.nav-label{
   .lifecycle-dashboard .lifecycle-widget{
     padding: 13px 10px;
   }
-  .lifecycle-dashboard .lifecycle-widget .cta-btn .link-btn{
-    max-width: 155px;
-    font-size: 10px;
-    padding: 6px 10px;
-  }
+  // .lifecycle-dashboard .lifecycle-widget .cta-btn .link-btn{
+  //   max-width: 155px;
+  //   font-size: 10px;
+  //   padding: 6px 10px;
+  // }
 }
 
 

@@ -182,25 +182,28 @@ gridster-item {
 // Dropdown Menu 
 .dropdown-menu {
   background-color: #fff;
-  box-shadow: 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12), 0 2px 4px -1px rgba(0,0,0,.2);
-  border-radius: 5px;
-  padding: 4px 0;
-  min-width: 170px !important;
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.2);
+  border-radius: 0.75rem;
+  padding: 10px 0;
+  min-width: 250px !important;
 
 li {
 
   a {
-    padding: 10px 15px;
+    // padding: 10px 15px;
+    // margin: 0;
+    // font-size: 13px;
+    padding: 15px 15px;
     margin: 0;
-    font-size: 13px;
+    font-size: 16px;
 
     &:hover {
       background: #f1f1f1;
     }
 
     img {
-      width: 17px;
-      margin-right: 10px;
+      width: 24px;
+      margin-right: 14px;
     }
   }
 }
@@ -2403,7 +2406,7 @@ section.tooltip {
   text-overflow: ellipsis;
   white-space: var(--text-wrap, nowrap);
   color: #5f5f6b;
-  font-size: 18px;
+  font-size: 22px;
   overflow: hidden;
   font-weight: 100 !important;
 }
