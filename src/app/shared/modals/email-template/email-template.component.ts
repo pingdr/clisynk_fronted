@@ -29,7 +29,7 @@ export class EmailTemplateComponent implements OnInit {
     ckeConfig: any = EditorContent;
 
     public onClose: Subject<boolean>;
-    selectedTemplate: any = {};
+    selectedTemplate: MailTemplateData = new MailTemplateData();
 
     constructor(public http: HttpService, public appoint: AppointmentService, private sanitized: DomSanitizer) {
         this.myModel = new TableModel();
@@ -69,26 +69,23 @@ export class EmailTemplateComponent implements OnInit {
             })
             forkJoin(requests)
             .subscribe((res: MailTemplateResponse[]) => {
-                this.templates = res.map(x => {
-                    x.data.html = this.getHtmlFromJson(x.data.html);
-                    return x.data;
-                });
+                this.templates = res.map(x => x.data);
             })
         })
         console.log(this.templates);
 
     }
 
-    getHtmlFromJson(jsonHtml:string): string {
-        let html:string;
-        jsonHtml = JSON.stringify(jsonHtml);
-        html = jsonHtml.replace(/\\n/gm,'');
-        html = html.replace(/\\"/gm,'"');
-        html = html.replace(/\s"/gm,'');
-        let styleData = html.match(new RegExp("<style>" + "(.*)" + "<\/style>"));
-        console.log(html);
-        return html;
-    }
+    // getHtmlFromJson(jsonHtml:string): string {
+    //     let html:string;
+    //     jsonHtml = JSON.stringify(jsonHtml);
+    //     html = jsonHtml.replace(/\\n/gm,'');
+    //     html = html.replace(/\\"/gm,'"');
+    //     html = html.replace(/\s"/gm,'');
+    //     let styleData = html.match(new RegExp("<style>" + "(.*)" + "<\/style>"));
+    //     console.log(html);
+    //     return html;
+    // }
 
     formInit() {
         this.form = this.http.fb.group({
@@ -105,7 +102,7 @@ export class EmailTemplateComponent implements OnInit {
 
     insertTemplate() {
         if (this.modalData && this.modalData.isBroadcast) {
-            this.onClose.next(this.selectedTemplate);
+            this.onClose.next(this.selectedTemplate ? true : false);
         } else if (this.modalData && this.modalData.fromPipeline) {
             this.http.hideModal();
             this.http.showModal('PipelineSendEmailComponent', this.selectedTemplate);
@@ -126,8 +123,17 @@ export class EmailTemplateComponent implements OnInit {
 
     finalSubmit(isNew?) {
         if (this.http.isFormValid(this.form)) {
-            const obj: any = this.form.value;
-            isNew ? obj.name = 'New template' : obj.templateId = this.selectedTemplate._id;
+            let obj: any = this.form.value;
+            if(isNew) {
+                obj.templateId = undefined;
+                obj.name = 'New template';
+                obj.html = 'Hi! This is your content area.';
+                obj.subject = "subject";
+            }else {
+                obj = this.form.value;
+                this.selectedTemplate._id ? obj.templateId = this.selectedTemplate._id : undefined;
+            }
+            console.log({isNew: isNew, obj: obj});
             this.http.postData(ApiUrl.ADD_EMAIL_TEMPLATE, obj).subscribe(() => {
                 this.templateList();
             }, () => {

@@ -18,6 +18,10 @@ export class PreviewSmartformComponent implements OnInit {
   formName: string;
   submitted = false;
 
+  ngOnInit() {
+    this.getForm();
+  }
+
   getForm(){
     this.loader = true; 
     this.http.getLeadFormById(this.route.snapshot.paramMap.get('id')).subscribe(res => {  
@@ -33,9 +37,6 @@ export class PreviewSmartformComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-    this.getForm();
-  }
 
   onSubmit(event){
     console.log(event);
