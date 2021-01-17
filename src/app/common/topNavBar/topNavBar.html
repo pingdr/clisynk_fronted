@@ -164,7 +164,7 @@
               class="btn dropdown-toggle"
               aria-controls="dropdown-basic"
             >
-              PingDR(23)<i class="fas fa-angle-down"></i>
+              {{selectedWorkspace?.name}}<i class="fas fa-angle-down"></i>
             </button>
             <ul
               id="dropdown-basic1"
@@ -173,7 +173,12 @@
               role="menu"
               aria-labelledby="button-basic"
             >
-              <li role="menuitem" *ngFor="let workspace of workspaces">
+              <li
+                role="menuitem"
+                *ngFor="let workspace of workspaces"
+                class="workspace-list"
+                (click)="activeWorkspace(workspace)"
+              >
                 <div class="main-workspace-notification">
                   <div
                     class="left-col"
@@ -189,7 +194,7 @@
                         src="../../../assets/images/users-bunch.svg"
                         width="15"
                       />
-                      13{{message}}
+                      13
                     </span>
                   </div>
                 </div>

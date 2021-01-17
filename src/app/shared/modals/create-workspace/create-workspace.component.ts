@@ -20,7 +20,6 @@ export class CreateWorkspaceComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('Modal Data::', this.modalData);
     this.formInit();
     if (this.modalData) {
       this.isEdit = true;

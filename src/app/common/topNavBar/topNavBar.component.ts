@@ -31,10 +31,8 @@ export class TopNavBarComponent implements OnInit {
     loginData: any;
     showClose = false;
     chatToggle = false;
-
-    message:string= 'secondChild';
-
     unreadCount = 0;
+    selectedWorkspace: any = {};
 
     ngOnInit(): void {
         const that = this;
@@ -177,10 +175,26 @@ export class TopNavBarComponent implements OnInit {
             res.data.map(wps => {
                 wps.backgroundColor = this.http.getRandomColor();
             });
-            this.http.updateWorkspaceList(res.data);
+            this.selectedWorkspace = this.loginData.activeWorkspaceId ? res.data.find((wps) => wps._id === this.loginData.activeWorkspaceId) : {};
+            let filteredWorkspace  = res.data.filter((wps) => wps._id !== this.loginData.activeWorkspaceId);
+            this.http.updateWorkspaceList(filteredWorkspace);
             this.http.workspaceList.subscribe(wps=> this.workspaces = wps);
         }, () => {});
     }
+
+    activeWorkspace(workspace){
+        this.http.postWorkspaceSetActive(ApiUrl.WORKSPACE_SET_ACTIVE , {"workspaceId": workspace._id}).subscribe(() => {
+            this.selectedWorkspace = {};
+            this.selectedWorkspace = workspace;
+            let getLoggedUserFromLocalStorage = JSON.parse(localStorage.getItem("loginData"));
+            getLoggedUserFromLocalStorage.activeWorkspaceId = this.selectedWorkspace._id ? this.selectedWorkspace._id : "";
+            localStorage.setItem("loginData", JSON.stringify(getLoggedUserFromLocalStorage));
+            this.http.openSnackBar('Workspace switched successfully');
+        }, () => {
+            this.http.openSnackBar('Something went wrong while activating');
+        });
+    }
+
 }
 
 

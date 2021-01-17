@@ -1,76 +1,134 @@
 <div class="contact-header">
-    <div class="Clients_list_heading">
-        <img [src]="'/assets/images/back-arrow.svg'" (click)="http.goBack()">
-        <h3 class="page-title">Manage Workspace</h3>
-    </div>
-
+  <div class="Clients_list_heading">
+    <img [src]="'/assets/images/back-arrow.svg'" (click)="http.goBack()" />
+    <h3 class="page-title">Manage Workspace</h3>
+  </div>
 </div>
-
-
 <div class="main-edit-work-space-form">
+  <form [formGroup]="form" (ngSubmit)="finalSubmit()" autocomplete="off">
     <div class="first-row">
-        <label>From Workspace</label>
-        <div class="workspace-input">
-          <input type="text" >
-          <label>Workspace Name</label>
-        </div>
-        <!-- <mat-form-field class="full-width" appearance="outline">
-          <mat-label class="required">Business Name</mat-label>
-          <input matInput type="text" formControlName="businessname" #input1>
-      </mat-form-field> -->
+      <label>From Workspace</label>
+      <div class="workspace-input">
+        <input type="text" formControlName="fromWorkspaceId" />
+        <mat-error
+          *ngIf="form.controls['fromWorkspaceId'].hasError('required')"
+        >
+          Please enter from workspace name.
+        </mat-error>
+      </div>
     </div>
     <div class="second-row">
       <label class="sub-heading">To Workspace</label>
-      <mat-form-field class="example-chip-list">
-          <mat-chip-list #chipList aria-label="Fruit selection">
-            <mat-chip
-              *ngFor="let fruit of fruits"
-              [selectable]="selectable"
-              [removable]="removable"
-              (removed)="remove(fruit)">
-              {{fruit}}
-              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-            </mat-chip>
-            <input
-              placeholder="To Workspace"
-              #fruitInput
-              [formControl]="fruitCtrl"
-              [matAutocomplete]="auto"
-              [matChipInputFor]="chipList"
-              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-              (matChipInputTokenEnd)="add($event)">
-          </mat-chip-list>
-          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-            <mat-option *ngFor="let fruit of filteredFruits | async" [value]="fruit">
-              {{fruit}}
-            </mat-option>
-          </mat-autocomplete>
-      </mat-form-field>
+      <ng-multiselect-dropdown
+        formControlName="toWorkspaceIds"
+        [placeholder]="'Select Workspace'"
+        [data]="allWorkspaces"
+        [settings]="dropdownSettingsWorkspace"
+        (onSelect)="onItemSelectWps($event)"
+        (onDeSelect)="onDeSelectWps($event)"
+        (onSelectAll)="onSelectAllWps($event)"
+        (onDeSelectAll)="onDeSelectAllWps($event)"
+      >
+      </ng-multiselect-dropdown>
+      <mat-error
+        *ngIf="
+          form.controls['toWorkspaceIds'].hasError('required') &&
+          form.controls.toWorkspaceIds.touched
+        "
+      >
+        Please select workspaces.
+      </mat-error>
+      <!--<mat-error
+        *ngIf="
+          form.controls['contactId'].hasError('required') &&
+          form.controls.contactId.touched
+        "
+      >
+        Please enter contact.
+      </mat-error>-->
+      <!--<mat-form-field class="example-chip-list">
+        <mat-chip-list #chipList aria-label="Workspace selection">
+          <mat-chip
+            *ngFor="let workspace of workspaces"
+            [selectable]="selectable"
+            [removable]="removable"
+            (removed)="remove(workspace)"
+          >
+            {{ workspace }}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input
+            placeholder="To Workspace"
+            #fruitInput
+            [formControl]="workspaceCtrl"
+            [matAutocomplete]="auto"
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            (matChipInputTokenEnd)="add($event)"
+            formControlName="toWorkspaces"
+          />
+        </mat-chip-list>
+        <mat-autocomplete
+          #auto="matAutocomplete"
+          (optionSelected)="selected($event)"
+        >
+          <mat-option
+            *ngFor="let workspace of filteredWorkspaces | async"
+            [value]="workspace"
+          >
+            {{ workspace?.name }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>-->
     </div>
     <div class="second-row third-row">
       <label class="sub-heading">Contacts</label>
-      <mat-form-field class="example-chip-list">
-        <mat-chip-list #chipList>
-          <mat-chip>Dhruval Ramani (xyz@GMAIL.COM)</mat-chip>
-          <mat-chip>VIRAJ UPADHYAY (VIRAJUPADHYAY7@GMAIL.COM)</mat-chip>
-        </mat-chip-list>
-        <input [matChipInputFor]="chipList">
-      </mat-form-field>
+      <ng-multiselect-dropdown
+        formControlName="contactListIds"
+        [placeholder]="'Select contacts'"
+        [data]="contacts"
+        [settings]="dropdownSettingsContacts"
+        (onSelect)="onItemSelect($event)"
+        (onDeSelect)="onDeSelect($event)"
+        (onSelectAll)="onSelectAll($event)"
+        (onDeSelectAll)="onDeSelectAll($event)"
+      >
+        >
+      </ng-multiselect-dropdown>
+      <mat-error
+        *ngIf="
+          form.controls['contactListIds'].hasError('required') &&
+          form.controls.contactListIds.touched
+        "
+      >
+        Please select contacts.
+      </mat-error>
     </div>
     <div class="second-row fourth-row">
       <label class="sub-heading">Contacts by tag</label>
-      <mat-form-field class="example-chip-list">
-        <mat-chip-list #chipList>
-          <mat-chip>Designer</mat-chip>
-        </mat-chip-list>
-        <input [matChipInputFor]="chipList">
-      </mat-form-field>
+      <ng-multiselect-dropdown
+        formControlName="tagIds"
+        [placeholder]="'Select contact by tags'"
+        [data]="tags"
+        [settings]="dropdownSettingsTags"
+      >
+        >
+      </ng-multiselect-dropdown>
+      <mat-error
+        *ngIf="
+          form.controls['tagIds'].hasError('required') &&
+          form.controls.tagIds.touched
+        "
+      >
+        Please select contacts by tag.
+      </mat-error>
     </div>
     <div class="selected-contacts">
-        <span class="number-for-selected">70</span>
-        Contacts selected
+      <span class="number-for-selected">{{ contactsSelected }}</span>
+      Contacts selected
     </div>
     <div class="Merge-btn">
-       <button class="btn-outline-primary" (click)="http.openModal('merge-contacts')">Merge </button>
+      <button class="btn-outline-primary" type="submit">Merge</button>
     </div>
+  </form>
 </div>

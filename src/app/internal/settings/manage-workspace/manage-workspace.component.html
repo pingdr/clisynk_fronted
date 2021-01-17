@@ -24,7 +24,14 @@
       </thead>
       <tbody>
         <tr *ngFor="let workspace of allData">
-          <td class="form-name">
+          <td
+            class="form-name"
+            [routerLink]="['/settings/edit-workspace']"
+            [queryParams]="{
+              workspaceId: workspace?._id,
+              workspaceName: workspace?.name
+            }"
+          >
             <div class="first-col-inner-main">
               <div
                 class="first-later-name"
@@ -46,8 +53,24 @@
               </div>
             </div>
           </td>
-          <td class="description">{{ workspace?.description }}</td>
-          <td class="added-on">
+          <td
+            class="description"
+            [routerLink]="['/settings/edit-workspace']"
+            [queryParams]="{
+              workspaceId: workspace?._id,
+              workspaceName: workspace?.name
+            }"
+          >
+            {{ workspace?.description }}
+          </td>
+          <td
+            class="added-on"
+            [routerLink]="['/settings/edit-workspace']"
+            [queryParams]="{
+              workspaceId: workspace?._id,
+              workspaceName: workspace?.name
+            }"
+          >
             {{ workspace?.createdAt | date: "dd/MM/yy" }}
           </td>
           <td class="actions-table">
@@ -69,6 +92,9 @@
               <img src="../../../../assets/images/trash-icon.svg" width="20" />
             </button>
           </td>
+        </tr>
+        <tr *ngIf="allData?.length === 0">
+          <td class="no-record" colspan="5">No Workspace Found</td>
         </tr>
       </tbody>
     </table>

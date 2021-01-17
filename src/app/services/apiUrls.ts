@@ -99,6 +99,8 @@ export const ApiUrl = {
     CALL_LOG : 'chat/calls',
 
     //Workspace api's
-    WORKSPACE: 'workspaces'
+    WORKSPACE: 'workspaces',
+    WORKSPACE_MERGE: 'workspaces/merge',
+    WORKSPACE_SET_ACTIVE: 'workspaces/set-active'
 };
 

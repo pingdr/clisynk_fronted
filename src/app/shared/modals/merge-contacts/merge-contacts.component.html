@@ -1,68 +1,87 @@
 <div class="main-popup-submit-feedback">
-    <div class="header-part">
-        <button class="icon-only" type="button" aria-label="Close" (click)="http.hideModal()">
-            <img src="/assets/images/ic_close.svg">
-        </button>
-        <div class="heading">
-            Merge workspace
+  <div class="header-part">
+    <button
+      class="icon-only"
+      type="button"
+      aria-label="Close"
+      (click)="http.hideModal()"
+    >
+      <img src="/assets/images/ic_close.svg" />
+    </button>
+    <div class="heading">Merge workspace</div>
+  </div>
+  <div class="body-content-main-feedback">
+    <div class="text-area-main create-or-edit-workspace-main">
+      <div class="from-to-main-div">
+        <div class="first-col">
+          <span class="from-title">From</span>
+          {{ modalData?.fromWorkspaceName }}
         </div>
+        <div class="second-col-icon">
+          <img src="../../../../assets/images/merge-arrow.svg" width="50" />
+        </div>
+        <div class="third-col">
+          <span class="to-title">To</span>
+          <span
+            class="designation-mail"
+            *ngFor="let workspace of showWorkspaces; let i = index"
+            >{{ workspace?.name }}</span
+          >
+          <div class="more-option" *ngIf="toMore">
+            <div class="dropdown global-add-button">
+              <div class="btn-group add-btn" dropdown>
+                <button
+                  id="button-basic1"
+                  dropdownToggle
+                  type="button"
+                  class="btn dropdown-toggle"
+                  aria-controls="dropdown-basic"
+                >
+                  + {{ showMoreWorkspaces.length }} more
+                </button>
+                <ul
+                  id="dropdown-basic1"
+                  *dropdownMenu
+                  class="dropdown-menu"
+                  role="menu"
+                  aria-labelledby="button-basic"
+                >
+                  <li
+                    role="menuitem"
+                    *ngFor="let workspace of showMoreWorkspaces"
+                  >
+                    <a class="dropdown-item">{{ workspace?.name }}</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-will-be-merged">
+        <span class="number-counter">{{
+          modalData?.contactListIds.length
+        }}</span>
+        Contacts will be merged.
+      </div>
     </div>
-    <div class="body-content-main-feedback">
-        <div class="text-area-main create-or-edit-workspace-main">
-                <div class="from-to-main-div">
-                    <div class="first-col">
-                        <span class="from-title">From</span>
-                        PingDR
-                    </div>
-                    <div class="second-col-icon">
-                            <img src="../../../../assets/images/merge-arrow.svg" width="50">
-                    </div>
-                    <div class="third-col">
-                        <span class="to-title">To</span>
-                        <span class="designation-mail">Workspace-1</span>
-                        <span class="designation-mail">Workspace-2</span>
-                        <span class="designation-mail">Workspace-3</span>
-                        <div class="more-option">
-                            
-                            <div class="dropdown global-add-button">
-                                <div class="btn-group add-btn" dropdown>
-                                    <button id="button-basic1" dropdownToggle type="button" class="btn dropdown-toggle "
-                                            aria-controls="dropdown-basic">
-                                            + 10 more
-                                    </button>
-                                    <ul id="dropdown-basic1" *dropdownMenu class="dropdown-menu" role="menu"
-                                        aria-labelledby="button-basic">
-    
-                                        <li role="menuitem">
-                                            <a class="dropdown-item">Workspace 09</a>
-                                        </li>
-                                        <li role="menuitem">
-                                            <a class="dropdown-item">Workspace 10</a>
-                                        </li>
-                                        <li role="menuitem">
-                                            <a class="dropdown-item">Workspace 11</a>
-                                        </li>
-                                    </ul>
-                                </div> 
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="contact-will-be-merged">
-                    <span class="number-counter">70</span>
-                    Contacts will be merged.
-                </div>
-            
-        </div>
-        <div class="last-button-row">
-            <button class="icon-only submit-btn" type="button" >
-                Confirm
-            </button>
-            <button class="icon-only cancel-btn" type="button" aria-label="Close" (click)="http.hideModal()">
-                Cancel
-            </button>
-        </div>
-
+    <div class="last-button-row">
+      <button
+        class="icon-only submit-btn"
+        type="button"
+        (click)="mergeWorkspace()"
+      >
+        <i class="fa fa-spinner fa-spin" *ngIf="loader"></i>
+        Confirm
+      </button>
+      <button
+        class="icon-only cancel-btn"
+        type="button"
+        aria-label="Close"
+        (click)="http.hideModal()"
+      >
+        Cancel
+      </button>
     </div>
+  </div>
 </div>

@@ -480,6 +480,14 @@ export class HttpService {
         return this.http.post(this.apiEndpoint + url, Obj);
     }
 
+    postWorkspaceMerge(url,Obj){
+        return this.http.post(this.apiEndpoint + url, Obj);
+    }
+
+    postWorkspaceSetActive(url,Obj){
+        return this.http.post(this.apiEndpoint + url, Obj);
+    }
+
     postLeadForm(Obj){
         return this.http.post(this.apiEndpoint + "smartForms/submit", Obj);
     }
