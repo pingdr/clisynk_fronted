@@ -43,6 +43,7 @@ export class ChatsComponent implements OnInit {
   loader = true;
   allSelect = new FormControl();
   simmerLoader: boolean = false;
+  pinLoader: boolean = false;
   searchName = new FormControl();
 
   // selected name var
@@ -470,10 +471,12 @@ export class ChatsComponent implements OnInit {
   // profile pin msgs
   openPinMsg() {
     this.openPinMsgFlag = true;
+    this.pinLoader = true;
     let payload = {
       chatRoomId: this.selectedChat._id
     }
     this.http.getData(ApiUrl.PROFILE_PIN_MSG, payload).subscribe(async res => {
+      this.pinLoader = false;
       if (res.data && res.data[0].messages) {
         this.profilePinArray = res.data[0].messages.reverse();
       }
@@ -759,7 +762,7 @@ export class ChatsComponent implements OnInit {
   forwardSearch(event) {
     let value = event.target.value;
     console.log(value);
-    
+
     this.loader = true;
     this.forwardArray = [];
     let payload = {
@@ -1080,7 +1083,7 @@ export class ChatsComponent implements OnInit {
           message: { content: this.message, ref: null },
           code: timestamp
         });
-        this.clickChat(this.selectedChat,this.selectedChatIndex);
+        this.clickChat(this.selectedChat, this.selectedChatIndex);
         this.manageScroll();
       }
       else {
@@ -1088,7 +1091,7 @@ export class ChatsComponent implements OnInit {
           chatRoomId: this.selectedChat._id,
           message: { content: this.message, ref: this.replayData._id }
         });
-        this.clickChat(this.selectedChat,this.selectedChatIndex);
+        this.clickChat(this.selectedChat, this.selectedChatIndex);
         this.manageScroll();
       }
     }
