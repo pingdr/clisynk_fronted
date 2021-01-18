@@ -147,3 +147,8 @@
 .no-record {
   text-align: center;
 }
+.disabled {
+  cursor: not-allowed !important;
+  pointer-events: none !important;
+  background-color: lightgray;
+}

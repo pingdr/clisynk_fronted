@@ -23,7 +23,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let workspace of allData">
+        <tr
+          *ngFor="let workspace of allData; let i = index"
+          [ngClass]="{ disabled: selectedWorkspace?._id !== workspace?._id }"
+        >
           <td
             class="form-name"
             [routerLink]="['/settings/edit-workspace']"
@@ -43,13 +46,13 @@
               </div>
               <div class="worked-name">
                 {{ workspace?.name }}
-                <!--<span>
+                <span>
                   <img
                     src="../../../../assets/images/users-bunch.svg"
                     width="15"
                   />
                   13
-                </span>-->
+                </span>
               </div>
             </div>
           </td>

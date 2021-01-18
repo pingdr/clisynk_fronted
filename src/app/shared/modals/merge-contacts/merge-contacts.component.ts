@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ApiUrl } from 'src/app/services/apiUrls';
 import { HttpService } from 'src/app/services/http.service';
 
@@ -20,7 +21,8 @@ export class MergeContactsComponent implements OnInit {
 
   postData : any = { "toWorkspaceIds" : [], "contactListIds": [], "tagIds": [], "fromWorkspaceId": ""};
 
-  constructor(public http:HttpService) { }
+  constructor(public http:HttpService, public router: Router) { }
+  
 
   ngOnInit() {
     if(this.modalData){
@@ -46,6 +48,7 @@ export class MergeContactsComponent implements OnInit {
         this.loader = false;
         this.http.hideModal();
         this.http.openSnackBar('Workspace Merged Successfully');
+        this.router.navigate(['/settings/manage-workspace']);
       }, () => {
         this.loader = false;
         this.http.openSnackBar('Something went wrong while merging');

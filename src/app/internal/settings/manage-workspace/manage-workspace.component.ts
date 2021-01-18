@@ -12,11 +12,14 @@ export class ManageWorkspaceComponent implements OnInit {
 
   allData: any;
   workspaceId: any;
+  loginData: any;
+  selectedWorkspace: any = {};
 
   constructor(public http: HttpService) { }
 
   ngOnInit() {
     this.getAllWorkspaces();
+    this.loginData = this.http.loginData;
   }
 
   getAllWorkspaces(){
@@ -26,7 +29,9 @@ export class ManageWorkspaceComponent implements OnInit {
         res.data.map(wps => {
           wps.backgroundColor = this.http.getRandomColor();
         });
+        this.selectedWorkspace = this.loginData.activeWorkspaceId ? res.data.find((wps) => wps._id === this.loginData.activeWorkspaceId) : {};
         this.http.updateWorkspaceList(res.data);
+        this.http.workspaceList.subscribe(wps=> this.allData = wps);
     }, () => {});
   }
 

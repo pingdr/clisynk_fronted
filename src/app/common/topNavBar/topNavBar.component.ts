@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import { Router } from '@angular/router';
 import {smoothlyMenu} from '../../app.helpers';
 import {HttpService} from '../../services/http.service';
 import {FormControl, FormGroup} from '@angular/forms';
@@ -8,7 +9,6 @@ import {AddContactComponent} from '../../shared/modals/add-contact/add-contact.c
 import {LogoutComponent} from '../../shared/modals/logout/logout.component';
 import * as moment from 'moment';
 import $ from 'jquery';
-
 declare var jQuery: any;
 import {interval} from 'rxjs';
 
@@ -18,7 +18,7 @@ import {interval} from 'rxjs';
 })
 export class TopNavBarComponent implements OnInit {
 
-    constructor(public http: HttpService) {
+    constructor(public http: HttpService, public router: Router) {
     }
 
     title: string;
@@ -176,9 +176,12 @@ export class TopNavBarComponent implements OnInit {
                 wps.backgroundColor = this.http.getRandomColor();
             });
             this.selectedWorkspace = this.loginData.activeWorkspaceId ? res.data.find((wps) => wps._id === this.loginData.activeWorkspaceId) : {};
+            console.log('Come Here::', this.selectedWorkspace);
             let filteredWorkspace  = res.data.filter((wps) => wps._id !== this.loginData.activeWorkspaceId);
             this.http.updateWorkspaceList(filteredWorkspace);
             this.http.workspaceList.subscribe(wps=> this.workspaces = wps);
+            this.http.updateWorkspace(this.selectedWorkspace);
+            this.http.workspace.subscribe(wps=> this.selectedWorkspace = wps);
         }, () => {});
     }
 
@@ -190,6 +193,7 @@ export class TopNavBarComponent implements OnInit {
             getLoggedUserFromLocalStorage.activeWorkspaceId = this.selectedWorkspace._id ? this.selectedWorkspace._id : "";
             localStorage.setItem("loginData", JSON.stringify(getLoggedUserFromLocalStorage));
             this.http.openSnackBar('Workspace switched successfully');
+            this.router.navigate(['/home']);
         }, () => {
             this.http.openSnackBar('Something went wrong while activating');
         });

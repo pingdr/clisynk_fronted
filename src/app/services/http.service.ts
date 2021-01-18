@@ -50,6 +50,9 @@ export class HttpService {
     private workspaceListSubject = new BehaviorSubject<any>(null);
     public workspaceList = this.workspaceListSubject.asObservable();
 
+    private workspaceSubject = new BehaviorSubject<any>(null);
+    public workspace = this.workspaceSubject.asObservable();
+
     public heading: string;
     domain: string;
     loginData: any;
@@ -530,6 +533,10 @@ export class HttpService {
 
     updateWorkspaceList(data?) {
         this.workspaceListSubject.next(data);
+    }
+
+    updateWorkspace(data?) {
+        this.workspaceSubject.next(data);
     }
 
     getRandomColor() {
