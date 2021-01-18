@@ -296,8 +296,6 @@ export class AddInvoiceComponent implements OnInit, OnDestroy {
             obj.total = this.total;
             obj.addressId = this.selected._id;
 
-            console.log(obj);
-            
             if (this.myResponse) {
                 obj.invoiceQuoteId = this.myResponse._id;
             }
