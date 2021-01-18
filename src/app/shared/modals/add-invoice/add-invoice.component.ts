@@ -197,6 +197,7 @@ export class AddInvoiceComponent implements OnInit, OnDestroy {
             discountType: ['1'],
             isDiscount: [false],
             depositValue: [10],
+            srNo:[''],
             depositType: ['1'],
             isDeposit: [false],
             acceptOnlinePayment: [false, Validators.required],
@@ -295,6 +296,8 @@ export class AddInvoiceComponent implements OnInit, OnDestroy {
             obj.total = this.total;
             obj.addressId = this.selected._id;
 
+            console.log(obj);
+            
             if (this.myResponse) {
                 obj.invoiceQuoteId = this.myResponse._id;
             }

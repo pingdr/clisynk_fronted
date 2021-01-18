@@ -166,7 +166,10 @@
 
                                     <div class="number-container" *ngIf="myResponse">
                                         <div class="invoice-number-title"> Invoice #</div>
-                                        <div class="invoice-number">{{myResponse?.srNo}}</div>
+                                        <mat-form-field *ngIf="!isEdit" style="width: 50% !important;" class="full-width" appearance="outline">
+                                            <input matInput formControlName="srNo" appNumberOnly>
+                                        </mat-form-field>
+                                        <div *ngIf="isEdit" class="invoice-number">{{myResponse?.srNo}}</div>
                                         <div class="paid">
                                         <span class="order-status-pill paid" *ngIf="myResponse?.status">
                                             <div class="chip" style="background: darkgrey">
