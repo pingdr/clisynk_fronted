@@ -102,6 +102,7 @@ import { SmartFormDeleteComponent } from '../modals/smart-form-delete/smart-form
 import { LeadFormCreateComponent } from '../modals/lead-form-create/lead-form-create.component';
 import { RxReactiveFormsModule } from "@rxweb/reactive-form-validators"
 import { ForgotPasswordComponent } from '../modals/forgot-password/forgot-password.component';
+import { TwoDigitDecimaNumberDirective } from '../directives/decimalNumberOnly.directive';
 
 
 const entryList = [EmailFormatComponent, SendEmailComponent, ChangePasswordComponent, ContactDetailsComponent, AddNoteComponent,
@@ -136,13 +137,13 @@ const importExportList = [MatStepperModule, MatTabsModule, MatSliderModule, MatI
         
         ...importExportList
     ],
-    declarations: [FirstCharacterPipe, CopyClipboardDirective, GoogleplaceDirective, TimeAgoPipe, NumberOnlyDirective,
+    declarations: [FirstCharacterPipe, CopyClipboardDirective, GoogleplaceDirective, TimeAgoPipe, NumberOnlyDirective,TwoDigitDecimaNumberDirective,
         SharedComponent, ChangeTimePipe,chatGroupUsernamePipe, ...entryList],
     exports: [
         CopyClipboardDirective, SharedComponent, TimepickerModule, BsDatepickerModule, GoogleplaceDirective,
         PaginationModule, BsDropdownModule, TabsModule, ModalModule, CollapseModule, AccordionModule, TimeAgoPipe,
         CommonModule, ...importExportList, ...entryList, NgMultiSelectDropDownModule, FirstCharacterPipe,
-        ChangeTimePipe, NumberOnlyDirective, chatGroupUsernamePipe
+        ChangeTimePipe, NumberOnlyDirective, TwoDigitDecimaNumberDirective,chatGroupUsernamePipe
     ],
     entryComponents: [...entryList]
 })
