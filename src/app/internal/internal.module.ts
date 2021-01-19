@@ -16,6 +16,10 @@ const routes: Routes = [{
     path: '', component: InternalComponent,
     children: [
         {
+            path: 'documents',
+            loadChildren: () => import('./documents/documents.module').then(m => m.DocumentsModule)
+        },
+        {
             path: 'home',
             loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
         }, {

@@ -52,6 +52,8 @@ export class HttpService {
 
     private workspaceSubject = new BehaviorSubject<any>(null);
     public workspace = this.workspaceSubject.asObservable();
+    private documentUpdatedSubject = new BehaviorSubject<any>(null);
+    public documentUpdatedStatus = this.documentUpdatedSubject.asObservable();
 
     public heading: string;
     domain: string;
@@ -100,7 +102,19 @@ export class HttpService {
         }
         this.eventSubject.next(obj);
     }
+    updateDocument(url, obj, isLoading?: boolean) {
+        const formData = new FormData();
+        Object.keys(obj).forEach(key => {
+            if (obj[key] !== '' && obj[key] !== undefined) {
+                formData.append(key, obj[key]);
+            }
+        });
+        return this.http.post<any>(this.apiEndpoint + url, obj, {reportProgress: isLoading});
+    }
 
+    documentUpdated(data?) {
+        this.documentUpdatedSubject.next(data ? data : false);
+    }
     sendSearch(data) {
         this.searchSubject.next(data);
     }
@@ -543,5 +557,9 @@ export class HttpService {
         let color = Math.floor(0x1000000 * Math.random()).toString(16);
         return '#' + ('000000' + color).slice(-6);
     }
+    postCreateGroup(apiUrl?, obj?){
+        return this.http.post<any>(this.apiEndpoint + apiUrl, obj);
+    }
+
 }
 

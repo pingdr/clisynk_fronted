@@ -2,6 +2,7 @@ export const EditorContent = {
     allowedContent: false,
     extraPlugins: 'divarea,uploadimage',
     forcePasteAsPlainText: false,
+    height:'20rem',
     toolbar: [
         {name: 'editing', items: ['Scayt', 'Replace', 'SelectAll', 'Image']},
         {name: 'clipboard', items: ['Cut', 'Copy', 'Paste', '-', 'Undo', 'Redo']},

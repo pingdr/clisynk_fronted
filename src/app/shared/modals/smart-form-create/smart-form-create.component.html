@@ -27,8 +27,8 @@
          <div class="workspace-input">
             <mat-form-field class="full-width" appearance="outline">
                 <mat-label class="required">Form Name</mat-label>
-                <input matInput maxlength="50" type="text" formControlName="formName" #input>
-                <mat-hint align="end">{{input.value?.length || 0}}/50</mat-hint>
+                <input matInput maxlength="40" type="text" formControlName="formName" #input>
+                <mat-hint align="end">{{input.value?.length || 0}}/40</mat-hint>
             </mat-form-field>
           </div>
           <div class="text-area-for-that">  
@@ -44,7 +44,9 @@
 </div>
 </form>
 
-<form-builder [form]="form" (change)="onChange($event)" class="smart-form-builder-main-form"></form-builder>
+<form-builder 
+#smartForm
+[form]="smartFormBuilder" (change)="onChange($event)" class="smart-form-builder-main-form"></form-builder>
 <!-- <div>
     <div class="well jsonviewer">
         <pre id="json"><code class="language-json" #json></code></pre>

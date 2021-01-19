@@ -42,6 +42,7 @@ import { PreviewLeadformComponent } from './internal/settings/preview-leadform/p
 import { PreviewSmartformComponent } from './internal/settings/preview-smartform/preview-smartform.component';
 import { ForgotPasswordComponent } from './external/forgot-password/forgot-password.component';
 
+import { NgxSummernoteModule } from 'ngx-summernote';
 
 
 
@@ -72,7 +73,8 @@ import { ForgotPasswordComponent } from './external/forgot-password/forgot-passw
         LightboxModule,
         AngularFireMessagingModule,
         MatChipsModule,
-        AngularFireModule.initializeApp(environment.firebase)
+        AngularFireModule.initializeApp(environment.firebase),
+        NgxSummernoteModule
     ],
 
     providers: [

@@ -9,8 +9,12 @@ import {forkJoin, Subject} from 'rxjs';
 import {DeleteComponent} from '../delete/delete.component';
 import {AppointmentService} from '../../../internal/appointments/appointment.service';
 import { map, mergeMap, toArray } from 'rxjs/operators';
+import { MailTemplateListResponse, MailTemplateListData } from './../../models/mail-template-list.model';
+import { MailTemplateData, MailTemplateResponse } from '../../models/mail-template.model';
+import { DomSanitizer } from '@angular/platform-browser'
 
 declare var CKEDITOR: any;
+declare var $: any;
 @Component({
     selector: 'app-email-template',
     templateUrl: './email-template.component.html'
@@ -21,13 +25,13 @@ export class EmailTemplateComponent implements OnInit {
     allData;
     myModel: any;
     modalData: any;
-    templates: any[] = [];
+    templates: MailTemplateData[] = [];
     ckeConfig: any = EditorContent;
 
     public onClose: Subject<boolean>;
-    selectedTemplate: any = {};
+    selectedTemplate: MailTemplateData = new MailTemplateData();
 
-    constructor(public http: HttpService, public appoint: AppointmentService) {
+    constructor(public http: HttpService, public appoint: AppointmentService, private sanitized: DomSanitizer) {
         this.myModel = new TableModel();
         this.ckeConfig.height = '370px';
     }
@@ -37,6 +41,12 @@ export class EmailTemplateComponent implements OnInit {
         this.formInit();
         this.templateList();
         this.getAppointments();
+    }
+
+    ngAfterViewInit() {
+        $('.note-statusbar').hide(); 
+        $(".note-editable").height(400);
+        $('.note-toolbar').css("background-color","white");
     }
 
     templateList() {
@@ -51,20 +61,31 @@ export class EmailTemplateComponent implements OnInit {
         // }, () => {
         // });
 
-        this.http.getMailTemplates().subscribe(res => {
-            let allTemplates: {name:string, _id:string}[] = res.data;
+        this.http.getMailTemplates().subscribe((res: MailTemplateListResponse) => {
+            let allTemplates: MailTemplateListData[] = res.data;
             const requests: any[] = [];
-            allTemplates.forEach(template => {
+            allTemplates.forEach((template:MailTemplateListData) => {
                 requests.push(this.http.getMailTemplateById(template._id));
             })
             forkJoin(requests)
-            .subscribe((res: any[]) => {
-                this.templates = res.map(x => x.data)
+            .subscribe((res: MailTemplateResponse[]) => {
+                this.templates = res.map(x => x.data);
             })
         })
         console.log(this.templates);
 
     }
+
+    // getHtmlFromJson(jsonHtml:string): string {
+    //     let html:string;
+    //     jsonHtml = JSON.stringify(jsonHtml);
+    //     html = jsonHtml.replace(/\\n/gm,'');
+    //     html = html.replace(/\\"/gm,'"');
+    //     html = html.replace(/\s"/gm,'');
+    //     let styleData = html.match(new RegExp("<style>" + "(.*)" + "<\/style>"));
+    //     console.log(html);
+    //     return html;
+    // }
 
     formInit() {
         this.form = this.http.fb.group({
@@ -81,7 +102,7 @@ export class EmailTemplateComponent implements OnInit {
 
     insertTemplate() {
         if (this.modalData && this.modalData.isBroadcast) {
-            this.onClose.next(this.selectedTemplate);
+            this.onClose.next(this.selectedTemplate ? true : false);
         } else if (this.modalData && this.modalData.fromPipeline) {
             this.http.hideModal();
             this.http.showModal('PipelineSendEmailComponent', this.selectedTemplate);
@@ -102,8 +123,17 @@ export class EmailTemplateComponent implements OnInit {
 
     finalSubmit(isNew?) {
         if (this.http.isFormValid(this.form)) {
-            const obj: any = this.form.value;
-            isNew ? obj.name = 'New template' : obj.templateId = this.selectedTemplate._id;
+            let obj: any = this.form.value;
+            if(isNew) {
+                obj.templateId = undefined;
+                obj.name = 'New template';
+                obj.html = 'Hi! This is your content area.';
+                obj.subject = "subject";
+            }else {
+                obj = this.form.value;
+                this.selectedTemplate._id ? obj.templateId = this.selectedTemplate._id : undefined;
+            }
+            console.log({isNew: isNew, obj: obj});
             this.http.postData(ApiUrl.ADD_EMAIL_TEMPLATE, obj).subscribe(() => {
                 this.templateList();
             }, () => {
