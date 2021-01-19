@@ -524,5 +524,9 @@ export class HttpService {
         return this.http.get<any>(this.apiEndpoint + "email-templates/search?id=" + id);
     }
 
+    postCreateGroup(apiUrl?, obj?){
+        return this.http.post<any>(this.apiEndpoint + apiUrl, obj);
+    }
+
 }
 

@@ -4,6 +4,7 @@ import {HttpService} from '../../../services/http.service';
 import {FILTERS} from './contact-filter.constant';
 import {ApiUrl} from '../../../services/apiUrls';
 import {Subject} from 'rxjs';
+import { FormGroup, Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-contact-filter',
@@ -11,144 +12,133 @@ import {Subject} from 'rxjs';
 })
 export class ContactFilterComponent implements OnInit {
 
+    form: FormGroup;
     allData: any;
-    myModel: any;
-    addBtn = false;
     modalData: any;
-    filters = FILTERS;
-    public data1 = [];
-    public data2 = []; 
-  public settings = {};
-    public onClose: Subject<boolean>;
+    isEdit = false;
+    contacts = [];
+    tags: any = [];
+    loader = false;
+    settingsContactsTags = {
+        singleSelection: false,
+        idField: '_id',
+        textField: 'name',
+        enableCheckAll: true,
+        selectAllText: 'Select all',
+        unSelectAllText: 'Search Contact',
+        allowSearchFilter: true,
+        limitSelection: -1,
+        clearSearchFilter: true,
+        itemsShowLimit: 4,
+        searchPlaceholderText: 'Search',
+        closeDropDownOnSelection: false,
+        showSelectedItemsAtTop: false,
+        defaultOpen: false
+    };
+    settingsContacts = {
+        singleSelection: false,
+        idField: '_id',
+        textField: 'email',
+        enableCheckAll: true,
+        selectAllText: 'Select all',
+        unSelectAllText: 'Search Contact',
+        allowSearchFilter: true,
+        limitSelection: -1,
+        clearSearchFilter: true,
+        itemsShowLimit: 4,
+        searchPlaceholderText: 'Search',
+        closeDropDownOnSelection: false,
+        showSelectedItemsAtTop: false,
+        defaultOpen: false
+    };
+    onClose: Subject<boolean>;
 
-    constructor(public http: HttpService) {
-        this.myModel = new TableModel();
-        this.filters.count = undefined;
-    }
+    constructor(public http: HttpService) {}
 
     ngOnInit(): void {
-
-
-        this.data1 = [
-            { item_id: 1, item_text: 'Lorem ipsum' },
-            { item_id: 2, item_text: 'Lorem ipsum2' },
-            { item_id: 3, item_text: 'Lorem ipsum3' },
-            { item_id: 4, item_text: 'Lorem ipsum4' },
-            { item_id: 5, item_text: 'Lorem ipsum5' }
-          ];
-
-          this.data2 = [
-            { item_id: 1, item_text: 'Tags1' },
-            { item_id: 2, item_text: 'Tags2' },
-            { item_id: 3, item_text: 'Tags3' },
-            { item_id: 4, item_text: 'Tags4' },
-            { item_id: 5, item_text: 'Tags5' }
-          ];
-          // setting and support i18n
-          this.settings = {
-            singleSelection: false,
-            idField: 'item_id',
-            textField: 'item_text',
-            enableCheckAll: true,
-            selectAllText: 'Select all',
-            unSelectAllText: 'Search Contact',
-            allowSearchFilter: true,
-            limitSelection: -1,
-            clearSearchFilter: true,
-            maxHeight: 197,
-            itemsShowLimit: 4,
-            searchPlaceholderText: 'Search',
-            closeDropDownOnSelection: false,
-            showSelectedItemsAtTop: false,
-            defaultOpen: false
-          };
-
-        if (this.modalData.addBtn) {
-            this.addBtn = this.modalData.addBtn;
-        }
-        this.resetBtn();
-    }
-
-    selectFilter() {
-        const newObj: any = this.filters.selectFilters;
-        const obj: any = {
-            key: newObj.key,
-            selected: newObj.selected,
-            viewValue: newObj.viewValue
-        };
-        if (newObj.selected === 1) {
-            obj.type = 1;
+        
+        if (this.modalData) {
+             this.isEdit = true;
+             this.updateFormInit();
         } else {
-            obj.type = 9;
+            this.formInit();
         }
-        this.filters.selectList.push(obj);
-        this.filters.selectFilters = '';
+        
+        this.contactList();
+        this.contactTagList();
     }
 
-    viewContacts() {
-        this.onClose.next(this.allData);
-        this.http.hideModal();
+    formInit() {
+        this.form = this.http.fb.group({
+            name: ['', Validators.required],
+            contactIds: [''],
+            tagIds: ['']
+        });
     }
 
-    addFilter() {
-        if (this.filters.name && this.filters.selectList.length && this.filters.selectList[0].value) {
-            const obj: any = {
-                name: this.filters.name,
-                filters: JSON.stringify(this.filters.selectList)
-            };
-            this.http.hideModal();
-            this.http.postData(ApiUrl.ADD_FILTER, obj).subscribe(() => {
-                        this.http.openSnackBar('List Added Successfully');
-                        this.onClose.next(false);
-            });
-        }
-        else{
-            this.http.openSnackBar('Please add require details of contact.');
-        }
+    updateFormInit() {
+        this.form = this.http.fb.group({
+            contactIds: ['']
+        });
     }
 
     resetBtn() {
-        this.filters.count = undefined;
-        this.filters.selectList = [];
-        this.filters.selectFilters = '';
+        this.form.reset();
     }
 
     contactList() {
         const obj: any = {
             skip: 0,
-            limit: 100,
-            sortBy: this.filters.sortBy
+            limit: 1000,
+            search: ''
         };
-        const temp: any = [];
-        this.filters.selectList.forEach(value => {
-            if (value.value) {
-                temp.push({
-                    key: value.key,
-                    type: value.type,
-                    value: value.value
-                });
-            }
-        });
-        if (temp.length) {
-            obj.filters = JSON.stringify(temp);
-        }
         this.http.getData(ApiUrl.CONTACTS, obj).subscribe(res => {
-            this.allData = res.data.data;
-            this.filters.count = res.data.totalCount;
+            this.contacts = res.data.data;
         });
+    }
+
+    contactTagList(){
+        this.http.getData(ApiUrl.TAGS).subscribe(res => {
+            this.tags = res.data.data;
+        },() => {});
     }
 
     finalSubmit() {
-        this.http.hideModal();
-    }
-
-    removeBtn(index) {
-        this.filters.selectList.splice(index, 1);
-        if (this.filters.selectList.length) {
-            this.contactList();
-        } else {
-            this.filters.count = 0;
+        this.loader = true;
+        const updateObj: any = {};
+        const obj: any = JSON.parse(JSON.stringify(this.form.value));
+        obj.contactIds = obj.contactIds ? obj.contactIds.map(item => {return item._id}) : [];
+        obj.tagIds = obj.tagIds ? obj.tagIds.map(item => {return item._id}) : [];
+        if(this.http.isFormValid(this.form)){
+            if(this.modalData && this.modalData.id){
+                updateObj.contactListId = this.modalData.id;
+                updateObj.contactIds = obj.contactIds;
+            }
+            this.http.postCreateGroup(this.isEdit ? ApiUrl.UPDATE_CONTACT_GROUP : ApiUrl.CREATE_CONTACT_GROUP, this.isEdit ? updateObj : obj).subscribe(() => {
+            this.loader = false;
+            this.isEdit ? this.http.openSnackBar('Contact group updated Successfully') : this.http.openSnackBar('Contact group added Successfully');
+            this.http.hideModal();
+          }, () => {
+            this.loader = false;
+            this.http.hideModal();
+            });
         }
     }
+
+    public onItemSelect(item: any) {}
+
+    public onDeSelect(item: any) {}
+
+    public onSelectAll(items: any) {}
+
+    public onDeSelectAll(items: any) {}
+
+    public onItemSelectTag(item: any) {}
+
+    public onDeSelectTag(item: any) {}
+
+    public onSelectAllTag(items: any) {}
+
+    public onDeSelectAllTag(items: any) {}
 
 }

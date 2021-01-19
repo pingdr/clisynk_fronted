@@ -19,6 +19,8 @@ export const ApiUrl = {
     ADD_FILES: 'contact/addEditFiles',
     LIST_FILES: 'contact/listFiles',
     CONTACT_LISTS: 'contact/getContactList',
+    CREATE_CONTACT_GROUP: 'contacts/create-group',
+    UPDATE_CONTACT_GROUP: 'contacts/modify-group',
     ADD_TASK: 'task/addEditTasks',
     ADD_USER: 'admin/addEditSubUser',
     TASK_LIST: 'task/getTasks',

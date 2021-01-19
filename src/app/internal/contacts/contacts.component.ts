@@ -97,8 +97,8 @@ export class ContactsComponent implements OnInit, OnDestroy {
         this.http.showModal(AddRemoveTagComponent, 'more-sm', obj);
     }
 
-    openContactFilter(addBtn) {
-        const modalRef = this.http.showModal(ContactFilterComponent, 'md', {addBtn: addBtn});
+    openContactFilter() {
+        const modalRef = this.http.showModal(ContactFilterComponent, 'md');
         modalRef.content.onClose = new Subject<boolean>();
         modalRef.content.onClose.subscribe(res => {
             if (res) {
@@ -210,6 +210,13 @@ export class ContactsComponent implements OnInit, OnDestroy {
             this.listsFun();
             this.http.openSnackBar('Contact list have been deleted');
         });
+    }
+
+    updateFilter() {
+        const obj: any = {
+            id: this.myModel.filterId
+        };
+        const modalRef = this.http.showModal(ContactFilterComponent, 'md', obj);
     }
 
     deleteContact() {
