@@ -217,7 +217,6 @@ export class TopNavBarComponent implements OnInit {
                 wps.backgroundColor = this.http.getRandomColor();
             });
             this.selectedWorkspace = this.loginData.activeWorkspaceId ? res.data.find((wps) => wps._id === this.loginData.activeWorkspaceId) : {};
-            console.log('Come Here::', this.selectedWorkspace);
             let filteredWorkspace  = res.data.filter((wps) => wps._id !== this.loginData.activeWorkspaceId);
             this.http.updateWorkspaceList(filteredWorkspace);
             this.http.workspaceList.subscribe(wps=> this.workspaces = wps);

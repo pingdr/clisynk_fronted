@@ -23,21 +23,28 @@ export class EditWorkspaceComponent implements OnInit {
   dropdownSettingsWorkspace: any = {
     idField: '_id',
     textField: 'name',
-    itemsShowLimit: 2,
+    itemsShowLimit: 4,
     allowSearchFilter: true,
     'disabled': true
   };
   dropdownSettingsContacts: any = {
     idField: '_id',
     textField: 'showName',
-    itemsShowLimit: 2,
+    itemsShowLimit: 4,
     allowSearchFilter: true,
     'disabled': true
   };
   dropdownSettingsTags: any = {
     idField: '_id',
     textField: 'name',
-    itemsShowLimit: 2,
+    itemsShowLimit: 4,
+    allowSearchFilter: true,
+    'disabled': true
+  };
+  dropdownSettingsContactsGroup: any = {
+    idField: '_id',
+    textField: 'name',
+    itemsShowLimit: 4,
     allowSearchFilter: true,
     'disabled': true
   };
@@ -46,6 +53,7 @@ export class EditWorkspaceComponent implements OnInit {
   totalContacts: number;
   contactsSelected = 0;
   contacts: any = [];
+  contactGroupLists: any = [];
   tags: any = [];
   fromWorkspaceId: any;
   fromWorkspaceName: any;
@@ -62,13 +70,15 @@ export class EditWorkspaceComponent implements OnInit {
     this.workspaceLists();
     this.contactList();
     this.contactTagList();
+    this.contactGroupList();
   }
 
   formInit() {
     this.form = this.http.fb.group({
         fromWorkspaceId: [{value: this.fromWorkspaceName, disabled: true}, Validators.required],
         toWorkspaceIds: ['', Validators.required],
-        contactListIds: ['', Validators.required],
+        contactListIds: [''],
+        contactGroupListIds: [''],
         tagIds: ['']
     });
   }
@@ -100,7 +110,6 @@ export class EditWorkspaceComponent implements OnInit {
     };
     this.http.getData(ApiUrl.CONTACTS, obj).subscribe(res => {
         this.contacts = res.data.data;
-        console.log('res.data.data::', res.data.data);
         this.totalContacts = res.data.totalCount;
         res.data.data.forEach((val) => {
             this.http.checkLastName(val);
@@ -108,6 +117,16 @@ export class EditWorkspaceComponent implements OnInit {
                 val.showName = val.showName + ` (${val.email})`;
             }
         });
+    });
+  }
+
+  contactGroupList() {
+    const obj: any = {
+        skip: 0,
+        limit: 1000
+    };
+    this.http.getData(ApiUrl.CONTACT_LISTS, obj).subscribe(res => {
+        this.contactGroupLists = res.data;
     });
   }
 
@@ -121,39 +140,29 @@ export class EditWorkspaceComponent implements OnInit {
     }
   }
 
-  public onItemSelect(item: any) {
-    this.contactsSelected += 1;
-  }
+  public onItemSelect(item: any) {}
 
-  public onDeSelect(item: any) {
-    this.contactsSelected -= 1;
-  }
+  public onDeSelect(item: any) {}
 
-  public onSelectAll(items: any) {
-    this.contactsSelected = this.totalContacts;
-  }
+  public onSelectAll(items: any) {}
 
-  public onDeSelectAll(items: any) {
-    this.contactsSelected = 0;
-  }
+  public onDeSelectAll(items: any) {}
 
   public onItemSelectWps(item: any) {
-    this.selectedWorkspaces.push(item);
+      this.selectedWorkspaces.push(item);
   }
 
   public onDeSelectWps(item: any) {
-    const index: number = this.selectedWorkspaces.map(function(e) { return e._id; }).indexOf(item._id);
+      const index: number = this.selectedWorkspaces.map(function(e) { return e._id; }).indexOf(item._id);
     if (index !== -1) {
         this.selectedWorkspaces.splice(index, 1);
     }
   }
 
   public onSelectAllWps(items: any) {
-    this.selectedWorkspaces = this.allWorkspaces;
+      this.selectedWorkspaces = this.allWorkspaces;
   }
 
-  public onDeSelectAllWps(items: any) {
-    this.selectedWorkspaces = [];
-  }
+  public onDeSelectAllWps(items: any) {this.selectedWorkspaces = [];}
 
 }

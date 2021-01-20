@@ -19,7 +19,7 @@ export class MergeContactsComponent implements OnInit {
   showWorkspaces : any = [];
   showMoreWorkspaces : any = [];
 
-  postData : any = { "toWorkspaceIds" : [], "contactListIds": [], "tagIds": [], "fromWorkspaceId": ""};
+  postData : any = { "toWorkspaceIds" : [], "contactListIds": [], "contactIds":[], "tagIds": [], "fromWorkspaceId": ""};
 
   constructor(public http:HttpService, public router: Router) { }
   
@@ -43,11 +43,10 @@ export class MergeContactsComponent implements OnInit {
 
   mergeWorkspace(){
     this.loader = true;
-    console.log("Come Here");
     this.http.postWorkspaceMerge(ApiUrl.WORKSPACE_MERGE , this.postData).subscribe(() => {
         this.loader = false;
         this.http.hideModal();
-        this.http.openSnackBar('Workspace Merged Successfully');
+        this.http.openSnackBar(`Merge request successfully submitted, You will get update over mail once it's executed.`);
         this.router.navigate(['/settings/manage-workspace']);
       }, () => {
         this.loader = false;

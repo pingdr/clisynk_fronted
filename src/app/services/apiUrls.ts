@@ -20,7 +20,7 @@ export const ApiUrl = {
     LIST_FILES: 'contact/listFiles',
     CONTACT_LISTS: 'contact/getContactList',
     CREATE_CONTACT_GROUP: 'contacts/create-group',
-    UPDATE_CONTACT_GROUP: 'contacts/modify-group',
+    UPDATE_CONTACT_GROUP: 'contact/modify-group',
     ADD_TASK: 'task/addEditTasks',
     ADD_USER: 'admin/addEditSubUser',
     TASK_LIST: 'task/getTasks',

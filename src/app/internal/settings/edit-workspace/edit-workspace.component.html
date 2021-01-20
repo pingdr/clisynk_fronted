@@ -95,14 +95,21 @@
       >
         >
       </ng-multiselect-dropdown>
-      <mat-error
-        *ngIf="
-          form.controls['contactListIds'].hasError('required') &&
-          form.controls.contactListIds.touched
-        "
+    </div>
+    <div class="second-row third-row">
+      <label class="sub-heading">Contact group list</label>
+      <ng-multiselect-dropdown
+        formControlName="contactGroupListIds"
+        [placeholder]="'Select contacts'"
+        [data]="contactGroupLists"
+        [settings]="dropdownSettingsContactsGroup"
+        (onSelect)="onItemSelect($event)"
+        (onDeSelect)="onDeSelect($event)"
+        (onSelectAll)="onSelectAll($event)"
+        (onDeSelectAll)="onDeSelectAll($event)"
       >
-        Please select contacts.
-      </mat-error>
+        >
+      </ng-multiselect-dropdown>
     </div>
     <div class="second-row fourth-row">
       <label class="sub-heading">Contacts by tag</label>
@@ -114,18 +121,6 @@
       >
         >
       </ng-multiselect-dropdown>
-      <mat-error
-        *ngIf="
-          form.controls['tagIds'].hasError('required') &&
-          form.controls.tagIds.touched
-        "
-      >
-        Please select contacts by tag.
-      </mat-error>
-    </div>
-    <div class="selected-contacts">
-      <span class="number-for-selected">{{ contactsSelected }}</span>
-      Contacts selected
     </div>
     <div class="Merge-btn">
       <button class="btn-outline-primary" type="submit">Merge</button>

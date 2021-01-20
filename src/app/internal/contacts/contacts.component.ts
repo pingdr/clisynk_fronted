@@ -31,20 +31,23 @@ export class ContactsComponent implements OnInit, OnDestroy {
     loginData: any;
     selectedContactCount = 0;
     showSelected = false;
+    contactsSelectedOnUpdate: any = [];
     allSelect = new FormControl();
     tab = 'allContact';
     topTitle = 'contactList';
     hiddenTabs: any;
     lists: any = [];
+    contactListId: any = "";
 
     constructor(public http: HttpService, public activatedRoute: ActivatedRoute) {
+        this.loginData = JSON.parse(localStorage.getItem('loginData'));
         this.myModel = new TableModel();
         this.myModel.activeIcon = 1;
         this.listsFun();
         activatedRoute.queryParams.subscribe(params => {
             this.myModel.contactsType = params['type'];
-            this.myModel.filterId = params['filterId'];
-            if (this.myModel.filterId) {
+            this.myModel.contactListId = params['contactListId'];
+            if (this.myModel.contactListId) {
                 this.myModel.savedFilter = JSON.parse(localStorage.getItem('savedFilter'));
             } else {
                 this.myModel.savedFilter = '';
@@ -82,7 +85,6 @@ export class ContactsComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.allSelect.disable();
-        this.loginData = JSON.parse(localStorage.getItem('loginData'));
     }
 
     ngOnDestroy(): void {
@@ -126,7 +128,8 @@ export class ContactsComponent implements OnInit, OnDestroy {
     goToFilter(data) {
         if (data._id) {
             localStorage.setItem('savedFilter', JSON.stringify(data));
-            this.http.addQueryParams({filterId: data._id});
+            this.contactListId = data._id;
+            this.http.addQueryParams({contactListId: data._id, });
         } else {
             if (data.name === 'Leads') {
                 this.http.addQueryParams({type: 1});
@@ -199,7 +202,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
             key: 'id',
             title: 'Only the list will be removed',
             message: 'Removing this list will not remove the contacts within the list.',
-            id: this.myModel.filterId
+            id: this.myModel.contactListId
         };
         const modalRef = this.http.showModal(DeleteComponent, 'xs', obj);
         modalRef.content.onClose = new Subject<boolean>();
@@ -208,15 +211,25 @@ export class ContactsComponent implements OnInit, OnDestroy {
             this.getSelectedCount();
             this.http.addQueryParams({});
             this.listsFun();
-            this.http.openSnackBar('Contact list have been deleted');
+            this.http.openSnackBar('Contact group have been deleted');
         });
     }
 
     updateFilter() {
-        const obj: any = {
-            id: this.myModel.filterId
-        };
-        const modalRef = this.http.showModal(ContactFilterComponent, 'md', obj);
+        if(this.myModel){
+            let getParsedContacts = JSON.parse(localStorage.getItem("savedFilter"));
+            this.myModel.contacts.map(element => {
+                let selectedContact = getParsedContacts.contacts.find(contact => contact === element._id);
+                if(selectedContact){
+                    this.contactsSelectedOnUpdate.push({"_id": element._id, "email": element.email});
+                }
+            });
+            const obj: any = {
+                id: this.myModel.contactListId,
+                data: this.contactsSelectedOnUpdate
+            }
+            const modalRef = this.http.showModal(ContactFilterComponent, 'md', obj);
+        }
     }
 
     deleteContact() {
@@ -245,7 +258,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
         };
 
         if (this.myModel.savedFilter) {
-            obj.filters = JSON.stringify(this.myModel.savedFilter.filters);
+            obj.contactListId = this.contactListId ? this.contactListId : "";
         }
 
         this.http.getData(ApiUrl.CONTACTS, obj).subscribe(res => {

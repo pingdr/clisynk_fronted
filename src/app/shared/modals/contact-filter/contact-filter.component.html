@@ -108,7 +108,7 @@
         <label>Name</label>
         <mat-form-field class="full-width" appearance="outline">
           <mat-label class="required">Name</mat-label>
-          <input matInput type="text" formControlName="name" />
+          <input matInput type="text" formControlName="name" maxlength="40" />
           <mat-error
             *ngIf="
               form.controls['name'].hasError('required') &&
@@ -116,6 +116,9 @@
             "
           >
             Please enter group name.
+          </mat-error>
+          <mat-error *ngIf="form.controls['name'].hasError('pattern')">
+            Special characters are not allowed in group name.
           </mat-error>
         </mat-form-field>
       </div>

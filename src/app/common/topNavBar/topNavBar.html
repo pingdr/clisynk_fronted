@@ -20,7 +20,7 @@
       <div class="col-md-7">
         <section class="home-search">
           <div class="global-search">
-            <div class="search-menu">
+            <div class="search-menu" style="position: relative">
               <div class="input-container">
                 <span class="search-icon-desktop">
                   <img [src]="'assets/images/ic_search.svg'" />
@@ -35,73 +35,14 @@
                     (input)="searchChange()"
                   />
                 </div>
-            </div>
-
-            <div class="col-md-7">
-                <section class="home-search">
-                    <div class="global-search">
-                        <div class="search-menu " style="position: relative;">
-                            <div class="input-container">
-                                <span class="search-icon-desktop">
-                                    <img [src]="'assets/images/ic_search.svg'">
-                                </span>
-
-                                <div class="input-field search-input no-label">
-                                    <input class="new-input" type="text" placeholder="Search contacts"
-                                           [formControl]="searchName" (input)="searchChange()">
-                                </div>
-                                <span class="clear-icon" *ngIf="showClose" (click)="searchName.patchValue('')">
-                                    <img [src]="'assets/images/ic_close.svg'">
-                                </span>
-                            </div>
-
-                            <div class="results-container" *ngIf="searchName?.value?.length">
-                                <div class="results">
-                                    <ul class="results-list">
-                                        <li class="result-item" *ngFor="let data of contacts"
-                                            (click)="finalSelected(data)">
-                                            <div class="avatar-img default">
-                                                <h3>{{data?.firstName?.substr(0, 1)}}{{data?.lastName?.substr(0, 1)}}</h3>
-                                            </div>
-                                            <div class="avatar-text">
-                                                <h2><span>{{data?.firstName}} {{data?.lastName}}</span></h2>
-                                                <p class="select-p">{{data?.email}}</p>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <app-loader [showLoader]="loader" [length]="contacts?.length"></app-loader>
-
-                                <section class="results-empty" *ngIf="contacts?.length === 0 && !loader">
-                                    <p class="empty-results"> You have no contacts that match the search
-                                        "{{searchName?.value}}"
-                                    </p>
-                                    <button class="btn btn-outline-primary add-contact"
-                                            (click)="openAddContact(searchName.value)">
-                                        Add "{{searchName?.value}}" now
-                                    </button>
-                                </section>
-                            </div>
-
-                        </div>
-                        <div class="dropdown global-add-button">
-                            <div class="btn-group add-btn" dropdown>
-                                <button id="button-basic1" dropdownToggle type="button" class="btn dropdown-toggle "
-                                        aria-controls="dropdown-basic">
-                                    New <i class="fas fa-angle-down"></i>
-                                </button>
-                                <ul id="dropdown-basic1" *dropdownMenu class="dropdown-menu" role="menu"
-                                    aria-labelledby="button-basic">
-
-                                    <li role="menuitem" *ngIf="http.checkAcl('contacts')">
-                                        <a class="dropdown-item" (click)="openAddContact()">
-                                            <img [src]="'/assets/images/user.svg'"> Contact</a></li>
-
-                                    <li role="menuitem" *ngIf="http.checkAcl('appointments')">
-                                        <a class="dropdown-item" (click)="http.openModal('appointment')">
-                                            <img [src]="'/assets/images/calendar.svg'">
-                                            Appointment</a></li>
+                <span
+                  class="clear-icon"
+                  *ngIf="showClose"
+                  (click)="searchName.patchValue('')"
+                >
+                  <img [src]="'assets/images/ic_close.svg'" />
+                </span>
+              </div>
 
               <div class="results-container" *ngIf="searchName?.value?.length">
                 <div class="results">
@@ -131,10 +72,6 @@
                   [showLoader]="loader"
                   [length]="contacts?.length"
                 ></app-loader>
-                                    <li role="menuitem"><a class="dropdown-item"
-                                                           (click)="openSendEmail()"><img
-                                            [src]="'/assets/images/email.svg'">
-                                        Email</a></li>
 
                 <section
                   class="results-empty"
@@ -198,9 +135,7 @@
                   </li>
 
                   <li role="menuitem">
-                    <a
-                      class="dropdown-item"
-                      (click)="http.openModal('sendEmail')"
+                    <a class="dropdown-item" (click)="openSendEmail()"
                       ><img [src]="'/assets/images/email.svg'" /> Email</a
                     >
                   </li>
@@ -257,7 +192,7 @@
                         src="../../../assets/images/users-bunch.svg"
                         width="15"
                       />
-                      13
+                      {{workspace?.contacts}}
                     </span>
                   </div>
                 </div>
