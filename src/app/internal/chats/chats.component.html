@@ -410,23 +410,64 @@
             <div class="tab-content contact-v-tab-heading" id="pills-tabContent" *ngIf="tab1 == 'mediaTab'">
                 <div class="tab-pane1" id="pills-home">
                     <div class="nav nav-pills row" id="v-pills-tab" aria-orientation="vertical">
-                        <div *ngFor="let data of profileMediaArray">
-                            <div *ngIf="data?.file?.type == 'IMAGE'">
-                                <div style="margin-bottom: 10px;padding: 0px 10px;">
-                                    <img [src]="data?.file?.thumbnail"
-                                        style="width: 100px;height: 100px;cursor: pointer;"
-                                        (click)="previewImage(data?.file?.original)" />
+                        <ng-container *ngIf="mediaLoader">
+                            <div style="display: flex;justify-content: space-between;">
+                                <div class="fb-item" *ngFor="let val of ['','']">
+                                    <div class="first-section-wrapper">
+                                        <div class="gravatar-title">
+                                            <div>
+                                                <ngx-skeleton-loader
+                                                    [theme]="{ width: '155px',   'border-radius': '0', height: '130px', 'margin-bottom': '10px'}">
+                                                </ngx-skeleton-loader>
+                                            </div>
+                                            <!-- <div>
+                                            <ngx-skeleton-loader
+                                            [theme]="{width: '140px','border-radius': '0',height: '125px'}">
+                                            </ngx-skeleton-loader>
+                                        </div> -->
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div *ngIf="data?.file?.type == 'VIDEO'" style="position: relative;">
-                                <div style="margin-bottom: 10px;padding: 0px 10px;" data-target="#myModal"
-                                    data-toggle="modal" (click)="playVideo(data?.file?.original)">
-                                    <img src="assets/images/blurVideoImage.gif" style="padding: 3px;"
-                                        class="common-img-class" style="padding: 0px;width: 100px;height: 100px;" />
-                                    <img src="assets/images/video.svg" width="20px" class="video-icon" />
+                            <div style="display: flex;justify-content: space-between;">
+                                <div class="fb-item" *ngFor="let val of ['','']">
+                                    <div class="first-section-wrapper">
+                                        <div class="gravatar-title">
+                                            <div>
+                                                <ngx-skeleton-loader
+                                                    [theme]="{ width: '155px',   'border-radius': '0', height: '130px', 'margin-bottom': '10px'}">
+                                                </ngx-skeleton-loader>
+                                            </div>
+                                            <!-- <div>
+                                        <ngx-skeleton-loader
+                                        [theme]="{width: '140px','border-radius': '0',height: '125px'}">
+                                        </ngx-skeleton-loader>
+                                    </div> -->
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </ng-container>
+                        <ng-container *ngIf="!mediaLoader">
+                            <div *ngFor="let data of profileMediaArray">
+                                <div *ngIf="data?.file?.type == 'IMAGE'">
+                                    <div style="margin-bottom: 10px;padding: 0px 10px;">
+                                        <img [src]="data?.file?.thumbnail"
+                                            style="width: 100px;height: 100px;cursor: pointer;"
+                                            (click)="previewImage(data?.file?.original)" />
+                                    </div>
+                                </div>
+                                <div *ngIf="data?.file?.type == 'VIDEO'" style="position: relative;">
+                                    <div style="margin-bottom: 10px;padding: 0px 10px;" data-target="#myModal"
+                                        data-toggle="modal" (click)="playVideo(data?.file?.original)">
+                                        <img src="assets/images/blurVideoImage.gif" style="padding: 3px;"
+                                            class="common-img-class" style="padding: 0px;width: 100px;height: 100px;" />
+                                        <img src="assets/images/video.svg" width="20px" class="video-icon" />
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+
                         <div *ngIf="profileMediaArray.length == 0" class="no-media-title">
                             No Media
                         </div>
@@ -456,19 +497,40 @@
             <div class="tab-content contact-v-tab-heading" id="pills-tabContent" *ngIf="tab1 == 'docTab'">
                 <div class="tab-pane1" id="pills-home">
                     <div class="nav flex-column nav-pills" id="v-pills-tab" aria-orientation="vertical">
-                        <div *ngFor="let data of profileMediaArray">
-                            <div *ngIf="data?.file?.type == 'OTHER'">
-                                <div (click)="previewFile(data?.file?.original)" style="display: flex;margin-bottom: 15px;border: 1px solid #dfdfdf;padding: 6px;border-radius: 5px;font-size: 14px;
-                                        background: #dfdfdf61;cursor: pointer;">
-                                    <div><img src="assets/images/docpreview-blue-icon.svg"
-                                            style="height : 36px;margin-right:10px;margin-top: 4px;" /></div>
-                                    <div>
-                                        <div class="doc-name">{{data?.file?.fileName}}</div>
-                                        <div>{{data?.file?.size}}</div>
+                        <ng-container *ngIf="mediaLoader">
+                            <div class="fb-item" *ngFor="let val of ['','','','']">
+                                <div class="first-section-wrapper">
+                                    <div class="gravatar-title">
+                                        <div>
+                                            <ngx-skeleton-loader
+                                                [theme]="{ width: '200px',   'border-radius': '0', height: '15px', 'margin-bottom': '10px'}">
+                                            </ngx-skeleton-loader>
+                                        </div>
+                                        <div>
+                                            <ngx-skeleton-loader
+                                                [theme]="{width: '170px','border-radius': '0',height: '15px'}">
+                                            </ngx-skeleton-loader>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </ng-container>
+                        <ng-container *ngIf="!mediaLoader">
+                            <div *ngFor="let data of profileMediaArray">
+                                <div *ngIf="data?.file?.type == 'OTHER'">
+                                    <div (click)="previewFile(data?.file?.original)" style="display: flex;margin-bottom: 15px;border: 1px solid #dfdfdf;padding: 6px;border-radius: 5px;font-size: 14px;
+                                        background: #dfdfdf61;cursor: pointer;">
+                                        <div><img src="assets/images/docpreview-blue-icon.svg"
+                                                style="height : 36px;margin-right:10px;margin-top: 4px;" /></div>
+                                        <div>
+                                            <div class="doc-name">{{data?.file?.fileName}}</div>
+                                            <div>{{data?.file?.size}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+
                         <div *ngIf="profileMediaArray.length == 0" class="no-media-title">
                             No Docs
                         </div>

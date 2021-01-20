@@ -94,6 +94,7 @@ export class ChatsComponent implements OnInit {
   msgTotal: '';
   isLoading = false;
   typingFlag = false;
+  mediaLoader: boolean = false;
   mediaFlag = false;
   selectedChatIndex = '';
   searchTotalCount = 0;
@@ -672,6 +673,7 @@ export class ChatsComponent implements OnInit {
 
   // get profile images
   getProfileImages() {
+    this.mediaLoader = true;
     this.openCallLogFlag = false;
     let payload = {
       chatRoomId: this.selectedChat._id,
@@ -680,6 +682,7 @@ export class ChatsComponent implements OnInit {
     this.profileImageArray = [];
     this.http.getData(ApiUrl.CHAT_MSG, payload).subscribe(async res => {
       this.profileMediaArray = res.data.data;
+      this.mediaLoader = false;
       res.data && res.data.data.map((img) => {
         if (img.file.type === 'IMAGE') {
           this.profileImageArray.push(img);
