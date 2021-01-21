@@ -144,8 +144,8 @@ export class ContactsComponent implements OnInit, OnDestroy {
             skip: 0,
             limit: 100
         };
-        if (localStorage.getItem('hiddenTabs')) {
-            this.hiddenTabs = JSON.parse(localStorage.getItem('hiddenTabs'));
+        if (localStorage.getItem(`hiddenTabs-${this.loginData.activeWorkspaceId}`)) {
+            this.hiddenTabs = JSON.parse(localStorage.getItem(`hiddenTabs-${this.loginData.activeWorkspaceId}`));
         }
         this.http.getData(ApiUrl.CONTACT_LISTS, obj).subscribe(res => {
             this.lists = res.data;

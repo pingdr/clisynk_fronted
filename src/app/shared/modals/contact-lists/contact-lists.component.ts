@@ -57,10 +57,10 @@ export class ContactListsComponent implements OnInit {
         if (this.hiddenTabs && this.hiddenTabs.length) {
             this.lists.forEach((val) => {
                 this.hiddenTabs.forEach((hideVal, index) => {
-                    if (!data.isHide && data._id === val._id) {
+                    if (!data.isHide && data.name === val.name) {
                         this.hiddenTabs.push(data);
                     }
-                    if(data.isHide && data._id === hideVal._id) {
+                    if(data.isHide && data.name === hideVal.name) {
                         this.hiddenTabs.splice(index, 1);
                     }
                 });
