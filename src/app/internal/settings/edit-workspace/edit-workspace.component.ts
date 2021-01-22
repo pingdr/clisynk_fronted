@@ -78,7 +78,7 @@ export class EditWorkspaceComponent implements OnInit {
         fromWorkspaceId: [{value: this.fromWorkspaceName, disabled: true}, Validators.required],
         toWorkspaceIds: ['', Validators.required],
         contactListIds: [''],
-        contactIds: [''],
+        contactIds: ['', Validators.required],
         tagIds: ['']
     });
   }

@@ -95,6 +95,14 @@
       >
         >
       </ng-multiselect-dropdown>
+      <mat-error
+        *ngIf="
+          form.controls['contactIds'].hasError('required') &&
+          form.controls.contactIds.touched
+        "
+      >
+        Please select atleast one contact.
+      </mat-error>
     </div>
     <div class="second-row third-row">
       <label class="sub-heading">Contact group list</label>

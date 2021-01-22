@@ -71,7 +71,7 @@ export class ContactFilterComponent implements OnInit {
     formInit() {
         this.form = this.http.fb.group({
             name: ['', Validators.compose([Validators.pattern("[a-zA-Z0-9]*"), Validators.required])],
-            contactIds: [''],
+            contactIds: ['', Validators.required],
             tagIds: ['']
         });
     }
@@ -105,12 +105,13 @@ export class ContactFilterComponent implements OnInit {
     }
 
     finalSubmit() {
-        this.loader = true;
+        
         const updateObj: any = {};
         const obj: any = JSON.parse(JSON.stringify(this.form.value));
         obj.contactIds = obj.contactIds ? obj.contactIds.map(item => {return item._id}) : [];
         obj.tagIds = obj.tagIds ? obj.tagIds.map(item => {return item._id}) : [];
         if(this.http.isFormValid(this.form)){
+            this.loader = true;
             updateObj.contactListId = this.modalData ? this.modalData.id : "";
             updateObj.contactIds = obj.contactIds;
             updateObj.op = "add";

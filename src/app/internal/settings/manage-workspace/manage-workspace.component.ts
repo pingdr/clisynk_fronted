@@ -75,9 +75,9 @@ export class ManageWorkspaceComponent implements OnInit {
   }
 
   async reload(url: string): Promise<boolean> {
-        await this.router.navigateByUrl('', { skipLocationChange: true });
-        // this.ngxUiLoaderService.stopLoader("workspace-switch");
-        return this.router.navigateByUrl(url);
+    await this.router.navigateByUrl('', { skipLocationChange: true });
+    // this.ngxUiLoaderService.stopLoader("workspace-switch");
+    return this.router.navigateByUrl(url);
   }
 
 }

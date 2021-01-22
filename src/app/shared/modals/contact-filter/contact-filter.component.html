@@ -135,6 +135,14 @@
           formControlName="contactIds"
         >
         </ng-multiselect-dropdown>
+        <mat-error
+          *ngIf="
+            form.controls['contactIds'].hasError('required') &&
+            form.controls.contactIds.touched
+          "
+        >
+          Please select atleast one contact.
+        </mat-error>
       </div>
       <div class="form-group Associated-Contact" *ngIf="!isEdit">
         <label>Tag</label>
