@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { HttpService } from 'src/app/services/http.service';
 import { CreateWorkspaceComponent } from 'src/app/shared/modals/create-workspace/create-workspace.component';
 import { ApiUrl } from '../../../services/apiUrls';
@@ -13,25 +14,38 @@ export class ManageWorkspaceComponent implements OnInit {
   allData: any;
   workspaceId: any;
   loginData: any;
+  loader = false;
   selectedWorkspace: any = {};
 
-  constructor(public http: HttpService) { }
+  constructor(public http: HttpService, private router: Router) { }
 
   ngOnInit() {
-    this.getAllWorkspaces();
+    this.getAllWorkspaces(false);
     this.loginData = this.http.loginData;
   }
 
-  getAllWorkspaces(){
+  getAllWorkspaces(isDeleted?){
+    this.loader = true;
     const obj: any = {};
     this.http.getData(ApiUrl.WORKSPACE, obj).subscribe(res => {
         this.allData = res.data;    
         res.data.map(wps => {
           wps.backgroundColor = this.http.getRandomColor();
         });
-        this.selectedWorkspace = this.loginData.activeWorkspaceId ? res.data.find((wps) => wps._id === this.loginData.activeWorkspaceId) : {};
-        this.http.updateWorkspaceList(res.data);
-        this.http.workspaceList.subscribe(wps=> this.allData = wps);
+        if(isDeleted){
+          let getLoggedUserFromLocalStorage = JSON.parse(localStorage.getItem("loginData"));
+          getLoggedUserFromLocalStorage.activeWorkspaceId = this.allData[0]._id ? this.allData[0]._id : "";
+          localStorage.setItem("loginData", JSON.stringify(getLoggedUserFromLocalStorage));
+          this.selectedWorkspace = getLoggedUserFromLocalStorage.activeWorkspaceId ? res.data.find((wps) => wps._id === getLoggedUserFromLocalStorage.activeWorkspaceId) : {};
+          this.http.updateWorkspaceList(res.data);
+          this.http.workspaceList.subscribe(wps=> this.allData = wps);
+          this.http.updateWorkspace(this.selectedWorkspace);
+        } else {
+          this.selectedWorkspace = this.loginData.activeWorkspaceId ? res.data.find((wps) => wps._id === this.loginData.activeWorkspaceId) : {};
+          this.http.updateWorkspaceList(res.data);
+          this.http.workspaceList.subscribe(wps=> this.allData = wps);
+        }
+        this.loader = false;
     }, () => {});
   }
 
@@ -55,8 +69,15 @@ export class ManageWorkspaceComponent implements OnInit {
       } else {
           this.http.openSnackBar('Workspace Deleted Successfully');
       }
-      this.getAllWorkspaces();
+      this.getAllWorkspaces(true);
+      // this.reload('settings/manage-workspace');
     });
+  }
+
+  async reload(url: string): Promise<boolean> {
+        await this.router.navigateByUrl('', { skipLocationChange: true });
+        // this.ngxUiLoaderService.stopLoader("workspace-switch");
+        return this.router.navigateByUrl(url);
   }
 
 }

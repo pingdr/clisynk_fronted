@@ -44,9 +44,21 @@ import { ForgotPasswordComponent } from './external/forgot-password/forgot-passw
 
 import { NgxSummernoteModule } from 'ngx-summernote';
 
+import {
+  NgxUiLoaderModule,
+  NgxUiLoaderConfig,
+  SPINNER,
+  POSITION,
+  PB_DIRECTION,
+  NgxUiLoaderRouterModule,
+  NgxUiLoaderHttpModule
+} from 'ngx-ui-loader';
 
-
-
+const ngxUiLoaderConfig: NgxUiLoaderConfig = {
+  bgsColor: '#87cefa',
+  fgsColor: '#87cefa',
+  pbColor: '#87cefa'
+};
 
 @NgModule({
     declarations: [
@@ -74,7 +86,10 @@ import { NgxSummernoteModule } from 'ngx-summernote';
         AngularFireMessagingModule,
         MatChipsModule,
         AngularFireModule.initializeApp(environment.firebase),
-        NgxSummernoteModule
+        NgxSummernoteModule,
+        NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
+        NgxUiLoaderRouterModule, // import this module for showing loader automatically when navigating between app routes
+        NgxUiLoaderHttpModule
     ],
 
     providers: [

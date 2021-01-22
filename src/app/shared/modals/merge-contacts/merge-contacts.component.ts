@@ -26,7 +26,6 @@ export class MergeContactsComponent implements OnInit {
 
   ngOnInit() {
     if(this.modalData){
-      console.log('Modal Data::', this.modalData);
       this.toMore = this.modalData.selectedWorkspacesName.length > 3 ? true : false;
       this.showMoreWorkspaces = this.modalData.selectedWorkspacesName.filter((wps,idx) => idx > 2);
       this.showWorkspaces = this.modalData.selectedWorkspacesName.filter((wps,idx) => idx < 3);
@@ -37,6 +36,7 @@ export class MergeContactsComponent implements OnInit {
   fillValues(data){
     this.postData.fromWorkspaceId = data.fromWorkspaceId ? data.fromWorkspaceId : "";
     this.postData.toWorkspaceIds = data.fromWorkspaceId ? data.toWorkspaceIds.map(item => {return item._id}) : [];
+    this.postData.contactIds = data.contactIds ? data.contactIds.map(item => {return item._id}) : [];
     this.postData.contactListIds = data.contactListIds ? data.contactListIds.map(item => {return item._id}) : [];
     this.postData.tagIds = data.tagIds ? data.tagIds.map(item => {return item._id}) : [];
   }

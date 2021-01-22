@@ -78,7 +78,7 @@ export class EditWorkspaceComponent implements OnInit {
         fromWorkspaceId: [{value: this.fromWorkspaceName, disabled: true}, Validators.required],
         toWorkspaceIds: ['', Validators.required],
         contactListIds: [''],
-        contactGroupListIds: [''],
+        contactIds: [''],
         tagIds: ['']
     });
   }
@@ -87,7 +87,6 @@ export class EditWorkspaceComponent implements OnInit {
     const obj: any = {};
     this.http.getData(ApiUrl.TAGS, obj).subscribe(res => {
         this.tags = res.data.data;
-        console.log('Tags::', this.tags);
       },
     () => {});
   }

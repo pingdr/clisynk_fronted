@@ -111,15 +111,27 @@ export class ContactFilterComponent implements OnInit {
         obj.contactIds = obj.contactIds ? obj.contactIds.map(item => {return item._id}) : [];
         obj.tagIds = obj.tagIds ? obj.tagIds.map(item => {return item._id}) : [];
         if(this.http.isFormValid(this.form)){
+            updateObj.contactListId = this.modalData ? this.modalData.id : "";
+            updateObj.contactIds = obj.contactIds;
+            updateObj.op = "add";
             if(this.modalData && this.modalData.id){
-                updateObj.contactListId = this.modalData.id;
-                updateObj.contactIds = obj.contactIds;
-                updateObj.op = "add";
                 this.http.postCreateGroup(this.isEdit ? ApiUrl.UPDATE_CONTACT_GROUP : ApiUrl.CREATE_CONTACT_GROUP, this.isEdit ? updateObj : obj).subscribe(() => {
                     this.loader = false;
                     this.isEdit ? this.http.openSnackBar('Contact group updated Successfully') : this.http.openSnackBar('Contact group added Successfully');
                     this.http.hideModal();
                     this.http.navigate('contacts');
+                    this.http.eventSubject.next({eventType: 'addContact'});
+                }, () => {
+                    this.loader = false;
+                    this.http.hideModal();
+                });
+            } else {
+                this.http.postCreateGroup(this.isEdit ? ApiUrl.UPDATE_CONTACT_GROUP : ApiUrl.CREATE_CONTACT_GROUP, this.isEdit ? updateObj : obj).subscribe(() => {
+                    this.loader = false;
+                    this.isEdit ? this.http.openSnackBar('Contact group updated Successfully') : this.http.openSnackBar('Contact group added Successfully');
+                    this.http.hideModal();
+                    this.http.navigate('contacts');
+                    this.http.eventSubject.next({eventType: 'addContact'});
                 }, () => {
                     this.loader = false;
                     this.http.hideModal();
@@ -133,6 +145,7 @@ export class ContactFilterComponent implements OnInit {
                 this.http.postCreateGroup(this.isEdit ? ApiUrl.UPDATE_CONTACT_GROUP : ApiUrl.CREATE_CONTACT_GROUP, this.isEdit ? updateObj : obj).subscribe(() => {
                     this.loader = false;
                     this.http.navigate('contacts');
+                    this.http.eventSubject.next({eventType: 'addContact'});
                 }, () => {
                     this.loader = false;
                 });
@@ -148,7 +161,9 @@ export class ContactFilterComponent implements OnInit {
         }
     }
 
-    public onSelectAll(items: any) {}
+    public onSelectAll(items: any) {
+
+    }
 
     public onDeSelectAll(items: any) {
         if(this.modalData){

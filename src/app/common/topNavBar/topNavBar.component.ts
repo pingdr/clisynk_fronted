@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { SendEmailComponent } from './../../shared/modals/send-email/send-email.component';
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {smoothlyMenu} from '../../app.helpers';
 import {HttpService} from '../../services/http.service';
 import {FormControl, FormGroup} from '@angular/forms';
@@ -13,14 +13,14 @@ import $ from 'jquery';
 declare var jQuery: any;
 import {interval, Subject} from 'rxjs';
 import { MailTemplateData } from 'src/app/shared/models/mail-template.model';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
     selector: 'app-top-nav-bar',
     templateUrl: 'topNavBar.html'
 })
 export class TopNavBarComponent implements OnInit {
-
-    constructor(public http: HttpService, public router: Router) {
+    constructor(public http: HttpService, public router: Router, private ngxUiLoaderService: NgxUiLoaderService) {
     }
 
     title: string;
@@ -221,11 +221,15 @@ export class TopNavBarComponent implements OnInit {
             this.http.updateWorkspaceList(filteredWorkspace);
             this.http.workspaceList.subscribe(wps=> this.workspaces = wps);
             this.http.updateWorkspace(this.selectedWorkspace);
-            this.http.workspace.subscribe(wps=> this.selectedWorkspace = wps);
+            this.http.workspace.subscribe(wps=> {
+                console.log('wps::', wps);
+                this.selectedWorkspace = wps
+            });
         }, () => {});
     }
 
     activeWorkspace(workspace){
+        this.ngxUiLoaderService.startLoader("workspace-switch");
         this.http.postWorkspaceSetActive(ApiUrl.WORKSPACE_SET_ACTIVE , {"workspaceId": workspace._id}).subscribe(() => {
             this.selectedWorkspace = {};
             this.selectedWorkspace = workspace;
@@ -233,10 +237,17 @@ export class TopNavBarComponent implements OnInit {
             getLoggedUserFromLocalStorage.activeWorkspaceId = this.selectedWorkspace._id ? this.selectedWorkspace._id : "";
             localStorage.setItem("loginData", JSON.stringify(getLoggedUserFromLocalStorage));
             this.http.openSnackBar('Workspace switched successfully');
-            this.router.navigate(['/home']);
+            this.reload('/home');
+            //this.router.navigate(['/home']);
         }, () => {
             this.http.openSnackBar('Something went wrong while activating');
         });
+    }
+
+    async reload(url: string): Promise<boolean> {
+        await this.router.navigateByUrl('', { skipLocationChange: true });
+        this.ngxUiLoaderService.stopLoader("workspace-switch");
+        return this.router.navigateByUrl(url);
     }
 
 }

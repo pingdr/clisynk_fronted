@@ -21,7 +21,6 @@
         <input matInput placeholder="" type="text" [formControl]="search" />
       </mat-form-field>
     </div>
-
     <div class="row">
       <div class="col-md-4" *ngFor="let data of lists | filter: search.value">
         <div class="contact-saved-lists">

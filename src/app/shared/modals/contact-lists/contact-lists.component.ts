@@ -28,7 +28,6 @@ export class ContactListsComponent implements OnInit {
 
     ngOnInit(): void {
         this.listsFun();
-        console.log('Login Data::', this.loginData.activeWorkspaceId);
     }
 
     gotoTab(data) {

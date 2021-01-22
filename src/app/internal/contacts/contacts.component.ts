@@ -24,6 +24,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
     form: FormGroup;
     subscription: Subscription;
     searchSubscription: Subscription;
+    contactListSubscription: Subscription;
     loader = true;
     selectedIndex: number;
     selected: any;
@@ -81,6 +82,13 @@ export class ContactsComponent implements OnInit, OnDestroy {
                 });
             }
         });
+
+        this.contactListSubscription = this.http.eventStatus.subscribe(data => {
+            console.log('Come here');
+            if (data && data.eventType === 'addContact') {
+                this.listsFun();
+            }
+        });
     }
 
     ngOnInit() {
@@ -90,6 +98,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         this.searchSubscription.unsubscribe();
         this.subscription.unsubscribe();
+        this.contactListSubscription.unsubscribe();
     }
 
     openAddRemoveTag() {
@@ -118,7 +127,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
 
     closedFun() {
         this.selected = {};
-    }
+}
 
     selectContact(data, index) {
         this.selected = data;
