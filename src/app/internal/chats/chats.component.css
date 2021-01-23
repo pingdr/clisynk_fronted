@@ -458,6 +458,7 @@
   font-size: 12px;
   max-width: 650px;
   min-width: 80px;
+  margin-left: 30px;
 }
 .simple-admin-file{
   background: #0040DC;
@@ -1143,7 +1144,7 @@ span.search-icon img {
 .msg-time-user{
     float: left;
     font-size: 10px;
-    margin-left: 5px;
+    margin-left: 30px;
     color: #b0b0b0;
 }
 .dropdown-menu.chat-menu{

@@ -599,6 +599,8 @@
                                     style="cursor: pointer;width: 26px;" (click)="displaySearch()" /></span>
                             <span class="search-icon" ><img  (click)="forwardMsg(openForwardModal,chat)" src="../../../assets/images/forward.svg"
                                         style="cursor: pointer;width: 28px;"/></span>
+                            <span class="search-icon" ><img  (click)="forwardMsg(openForwardModal,chat)" src="../../../assets/images/close.svg"
+                                            style="cursor: pointer;width: 28px;"/></span>
                                         
                         </div>
 
@@ -664,7 +666,7 @@
 
                                     <!-- CHECKBOX-FOR-FORWARD-ALL -->
                                     <mat-checkbox    *ngIf="forwardselectmsg" class="example-margin" style="    position: absolute;
-                                    top: 5px; bottom: 0; margin: auto; bottom: 0; margin: auto; height: 20px;"></mat-checkbox>
+                                    top: 5px; bottom: 0; margin: auto; bottom: 0; margin: auto; height: 20px; left:0;"></mat-checkbox>
                                     <!-- admin msg -->
                                     <div *ngIf="adminId === chat?.from?.user;else otherUser" style="float: right;"
                                         class="dropdown">
