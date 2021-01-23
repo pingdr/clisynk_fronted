@@ -597,11 +597,11 @@
                                     style="cursor: pointer;width: 26px;" (click)="handleAudio()" /></span>
                             <span class="search-icon"><img src="assets/images/search.png"
                                     style="cursor: pointer;width: 26px;" (click)="displaySearch()" /></span>
-                            <span class="search-icon" ><img  (click)="forwardMsg(openForwardModal,chat)" src="../../../assets/images/forward.svg"
+                            <span class="search-icon" *ngIf="forwardselectmsg"><img  (click)="forwardMsg(openForwardModal,chat)" src="../../../assets/images/forward.svg"
                                         style="cursor: pointer;width: 28px;"/></span>
                             <!-- <span class="search-icon" ><img  (click)="forwardMsg(openForwardModal,chat)" src="../../../assets/images/close.svg"
                                             style="cursor: pointer;width: 28px;"/></span> -->
-                            <span class="search-icon" ><img  (click)="forwardMsg(openForwardModal,chat)" src="../../../assets/images/close.svg"
+                            <span class="search-icon" *ngIf="forwardselectmsg"><img  (click)="closeForward()" src="../../../assets/images/close.svg"
                                                 style="cursor: pointer;width: 28px;"/></span>
                                         
                         </div>
@@ -667,7 +667,7 @@
                                 <div class="row msg-row" style="margin-bottom: 5px;" [id]="chat?._id">
 
                                     <!-- CHECKBOX-FOR-FORWARD-ALL -->
-                                    <mat-checkbox    *ngIf="forwardselectmsg" class="example-margin" style="    position: absolute;
+                                    <mat-checkbox *ngIf="forwardselectmsg" name="check__{{i}}" (change)="forwardCheck($event,chat)" class="example-margin" style="position: absolute;
                                     top: 5px; bottom: 0; margin: auto; bottom: 0; margin: auto; height: 20px; left:0;"></mat-checkbox>
                                     <!-- admin msg -->
                                     <div *ngIf="adminId === chat?.from?.user;else otherUser" style="float: right;"
@@ -1275,7 +1275,7 @@
                                             style="font-weight: bold;font-size: 14px;">
                                             {{ chat?.fromUserName }}
                                         </div>
-                                        <div style="float: left;position: relative;" [id]="chat?._id">
+                                        <div style="float: left;position: relative;margin-left: 30px;" [id]="chat?._id">
 
                                             <div *ngIf="chat?.file != null;else onlyMsg">
                                                 <div *ngIf="chat?.ref == null;else UserImageReplay">
@@ -1795,7 +1795,7 @@
                                                         </a>
                                                     </li>
                                                     <li role="menuitem" style="display: block"
-                                                        (click)="forwardMsg(openForwardModal,chat)">
+                                                    (click)="forwardselect()">
                                                         <a class="dropdown-item">
                                                             <img src="../../../assets/images/forward.svg" width="15"
                                                                 class="groupo-img">

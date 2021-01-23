@@ -43,6 +43,7 @@ export class ChatsComponent implements OnInit {
   tab1 = '';
   chatModel;
   loader = true;
+  forwardIds: any = []
   allSelect = new FormControl();
   simmerLoader: boolean = false;
   pinLoader: boolean = false;
@@ -199,7 +200,7 @@ export class ChatsComponent implements OnInit {
     this.getVideoCallEvent();
     this.getVoiceCallEvent();
     this.subscribeTimer();
-    
+
   }
 
   getVideoCallEvent() {
@@ -1048,8 +1049,10 @@ export class ChatsComponent implements OnInit {
     this.forwardMsgContact.map((chatRoomId) => {
       this.socket.emit('forward', {
         chatRoomId: chatRoomId,
-        messageIds: [this.forwardData._id]
+        messageIds: this.forwardIds
       });
+      this.forwardIds = []
+      this.forwardselectmsg = false;
     });
   }
 
@@ -1276,18 +1279,36 @@ export class ChatsComponent implements OnInit {
     this.replayFlag = false;
     this.replayData = '';
   }
-
+  forwardCheck(event, chat) {
+    if (event.checked) {
+      this.forwardIds.push(chat._id)
+    } else {
+      for (let i = 0; i < this.forwardIds.length; i++) {
+        if (this.forwardIds[i] === chat._id) {
+          this.forwardIds.splice(i, 1);
+        }
+      }
+    }
+  }
   // forward msg modal
   forwardMsg(openForwardModal: TemplateRef<any>, chat) {
-    this.forwardData = chat;
-    this.forwardModalFlag = true;
-    this.forwardArray = this.activeChatList;
-    this.modalRef = this.modalService.show(
-      openForwardModal,
-      Object.assign({}, { class: 'gray modal-md' })
-    );
-  }
+    if (this.forwardIds.length > 0) {
+      this.forwardData = chat;
+      this.forwardModalFlag = true;
+      this.forwardArray = this.activeChatList;
+      console.log(this.forwardArray);
+      this.modalRef = this.modalService.show(
+        openForwardModal,
+        Object.assign({}, { class: 'gray modal-md' })
+      );
+    } else {
 
+    }
+  }
+  closeForward() {
+    this.forwardselectmsg = false;
+    this.forwardIds = [];
+  }
   // pin msg
   pinMsg(chat) {
     let payload = {
@@ -1697,7 +1718,7 @@ export class ChatsComponent implements OnInit {
     }
   }
 
-  forwardselect(){
+  forwardselect() {
     this.forwardselectmsg = true;
   }
 
