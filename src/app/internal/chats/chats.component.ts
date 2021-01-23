@@ -35,6 +35,8 @@ export class ChatsComponent implements OnInit {
   @ViewChild('localVideo', { static: true }) localVideo: ElementRef;
   @ViewChild('remoteVideo', { static: true }) remoteVideo: ElementRef;
 
+
+  forwardselectmsg = false
   mode = new FormControl('over');
   form: FormGroup;
   tab = 'chats';
@@ -197,6 +199,7 @@ export class ChatsComponent implements OnInit {
     this.getVideoCallEvent();
     this.getVoiceCallEvent();
     this.subscribeTimer();
+    
   }
 
   getVideoCallEvent() {
@@ -1692,6 +1695,10 @@ export class ChatsComponent implements OnInit {
     if (this.videoSrc) {
       return this._sanitizer.bypassSecurityTrustResourceUrl(this.videoSrc)
     }
+  }
+
+  forwardselect(){
+    this.forwardselectmsg = true;
   }
 
 }

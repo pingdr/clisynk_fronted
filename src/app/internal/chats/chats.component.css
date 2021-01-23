@@ -1846,3 +1846,7 @@ span.search-icon img {
 .contact-v-tab-heading .nav-pills a span.circle{
   font-size: 15px;
 }
+
+.message-hover .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+  background: #0440dc !important;
+}

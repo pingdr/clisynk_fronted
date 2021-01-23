@@ -597,6 +597,9 @@
                                     style="cursor: pointer;width: 26px;" (click)="handleAudio()" /></span>
                             <span class="search-icon"><img src="assets/images/search.png"
                                     style="cursor: pointer;width: 26px;" (click)="displaySearch()" /></span>
+                            <span class="search-icon"><img src="../../../assets/images/forward.svg"
+                                        style="cursor: pointer;width: 28px;"/></span>
+                                        
                         </div>
 
                         <div class="invoices-page-table" style="display: contents;" *ngIf="searchFlag">
@@ -656,9 +659,12 @@
                             </div>
                         </ng-container>
                         <ng-container *ngIf="!simmerLoader">
-                            <div *ngFor="let chat of massageArray;let i = index" class="dropdown">
+                            <div *ngFor="let chat of massageArray;let i = index" class="dropdown message-hover">
                                 <div class="row msg-row" style="margin-bottom: 5px;" [id]="chat?._id">
 
+                                    <!-- CHECKBOX-FOR-FORWARD-ALL -->
+                                    <mat-checkbox    *ngIf="forwardselectmsg" class="example-margin" style="    position: absolute;
+                                    top: 5px; bottom: 0; margin: auto; bottom: 0; margin: auto; height: 20px;"></mat-checkbox>
                                     <!-- admin msg -->
                                     <div *ngIf="adminId === chat?.from?.user;else otherUser" style="float: right;"
                                         class="dropdown">
@@ -1225,8 +1231,7 @@
                                                         <span class="ellipsis">Replay</span>
                                                     </a>
                                                 </li>
-                                                <li role="menuitem" style="display: block"
-                                                    (click)="forwardMsg(openForwardModal,chat)">
+                                                <li role="menuitem" style="display: block" (click)="forwardselect()">
                                                     <a class="dropdown-item">
                                                         <img src="../../../assets/images/forward.svg" width="15"
                                                             class="groupo-img">
