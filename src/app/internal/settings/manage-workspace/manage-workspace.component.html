@@ -29,11 +29,7 @@
         >
           <td
             class="form-name"
-            [routerLink]="['/settings/edit-workspace']"
-            [queryParams]="{
-              workspaceId: workspace?._id,
-              workspaceName: workspace?.name
-            }"
+            
           >
             <div class="first-col-inner-main">
               <div
@@ -58,21 +54,14 @@
           </td>
           <td
             class="description"
-            [routerLink]="['/settings/edit-workspace']"
-            [queryParams]="{
-              workspaceId: workspace?._id,
-              workspaceName: workspace?.name
-            }"
+            matTooltip="Description"
+           
           >
             {{ workspace.description ? workspace.description : "-" }}
           </td>
           <td
             class="added-on"
-            [routerLink]="['/settings/edit-workspace']"
-            [queryParams]="{
-              workspaceId: workspace?._id,
-              workspaceName: workspace?.name
-            }"
+           
           >
             {{ workspace?.createdAt | date: "dd/MM/yy" }}
           </td>
@@ -93,6 +82,15 @@
               (click)="deleteWorkspace(deletePopup, workspace?._id)"
             >
               <img src="../../../../assets/images/trash-icon.svg" width="20" />
+            </button>
+            <button class="delete-icon" matTooltip="Manage Workspace" 
+            [routerLink]="['/settings/edit-workspace']"
+            [queryParams]="{
+              workspaceId: workspace?._id,
+              workspaceName: workspace?.name
+            }">
+              <img src="../../../../assets/images/working-space-icon.svg" width="20"/>
+
             </button>
           </td>
         </tr>
