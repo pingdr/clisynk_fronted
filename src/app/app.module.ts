@@ -44,10 +44,6 @@ import { ForgotPasswordComponent } from './external/forgot-password/forgot-passw
 
 import { NgxSummernoteModule } from 'ngx-summernote';
 
-
-
-
-
 @NgModule({
     declarations: [
         CapitalizePipe, AppComponent, LoginComponent, PrivacyComponent, SubmitfeedbackComponent,

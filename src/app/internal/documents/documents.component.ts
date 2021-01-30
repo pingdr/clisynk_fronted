@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { CreateFolderComponent } from '../../shared/modals/create-folder/create-folder.component';
-import { CreateDocumentComponent } from '../../shared/modals/create-document/create-document.component';
-import { DeleteDocComponent } from '../../shared/modals/delete-doc/delete-doc.component'
-import { HttpService } from '../../services/http.service';
-import * as $ from 'jquery';
-import { Subject, Subscription } from 'rxjs';
+import { Component, OnInit, TemplateRef } from "@angular/core";
+import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
+import { CreateFolderComponent } from "../../shared/modals/create-folder/create-folder.component";
+import { CreateDocumentComponent } from "../../shared/modals/create-document/create-document.component";
+import { DeleteDocComponent } from "../../shared/modals/delete-doc/delete-doc.component";
+import { HttpService } from "../../services/http.service";
+import * as $ from "jquery";
+import { Subject, Subscription, of } from "rxjs";
 //import {FILTERS} from './contact-filter.constant';
-import * as _ from 'lodash';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { MoveComponent } from '../../shared/modals/move/move.component';
-
-import { TreeviewItem, TreeviewConfig } from 'ngx-treeview';
+import * as _ from "lodash";
+import { FormArray, FormBuilder, FormControl, FormGroup } from "@angular/forms";
+import { MoveComponent } from "../../shared/modals/move/move.component";
+import { threeDotOptions } from "../../services/constants";
 
 export interface PeriodicElement {
   name: string;
@@ -20,189 +20,168 @@ export interface PeriodicElement {
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 'Documents for Client.', name: '', weight: '', symbol: 'Just now' },
-  { position: 'Project Management', name: '', weight: '', symbol: 'Just now' },
-  { position: 'Proposal', name: '', weight: '', symbol: 'Just now' },
-  { position: 'Event Management Proposal', name: 'Draft', weight: '$0.00', symbol: '36 minutes ago' },
+  {
+    position: "Documents for Client.",
+    name: "",
+    weight: "",
+    symbol: "Just now",
+  },
+  { position: "Project Management", name: "", weight: "", symbol: "Just now" },
+  { position: "Proposal", name: "", weight: "", symbol: "Just now" },
+  {
+    position: "Event Management Proposal",
+    name: "Draft",
+    weight: "$0.00",
+    symbol: "36 minutes ago",
+  },
 ];
 
 @Component({
-  selector: 'app-documents',
-  templateUrl: './documents.component.html',
-  styleUrls: ['./documents.component.css']
+  selector: "app-documents",
+  templateUrl: "./documents.component.html",
+  styleUrls: ["./documents.component.css"],
 })
 export class DocumentsComponent implements OnInit {
-
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  modalRef: BsModalRef;
+  displayedColumns: string[] = ["position", "name", "weight", "symbol"];
   dataSource = ELEMENT_DATA;
+
+  public itemsExpand: any[] = threeDotOptions;
 
   isView = true;
   isViewMenu = false;
   responseData = [];
-  url = 'documents';
+  url = "documents";
   folderList = [];
   selectedItem = [];
+  documentsBreadcrumbs: any = [{ name: "All", id: "0", selectedIdx: "" }];
+  documentsBreadcrumbsInMoveSection: any = [{ name: "All", id: "0" }];
 
   searchText = "";
   sortType = -1;
-  sortBy = 'lastModified';
-  status = '';
+  sortBy = "lastModified";
+  status = "";
   addedBy = 0;
   modalData: any;
-  folderId: '';
+  folderId: "";
   temp = false;
   tableHeaderFlag = false;
   isShowHeader = false;
   public loader = false;
-  subscription: Subscription;
+  folderUpdateSubscription: Subscription;
   isMasterSel: boolean;
   myForm: FormGroup;
 
-  items_old = [new TreeviewItem({
-    text: "IT",
-    value: {},
-    children: [
-      {
-        text: "Programming",
-        value: 91,
-        children: [
-          {
-            text: "Frontend",
-            value: 911,
-            children: [
-              { text: "Angular 1", value: 9111 },
-              { text: "Angular 2", value: 9112 },
-              { text: "ReactJS", value: 9113 },
-            ],
-          },
-          {
-            text: "Backend",
-            value: 912,
-            children: [
-              { text: "C#", value: 9121 },
-              { text: "Java", value: 9122 },
-              { text: "Python", value: 9123, checked: false },
-            ],
-          },
-        ],
-      },
-      {
-        text: "Networking",
-        value: 92,
-        children: [
-          { text: "Internet", value: 921 },
-          { text: "Security", value: 922 },
-        ],
-      },
-    ],
-  })];
+  items_old = [];
   items = [];
+
+  // Implementation of Tree View from Kendo UI
+  folderStructureInTreeView: any[] = [];
+  public selectedKeys: any[] = [];
+  public hasChildren = (item: any) => item.items && item.items.length > 0;
+  public fetchChildren = (item: any) => of(item.items);
+  public isItemSelected = (_: any, index: string) => this.selectedKeys.indexOf(index) > -1;
+  folderMergeIndex: any = [];
+  tempArray = [];
+  selectedFolder: any;
+
   config = {
     hasAllCheckBox: false,
     hasFilter: false,
     hasCollapseExpand: false,
     decoupleChildFromParent: false,
-    maxHeight: 500
+    maxHeight: 500,
   };
-  constructor(public http: HttpService,
-    private fb: FormBuilder) { }
+
+  isNavigate: boolean = false;
+  constructor(
+    public http: HttpService,
+    private fb: FormBuilder,
+    private modalService: BsModalService
+  ) {}
 
   ngOnInit(): void {
-    this.subscription = this.http.documentUpdatedStatus.subscribe(data => {
-
-      this.documentList();
-      this.selectedItem = [];
-      this.isShowHeader = false;
+    console.log(this.hasChildren);
+    console.log(this.fetchChildren);
+    this.folderUpdateSubscription = this.http.documentUpdatedStatus.subscribe((data) => {
+      this.folderStructureInTreeView = Array.isArray(data) ? data : [];
     });
-
     this.myForm = this.fb.group({
-      id: this.fb.array([])
+      id: this.fb.array([]),
     });
-
     this.folderListWithName();
     this.setActiveClass();
-  }
-  folderListWithName() {
-    this.http.getData(this.url, {
-      partial: 1,
-    }).subscribe(res => {
-      this.items_old = [new TreeviewItem({
-        text: "IT",
-        value: {},
-        children:res.data
-      })];
-      this.folderList = res.data;
-      let treeData = [];
-      let i = 1;
-      res.data.forEach(element => {
-        treeData.push(new TreeviewItem(element));
-        if (res.data.length === i) {
-          this.items = treeData;
-          //this.items_old = treeData;
-        }
-        i++;
-      });
-    });
-  }
-  onFilterChange(value: string): void {
-    console.log('onFilterChangefilter:', value);
-  }
-  onSelectedChange(value: string): void {
-    console.log('onSelectedChangefilter:', value);
+    this.documentList();
   }
 
+  folderListWithName() {
+    this.loader = true;
+    this.http.getData(this.url, { partial: 1 }).subscribe((res) => {
+      if (res.data && res.data.length) {
+        this.http.documentUpdated(res.data);
+      }
+      this.loader = false;
+    });
+  }
+
+  handleClickSelection({ index, dataItem }: any): void {
+    this.selectedFolder = dataItem;
+    this.documentsBreadcrumbs.splice(1, this.documentsBreadcrumbs.length - 1);
+    let itemIdsArray = index && dataItem ? dataItem.path.split('#') : [];
+    let itemSelectedIdsArray = index ? index.split('_') : [];
+    this.folderId = itemIdsArray[itemIdsArray.length - 1];
+    if(itemIdsArray && itemIdsArray.length > 0){
+      for (let idx in itemIdsArray) {
+        let objectFound = this.findByIdRecursive(this.folderStructureInTreeView,'_id',itemIdsArray[idx]);
+        this.documentsBreadcrumbs.push({ "name" : ` > ${objectFound.text}`, "id": objectFound.value, "selectedIdx": itemSelectedIdsArray[idx]});
+      }
+    }
+    this.documentList();
+    this.selectedKeys = [index];
+  }
+
+  findByIdRecursive(entireObj, keyToFind, valToFind) {
+    let foundObj;
+    JSON.stringify(entireObj, (_, nestedValue) => {
+      if (nestedValue && nestedValue[keyToFind] === valToFind) {
+        foundObj = nestedValue;
+      }
+      return nestedValue;
+    });
+    return foundObj;
+  };
+
   setActiveClass() {
-    $('div.all-row').click(function () {
-      $('div.all-row').removeClass("active");
+    $("div.all-row").click(function () {
+      $("div.all-row").removeClass("active");
       $(this).addClass("active");
     });
   }
 
   getSelectedCount(i, id, isChecked: boolean) {
-    console.log("getSelectedCount====ID========", id);
-    console.log("getSelectedCount====I========", i);
-    console.log("getSelectedCount====isChecked========", isChecked);
-
-    const emailFormArray = <FormArray>this.myForm.controls.id;
-    if (isChecked) {
-      console.log("getSelectedCount====IF========", isChecked);
-      emailFormArray.push(new FormControl(id));
+    if(!isChecked) {
+      this.selectedItem.splice(i, 1);
     } else {
-      let index = emailFormArray.controls.findIndex(x => x.value == id)
-      console.log("getSelectedCount====index========", index);
-      emailFormArray.removeAt(index);
+      this.selectedItem.push(id);
     }
-    this.selectedItem = emailFormArray.value;
-    console.log("getSelectedCount====this.emailFormArray========", emailFormArray.value);
-    $('square-checkmark').addClass("set");
   }
 
   selectAllCopyDocument() {
-
     let checked = false;
-    if ($('.checkDocs').is(':checked')) {
+    if ($(".checkDocs").is(":checked")) {
       checked = true;
       this.isShowHeader = true;
     } else {
       this.isShowHeader = false;
       this.selectedItem = [];
     }
-
     const emailFormArray = <FormArray>this.myForm.controls.id;
-    /* this.isMasterSel = this.responseData.every(function(item:any) {
-      console.log("selectAllCopyDocument====item========",item);
-      //emailFormArray.push(new FormControl(item.id));
-        return item.isSelected = checked;
-      }) */
-
-    this.responseData.forEach(e => {
+    this.responseData.forEach((e) => {
       e.isSelected = checked;
       if (checked) {
         this.selectedItem.push(e._id);
       }
-
       console.log("selectAllCopyDocument=====", e);
-
     });
   }
 
@@ -211,20 +190,23 @@ export class DocumentsComponent implements OnInit {
   }
 
   openAddTask() {
-    this.http.showModal(CreateFolderComponent, 'md', { 'parentId': this.folderId });
+    this.http.showModal(CreateFolderComponent, "md", {
+      parentId: this.folderId,
+    });
   }
 
   openAddDocument() {
-    this.http.showModal(CreateDocumentComponent, 'md', { 'parentId': this.folderId });
+    this.http.showModal(CreateDocumentComponent, "md", {
+      parentId: this.folderId,
+    });
   }
 
-  deleteDocModal(data, type = 's') {
-    if (type == 's') {
-      this.http.showModal(DeleteDocComponent, 'xs', [data._id]);
+  deleteDocModal(data, type = "s") {
+    if (type == "s") {
+      this.http.showModal(DeleteDocComponent, "xs", [data._id]);
     } else {
-      this.http.showModal(DeleteDocComponent, 'xs', data);
+      this.http.showModal(DeleteDocComponent, "md", data);
     }
-
   }
 
   sorting(sortBy, sortType) {
@@ -236,18 +218,15 @@ export class DocumentsComponent implements OnInit {
   documentList() {
     this.loader = true;
     const obj: any = {
-      //skip: 0,
-      //limit: 10000,
       sortBy: this.sortBy,
       sortType: this.sortType,
       search: this.searchText,
       status: this.status,
       addedBy: this.addedBy,
-      id: this.folderId
-      //filter:"5f80a54f3652e32eebe52583"
+      id: this.folderId,
     };
-    this.http.getData(this.url, obj).subscribe(res => {
-      this.responseData = res.data.documents
+    this.http.getData(this.url, obj).subscribe((res) => {
+      this.responseData = res.data.documents;
       this.loader = false;
     });
   }
@@ -257,54 +236,145 @@ export class DocumentsComponent implements OnInit {
     this.documentList();
   }
 
-  addedByFilter(addStatus) {
-    this.folderId = '';
-    this.addedBy = addStatus;
+  addedByFilter(doc_id) {
+    this.folderId = doc_id !== "0" ? doc_id : "";
+    this.addedBy = doc_id === "0" ? doc_id : "";
+    let getIndex = this.documentsBreadcrumbs.findIndex(
+      (brdcb) => brdcb.id === doc_id
+    );
+    if (doc_id === "0") {
+      this.documentsBreadcrumbs.splice(1, this.documentsBreadcrumbs.length - 1);
+    } else {
+      this.documentsBreadcrumbs.splice(
+        getIndex + 1,
+        this.documentsBreadcrumbs.length - 1
+      );
+    }
+    let selectedIds = this.documentsBreadcrumbs.map(({ selectedIdx }) => selectedIdx);
+    let replaceSelectedId = selectedIds.toString().replace(/,/g, '_');
+    let autoSelectId = replaceSelectedId.replace(/^_/, '');
+    this.selectedKeys = [autoSelectId];
     this.documentList();
   }
 
   renameDocs(data) {
-    this.http.showModal(CreateFolderComponent, 'md', data);
+    this.http.showModal(CreateFolderComponent, "md", data);
   }
 
   subFolderList(data) {
-    this.folderId = data._id;
+    if(this.tempArray.length === 0){
+      console.log('If::');
+      let findIndex = this.folderStructureInTreeView.findIndex((folder) => folder._id === data._id);
+      this.folderMergeIndex.push(findIndex);
+      this.documentsBreadcrumbs.push({ name: ` > ${data.title}`, id: data._id, selectedIdx : findIndex });
+      this.folderId = data._id;
+      this.selectedKeys = [this.folderMergeIndex.toString()];
+      this.tempArray = this.folderStructureInTreeView[findIndex] && this.folderStructureInTreeView[findIndex].children.length > 0 ? this.folderStructureInTreeView[findIndex].children : [];
+    } else {
+      console.log('Else::');
+      let findIndex = this.tempArray.findIndex((folder) => folder._id === data._id);
+      this.folderMergeIndex.push(findIndex);
+      this.documentsBreadcrumbs.push({ name: ` > ${data.title}`, id: data._id, selectedIdx : findIndex });
+      this.folderId = data._id;
+      let replaceSelectedId = this.folderMergeIndex.toString().replace(/,/g, '_');
+      let autoSelectId = replaceSelectedId.replace(/^_/, '');
+      this.selectedKeys = [autoSelectId];
+      this.tempArray = this.tempArray[findIndex] && this.tempArray[findIndex].children.length > 0 ? this.tempArray[findIndex].children : [];
+    }
     this.documentList();
   }
 
   copyDocument() {
     console.log("this.copyDocument======", this.selectedItem);
-
     const obj = {
-      documentIds: this.selectedItem
+      documentIds: this.selectedItem,
     };
-    this.http.updateDocument(this.url + '/clone', obj).subscribe(res => {
-      this.isShowHeader = false;
-      this.documentList();
-      this.http.openSnackBar('Added Successfully');
-    }, () => {
-
-    });
+    this.http.updateDocument(this.url + "/clone", obj).subscribe(
+      (res) => {
+        this.isShowHeader = false;
+        this.documentList();
+        this.http.openSnackBar("Folder & Documents cloned Successfully.");
+      },
+      () => {}
+    );
   }
 
-  moveDocument() {
-    this.http.showModal(MoveComponent, 'md', '');
+  copyOnlyDocument(data?){
+    console.log("this.copyDocument data======", data);
     const obj = {
-      documentIds: [this.selectedItem],
-      target: ''
+      documentIds: [data._id],
     };
-    this.http.postData(this.url + '/move', obj).subscribe(res => {
-      this.documentList();
-      this.http.openSnackBar('Moved Successfully');
-    }, () => {
-    });
+    this.http.updateDocument(this.url + "/clone", obj).subscribe(
+      (res) => {
+        this.isShowHeader = false;
+        this.documentList();
+        this.http.openSnackBar("Folder & Documents cloned Successfully.");
+      },
+      () => {}
+    );
+  }
+
+  moveDocument(currentFolder?) {
+    const obj = {
+      documentsBreadcrumbs: this.documentsBreadcrumbs,
+      currentFolder: currentFolder,
+      selectedMultipleFolders: []
+    };
+    this.http.showModal(MoveComponent, "md", obj);
+  }
+
+  moveAllDocument() {
+    const obj = {
+      documentsBreadcrumbs: this.documentsBreadcrumbs,
+      currentFolder: {},
+      selectedMultipleFolders: this.selectedItem
+    };
+    this.http.showModal(MoveComponent, "md", obj);
+    console.log('this.selectedItem:::', this.selectedItem);
+    console.log('Come Here');
   }
 
   multipleDeleteDocs() {
     let body = {
-      "documentIds": this.selectedItem,
+      documentIds: this.selectedItem,
     };
-    this.deleteDocModal(this.selectedItem, 'm');
+    this.deleteDocModal(this.selectedItem, "m");
+  }
+
+  ngOnDestroy() {
+      this.folderUpdateSubscription.unsubscribe();
+  }
+
+  onSelectOptionFromThreeDot(event?){
+    console.log('event:::', event);
+    console.log('Move::', this.selectedFolder);
+    switch(event.index) { 
+      case "0": {
+        this.openAddTask();
+        break; 
+      }
+      case "1": {
+        this.moveDocument(this.selectedFolder);
+        break; 
+      }
+      case "2": {
+        let obj: any = {
+          title: this.selectedFolder.text,
+          type: 'FOLDER',
+          _id: this.selectedFolder._id
+        }
+        this.renameDocs(obj);
+        break; 
+      }
+      case "3": {
+        this.deleteDocModal([this.selectedFolder._id], 'm');
+        break; 
+      }
+      default: { 
+        this.http.openSnackBar("Invalid option you have selected....");
+        break; 
+      } 
+    } 
   }
 
 }

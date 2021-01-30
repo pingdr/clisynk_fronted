@@ -6,8 +6,10 @@ import {RouterModule, Routes} from '@angular/router';
 import {ApprovalDocumentComponent} from './approval-document/approval-document.component';
 import {AuthGuardService as AuthGuard} from '../../services/authguard.service';
 import {GridsterModule} from 'angular-gridster2';
-import { CKEditorModule } from 'ng2-ckeditor'; 
-import { TreeviewModule } from 'ngx-treeview';
+import { CKEditorModule } from 'ng2-ckeditor';
+import { TreeViewModule } from '@progress/kendo-angular-treeview';
+import { MenusModule } from '@progress/kendo-angular-menu';
+
 const routes: Routes = [
     {
         path: '', children: [
@@ -32,7 +34,8 @@ const routes: Routes = [
         GridsterModule,
         CKEditorModule,
         SharedModule,
-        TreeviewModule.forRoot(),
+        TreeViewModule,
+        MenusModule,
         RouterModule.forChild(routes)
     ],
     declarations: [

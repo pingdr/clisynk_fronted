@@ -99,5 +99,6 @@ export const ApiUrl = {
     FETCH_BLOCK_USERS : 'chat/fetch-blocked-users',
     DELETE_CHATROOM : 'chat/delete-chatroom',
     CALL_LOG : 'chat/calls'
+
 };
 

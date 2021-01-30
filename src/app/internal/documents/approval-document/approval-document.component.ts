@@ -14,6 +14,7 @@ declare var jQuery: any;
   encapsulation: ViewEncapsulation.None
 })
 export class ApprovalDocumentComponent implements OnInit, OnDestroy {
+
   options: GridsterConfig;
   dashboard: Array<GridsterItem>;
   editHeader = false; //Header edit or not
@@ -42,7 +43,9 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
   ];
 
   selectedWidgetType = "";
+
   constructor(private router: Router, public http: HttpService, private route: ActivatedRoute) { }
+
   ngOnInit(): void {
     this.ckeConfig = {
       allowedContent: false,
@@ -90,23 +93,10 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
 
     this.documentId = this.route.snapshot.params['id'];
     this.getDocumentDetails(this.documentId);
-
-    //when change header 
-    // let that = this;
-    // $(document).ready(function () {
-    //   $('.angular-editor-textarea').bind('DOMSubtreeModified', function () {
-    //     let hgt:any = $('.angular-editor-textarea').height();
-    //     if(hgt > 100){
-    //       let row = Math.ceil(hgt/100);
-    //       that.chnageheight(row);         
-
-    //     }
-
-    //   });
-    // });
-
   }
+
   ngOnDestroy() {
+    console.log('On Ng Destroy');
     this.updateDocumentDetails(this.documentId);
   }
 
@@ -148,7 +138,6 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
           this.dashboard = pageContent;
           localStorage.setItem("dashboard", JSON.stringify(this.dashboard));
           this.changedOptions();
-
           //-- Append html once get dashboard value from localstorgae or db --//
           let that = this;
           setTimeout(function () {
@@ -201,11 +190,13 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
   addWidget(event, widgetType) {
     this.selectedWidgetType = widgetType
   }
+
   getPageNumberByY(y) {
     let rows = 8;
     let page = Math.ceil(y / rows);
     return page;
   }
+
   emptyCellClick(event: MouseEvent, item: any) {
     let page = 1;
     let that = this;
@@ -248,13 +239,14 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
   }
 
   updateDocumentDetails(documentId) {
+    console.log('Come Here Update Details');
     let url = 'documents/' + documentId;
     let body = {
       title: this.documentDetail['title'],
       content: {
         key1: this.dashboard
       },
-      status: "PUBLISHED"
+      status: "DRAFT"
     };
     this.http.updateDocument(url, body).subscribe(() => {
     }, () => {
@@ -337,8 +329,6 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
         $("#" + className).append(className);
       }
     }, 100);
-
-
     this.saveDocument();
     //}
   }
@@ -441,17 +431,12 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
               }, 100);
             }
             //---- Move next Footers --//
-
             if (i === that.dashboard.length) { //When last value of dashboard array
-
               //that.changedOptions(); //reflects changes of moving existing header
-
               //---- Add new header --//
               var pages = that.dashboard.filter(obj => { //Getting number of widget of select page
                 return obj.layerIndex === 1 && obj.type === 'page';
               });
-
-
               pages.forEach(e => {
                 if (1 || e.type === 'page') {
                   let position = e['y'] + diff;
@@ -501,8 +486,6 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
             }
             i++
           });
-
-
         } else {
           if (item.type === 'text-block') {
             var pageWidgets = this.dashboard.filter(obj => { //Getting all widgets of selected page
@@ -573,7 +556,6 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
                       hasContent: item['hasContent']
                     });
                     that.saveDocument();
-
                     //-- Append html content of header --//
                     let className = item['type'] + '-' + position;
                     setTimeout(function () {
@@ -584,7 +566,6 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
                       }
                     }, 100);
                     //-- Append html content of header --//
-
                     nextIndex++;
                   }
                 });
@@ -609,7 +590,6 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
         if (this.editWidgetIndex != -1) {
           this.editWidgetIndex = -1;
         }
-
         $event.preventDefault();
         $event.stopPropagation();
         let totalRow = 8;
@@ -630,7 +610,6 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
             }
           }
         });
-
         //Selected widget Should be remove from all page
         if (item.type === 'header' || item.type === 'footer') {
           let i = 1;
@@ -645,7 +624,6 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
               element.y -= element['rows'];
               element['class'] = element['type'] + '-' + element['y'];
               element['id'] = element['type'] + '-' + element['y'];
-
               that.changedOptions();
               setTimeout(function () {
                 let className = element['type'] + '-' + element['y'];
@@ -658,13 +636,11 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
               }, 100);
             }
             //--Move next headers --//
-
             //--Move next footers --//
             if (element.type === 'footer' && (element.y - startIndex) < diff) {
               element.y += element['rows'];
               element['class'] = element['type'] + '-' + element['y'];
               element['id'] = element['type'] + '-' + element['y'];
-
               that.changedOptions();
               setTimeout(function () {
                 let className = element['type'] + '-' + element['y'];
@@ -677,7 +653,6 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
               }, 100);
             }
             //--Move next footers --//
-
             if (i === that.dashboard.length) {
               //that.changedOptions();
               that.saveDocument();
@@ -695,7 +670,6 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
         if (this.editWidgetIndex != -1) {
           this.editWidgetIndex = -1;
         }
-
         $event.preventDefault();
         $event.stopPropagation();
         let totalRow = 8;
@@ -719,7 +693,6 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
             }
           }
         });
-
         //Selected widget Should be move from all page
         let i = 1;
         pageWidgets.forEach(element => {
@@ -727,13 +700,11 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
           if (element.page != 1) {
             startIndex += (element.page - 1);
           }
-
           //--Move next text-block --//
           if (element.type === 'text-block' && (element.y - startIndex) > diff) {
             element.y -= element['rows'];
             element['class'] = element['type'] + '-' + element['y'];
             element['id'] = element['type'] + '-' + element['y'];
-
             that.changedOptions();
             setTimeout(function () {
               let className = element['type'] + '-' + element['y'];
@@ -745,18 +716,17 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
               }
             }, 100);
           }
-          //--Move next text-block --//            
-
+          //--Move next text-block --//
           if (i === pageWidgets.length) {
             //that.changedOptions();
             that.saveDocument();
           }
           i++;
         }); //--Set auto move next text-block --//
-
       }
     }
   }
+
   editorOnChange(event, item) { //when change header of footer
     let totalRow = 8;
     let pageStartIndex = (item.page * totalRow) - totalRow;
@@ -764,7 +734,6 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
       pageStartIndex += (item.page - 1);
     }
     let diff = item.y - pageStartIndex;
-
     let i = 1;
     let that = this;
     this.dashboard.forEach(element => {
@@ -780,8 +749,8 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
         }
       }
     });
-
   }
+
   addPage() { //Add new page
     var pages = this.dashboard.filter(obj => { //Getting number of widget of select page
       return obj.type === 'page';
@@ -791,7 +760,6 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
     let position = pages[lastPageIndex]['y'] + pages[lastPageIndex]['rows'] + 1;
     //---- Add option layer ---//
     this.dashboard.push({ cols: this.pageColumns, rows: 1, y: (position - 1), x: 1, isEdit: false, type: 'option', page: pages[lastPageIndex]['page'] + 1, index: nextIndex, id: 'option-' + (position - 1), class: 'option-' + (position - 1), layerIndex: 1, value: '', dragEnabled: false, resizeEnabled: false });
-
     nextIndex = this.dashboard.length;
     //---- Add option layer ---//
     this.dashboard.push({
@@ -811,12 +779,10 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
       resizeEnabled: false
     });
     this.changedOptions();
-
     nextIndex = this.dashboard.length;
     let that = this;
     this.dashboard.forEach(element => { //Add header and footer
       if (element.page === pages[lastPageIndex]['page'] && element.layerIndex === 2 && (element.type == 'header' || element.type == 'footer')) {
-
         let position = (element['y'] + pages[lastPageIndex]['rows'] + 1);
         let className = element['type'] + '-' + position;
         that.dashboard.push({
@@ -849,6 +815,7 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
       }
     })
   }
+
   deletePage(item) {
     var result = this.dashboard.filter(obj => {
       return obj.page != item.page;
@@ -886,12 +853,15 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
       })
     }
   }
+
   backToDoc() {
     // this.route.navigate("")
   }
+
   plusBtnClick() {
     $(".plus-icon").css("opacity", "1");
   }
+
   clickApproval() {
     this.approval = true;
     this.setting = false;

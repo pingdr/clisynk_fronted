@@ -44,14 +44,10 @@ export class CreateDocumentComponent implements OnInit {
             title:"New Document",
             parent: (this.modalData.parentId ? this.modalData.parentId  : ""),
             type:"FILE",
-            /* content:{
-                "key1": []
-             }, */
         };
         this.http.postData(this.url, obj).subscribe(res => {
             this.router.navigate(['/documents/approve-doc/'+res.data._id]);
         }, () => {
         });
-        
     }
 }
