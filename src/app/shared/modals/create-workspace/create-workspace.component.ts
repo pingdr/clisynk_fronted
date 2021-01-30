@@ -32,7 +32,7 @@ export class CreateWorkspaceComponent implements OnInit {
 
   formInit() {
     this.form = this.http.fb.group({
-        name: ['', Validators.compose([Validators.pattern("[a-zA-Z0-9]*"), Validators.required])],
+        name: ['', Validators.compose([Validators.pattern("[a-zA-Z0-9_ ]*"), Validators.required])],
         description: ['']
     });
   }

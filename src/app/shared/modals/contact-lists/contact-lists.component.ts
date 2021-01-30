@@ -32,7 +32,7 @@ export class ContactListsComponent implements OnInit {
 
     gotoTab(data) {
         this.http.hideModal();
-        this.onClose.next(true);
+        this.onClose.next(true); 
         if (data._id) {
             localStorage.setItem('savedFilter', JSON.stringify(data));
             this.http.addQueryParams({filterId: data._id});

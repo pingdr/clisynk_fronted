@@ -104,7 +104,7 @@
 
     <!-- ----------------------updated-new-cod e------------------- -->
     <div class="new-form-field-main">
-      <div class="input-field" *ngIf="!isEdit">
+      <div class="input-field">
         <label>Name</label>
         <mat-form-field class="full-width" appearance="outline">
           <mat-label class="required">Name</mat-label>
@@ -144,7 +144,7 @@
           Please select atleast one contact.
         </mat-error>
       </div>
-      <div class="form-group Associated-Contact" *ngIf="!isEdit">
+      <div class="form-group Associated-Contact">
         <label>Tag</label>
         <ng-multiselect-dropdown
           [placeholder]="'Select Tag'"

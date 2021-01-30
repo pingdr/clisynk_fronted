@@ -60,6 +60,7 @@ export class ContactFilterComponent implements OnInit {
     ngOnInit(): void {
         if (this.modalData) {
             this.isEdit = true;
+            console.log('this.modalData:::', this.modalData);
             this.updateFormInit(this.modalData);
         } else {
             this.formInit();
@@ -70,7 +71,7 @@ export class ContactFilterComponent implements OnInit {
 
     formInit() {
         this.form = this.http.fb.group({
-            name: ['', Validators.compose([Validators.pattern("[a-zA-Z0-9]*"), Validators.required])],
+            name: ['', Validators.compose([Validators.pattern("[a-zA-Z0-9_ ]*"), Validators.required])],
             contactIds: ['', Validators.required],
             tagIds: ['']
         });
@@ -78,7 +79,9 @@ export class ContactFilterComponent implements OnInit {
 
     updateFormInit(modalData?) {
         this.form = this.http.fb.group({
-            contactIds: [modalData.data]
+            name: [modalData.name, Validators.compose([Validators.pattern("[a-zA-Z0-9_ ]*"), Validators.required])],
+            contactIds: [modalData.contacts],
+            tagIds: [modalData.tagIds]
         });
     }
 
@@ -105,13 +108,13 @@ export class ContactFilterComponent implements OnInit {
     }
 
     finalSubmit() {
-        
         const updateObj: any = {};
         const obj: any = JSON.parse(JSON.stringify(this.form.value));
         obj.contactIds = obj.contactIds ? obj.contactIds.map(item => {return item._id}) : [];
         obj.tagIds = obj.tagIds ? obj.tagIds.map(item => {return item._id}) : [];
         if(this.http.isFormValid(this.form)){
             this.loader = true;
+            updateObj.name = obj.name;
             updateObj.contactListId = this.modalData ? this.modalData.id : "";
             updateObj.contactIds = obj.contactIds;
             updateObj.op = "add";

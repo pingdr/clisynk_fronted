@@ -225,6 +225,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
     }
 
     updateFilter() {
+        this.contactsSelectedOnUpdate = [];
         if(this.myModel){
             let getParsedContacts = JSON.parse(localStorage.getItem("savedFilter"));
             this.myModel.contacts.map(element => {
@@ -233,9 +234,12 @@ export class ContactsComponent implements OnInit, OnDestroy {
                     this.contactsSelectedOnUpdate.push({"_id": element._id, "email": element.email});
                 }
             });
+            console.log('this.myModel:::', this.myModel);
             const obj: any = {
                 id: this.myModel.contactListId,
-                data: this.contactsSelectedOnUpdate
+                contacts: this.contactsSelectedOnUpdate,
+                tagIds: [],
+                name: getParsedContacts.name
             }
             const modalRef = this.http.showModal(ContactFilterComponent, 'md', obj);
         }
