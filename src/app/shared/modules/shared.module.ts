@@ -1,3 +1,4 @@
+
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {GoogleplaceDirective} from '../directives/googlePlaces.directive';
@@ -103,6 +104,13 @@ import { LeadFormCreateComponent } from '../modals/lead-form-create/lead-form-cr
 import { RxReactiveFormsModule } from "@rxweb/reactive-form-validators"
 import { ForgotPasswordComponent } from '../modals/forgot-password/forgot-password.component';
 import { TwoDigitDecimaNumberDirective } from '../directives/decimalNumberOnly.directive';
+import { DeleteDocComponent } from '../modals/delete-doc/delete-doc.component';
+import { MoveComponent } from '../modals/move/move.component';
+import { CreateDocumentComponent } from './../modals/create-document/create-document.component';
+import { AddPageComponent } from './../modals/add-page/add-page.component';
+import { CreateFolderComponent } from './../modals/create-folder/create-folder.component';
+import { NgxSummernoteModule } from 'ngx-summernote';
+
 
 
 const entryList = [EmailFormatComponent, SendEmailComponent, ChangePasswordComponent, ContactDetailsComponent, AddNoteComponent,
@@ -113,12 +121,13 @@ const entryList = [EmailFormatComponent, SendEmailComponent, ChangePasswordCompo
     AddPaymentComponent, AddInvoiceComponent, AddProductComponent, AddAppointmentComponent, AddAddressComponent,
     InvoiceTabsComponent, PaymentDescriptionComponent, SuccessModalComponent, AddPipelineComponent, ManagePipelineComponent,
     AddDealComponent, DealDetailsComponent, MoveDealModalComponent, AutoConfigComponent, ContactPipelineComponent,
-    AddContactToDealComponent, DealNoteComponent, EditDealNoteComponent, AddPipelineTaskComponent, PipelineSendEmailComponent,
+    AddContactToDealComponent, DealNoteComponent, ForgotPasswordComponent,EditDealNoteComponent, AddPipelineTaskComponent, PipelineSendEmailComponent,
     AppointBookComponent, AppointStep1Component, AppointStep2Component, AppointStep3Component, AppointStep4Component,
     ForgotPasswordComponent,
     EditAppointmentComponent, CalSlotComponent, BookModalComponent, ConfirmComponent, AppointTypeListComponent,
     AppointListComponent, AppointSuccessComponent, AddUserComponent, NotificationsComponent, DeleteContactComponent,
-    SmartFormCreateComponent, CreateWorkspaceComponent, MergeContactsComponent, SmartFormDeleteComponent, LeadFormCreateComponent
+    SmartFormCreateComponent, CreateWorkspaceComponent, MergeContactsComponent, SmartFormDeleteComponent, LeadFormCreateComponent,
+    CreateFolderComponent, AddPageComponent, CreateDocumentComponent, DeleteDocComponent, MoveComponent
 ];
 
 const importExportList = [MatStepperModule, MatTabsModule, MatSliderModule, MatInputModule, MatSelectModule,
@@ -134,6 +143,7 @@ const importExportList = [MatStepperModule, MatTabsModule, MatSliderModule, MatI
         NgMultiSelectDropDownModule.forRoot(), BsDatepickerModule.forRoot(), TimepickerModule.forRoot(),
         CommonModule, PaginationModule.forRoot(), BsDropdownModule.forRoot(), TabsModule.forRoot(),
         ModalModule.forRoot(), CollapseModule.forRoot(), AccordionModule.forRoot(), PopoverModule.forRoot(),
+        NgxSummernoteModule,
         
         ...importExportList
     ],

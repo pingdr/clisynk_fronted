@@ -42,10 +42,23 @@ import { PreviewLeadformComponent } from './internal/settings/preview-leadform/p
 import { PreviewSmartformComponent } from './internal/settings/preview-smartform/preview-smartform.component';
 import { ForgotPasswordComponent } from './external/forgot-password/forgot-password.component';
 
+import { NgxSummernoteModule } from 'ngx-summernote';
 
+import {
+  NgxUiLoaderModule,
+  NgxUiLoaderConfig,
+  SPINNER,
+  POSITION,
+  PB_DIRECTION,
+  NgxUiLoaderRouterModule,
+  NgxUiLoaderHttpModule
+} from 'ngx-ui-loader';
 
-
-
+const ngxUiLoaderConfig: NgxUiLoaderConfig = {
+  bgsColor: '#87cefa',
+  fgsColor: '#87cefa',
+  pbColor: '#87cefa'
+};
 
 @NgModule({
     declarations: [
@@ -70,7 +83,11 @@ import { ForgotPasswordComponent } from './external/forgot-password/forgot-passw
         LightboxModule,
         AngularFireMessagingModule,
         MatChipsModule,
-        AngularFireModule.initializeApp(environment.firebase)
+        AngularFireModule.initializeApp(environment.firebase),
+        NgxSummernoteModule,
+        NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
+        NgxUiLoaderRouterModule, // import this module for showing loader automatically when navigating between app routes
+        NgxUiLoaderHttpModule
     ],
 
     providers: [

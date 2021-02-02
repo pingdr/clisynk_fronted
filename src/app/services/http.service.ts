@@ -47,6 +47,14 @@ export class HttpService {
     private updateSFListSubject = new BehaviorSubject<any>(null);
     public SFReload = this.updateSFListSubject.asObservable();
 
+    private workspaceListSubject = new BehaviorSubject<any>(null);
+    public workspaceList = this.workspaceListSubject.asObservable();
+
+    private workspaceSubject = new BehaviorSubject<any>(null);
+    public workspace = this.workspaceSubject.asObservable();
+    private documentUpdatedSubject = new BehaviorSubject<any>(null);
+    public documentUpdatedStatus = this.documentUpdatedSubject.asObservable();
+
     public heading: string;
     domain: string;
     loginData: any;
@@ -94,7 +102,19 @@ export class HttpService {
         }
         this.eventSubject.next(obj);
     }
+    updateDocument(url, obj, isLoading?: boolean) {
+        const formData = new FormData();
+        Object.keys(obj).forEach(key => {
+            if (obj[key] !== '' && obj[key] !== undefined) {
+                formData.append(key, obj[key]);
+            }
+        });
+        return this.http.post<any>(this.apiEndpoint + url, obj, {reportProgress: isLoading});
+    }
 
+    documentUpdated(data?) {
+        this.documentUpdatedSubject.next(data ? data : false);
+    }
     sendSearch(data) {
         this.searchSubject.next(data);
     }
@@ -473,6 +493,18 @@ export class HttpService {
         return this.http.post(this.apiEndpoint + "smartForms", Obj);
     }
 
+    postWorkspaceForm(url,Obj){
+        return this.http.post(this.apiEndpoint + url, Obj);
+    }
+
+    postWorkspaceMerge(url,Obj){
+        return this.http.post(this.apiEndpoint + url, Obj);
+    }
+
+    postWorkspaceSetActive(url,Obj){
+        return this.http.post(this.apiEndpoint + url, Obj);
+    }
+
     postLeadForm(Obj){
         return this.http.post(this.apiEndpoint + "smartForms/submit", Obj);
     }
@@ -483,6 +515,10 @@ export class HttpService {
 
     deleteSmartForm(Obj){
         return this.http.delete<any>(this.apiEndpoint + "smartForms/" + Obj);
+    }
+
+    deleteWorkspace(url){
+        return this.http.delete<any>(this.apiEndpoint + url);
     }
 
     updateSmartForm(Obj, id){
@@ -499,6 +535,30 @@ export class HttpService {
 
     updateLeadForm(Obj, id){
         return this.http.post<any>(this.apiEndpoint + "smartForms/" + id, Obj);
+    }
+
+    getMailTemplates() {
+        return this.http.get<any>(this.apiEndpoint + "email-templates");
+    }
+
+    getMailTemplateById(id) {
+        return this.http.get<any>(this.apiEndpoint + "email-templates/search?id=" + id);
+    }
+
+    updateWorkspaceList(data?) {
+        this.workspaceListSubject.next(data);
+    }
+
+    updateWorkspace(data?) {
+        this.workspaceSubject.next(data);
+    }
+
+    getRandomColor() {
+        let color = Math.floor(0x1000000 * Math.random()).toString(16);
+        return '#' + ('000000' + color).slice(-6);
+    }
+    postCreateGroup(apiUrl?, obj?){
+        return this.http.post<any>(this.apiEndpoint + apiUrl, obj);
     }
 
 }

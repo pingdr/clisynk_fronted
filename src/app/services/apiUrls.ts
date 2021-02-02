@@ -19,6 +19,8 @@ export const ApiUrl = {
     ADD_FILES: 'contact/addEditFiles',
     LIST_FILES: 'contact/listFiles',
     CONTACT_LISTS: 'contact/getContactList',
+    CREATE_CONTACT_GROUP: 'contacts/create-group',
+    UPDATE_CONTACT_GROUP: 'contact/modify-group',
     ADD_TASK: 'task/addEditTasks',
     ADD_USER: 'admin/addEditSubUser',
     TASK_LIST: 'task/getTasks',
@@ -96,6 +98,11 @@ export const ApiUrl = {
     UNBLOCK_USER : 'chat/unblock-user',
     FETCH_BLOCK_USERS : 'chat/fetch-blocked-users',
     DELETE_CHATROOM : 'chat/delete-chatroom',
-    CALL_LOG : 'chat/calls'
+    CALL_LOG : 'chat/calls',
+
+    //Workspace api's
+    WORKSPACE: 'workspaces',
+    WORKSPACE_MERGE: 'workspaces/merge',
+    WORKSPACE_SET_ACTIVE: 'workspaces/set-active'
 };
 

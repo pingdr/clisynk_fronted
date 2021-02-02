@@ -1,138 +1,189 @@
 <div class="med-popup">
+  <div class="modal-header email_str_header">
+    <section id="close" class="navigation">
+      <button
+        class="icon-only"
+        type="button"
+        aria-label="Close"
+        (click)="http.hideModal()"
+      >
+        <img src="/assets/images/ic_close.svg" />
+      </button>
+    </section>
+    <section class="text">
+      <h4 *ngIf="!modalData">Add a new task</h4>
+      <h4 *ngIf="modalData">Task details</h4>
+    </section>
+    <a
+      class="text-button"
+      style="min-width: 170px"
+      *ngIf="modalData?.status && modalData?.status != 2"
+      (click)="changeStatus(2)"
+      >Mark as complete</a
+    >
+  </div>
+  <form [formGroup]="form" (ngSubmit)="finalSubmit()" autocomplete="off">
+    <div class="modal-body">
+      <div class="input-field">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label class="required">Task title</mat-label>
+          <input matInput type="text" formControlName="title" />
+          <mat-error *ngIf="form.controls['title'].hasError('required')">
+            Please enter title.
+          </mat-error>
+        </mat-form-field>
+      </div>
 
-    <div class="modal-header email_str_header">
-        <section id="close" class="navigation">
-            <button class="icon-only" type="button" aria-label="Close" (click)="http.hideModal()">
-                <img src="/assets/images/ic_close.svg">
-            </button>
-        </section>
-        <section class="text">
-            <h4 *ngIf="!modalData">Add a new task</h4>
-            <h4 *ngIf="modalData">Task details</h4>
-        </section>
-        <a class="text-button" style="min-width: 170px" *ngIf="modalData?.status && modalData?.status != 2"
-           (click)="changeStatus(2)">Mark as
-            complete</a>
-    </div>
-    <form [formGroup]="form" (ngSubmit)="finalSubmit()" autocomplete="off">
-        <div class="modal-body">
-
-            <div class="input-field">
-                <mat-form-field class="full-width" appearance="outline">
-                    <mat-label class="required">Task title</mat-label>
-                    <input matInput type="text"
-                           formControlName="title">
-                    <mat-error *ngIf="form.controls['title'].hasError('required')">
-                        Please enter title.
-                    </mat-error>
-                </mat-form-field>
-            </div>
-
-            <div class="date-fields">
-                <div class="input-field">
-                    <mat-form-field appearance="outline">
-                        <mat-label>Due Date</mat-label>
-                        <input matInput type="text" readonly [minDate]="today"
-                               formControlName="dueDateTime" bsDatepicker #dp="bsDatepicker">
-                    </mat-form-field>
-                </div>
-
-                <span class="at">at</span>
-                <div class="input-field">
-                    <div class="btn-group add-btn select-opt">
-                        <mat-form-field class="full-width select-height" appearance="outline">
-                            <mat-select formControlName="selectedSlot">
-                                <mat-option *ngFor="let val of myModel?.timeSlots" [value]="val">
-                                    {{val|date:'hh:mm a'}}</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="">
-                <div class="input-field btn-group add-btn select-opt">
-                    <mat-form-field class="full-width select-height" appearance="outline">
-                        <mat-label>Remainder</mat-label>
-                        <mat-select formControlName="reminderType">
-                            <mat-option value="">None</mat-option>
-                            <mat-option *ngFor="let val of http.CONSTANT.remainderTypes" [value]="val.id">
-                                {{val?.name}}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-            </div>
-
-            <div class="">
-                <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Note</mat-label>
-                    <textarea matInput formControlName="note"
-                              rows="4"> </textarea>
-                </mat-form-field>
-            </div>
-
-            <!--            <div class="">-->
-            <!--                <div class="input-group btn-group add-btn select-opt">-->
-            <!--                    <mat-form-field class="select-height full-width" appearance="outline">-->
-            <!--                        <mat-label class="required">Associated Contact</mat-label>-->
-            <!--                        <input matInput class="form-control py-2" type="search" value=""-->
-            <!--                               placeholder="Search contacts"-->
-            <!--                               [formControl]="myControl" [matAutocomplete]="auto"-->
-            <!--                               (click)="myControl.patchValue('')">-->
-            <!--                        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"-->
-            <!--                                          (optionSelected)="finalSelected()">-->
-            <!--                            <mat-option *ngFor="let val of contacts | filter:myControl.value" [value]="val" multiple>-->
-            <!--                                {{val?.firstName}} {{val?.lastName}}-->
-            <!--                            </mat-option>-->
-            <!--                        </mat-autocomplete>-->
-            <!--                        <mat-icon matSuffix>keyboard_arrow_down</mat-icon>-->
-            <!--                        <mat-error *ngIf="myControl.hasError('required')">-->
-            <!--                            Please select contact.-->
-            <!--                        </mat-error>-->
-            <!--                    </mat-form-field>-->
-            <!--                </div>-->
-            <!--            </div>-->
-
-            <div class="form-group Associated-Contact" *ngIf="!modalData?.contactId">
-                <mat-label class="required">Associated Contact</mat-label>
-                <ng-multiselect-dropdown formControlName="contactId" [placeholder]="'Select Contact'"
-                                         [data]="contacts" [settings]="myModel.contactSettings">
-                </ng-multiselect-dropdown>
-                <mat-error *ngIf="form.controls['contactId'].hasError('required') && form.controls.contactId.touched">
-                    Please select contact.
-                </mat-error>
-            </div>
-
-            <div class="button-row">
-                <!--                disabled="disabled"-->
-                <button type="submit" class="btn btn-outline-primary">
-                    <i class="fa fa-spinner fa-spin" *ngIf="myModel.loader"></i>
-                    Save
-                </button>
-                <button type="button" class="btn btn-link text-button" (click)="http.hideModal()">Cancel
-                </button>
-
-                <button type="button" *ngIf="isEdit" class="btn btn-outline-danger" (click)="deleteTask(deletePopup)">Delete
-                </button>
-
-            </div>
-
+      <div class="date-fields">
+        <div class="input-field">
+          <mat-form-field appearance="outline">
+            <mat-label>Due Date</mat-label>
+            <input
+              matInput
+              type="text"
+              readonly
+              [minDate]="today"
+              formControlName="dueDateTime"
+              bsDatepicker
+              #dp="bsDatepicker"
+            />
+          </mat-form-field>
         </div>
-    </form>
+
+        <span class="at">at</span>
+        <div class="input-field">
+          <div class="btn-group add-btn select-opt">
+            <mat-form-field
+              class="full-width select-height"
+              appearance="outline"
+            >
+              <mat-select formControlName="selectedSlot">
+                <mat-option
+                  *ngFor="let val of myModel?.timeSlots"
+                  [value]="val"
+                >
+                  {{ val | date: "hh:mm a" }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <div class="">
+        <div class="input-field btn-group add-btn select-opt">
+          <mat-form-field class="full-width select-height" appearance="outline">
+            <mat-label>Remainder</mat-label>
+            <mat-select formControlName="reminderType">
+              <mat-option value="">None</mat-option>
+              <mat-option
+                *ngFor="let val of http.CONSTANT.remainderTypes"
+                [value]="val.id"
+              >
+                {{ val?.name }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Note</mat-label>
+          <textarea matInput formControlName="note" rows="4"> </textarea>
+        </mat-form-field>
+      </div>
+
+      <!--            <div class="">-->
+      <!--                <div class="input-group btn-group add-btn select-opt">-->
+      <!--                    <mat-form-field class="select-height full-width" appearance="outline">-->
+      <!--                        <mat-label class="required">Associated Contact</mat-label>-->
+      <!--                        <input matInput class="form-control py-2" type="search" value=""-->
+      <!--                               placeholder="Search contacts"-->
+      <!--                               [formControl]="myControl" [matAutocomplete]="auto"-->
+      <!--                               (click)="myControl.patchValue('')">-->
+      <!--                        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"-->
+      <!--                                          (optionSelected)="finalSelected()">-->
+      <!--                            <mat-option *ngFor="let val of contacts | filter:myControl.value" [value]="val" multiple>-->
+      <!--                                {{val?.firstName}} {{val?.lastName}}-->
+      <!--                            </mat-option>-->
+      <!--                        </mat-autocomplete>-->
+      <!--                        <mat-icon matSuffix>keyboard_arrow_down</mat-icon>-->
+      <!--                        <mat-error *ngIf="myControl.hasError('required')">-->
+      <!--                            Please select contact.-->
+      <!--                        </mat-error>-->
+      <!--                    </mat-form-field>-->
+      <!--                </div>-->
+      <!--            </div>-->
+
+      <div class="form-group Associated-Contact" *ngIf="!modalData?.contactId">
+        <mat-label class="required">Associated Contact</mat-label>
+        <ng-multiselect-dropdown
+          formControlName="contactId"
+          [placeholder]="'Select Contact'"
+          [data]="contacts"
+          [settings]="myModel.contactSettings"
+        >
+        </ng-multiselect-dropdown>
+        <mat-error
+          *ngIf="
+            form.controls['contactId'].hasError('required') &&
+            form.controls.contactId.touched
+          "
+        >
+          Please select contact.
+        </mat-error>
+      </div>
+
+      <div class="button-row">
+        <!--                disabled="disabled"-->
+        <button type="submit" class="btn btn-outline-primary">
+          <i class="fa fa-spinner fa-spin" *ngIf="myModel.loader"></i>
+          Save
+        </button>
+        <button
+          type="button"
+          class="btn btn-link text-button"
+          (click)="http.hideModal()"
+        >
+          Cancel
+        </button>
+
+        <button
+          type="button"
+          *ngIf="isEdit"
+          class="btn btn-outline-danger"
+          (click)="deleteTask(deletePopup)"
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+  </form>
 </div>
 
-
-
 <ng-template #deletePopup>
-    <div class="delete-comp xs">
-        <div class="delete-comp-inner">
-            <h4>Delete task</h4>
-            <p>Are you sure you want to delete this task?</p>
-            <div class="button-row form-group">
-                <button class="delete-btn" type="submit" (click)="http.hideModal();changeStatus(4)">Delete </button>
-                <button class="text-button" type="button" aria-label="Close" (click)="http.hideModal()">Cancel </button>
-            </div>
-        </div>
+  <div class="delete-comp xs">
+    <div class="delete-comp-inner">
+      <h4>Delete task</h4>
+      <p>Are you sure you want to delete this task?</p>
+      <div class="button-row form-group">
+        <button
+          class="delete-btn"
+          type="submit"
+          (click)="http.hideModal(); changeStatus(4)"
+        >
+          Delete
+        </button>
+        <button
+          class="text-button"
+          type="button"
+          aria-label="Close"
+          (click)="http.hideModal()"
+        >
+          Cancel
+        </button>
+      </div>
     </div>
+  </div>
 </ng-template>

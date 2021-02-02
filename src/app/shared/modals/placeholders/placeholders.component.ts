@@ -29,7 +29,7 @@ export class PlaceholdersComponent implements OnChanges {
     }
 
     openContactFilter() {
-        this.http.showModal(ContactFilterComponent, 'md', {addBtn: true});
+        this.http.showModal(ContactFilterComponent, 'md');
     }
 
     uploadImage(file) {

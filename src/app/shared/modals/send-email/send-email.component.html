@@ -58,7 +58,10 @@
 
         <div class="email-content">
             <div class="form-group">
-                <ckeditor formControlName="content" debounce="500" [config]="ckeConfig">
+                <!-- <div [ngxSummernote]></div> -->
+                <ckeditor 
+                formControlName="content" 
+                debounce="500" [config]="ckeConfig">
                 </ckeditor>
             </div>
         </div>

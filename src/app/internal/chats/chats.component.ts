@@ -35,14 +35,18 @@ export class ChatsComponent implements OnInit {
   @ViewChild('localVideo', { static: true }) localVideo: ElementRef;
   @ViewChild('remoteVideo', { static: true }) remoteVideo: ElementRef;
 
+
+  forwardselectmsg = false
   mode = new FormControl('over');
   form: FormGroup;
   tab = 'chats';
   tab1 = '';
   chatModel;
   loader = true;
+  forwardIds: any = []
   allSelect = new FormControl();
   simmerLoader: boolean = false;
+  pinLoader: boolean = false;
   searchName = new FormControl();
 
   // selected name var
@@ -93,6 +97,7 @@ export class ChatsComponent implements OnInit {
   msgTotal: '';
   isLoading = false;
   typingFlag = false;
+  mediaLoader: boolean = false;
   mediaFlag = false;
   selectedChatIndex = '';
   searchTotalCount = 0;
@@ -195,6 +200,7 @@ export class ChatsComponent implements OnInit {
     this.getVideoCallEvent();
     this.getVoiceCallEvent();
     this.subscribeTimer();
+
   }
 
   getVideoCallEvent() {
@@ -376,7 +382,7 @@ export class ChatsComponent implements OnInit {
 
   deleteVideoCall() {
     this.socket.emit('video-call', {
-      chatRoomId: this.selectedChat._id ? this.selectedChat._id : this.callChatroomId,
+      chatRoomId: this.callChatroomId ? this.callChatroomId : this.selectedChat._id,
       type: 'ended',
       room: this.room,
       callId: this.callId
@@ -392,7 +398,7 @@ export class ChatsComponent implements OnInit {
 
   deleteVoiceCall() {
     this.socket.emit('audio-call', {
-      chatRoomId: this.selectedChat._id,
+      chatRoomId: this.callChatroomId ? this.callChatroomId : this.selectedChat._id,
       type: 'ended',
       room: this.room,
       callId: this.callId
@@ -417,7 +423,7 @@ export class ChatsComponent implements OnInit {
   // video call function
   handleVideo() {
     this.videoManage = true;
-
+    this.outgoingFlag = true;
     this.socket.emit('video-call', {
       chatRoomId: this.selectedChat._id,
       type: 'new-call'
@@ -427,7 +433,7 @@ export class ChatsComponent implements OnInit {
   // audio call function
   handleAudio() {
     this.videoManage = true;
-    // this.outgoingVoiceFlag = true;
+    this.outgoingVoiceFlag = true;
 
     this.socket.emit('audio-call', {
       chatRoomId: this.selectedChat._id,
@@ -470,10 +476,12 @@ export class ChatsComponent implements OnInit {
   // profile pin msgs
   openPinMsg() {
     this.openPinMsgFlag = true;
+    this.pinLoader = true;
     let payload = {
       chatRoomId: this.selectedChat._id
     }
     this.http.getData(ApiUrl.PROFILE_PIN_MSG, payload).subscribe(async res => {
+      this.pinLoader = false;
       if (res.data && res.data[0].messages) {
         this.profilePinArray = res.data[0].messages.reverse();
       }
@@ -669,6 +677,7 @@ export class ChatsComponent implements OnInit {
 
   // get profile images
   getProfileImages() {
+    this.mediaLoader = true;
     this.openCallLogFlag = false;
     let payload = {
       chatRoomId: this.selectedChat._id,
@@ -677,6 +686,7 @@ export class ChatsComponent implements OnInit {
     this.profileImageArray = [];
     this.http.getData(ApiUrl.CHAT_MSG, payload).subscribe(async res => {
       this.profileMediaArray = res.data.data;
+      this.mediaLoader = false;
       res.data && res.data.data.map((img) => {
         if (img.file.type === 'IMAGE') {
           this.profileImageArray.push(img);
@@ -758,6 +768,8 @@ export class ChatsComponent implements OnInit {
   //forward modal search
   forwardSearch(event) {
     let value = event.target.value;
+    console.log(value);
+
     this.loader = true;
     this.forwardArray = [];
     let payload = {
@@ -912,7 +924,7 @@ export class ChatsComponent implements OnInit {
   getNewMassages() {
     this.socket.on('new-message', (data) => {
       console.log(data);
-      if (data.chatRoomId === (this.selectedChat && this.selectedChat._id)) {
+      if (data.chatRoomId._id === (this.selectedChat && this.selectedChat._id)) {
         this.massageArray = [...this.massageArray, data];
       } else {
         this.handlePushNotification(data);
@@ -1037,8 +1049,10 @@ export class ChatsComponent implements OnInit {
     this.forwardMsgContact.map((chatRoomId) => {
       this.socket.emit('forward', {
         chatRoomId: chatRoomId,
-        messageIds: [this.forwardData._id]
+        messageIds: this.forwardIds
       });
+      this.forwardIds = []
+      this.forwardselectmsg = false;
     });
   }
 
@@ -1078,6 +1092,7 @@ export class ChatsComponent implements OnInit {
           message: { content: this.message, ref: null },
           code: timestamp
         });
+        this.clickChat(this.selectedChat, this.selectedChatIndex);
         this.manageScroll();
       }
       else {
@@ -1085,6 +1100,7 @@ export class ChatsComponent implements OnInit {
           chatRoomId: this.selectedChat._id,
           message: { content: this.message, ref: this.replayData._id }
         });
+        this.clickChat(this.selectedChat, this.selectedChatIndex);
         this.manageScroll();
       }
     }
@@ -1263,18 +1279,36 @@ export class ChatsComponent implements OnInit {
     this.replayFlag = false;
     this.replayData = '';
   }
-
+  forwardCheck(event, chat) {
+    if (event.checked) {
+      this.forwardIds.push(chat._id)
+    } else {
+      for (let i = 0; i < this.forwardIds.length; i++) {
+        if (this.forwardIds[i] === chat._id) {
+          this.forwardIds.splice(i, 1);
+        }
+      }
+    }
+  }
   // forward msg modal
   forwardMsg(openForwardModal: TemplateRef<any>, chat) {
-    this.forwardData = chat;
-    this.forwardModalFlag = true;
-    this.forwardArray = this.activeChatList;
-    this.modalRef = this.modalService.show(
-      openForwardModal,
-      Object.assign({}, { class: 'gray modal-md' })
-    );
-  }
+    if (this.forwardIds.length > 0) {
+      this.forwardData = chat;
+      this.forwardModalFlag = true;
+      this.forwardArray = this.activeChatList;
+      console.log(this.forwardArray);
+      this.modalRef = this.modalService.show(
+        openForwardModal,
+        Object.assign({}, { class: 'gray modal-md' })
+      );
+    } else {
 
+    }
+  }
+  closeForward() {
+    this.forwardselectmsg = false;
+    this.forwardIds = [];
+  }
   // pin msg
   pinMsg(chat) {
     let payload = {
@@ -1537,11 +1571,13 @@ export class ChatsComponent implements OnInit {
     console.log('...................', this.massageArray, this.selectedChat.users)
     this.massageArray.length > 0 && this.massageArray.map((msg) => {
       this.selectedChat.users.map((user) => {
-        if (msg.from.user === user._id) {
+        console.log(user);
+        if (user && msg.from.user === user._id) {
           // console.log('in if......',msg , user)
           msg.fromUserName = user.fullName ? user.fullName : user.name
         } else {
           this.selectedChat.admins.map((ad) => {
+            console.log(ad);
             if (msg.from.user === ad._id) {
               msg.fromUserName = ad.fullName ? ad.fullName : ad.name
             }
@@ -1680,6 +1716,10 @@ export class ChatsComponent implements OnInit {
     if (this.videoSrc) {
       return this._sanitizer.bypassSecurityTrustResourceUrl(this.videoSrc)
     }
+  }
+
+  forwardselect() {
+    this.forwardselectmsg = true;
   }
 
 }

@@ -17,11 +17,13 @@ export class ContactListsComponent implements OnInit {
     lists: any;
     public onClose: Subject<boolean>;
     hiddenTabs: any = [];
+    loginData: any;
 
     constructor(
         public http: HttpService
     ) {
         this.myModel = new TableModel();
+        this.loginData = JSON.parse(localStorage.getItem('loginData'));
     }
 
     ngOnInit(): void {
@@ -30,7 +32,7 @@ export class ContactListsComponent implements OnInit {
 
     gotoTab(data) {
         this.http.hideModal();
-        this.onClose.next(true);
+        this.onClose.next(true); 
         if (data._id) {
             localStorage.setItem('savedFilter', JSON.stringify(data));
             this.http.addQueryParams({filterId: data._id});
@@ -44,12 +46,20 @@ export class ContactListsComponent implements OnInit {
     }
 
     hideTab(data) {
+        const totalGroupsStored = this.lists ? this.lists.length : 0;
+        const totalGroupAlreadyHidden = JSON.parse(localStorage.getItem(`hiddenTabs-${this.loginData.activeWorkspaceId}`));
+        console.log('totalGroupAlreadyHidden::', totalGroupAlreadyHidden);
+        data.isHide = (data.isHide === undefined) ? false : data.isHide;
+        if((!(totalGroupAlreadyHidden && (totalGroupAlreadyHidden.length < (totalGroupsStored - 2))) && totalGroupAlreadyHidden !== null && !data.isHide) || totalGroupsStored === 2){
+            return this.http.openSnackBar('Atleast two group will show in list.');
+        }
         if (this.hiddenTabs && this.hiddenTabs.length) {
             this.lists.forEach((val) => {
-                this.hiddenTabs.forEach((val1, index) => {
-                    if (!data.isHide) {
+                this.hiddenTabs.forEach((hideVal, index) => {
+                    if (!data.isHide && data.name === val.name) {
                         this.hiddenTabs.push(data);
-                    } else {
+                    }
+                    if(data.isHide && data.name === hideVal.name) {
                         this.hiddenTabs.splice(index, 1);
                     }
                 });
@@ -57,7 +67,8 @@ export class ContactListsComponent implements OnInit {
         } else {
             this.hiddenTabs.push(data);
         }
-        localStorage.setItem('hiddenTabs', JSON.stringify(this.hiddenTabs));
+        this.hiddenTabs = this.removeDuplicateObject(this.hiddenTabs);
+        localStorage.setItem(`hiddenTabs-${this.loginData.activeWorkspaceId}`, JSON.stringify(this.hiddenTabs));
         data.isHide = !data.isHide;
     }
 
@@ -66,8 +77,8 @@ export class ContactListsComponent implements OnInit {
             skip: 0,
             limit: 100
         };
-        if (localStorage.getItem('hiddenTabs')) {
-            this.hiddenTabs = JSON.parse(localStorage.getItem('hiddenTabs'));
+        if (localStorage.getItem(`hiddenTabs-${this.loginData.activeWorkspaceId}`)) {
+            this.hiddenTabs = JSON.parse(localStorage.getItem(`hiddenTabs-${this.loginData.activeWorkspaceId}`));
         }
         this.http.getData(ApiUrl.CONTACT_LISTS, obj).subscribe(res => {
             this.lists = res.data;
@@ -88,4 +99,12 @@ export class ContactListsComponent implements OnInit {
         this.http.hideModal();
     }
 
+    private removeDuplicateObject(objectArray?){
+        return objectArray.filter((tab, index) => {
+            const _tab = JSON.stringify(tab);
+            return index === this.hiddenTabs.findIndex(obj => {
+                return JSON.stringify(obj) === _tab;
+            });
+        });
+    }
 }

@@ -1,198 +1,355 @@
-<div class="wrapper border-bottom white-bg">
-    <div class="contact">
-        <div class="contact-header">
+<div
+  class="wrapper border-bottom white-bg margin-none-custom custom-contact-list-main"
+>
+  <div class="contact">
+    <div class="contact-header">
+      <ng-container *ngIf="myModel?.savedFilter">
+        <div class="Clients_list_heading">
+          <img
+            src="/assets/images/back-arrow.svg"
+            (click)="
+              myModel.contactsType = null;
+              tab = 'contactList';
+              http.addQueryParams({})
+            "
+          />
+          <h3 class="page-title">{{ myModel?.savedFilter?.name }}</h3>
+        </div>
 
-            <ng-container *ngIf="myModel?.savedFilter">
-                <div class="Clients_list_heading">
-                    <img src="/assets/images/back-arrow.svg"
-                         (click)="myModel.contactsType=null; tab='contactList';http.addQueryParams({})">
-                    <h3 class="page-title">{{myModel?.savedFilter?.name}}</h3>
-                </div>
+        <div class="actions">
+          <div class="btn-group add-btn" dropdown>
+            <button
+              dropdownToggle
+              type="button"
+              class="btn dropdown-toggle"
+              aria-controls="dropdown-basic"
+            >
+              <span class="plus-icon"
+                ><img src="/assets/images/dots.svg" />
+              </span>
+            </button>
+            <ul
+              *dropdownMenu
+              class="dropdown-menu"
+              role="menu"
+              aria-labelledby="button-basic"
+            >
+              <li role="menuitem">
+                <a class="dropdown-item" (click)="deleteFilter()">Delete</a>
+              </li>
+              <li role="menuitem">
+                <a class="dropdown-item" (click)="updateFilter()">Edit</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </ng-container>
 
-                <div class="actions">
-                    <div class="btn-group add-btn" dropdown>
-                        <button dropdownToggle type="button" class="btn dropdown-toggle"
-                                aria-controls="dropdown-basic">
-                            <span class="plus-icon"><img src="/assets/images/dots.svg"> </span>
-                        </button>
-                        <ul *dropdownMenu class="dropdown-menu" role="menu"
-                            aria-labelledby="button-basic">
-                            <li role="menuitem"><a class="dropdown-item" (click)="deleteFilter()">
-                                Delete</a></li>
-                        </ul>
-                    </div>
-                </div>
+      <ng-container *ngIf="myModel?.contactsType">
+        <div class="Clients_list_heading custom-color-code">
+          <img
+            [src]="'/assets/images/back-arrow.svg'"
+            (click)="
+              myModel.contactsType = null;
+              tab = 'contactList';
+              http.addQueryParams({})
+            "
+          />
+          <h3 class="page-title" *ngIf="myModel.contactsType == 1">Leads</h3>
+          <h3 class="page-title" *ngIf="myModel.contactsType == 2">Clients</h3>
+        </div>
+      </ng-container>
 
-            </ng-container>
+      <ng-container *ngIf="!myModel?.contactsType && !myModel?.savedFilter">
+        <h3 class="page-title">
+          <img
+            src="/assets/images/back-arrow.svg"
+            style="width: 30px"
+            *ngIf="myModel?.hideTabs"
+            (click)="clearFilterData()"
+          />
+          {{ http?.heading }}
+        </h3>
+        <div class="actions" *ngIf="tab == 'allContact'">
+          <!--<span class="filter-icon" (click)="openContactFilter(false)"><img
+                            src="/assets/images/filter.svg"></span>-->
+          <div class="btn-group add-btn" dropdown>
+            <button
+              id="add-contact4"
+              dropdownToggle
+              type="button"
+              class="btn dropdown-toggle"
+              aria-controls="dropdown-basic"
+            >
+              <span class="plus-icon"
+                ><img src="/assets/images/plus.svg" />
+              </span>
+            </button>
+            <ul
+              id="add-contact4"
+              *dropdownMenu
+              class="dropdown-menu"
+              role="menu"
+              aria-labelledby="button-basic"
+            >
+              <li role="menuitem">
+                <a class="dropdown-item" (click)="openAddContact()">
+                  Add Contact</a
+                >
+              </li>
+              <li role="menuitem">
+                <a class="dropdown-item" (click)="importContact()">
+                  Import Contact</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
 
-            <ng-container *ngIf="myModel?.contactsType">
-                <div class="Clients_list_heading">
-                    <img [src]="'/assets/images/back-arrow.svg'"
-                         (click)="myModel.contactsType=null; tab='contactList';http.addQueryParams({})">
-                    <h3 class="page-title" *ngIf="myModel.contactsType == 1">Leads</h3>
-                    <h3 class="page-title" *ngIf="myModel.contactsType == 2">Clients</h3>
-                </div>
-            </ng-container>
-
-            <ng-container *ngIf="!myModel?.contactsType && !myModel?.savedFilter">
-
-
-
-                <h3 class="page-title">
-                    <img src="/assets/images/back-arrow.svg" style="width: 30px" *ngIf="myModel?.hideTabs"
-                     (click)="clearFilterData();">
-                     {{http?.heading}}
-                </h3>
-                <div class="actions" *ngIf="tab == 'allContact'">
-                    <span class="filter-icon" (click)="openContactFilter(false)"><img
-                            src="/assets/images/filter.svg"></span>
-                    <div class="btn-group add-btn" dropdown>
-                        <button id="add-contact4" dropdownToggle type="button" class="btn dropdown-toggle"
-                                aria-controls="dropdown-basic">
-                            <span class="plus-icon"><img src="/assets/images/plus.svg"> </span>
-                        </button>
-                        <ul id="add-contact4" *dropdownMenu class="dropdown-menu" role="menu"
-                            aria-labelledby="button-basic">
-                            <li role="menuitem"><a class="dropdown-item" (click)="openAddContact();">
-                                Add Contact</a></li>
-                            <li role="menuitem"><a class="dropdown-item" (click)="importContact()">
-                                Import Contact</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <ul class="nav nav-pills mb-3 contact-h-tab-heading">
-                    <li class="nav-item" [ngClass]="{'tab-btn':tab == 'allContact'}" *ngIf="!myModel?.hideTabs"
-                        (click)="selected='';tab='allContact';http.addQueryParams({});">All
-                        Contacts
-                    </li>
-                    <li class="nav-item" (click)="unselectAll();selected='';tab='contactList';this.listsFun();"
+        <ul class="nav nav-pills mb-3 contact-h-tab-heading">
+          <li
+            class="nav-item"
+            [ngClass]="{ 'tab-btn': tab == 'allContact' }"
+            *ngIf="!myModel?.hideTabs"
+            (click)="selected = ''; tab = 'allContact'; http.addQueryParams({})"
+          >
+            All Contacts
+          </li>
+          <!-- <li class="nav-item" (click)="unselectAll();selected='';tab='contactList';this.listsFun();"
                         *ngIf="!myModel?.hideTabs"
                         [ngClass]="{'tab-btn':tab == 'contactList'}">
                         Contacts lists
+                    </li> -->
+          <li
+            class="nav-item"
+            (click)="
+              unselectAll(); selected = ''; tab = 'contactList'; this.listsFun()
+            "
+            *ngIf="!myModel?.hideTabs"
+            [ngClass]="{ 'tab-btn': tab == 'contactList' }"
+          >
+            Groups
+          </li>
+        </ul>
+      </ng-container>
+
+      <div class="actions" *ngIf="tab == 'contactList'">
+        <div class="btn-group add-btn" dropdown>
+          <button
+            id="add-contact"
+            dropdownToggle
+            type="button"
+            class="btn dropdown-toggle"
+            aria-controls="dropdown-basic"
+          >
+            <span class="plus-icon"
+              ><img src="/assets/images/plus.svg" />
+            </span>
+          </button>
+          <ul
+            id="add-contact"
+            *dropdownMenu
+            class="dropdown-menu"
+            role="menu"
+            aria-labelledby="button-basic"
+          >
+            <li role="menuitem">
+              <a class="dropdown-item" (click)="openContactFilter()">
+                Create a group</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div
+        class="tab-pane"
+        id="pills-profile"
+        *ngIf="tab == 'contactList'"
+        style="min-height: 500px"
+      >
+        <div class="contact-saved-lists">
+          <ng-container *ngFor="let data of lists">
+            <a
+              class="contact-list-card"
+              (click)="tab = 'allContact'; goToFilter(data)"
+              *ngIf="!data?.isHide"
+            >
+              <div class="top">
+                <h4 title="Clients" class="name">{{ data?.name }}</h4>
+                <div class="number">{{ data?.count || 0 }}</div>
+              </div>
+            </a>
+          </ng-container>
+
+          <a
+            class="view-all contact-list-card"
+            (click)="openContact(myModel?.allData)"
+          >
+            View all contact groups
+          </a>
+        </div>
+      </div>
+
+      <div
+        class="tab-content contact-v-tab-heading"
+        id="pills-tabContent"
+        *ngIf="tab == 'allContact'"
+      >
+        <div class="tab-pane1" id="pills-home">
+          <div
+            class="nav flex-column nav-pills"
+            id="v-pills-tab"
+            aria-orientation="vertical"
+          >
+            <div class="select-all">
+              <label class="custom-checkbox"
+                >Select all
+                <input
+                  type="checkbox"
+                  (change)="selectAllContact()"
+                  [formControl]="allSelect"
+                />
+                <span class="checkmark"></span>
+              </label>
+            </div>
+            <cdk-virtual-scroll-viewport itemSize="50" class="full-port">
+              <app-loader
+                [showLoader]="loader"
+                [length]="myModel?.contacts?.length"
+              ></app-loader>
+              <div
+                *cdkVirtualFor="let data of myModel?.contacts; let i = index"
+              >
+                <a class="nav-link" [ngClass]="{ active: selectedIndex == i }">
+                  <span class="circle">
+                    <label class="custom-checkbox">
+                      <input
+                        type="checkbox"
+                        (change)="getSelectedCount()"
+                        [(ngModel)]="data.isSelected"
+                      />
+                      <span class="checkmark" style="margin-left: -10px">
+                      </span>
+                      <span
+                        class="circle"
+                        *ngIf="!data.isSelected"
+                        style="top: 0; left: 0"
+                      >
+                        {{ data?.firstName?.substr(0, 1)
+                        }}{{ data?.lastName?.substr(0, 1) }}
+                      </span>
+                    </label>
+                  </span>
+                  <h4
+                    class="_contact_fullname"
+                    (click)="selectContact(data, i)"
+                  >
+                    {{ data?.firstName }} {{ data?.lastName }}
+                  </h4>
+                  <ul class="top-ul">
+                    <li *ngIf="data?.contactsType == 1">
+                      <span>Lead</span>
+                      <i
+                        class="fas fa-circle selected-tab"
+                        style="color: #f07a39"
+                      ></i>
                     </li>
-                </ul>
-            </ng-container>
-
-            <div class="actions" *ngIf="tab == 'contactList'">
-                <div class="btn-group add-btn" dropdown>
-                    <button id="add-contact" dropdownToggle type="button" class="btn dropdown-toggle "
-                            aria-controls="dropdown-basic">
-                        <span class="plus-icon"><img src="/assets/images/plus.svg"> </span>
-                    </button>
-                    <ul id="add-contact" *dropdownMenu class="dropdown-menu" role="menu"
-                        aria-labelledby="button-basic">
-                        <li role="menuitem"><a class="dropdown-item" (click)="openContactFilter(true)">
-                            Create a list</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="tab-pane" id="pills-profile" *ngIf="tab == 'contactList'" style="min-height: 500px">
-                <div class="contact-saved-lists">
-
-                    <ng-container *ngFor="let data of lists">
-                        <a class="contact-list-card" (click)="tab = 'allContact';goToFilter(data)"
-                           *ngIf="!data?.isHide">
-                            <div class="top">
-                                <h4 title="Clients" class="name">{{data?.name}}</h4>
-                                <div class="number">{{data?.count || 0}}</div>
-                            </div>
-                        </a>
-                    </ng-container>
-
-                    <a class="view-all contact-list-card" (click)="openContact(myModel?.allData)">
-                        View all contact lists
-                    </a>
-
-                </div>
-            </div>
-
-            <div class="tab-content contact-v-tab-heading" id="pills-tabContent" *ngIf="tab == 'allContact'">
-
-                <div class="tab-pane1" id="pills-home">
-                    <div class="nav flex-column nav-pills" id="v-pills-tab" aria-orientation="vertical">
-                        <div class="select-all">
-                            <label class="custom-checkbox">Select all
-                                <input type="checkbox" (change)="selectAllContact()" [formControl]="allSelect">
-                                <span class="checkmark"></span>
-                            </label>
-                        </div>
-                        <cdk-virtual-scroll-viewport itemSize="50" class="full-port">
-                            <app-loader [showLoader]="loader" [length]="myModel?.contacts?.length"></app-loader>
-                            <div *cdkVirtualFor="let data of myModel?.contacts;let i = index">
-
-                                <a class="nav-link" [ngClass]="{'active': selectedIndex == i}">
-                                    <span class="circle">
-                                        <label class="custom-checkbox">
-                                            <input type="checkbox" (change)="getSelectedCount()"
-                                                   [(ngModel)]="data.isSelected">
-                                            <span class="checkmark" style="margin-left: -10px;">
-                                            </span>
-                                            <span class="circle" *ngIf="!data.isSelected" style="top: 0;left:0">
-                                                {{data?.firstName?.substr(0, 1)}}{{data?.lastName?.substr(0, 1)}}
-                                            </span>
-                                        </label>
-                                    </span>
-                                    <h4 class="_contact_fullname" (click)="selectContact(data,i)">{{data?.firstName}} {{data?.lastName}}</h4>
-                                    <ul class="top-ul">
-                                        <li *ngIf="data?.contactsType == 1"><span>Lead</span>
-                                            <i class="fas fa-circle selected-tab" style="color: #f07a39"></i>
-                                        </li>
-                                        <li *ngIf="data?.contactsType == 2"><span>Client</span>
-                                            <i class="fas fa-circle selected-tab"></i>
-                                        </li>
-                                        <li *ngIf="data?.contactsType == 3"><span>Other</span>
-                                            <i class="fas fa-circle selected-tab" style="color: #000000"></i>
-                                        </li>
-                                    </ul>
-                                    <p (click)="selectContact(data,i)">{{data?.email}}
-                                        <span>Added {{data?.createdAt |date:'MMM dd,yyyy'}}</span>
-                                    </p>
-                                </a>
-                            </div>
-                        </cdk-virtual-scroll-viewport>
-
-                    </div>
-                </div>
-            </div>
+                    <li *ngIf="data?.contactsType == 2">
+                      <span>Client</span>
+                      <i class="fas fa-circle selected-tab"></i>
+                    </li>
+                    <li *ngIf="data?.contactsType == 3">
+                      <span>Other</span>
+                      <i
+                        class="fas fa-circle selected-tab"
+                        style="color: #000000"
+                      ></i>
+                    </li>
+                  </ul>
+                  <p (click)="selectContact(data, i)">
+                    {{ data?.email }}
+                    <span
+                      >Added {{ data?.createdAt | date: "MMM dd,yyyy" }}</span
+                    >
+                  </p>
+                </a>
+              </div>
+            </cdk-virtual-scroll-viewport>
+          </div>
         </div>
-
+      </div>
     </div>
-    <div class="contact-rght">
-        <app-contact-detail (closeBtn)="closedFun()" [myData]="selected" *ngIf="selected?.firstName">
-        </app-contact-detail>
+  </div>
+  <div class="contact-rght contact-right-cust">
+    <app-contact-detail
+      (closeBtn)="closedFun()"
+      [myData]="selected"
+      *ngIf="selected?.firstName"
+    >
+    </app-contact-detail>
 
-        <div class="empty-state-wrapper">
-            <app-placeholders
-                    *ngIf="!myModel?.savedFilter && !myModel?.contactsType && !selected?.firstName && tab === 'allContact'"
-                    [flag]="1"></app-placeholders>
-            <app-placeholders *ngIf="!myModel?.savedFilter && !selected?.firstName && tab === 'contactList'" [flag]="2"
-                              [data]="topTitle"></app-placeholders>
-            <app-placeholders
-                    *ngIf="(myModel?.contactsType || myModel?.savedFilter) && !selected?.firstName && tab === 'allContact'"
-                    [flag]="2"
-                    [data]="myModel?.contactsType || '3'"></app-placeholders>
-            <!--            <app-placeholders *ngIf="myModel?.contactsType && tab === 'allContact'" [flag]="2"-->
-            <!--                              [data]="3"></app-placeholders>-->
-            <!---->
-        </div>
+    <div class="empty-state-wrapper">
+      <app-placeholders
+        *ngIf="
+          !myModel?.savedFilter &&
+          !myModel?.contactsType &&
+          !selected?.firstName &&
+          tab === 'allContact'
+        "
+        [flag]="1"
+      ></app-placeholders>
+      <app-placeholders
+        *ngIf="
+          !myModel?.savedFilter && !selected?.firstName && tab === 'contactList'
+        "
+        [flag]="2"
+        [data]="topTitle"
+      ></app-placeholders>
+      <app-placeholders
+        *ngIf="
+          (myModel?.contactsType || myModel?.savedFilter) &&
+          !selected?.firstName &&
+          tab === 'allContact'
+        "
+        [flag]="2"
+        [data]="myModel?.contactsType || '3'"
+      ></app-placeholders>
+      <!--            <app-placeholders *ngIf="myModel?.contactsType && tab === 'allContact'" [flag]="2"-->
+      <!--                              [data]="3"></app-placeholders>-->
+      <!---->
     </div>
-
+  </div>
 </div>
 
 <div class="bottom-fix-bar" *ngIf="selectedContactCount > 0">
-    <div class="container">
-        <div class="item-count">{{selectedContactCount}} Selected</div>
-        <section>
-            <button type="button" class="outline-btn" (click)="openAddRemoveTag()">Add or remove tags</button>
-            <button type="button" class="outline-btn" routerLink="/broadcast/add-broadcast" [state]="{ hello: 'world' }"> Send a broadcast</button>
-            <button type="button" class="outline-btn" (click)="exportContacts();selectedContactCount =0">
-                Exports
-            </button>
-            <button type="button" class="outline-btn delet-btn" (click)="deleteContact()">
-                Delete
-            </button>
-        </section>
-    </div>
+  <div class="container">
+    <div class="item-count">{{ selectedContactCount }} Selected</div>
+    <section>
+      <button type="button" class="outline-btn" (click)="openAddRemoveTag()">
+        Add or remove tags
+      </button>
+      <button
+        type="button"
+        class="outline-btn"
+        routerLink="/broadcast/add-broadcast"
+        [state]="{ hello: 'world' }"
+      >
+        Send a broadcast
+      </button>
+      <button
+        type="button"
+        class="outline-btn"
+        (click)="exportContacts(); selectedContactCount = 0"
+      >
+        Exports
+      </button>
+      <button
+        type="button"
+        class="outline-btn delet-btn"
+        (click)="deleteContact()"
+      >
+        Delete
+      </button>
+    </section>
+  </div>
 </div>

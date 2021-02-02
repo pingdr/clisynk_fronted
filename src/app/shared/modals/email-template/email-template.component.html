@@ -9,17 +9,23 @@
             </header>
 
             <div class="template-items">
-                <ng-container *ngFor="let data of templates">
-                    <div class="template-list-items selected" (click)="selectTemplate(data)"
-                         [ngClass]="{'selected-Background':data._id == selectedTemplate._id}">
-                        <div class="list-item-info">
-                            <div class="list-item-text">
-                                <h4> {{data?.name || 'Enter name here'}} </h4>
-                                <p>{{data?.subject || '(no subject)'}}</p>
+                <ng-container *ngIf="templates.length > 0; else elseBlock">
+                    <ng-container *ngFor="let data of templates">
+                        <div class="template-list-items selected" (click)="selectTemplate(data)"
+                             [ngClass]="{'selected-Background':data._id == selectedTemplate?._id}">
+                            <div class="list-item-info">
+                                <div class="list-item-text">
+                                    <h4> {{data?.name || 'Enter name here'}} </h4>
+                                    <p>{{data?.subject || '(no subject)'}}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </ng-container>
                 </ng-container>
+                <ng-template #elseBlock>
+                    Loading....
+                </ng-template>
+ 
             </div>
         </section>
         <section class="template-editor">
@@ -45,8 +51,21 @@
 
                     <div class="email-content" style="border-bottom: 1px solid #d1d1d1;">
                         <div class="form-group">
-                            <ckeditor formControlName="html" debounce="500" [config]="ckeConfig" (blur)="finalSubmit()">
+                            <ckeditor 
+                            #editor 
+                            id="editor"
+                            formControlName="html"
+                            debounce="500" 
+                            [config]="ckeConfig"
+                            (blur)="finalSubmit()"
+                            >
                             </ckeditor>
+                            <!-- <div
+                            #html
+                            formControlName="html"
+                            id="summernote"
+                            [ngxSummernoteView]="selectedTemplate?.html"
+                            [ngxSummernote]></div> -->
                         </div>
                     </div>
 

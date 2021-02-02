@@ -13,9 +13,10 @@ import { format } from 'date-fns'
   styleUrls: ['./smart-forms.component.css']
 })
 export class SmartFormsComponent implements OnInit {
-  formsList: any;
+  formsList: any[];
   sortedData: any;
   loader: any;
+  searchText: string = "";
   
   constructor(public http: HttpService, public modalService: BsModalService) { }
 

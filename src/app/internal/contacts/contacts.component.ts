@@ -24,6 +24,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
     form: FormGroup;
     subscription: Subscription;
     searchSubscription: Subscription;
+    contactListSubscription: Subscription;
     loader = true;
     selectedIndex: number;
     selected: any;
@@ -31,20 +32,23 @@ export class ContactsComponent implements OnInit, OnDestroy {
     loginData: any;
     selectedContactCount = 0;
     showSelected = false;
+    contactsSelectedOnUpdate: any = [];
     allSelect = new FormControl();
     tab = 'allContact';
     topTitle = 'contactList';
     hiddenTabs: any;
     lists: any = [];
+    contactListId: any = "";
 
     constructor(public http: HttpService, public activatedRoute: ActivatedRoute) {
+        this.loginData = JSON.parse(localStorage.getItem('loginData'));
         this.myModel = new TableModel();
         this.myModel.activeIcon = 1;
         this.listsFun();
         activatedRoute.queryParams.subscribe(params => {
             this.myModel.contactsType = params['type'];
-            this.myModel.filterId = params['filterId'];
-            if (this.myModel.filterId) {
+            this.myModel.contactListId = params['contactListId'];
+            if (this.myModel.contactListId) {
                 this.myModel.savedFilter = JSON.parse(localStorage.getItem('savedFilter'));
             } else {
                 this.myModel.savedFilter = '';
@@ -78,16 +82,23 @@ export class ContactsComponent implements OnInit, OnDestroy {
                 });
             }
         });
+
+        this.contactListSubscription = this.http.eventStatus.subscribe(data => {
+            console.log('Come here');
+            if (data && data.eventType === 'addContact') {
+                this.listsFun();
+            }
+        });
     }
 
     ngOnInit() {
         this.allSelect.disable();
-        this.loginData = JSON.parse(localStorage.getItem('loginData'));
     }
 
     ngOnDestroy(): void {
         this.searchSubscription.unsubscribe();
         this.subscription.unsubscribe();
+        this.contactListSubscription.unsubscribe();
     }
 
     openAddRemoveTag() {
@@ -97,8 +108,8 @@ export class ContactsComponent implements OnInit, OnDestroy {
         this.http.showModal(AddRemoveTagComponent, 'more-sm', obj);
     }
 
-    openContactFilter(addBtn) {
-        const modalRef = this.http.showModal(ContactFilterComponent, 'md', {addBtn: addBtn});
+    openContactFilter() {
+        const modalRef = this.http.showModal(ContactFilterComponent, 'md');
         modalRef.content.onClose = new Subject<boolean>();
         modalRef.content.onClose.subscribe(res => {
             if (res) {
@@ -116,7 +127,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
 
     closedFun() {
         this.selected = {};
-    }
+}
 
     selectContact(data, index) {
         this.selected = data;
@@ -126,7 +137,8 @@ export class ContactsComponent implements OnInit, OnDestroy {
     goToFilter(data) {
         if (data._id) {
             localStorage.setItem('savedFilter', JSON.stringify(data));
-            this.http.addQueryParams({filterId: data._id});
+            this.contactListId = data._id;
+            this.http.addQueryParams({contactListId: data._id, });
         } else {
             if (data.name === 'Leads') {
                 this.http.addQueryParams({type: 1});
@@ -141,8 +153,8 @@ export class ContactsComponent implements OnInit, OnDestroy {
             skip: 0,
             limit: 100
         };
-        if (localStorage.getItem('hiddenTabs')) {
-            this.hiddenTabs = JSON.parse(localStorage.getItem('hiddenTabs'));
+        if (localStorage.getItem(`hiddenTabs-${this.loginData.activeWorkspaceId}`)) {
+            this.hiddenTabs = JSON.parse(localStorage.getItem(`hiddenTabs-${this.loginData.activeWorkspaceId}`));
         }
         this.http.getData(ApiUrl.CONTACT_LISTS, obj).subscribe(res => {
             this.lists = res.data;
@@ -199,7 +211,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
             key: 'id',
             title: 'Only the list will be removed',
             message: 'Removing this list will not remove the contacts within the list.',
-            id: this.myModel.filterId
+            id: this.myModel.contactListId
         };
         const modalRef = this.http.showModal(DeleteComponent, 'xs', obj);
         modalRef.content.onClose = new Subject<boolean>();
@@ -208,8 +220,29 @@ export class ContactsComponent implements OnInit, OnDestroy {
             this.getSelectedCount();
             this.http.addQueryParams({});
             this.listsFun();
-            this.http.openSnackBar('Contact list have been deleted');
+            this.http.openSnackBar('Contact group have been deleted');
         });
+    }
+
+    updateFilter() {
+        this.contactsSelectedOnUpdate = [];
+        if(this.myModel){
+            let getParsedContacts = JSON.parse(localStorage.getItem("savedFilter"));
+            this.myModel.contacts.map(element => {
+                let selectedContact = getParsedContacts.contacts.find(contact => contact === element._id);
+                if(selectedContact){
+                    this.contactsSelectedOnUpdate.push({"_id": element._id, "email": element.email});
+                }
+            });
+            console.log('this.myModel:::', this.myModel);
+            const obj: any = {
+                id: this.myModel.contactListId,
+                contacts: this.contactsSelectedOnUpdate,
+                tagIds: [],
+                name: getParsedContacts.name
+            }
+            const modalRef = this.http.showModal(ContactFilterComponent, 'md', obj);
+        }
     }
 
     deleteContact() {
@@ -238,7 +271,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
         };
 
         if (this.myModel.savedFilter) {
-            obj.filters = JSON.stringify(this.myModel.savedFilter.filters);
+            obj.contactListId = this.contactListId ? this.contactListId : "";
         }
 
         this.http.getData(ApiUrl.CONTACTS, obj).subscribe(res => {
