@@ -11,6 +11,8 @@ import * as _ from "lodash";
 import { FormArray, FormBuilder, FormControl, FormGroup } from "@angular/forms";
 import { MoveComponent } from "../../shared/modals/move/move.component";
 import { threeDotOptions } from "../../services/constants";
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { Router } from "@angular/router";
 
 export interface PeriodicElement {
   name: string;
@@ -45,7 +47,7 @@ export class DocumentsComponent implements OnInit {
   modalRef: BsModalRef;
   displayedColumns: string[] = ["position", "name", "weight", "symbol"];
   dataSource = ELEMENT_DATA;
-
+  moveUrl = 'documents/move';
   public itemsExpand: any[] = threeDotOptions;
 
   isView = true;
@@ -97,13 +99,19 @@ export class DocumentsComponent implements OnInit {
   constructor(
     public http: HttpService,
     private fb: FormBuilder,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     console.log(this.hasChildren);
     console.log(this.fetchChildren);
     this.folderUpdateSubscription = this.http.documentUpdatedStatus.subscribe((data) => {
+      if(data && data.folderListCallback){
+        delete data.folderListCallback;
+        console.log('Data::', data);
+        this.documentList();    
+      }
       this.folderStructureInTreeView = Array.isArray(data) ? data : [];
     });
     this.myForm = this.fb.group({
@@ -375,6 +383,20 @@ export class DocumentsComponent implements OnInit {
         break; 
       } 
     } 
+  }
+
+  dropEvent(event: CdkDragDrop<string[]>) {
+    let allFolders = event.container.data.length > 0 ? event.container.data : [];
+    if(allFolders.length > 0){
+      let obj: any = {
+        documentIds : [allFolders[event.previousIndex]['_id']],
+        target: allFolders[event.currentIndex]['_id']
+      }
+      this.http.postMoveFolder(this.moveUrl, obj).subscribe(res => {
+          this.responseData.splice(event.previousIndex, 1);
+        }, () => {
+      });
+    }
   }
 
 }

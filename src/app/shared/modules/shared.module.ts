@@ -108,6 +108,7 @@ import { MoveComponent } from '../modals/move/move.component';
 import { CreateDocumentComponent } from './../modals/create-document/create-document.component';
 import { AddPageComponent } from './../modals/add-page/add-page.component';
 import { CreateFolderComponent } from './../modals/create-folder/create-folder.component';
+import { EmailDocumentFormatComponent } from './../modals/email-document-format/email-document-format.component';
 import { NgxSummernoteModule } from 'ngx-summernote';
 
 
@@ -125,7 +126,7 @@ const entryList = [EmailFormatComponent, SendEmailComponent, ChangePasswordCompo
     EditAppointmentComponent, CalSlotComponent, BookModalComponent, ConfirmComponent, AppointTypeListComponent,
     AppointListComponent, AppointSuccessComponent, AddUserComponent, NotificationsComponent, DeleteContactComponent,
     SmartFormCreateComponent, CreateWorkspaceComponent, MergeContactsComponent, SmartFormDeleteComponent, LeadFormCreateComponent,
-    CreateFolderComponent, AddPageComponent, CreateDocumentComponent, DeleteDocComponent, MoveComponent
+    CreateFolderComponent, AddPageComponent, CreateDocumentComponent, DeleteDocComponent, MoveComponent, EmailDocumentFormatComponent
 ];
 
 const importExportList = [MatStepperModule, MatTabsModule, MatSliderModule, MatInputModule, MatSelectModule,

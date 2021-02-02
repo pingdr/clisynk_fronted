@@ -109,6 +109,8 @@
   </div>
   <div class="second-row set">
     <kendo-treeview
+      kendoTreeViewDragAndDrop
+      kendoTreeViewDragAndDropEditing
       [nodes]="folderStructureInTreeView"
       textField="text"
       [hasChildren]="hasChildren"
@@ -463,10 +465,19 @@
               </th>
             </tr>
           </thead>
-          <tbody *ngIf="!loader">
+          <tbody
+            *ngIf="!loader"
+            #activeList="cdkDropList"
+            class="box-list"
+            cdkDropList
+            cdkDropListOrientation="vertical"
+            [cdkDropListData]="responseData"
+            (cdkDropListDropped)="dropEvent($event)"
+          >
             <tr
               class="selectable-row"
               *ngFor="let data of responseData; let i = index"
+              cdkDrag
             >
               <td class="">
                 <div class="cell table-label">
@@ -626,7 +637,7 @@
           <i class="fa fa-spinner fa-spin" *ngIf="loader"></i>
         </table>
         <div
-          *ngIf="!loader && !responseData.length"
+          *ngIf="searchText !== '' && !loader && !responseData.length"
           direction="row"
           width="1"
           height="1"
@@ -648,26 +659,32 @@
           <div>Try searching something else.</div>
         </div>
         <div
-          *ngIf="folderId"
+          *ngIf="!loader && !responseData.length && searchText === ''"
           direction="row"
           width="1"
           height="1"
           class="Item-xwy1t9-0 hxCQKY nodata-container"
         >
+          <img
+            src="assets/images/document_folder.svg"
+            width="70px"
+            style="margin-bottom: 30px"
+          />
           <h3
             class="Title-sc-3zvmf3-0 iqzivz Title-sc-1fudgxe-0 hqNXoB styled__StyledTitle-sc-1q3jwcw-3 iKRJiL"
             spacing="s0"
           >
-            <div>
-              <img
-                src="assets/images/doc-not-found.svg"
-                width="70px"
-                style="margin-bottom: 30px"
-              />
-            </div>
-            ABCDFGHJKL
+            No documents in this folder
           </h3>
-          <div>Try searching something else.</div>
+          <span>
+            Create a new document here or go to your document list to move an
+            existing document into this folder.</span
+          >
+          <div>
+            <button class="btn create-btn" (click)="openAddDocument()">
+              Create
+            </button>
+          </div>
         </div>
       </div>
     </div>

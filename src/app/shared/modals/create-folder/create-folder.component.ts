@@ -52,6 +52,7 @@ export class CreateFolderComponent implements OnInit {
                 this.http.openSnackBar('Folder ' + this.form.value.name + ' Successfully Updated.');
                 this.http.getData(this.url, { partial: 1 }).subscribe((res) => {
                     if (res.data && res.data.length) {
+                        res.data.folderListCallback = true;
                         this.http.documentUpdated(res.data);
                     }
                 });
@@ -67,6 +68,7 @@ export class CreateFolderComponent implements OnInit {
                 this.http.openSnackBar('Folder ' + this.form.value.name + ' Successfully Created');
                 this.http.getData(this.url, { partial: 1 }).subscribe((res) => {
                     if (res.data && res.data.length) {
+                        res.data.folderListCallback = true;
                         this.http.documentUpdated(res.data);
                     }
                 });

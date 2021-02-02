@@ -5,6 +5,7 @@ import { HttpService } from '../../../services/http.service';
 import { AddPageComponent } from '../../../shared/modals/add-page/add-page.component';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
+import { EmailDocumentFormatComponent } from '../../../shared/modals/email-document-format/email-document-format.component';
 declare var jQuery: any;
 @Component({
   selector: 'app-approval-document',
@@ -41,6 +42,7 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
     { cols: this.pageColumns, rows: 1, y: 1, x: this.pageX, isEdit: false, type: 'header', page: 1, index: 1, id: 'header-1', class: 'header-1', layerIndex: 2, value: '', dragEnabled: false, resizeEnabled: false, hasContent: true },
     { cols: this.pageColumns, rows: 1, y: 8, x: this.pageX, isEdit: false, type: 'footer', page: 1, index: 2, id: 'footer-8', class: 'footer-8', layerIndex: 2, value: '', dragEnabled: false, resizeEnabled: false, hasContent: true },
   ];
+  loginData: any;
 
   selectedWidgetType = "";
 
@@ -928,6 +930,18 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
 
   openAddPage() {
     this.http.showModal(AddPageComponent, 'lg');
+  }
+
+  sentDocumentViaEmail() {
+    this.loginData = JSON.parse(localStorage.getItem('loginData'));
+    console.log('Login Data:::', this.loginData);
+    const obj: any ={
+      subject: `${this.loginData.name} sent you New Document`,
+      email: 'mukutprasad.pingdr@gmail.com',
+      documentId: this.documentId,
+      title: this.documentDetail['title']
+    };
+    this.http.showModal(EmailDocumentFormatComponent, 'lg', obj);
   }
 
 }
