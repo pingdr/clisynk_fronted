@@ -209,7 +209,7 @@ export class ChatsComponent implements OnInit {
         console.log('video join event............................', data)
         this.videoCallToken = data.accessToken;
         this.room = data.room;
-        // this.callerName = data.from.name;
+        this.callerName = data.fromUser.fullName;
         this.callId = data.callId;
         this.callChatroomId = data.chatRoomId;
         if (data.fromUser._id !== this.adminId) {
@@ -243,8 +243,8 @@ export class ChatsComponent implements OnInit {
         // this.twilioService.startLocalVideo();
       }
       if (data.type == 'userStatus') {
-        this.callerName = this.selectedChat.temp.name;
         if (this.selectedChat) {
+          this.callerName = this.selectedChat.temp.name;
           if (data.onlineUsers && data.onlineUsers.includes(this.callChatroomId)) {
             this.callStatus = "Ringing.....";
           } else {
