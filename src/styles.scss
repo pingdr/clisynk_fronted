@@ -7089,6 +7089,8 @@ section.appt-list {
   padding: 10px 0px !important;
 }
 
+}
+
 .new-header-group-main .ping-dr-notification ul {
   text-align: left;
 }
@@ -7113,17 +7115,17 @@ section.appt-list {
   li
   .main-workspace-notification
   .left-col {
-    width: 33px;
-    height: 33px;
-    display: flex;
-    align-items: center;
-    background: #5a6079 !important;
-    margin-right: 15px;
-    color: #ffff;
-    justify-content: center;
-    font-size: 12px;
-    border-radius: 100%;
-    position: relative;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  background: #e6ab5e;
+  margin-right: 18px;
+  color: #ffff;
+  justify-content: center;
+  font-size: 18px;
+  border-radius: 100%;
+  position: relative;
   box-shadow: 0px 0px 6px #cccaca;
 }
 
@@ -7675,4 +7677,76 @@ input:-webkit-autofill:active {
   position: relative;
   right: -2px;
   color: #5a6079 !important;
+}
+.k-treeview .k-item {
+  padding: 0 0 0 30px !important;
+}
+
+.WebComponentsIcons {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.WebComponentsIcons::after {
+  content: "";
+  display: block;
+  clear: both;
+  height: 0;
+  line-height: 0;
+}
+
+.WebComponentsIcons li {
+  margin: 10px;
+  padding: 10px;
+  display: flex;
+  float: right;
+  text-align: center;
+  width: 80px;
+  height: 20px;
+  font-size: 6px;
+  line-height: 1em;
+  font-weight: 300;
+  color: #999;
+}
+
+.WebComponentsIcons li:before {
+  display: none;
+}
+
+.WebComponentsIcons .k-icon {
+  display: block;
+  clear: both;
+  margin: 0 auto 10px;
+  color: #656565;
+  font-size: 32px;
+}
+
+.obsolete-classes {
+  width: 100%;
+  max-width: 900px;
+  text-align: left;
+  border-collapse: collapse;
+}
+
+.obsolete-classes th,
+.obsolete-classes td {
+  padding: 10px 0;
+  border-bottom: 1px solid #ececec;
+}
+
+.obsolete-classes th {
+  padding: 0 0 5px;
+}
+
+.old-class {
+  color: #f31700;
+}
+
+.new-class {
+  color: #5ec232;
+}
+
+.ref-icon {
+  width: 60px;
 }

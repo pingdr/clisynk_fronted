@@ -5,6 +5,7 @@ import { HttpService } from '../../../services/http.service';
 import { AddPageComponent } from '../../../shared/modals/add-page/add-page.component';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
+import { EmailDocumentFormatComponent } from '../../../shared/modals/email-document-format/email-document-format.component';
 declare var jQuery: any;
 @Component({
   selector: 'app-approval-document',
@@ -14,6 +15,7 @@ declare var jQuery: any;
   encapsulation: ViewEncapsulation.None
 })
 export class ApprovalDocumentComponent implements OnInit, OnDestroy {
+
   options: GridsterConfig;
   dashboard: Array<GridsterItem>;
   editHeader = false; //Header edit or not
@@ -40,9 +42,12 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
     { cols: this.pageColumns, rows: 1, y: 1, x: this.pageX, isEdit: false, type: 'header', page: 1, index: 1, id: 'header-1', class: 'header-1', layerIndex: 2, value: '', dragEnabled: false, resizeEnabled: false, hasContent: true },
     { cols: this.pageColumns, rows: 1, y: 8, x: this.pageX, isEdit: false, type: 'footer', page: 1, index: 2, id: 'footer-8', class: 'footer-8', layerIndex: 2, value: '', dragEnabled: false, resizeEnabled: false, hasContent: true },
   ];
+  loginData: any;
 
   selectedWidgetType = "";
+
   constructor(private router: Router, public http: HttpService, private route: ActivatedRoute) { }
+
   ngOnInit(): void {
     this.ckeConfig = {
       allowedContent: false,
@@ -90,23 +95,10 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
 
     this.documentId = this.route.snapshot.params['id'];
     this.getDocumentDetails(this.documentId);
-
-    //when change header 
-    // let that = this;
-    // $(document).ready(function () {
-    //   $('.angular-editor-textarea').bind('DOMSubtreeModified', function () {
-    //     let hgt:any = $('.angular-editor-textarea').height();
-    //     if(hgt > 100){
-    //       let row = Math.ceil(hgt/100);
-    //       that.chnageheight(row);         
-
-    //     }
-
-    //   });
-    // });
-
   }
+
   ngOnDestroy() {
+    console.log('On Ng Destroy');
     this.updateDocumentDetails(this.documentId);
   }
 
@@ -148,7 +140,6 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
           this.dashboard = pageContent;
           localStorage.setItem("dashboard", JSON.stringify(this.dashboard));
           this.changedOptions();
-
           //-- Append html once get dashboard value from localstorgae or db --//
           let that = this;
           setTimeout(function () {
@@ -160,7 +151,7 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
                 if (element.isEdit) {
                   element.isEdit = false;
                 }
-                //console.log('element', element.isEdit);
+                console.log('Initiated Element:::', element);
                 $("#" + element.id).empty();
                 if (element.value != '') {
                   $("#" + element.id).append(element.value);
@@ -199,23 +190,32 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
   }
 
   addWidget(event, widgetType) {
-    this.selectedWidgetType = widgetType
+    console.log('Event:::', event);
+    console.log('Widget Type:::', widgetType);
+    this.selectedWidgetType = widgetType;
   }
+
+  dragStopHandler(event?){
+    console.log('Event Stop Handler:::', event);
+  }
+
   getPageNumberByY(y) {
     let rows = 8;
     let page = Math.ceil(y / rows);
     return page;
   }
+
   emptyCellClick(event: MouseEvent, item: any) {
+    console.log('Event::', event, 'Item::', item);
     let page = 1;
     let that = this;
     let nextIndex = this.dashboard.length;
     let position = item.y;
-    var isWidget = this.dashboard.filter(obj => { //Getting number of widget of select page
-      return obj.y === position && obj.layerIndex == 2;
+    const isWidget = this.dashboard.filter(obj => {
+      return obj.y === position && obj.layerIndex === 2;
     })
-    if (isWidget.length) {  // if widget already exits on selected y axis
-      alert("You can't add this widget on this place due to another widget already exits in same place");
+    if (isWidget.length) {
+      this.http.openSnackBar(`You can't add this widget on this place due to another widget already exits in same place`);
     } else {
       that.dashboard.push({
         isEdit: false,
@@ -235,26 +235,22 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
         hasContent: true
       });
       that.saveDocument();
-      //-- Append html content of header --//
       let className = that.selectedWidgetType + '-' + position;
       setTimeout(function () {
         $("#" + className).append(className);
-        //that.clickedHeader(that.dashboard[nextIndex]);
       }, 100);
-      //console.log('emptyCellClick', this.getPageNumberByY(item.y), this.selectedWidgetType, item.y);
-
-      //-- Append html content of header --//
     }
   }
 
   updateDocumentDetails(documentId) {
+    console.log('Come Here Update Details');
     let url = 'documents/' + documentId;
     let body = {
       title: this.documentDetail['title'],
       content: {
         key1: this.dashboard
       },
-      status: "PUBLISHED"
+      status: "DRAFT"
     };
     this.http.updateDocument(url, body).subscribe(() => {
     }, () => {
@@ -263,15 +259,12 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
 
   clickedHeader(item): void {
     if (this.editWidgetIndex != -1) {
-      //Doing Non edit if any widget is edit
       this.resetCurrentEdit(this.editWidgetIndex);
       this.editWidgetIndex = -1;
     }
     let that = this;
-    //that.editHeader = true;
     that.editWidgetIndex = that.dashboard.indexOf(item);
     that.dashboard[that.editWidgetIndex]['isEdit'] = true;
-
     let className = that.dashboard[that.editWidgetIndex]['class'];
     let html = $('.' + className).find('.cke_top').html();
     $("#text-propertires").empty();
@@ -324,8 +317,6 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
   }
 
   resetCurrentEdit(index) {
-    //if (this.editWidgetIndex != -1) {
-    //this.editHeader = false;
     this.dashboard[index]['isEdit'] = false;
     let className = this.dashboard[index]['class'];
     let that = this;
@@ -337,10 +328,7 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
         $("#" + className).append(className);
       }
     }, 100);
-
-
     this.saveDocument();
-    //}
   }
 
   saveDocument() {
@@ -410,7 +398,6 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
               element['y'] += 1;
               element['class'] = element['type'] + '-' + element['y'];
               element['id'] = element['type'] + '-' + element['y'];
-
               that.changedOptions();
               setTimeout(function () {
                 let className = element['type'] + '-' + element['y'];
@@ -441,17 +428,12 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
               }, 100);
             }
             //---- Move next Footers --//
-
             if (i === that.dashboard.length) { //When last value of dashboard array
-
               //that.changedOptions(); //reflects changes of moving existing header
-
               //---- Add new header --//
               var pages = that.dashboard.filter(obj => { //Getting number of widget of select page
                 return obj.layerIndex === 1 && obj.type === 'page';
               });
-
-
               pages.forEach(e => {
                 if (1 || e.type === 'page') {
                   let position = e['y'] + diff;
@@ -501,8 +483,6 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
             }
             i++
           });
-
-
         } else {
           if (item.type === 'text-block') {
             var pageWidgets = this.dashboard.filter(obj => { //Getting all widgets of selected page
@@ -573,7 +553,6 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
                       hasContent: item['hasContent']
                     });
                     that.saveDocument();
-
                     //-- Append html content of header --//
                     let className = item['type'] + '-' + position;
                     setTimeout(function () {
@@ -584,7 +563,6 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
                       }
                     }, 100);
                     //-- Append html content of header --//
-
                     nextIndex++;
                   }
                 });
@@ -609,7 +587,6 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
         if (this.editWidgetIndex != -1) {
           this.editWidgetIndex = -1;
         }
-
         $event.preventDefault();
         $event.stopPropagation();
         let totalRow = 8;
@@ -630,7 +607,6 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
             }
           }
         });
-
         //Selected widget Should be remove from all page
         if (item.type === 'header' || item.type === 'footer') {
           let i = 1;
@@ -645,7 +621,6 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
               element.y -= element['rows'];
               element['class'] = element['type'] + '-' + element['y'];
               element['id'] = element['type'] + '-' + element['y'];
-
               that.changedOptions();
               setTimeout(function () {
                 let className = element['type'] + '-' + element['y'];
@@ -658,13 +633,11 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
               }, 100);
             }
             //--Move next headers --//
-
             //--Move next footers --//
             if (element.type === 'footer' && (element.y - startIndex) < diff) {
               element.y += element['rows'];
               element['class'] = element['type'] + '-' + element['y'];
               element['id'] = element['type'] + '-' + element['y'];
-
               that.changedOptions();
               setTimeout(function () {
                 let className = element['type'] + '-' + element['y'];
@@ -677,7 +650,6 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
               }, 100);
             }
             //--Move next footers --//
-
             if (i === that.dashboard.length) {
               //that.changedOptions();
               that.saveDocument();
@@ -695,7 +667,6 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
         if (this.editWidgetIndex != -1) {
           this.editWidgetIndex = -1;
         }
-
         $event.preventDefault();
         $event.stopPropagation();
         let totalRow = 8;
@@ -719,7 +690,6 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
             }
           }
         });
-
         //Selected widget Should be move from all page
         let i = 1;
         pageWidgets.forEach(element => {
@@ -727,13 +697,11 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
           if (element.page != 1) {
             startIndex += (element.page - 1);
           }
-
           //--Move next text-block --//
           if (element.type === 'text-block' && (element.y - startIndex) > diff) {
             element.y -= element['rows'];
             element['class'] = element['type'] + '-' + element['y'];
             element['id'] = element['type'] + '-' + element['y'];
-
             that.changedOptions();
             setTimeout(function () {
               let className = element['type'] + '-' + element['y'];
@@ -745,18 +713,17 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
               }
             }, 100);
           }
-          //--Move next text-block --//            
-
+          //--Move next text-block --//
           if (i === pageWidgets.length) {
             //that.changedOptions();
             that.saveDocument();
           }
           i++;
         }); //--Set auto move next text-block --//
-
       }
     }
   }
+
   editorOnChange(event, item) { //when change header of footer
     let totalRow = 8;
     let pageStartIndex = (item.page * totalRow) - totalRow;
@@ -764,7 +731,6 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
       pageStartIndex += (item.page - 1);
     }
     let diff = item.y - pageStartIndex;
-
     let i = 1;
     let that = this;
     this.dashboard.forEach(element => {
@@ -780,8 +746,8 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
         }
       }
     });
-
   }
+
   addPage() { //Add new page
     var pages = this.dashboard.filter(obj => { //Getting number of widget of select page
       return obj.type === 'page';
@@ -791,7 +757,6 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
     let position = pages[lastPageIndex]['y'] + pages[lastPageIndex]['rows'] + 1;
     //---- Add option layer ---//
     this.dashboard.push({ cols: this.pageColumns, rows: 1, y: (position - 1), x: 1, isEdit: false, type: 'option', page: pages[lastPageIndex]['page'] + 1, index: nextIndex, id: 'option-' + (position - 1), class: 'option-' + (position - 1), layerIndex: 1, value: '', dragEnabled: false, resizeEnabled: false });
-
     nextIndex = this.dashboard.length;
     //---- Add option layer ---//
     this.dashboard.push({
@@ -811,12 +776,10 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
       resizeEnabled: false
     });
     this.changedOptions();
-
     nextIndex = this.dashboard.length;
     let that = this;
     this.dashboard.forEach(element => { //Add header and footer
       if (element.page === pages[lastPageIndex]['page'] && element.layerIndex === 2 && (element.type == 'header' || element.type == 'footer')) {
-
         let position = (element['y'] + pages[lastPageIndex]['rows'] + 1);
         let className = element['type'] + '-' + position;
         that.dashboard.push({
@@ -849,6 +812,7 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
       }
     })
   }
+
   deletePage(item) {
     var result = this.dashboard.filter(obj => {
       return obj.page != item.page;
@@ -886,12 +850,15 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
       })
     }
   }
+
   backToDoc() {
     // this.route.navigate("")
   }
+
   plusBtnClick() {
     $(".plus-icon").css("opacity", "1");
   }
+
   clickApproval() {
     this.approval = true;
     this.setting = false;
@@ -958,6 +925,18 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
 
   openAddPage() {
     this.http.showModal(AddPageComponent, 'lg');
+  }
+
+  sentDocumentViaEmail() {
+    this.loginData = JSON.parse(localStorage.getItem('loginData'));
+    console.log('Login Data:::', this.loginData);
+    const obj: any ={
+      subject: `${this.loginData.name} sent you New Document`,
+      email: 'mukutprasad.pingdr@gmail.com',
+      documentId: this.documentId,
+      title: this.documentDetail['title']
+    };
+    this.http.showModal(EmailDocumentFormatComponent, 'lg', obj);
   }
 
 }

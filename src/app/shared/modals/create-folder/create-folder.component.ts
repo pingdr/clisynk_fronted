@@ -49,26 +49,32 @@ export class CreateFolderComponent implements OnInit {
                 title: this.form.value.name
             };
             this.http.postData(this.url + '/' + this.modalData['_id'], obj).subscribe(res => {
-                this.http.documentUpdated();
                 this.http.openSnackBar('Folder ' + this.form.value.name + ' Successfully Updated.');
+                this.http.getData(this.url, { partial: 1 }).subscribe((res) => {
+                    if (res.data && res.data.length) {
+                        res.data.folderListCallback = true;
+                        this.http.documentUpdated(res.data);
+                    }
+                });
             }, () => {
             });
         } else {
             const obj = {
                 title: this.form.value.name,
                 parent: (this.modalData.parentId ? this.modalData.parentId : ''),
-                type: "FOLDER",
-                /* content:{
-                    "key1": []
-                 }, */
+                type: "FOLDER"
             };
             this.http.postData(this.url, obj).subscribe(res => {
-                this.http.documentUpdated();
                 this.http.openSnackBar('Folder ' + this.form.value.name + ' Successfully Created');
+                this.http.getData(this.url, { partial: 1 }).subscribe((res) => {
+                    if (res.data && res.data.length) {
+                        res.data.folderListCallback = true;
+                        this.http.documentUpdated(res.data);
+                    }
+                });
             }, () => {
             });
         }
-
-
+        
     }
 }
