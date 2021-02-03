@@ -7051,7 +7051,7 @@ section.appt-list {
         font-size: 14px;
         font-weight: 400;
         padding: 0;
-        position:relative;
+        position: relative;
         &:hover {
           color: #2d2dc3;
         }
@@ -7060,8 +7060,8 @@ section.appt-list {
   }
 }
 
-.workspace-drop-main{
-  position:relative;
+.workspace-drop-main {
+  position: relative;
 }
 .first-letter-div-main {
   position: absolute;
@@ -7087,8 +7087,6 @@ section.appt-list {
   left: -110px !important;
   right: auto !important;
   padding: 10px 0px !important;
-}
-
 }
 
 .new-header-group-main .ping-dr-notification ul {
@@ -7651,8 +7649,6 @@ input:-webkit-autofill:active {
     padding: 0px;
   }
 }
-
-
 
 .message-hover .mat-checkbox-checked.mat-accent .mat-checkbox-background {
   background: #0440dc !important;
