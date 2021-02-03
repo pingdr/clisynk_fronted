@@ -104,5 +104,6 @@ export const ApiUrl = {
     WORKSPACE: 'workspaces',
     WORKSPACE_MERGE: 'workspaces/merge',
     WORKSPACE_SET_ACTIVE: 'workspaces/set-active'
+
 };
 

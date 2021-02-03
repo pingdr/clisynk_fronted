@@ -561,5 +561,9 @@ export class HttpService {
         return this.http.post<any>(this.apiEndpoint + apiUrl, obj);
     }
 
+    postMoveFolder(apiUrl?, obj?){
+        return this.http.post<any>(this.apiEndpoint + apiUrl, obj);
+    }
+
 }
 

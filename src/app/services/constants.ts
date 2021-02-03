@@ -111,4 +111,11 @@ export const availabilityList = [
     {day: 'Sun', timings: []}
 ];
 
+export const threeDotOptions = [
+    {text: 'New Folder'},
+    {text: 'Move'},
+    {text: 'Rename'},
+    {text: 'Delete'}
+];
+
 
