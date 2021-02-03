@@ -151,7 +151,7 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
                 if (element.isEdit) {
                   element.isEdit = false;
                 }
-                //console.log('element', element.isEdit);
+                console.log('Initiated Element:::', element);
                 $("#" + element.id).empty();
                 if (element.value != '') {
                   $("#" + element.id).append(element.value);
@@ -190,7 +190,13 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
   }
 
   addWidget(event, widgetType) {
-    this.selectedWidgetType = widgetType
+    console.log('Event:::', event);
+    console.log('Widget Type:::', widgetType);
+    this.selectedWidgetType = widgetType;
+  }
+
+  dragStopHandler(event?){
+    console.log('Event Stop Handler:::', event);
   }
 
   getPageNumberByY(y) {
@@ -200,15 +206,16 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
   }
 
   emptyCellClick(event: MouseEvent, item: any) {
+    console.log('Event::', event, 'Item::', item);
     let page = 1;
     let that = this;
     let nextIndex = this.dashboard.length;
     let position = item.y;
-    var isWidget = this.dashboard.filter(obj => { //Getting number of widget of select page
-      return obj.y === position && obj.layerIndex == 2;
+    const isWidget = this.dashboard.filter(obj => {
+      return obj.y === position && obj.layerIndex === 2;
     })
-    if (isWidget.length) {  // if widget already exits on selected y axis
-      alert("You can't add this widget on this place due to another widget already exits in same place");
+    if (isWidget.length) {
+      this.http.openSnackBar(`You can't add this widget on this place due to another widget already exits in same place`);
     } else {
       that.dashboard.push({
         isEdit: false,
@@ -228,15 +235,10 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
         hasContent: true
       });
       that.saveDocument();
-      //-- Append html content of header --//
       let className = that.selectedWidgetType + '-' + position;
       setTimeout(function () {
         $("#" + className).append(className);
-        //that.clickedHeader(that.dashboard[nextIndex]);
       }, 100);
-      //console.log('emptyCellClick', this.getPageNumberByY(item.y), this.selectedWidgetType, item.y);
-
-      //-- Append html content of header --//
     }
   }
 
@@ -257,15 +259,12 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
 
   clickedHeader(item): void {
     if (this.editWidgetIndex != -1) {
-      //Doing Non edit if any widget is edit
       this.resetCurrentEdit(this.editWidgetIndex);
       this.editWidgetIndex = -1;
     }
     let that = this;
-    //that.editHeader = true;
     that.editWidgetIndex = that.dashboard.indexOf(item);
     that.dashboard[that.editWidgetIndex]['isEdit'] = true;
-
     let className = that.dashboard[that.editWidgetIndex]['class'];
     let html = $('.' + className).find('.cke_top').html();
     $("#text-propertires").empty();
@@ -318,8 +317,6 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
   }
 
   resetCurrentEdit(index) {
-    //if (this.editWidgetIndex != -1) {
-    //this.editHeader = false;
     this.dashboard[index]['isEdit'] = false;
     let className = this.dashboard[index]['class'];
     let that = this;
@@ -332,7 +329,6 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
       }
     }, 100);
     this.saveDocument();
-    //}
   }
 
   saveDocument() {
@@ -402,7 +398,6 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
               element['y'] += 1;
               element['class'] = element['type'] + '-' + element['y'];
               element['id'] = element['type'] + '-' + element['y'];
-
               that.changedOptions();
               setTimeout(function () {
                 let className = element['type'] + '-' + element['y'];

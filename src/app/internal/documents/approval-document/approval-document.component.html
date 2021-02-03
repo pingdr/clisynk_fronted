@@ -154,10 +154,7 @@
     </div>
   </div>
 </div>
-
-<!-- add document section -->
 <div class="row">
-  <!-- blank page -->
   <div
     [className]="
       hideSidebarFlag == false ? 'col-lg-9 col-sm-11' : 'col-lg-11 col-sm-11'
@@ -170,10 +167,7 @@
         id="text-propertires"
       ></div>
     </div>
-
-    <!-- <div class="col-lg-11 col-sm-12" style="padding-right: 0px;"> -->
     <gridster [options]="options">
-      <!-- Dropdown content -->
       <div
         *ngIf="false"
         class="row"
@@ -191,7 +185,6 @@
             aria-controls="dropdown-basic"
             class="hover-color"
           /><br />
-
           <ul
             id="dropdown-create"
             *dropdownMenu
@@ -290,7 +283,6 @@
           [item]="item"
           *ngFor="let item of dashboard"
         >
-          <!-- Dropdown content -->
           <div
             *ngIf="item.type === 'option'"
             class="row"
@@ -318,7 +310,6 @@
                 aria-controls="dropdown-basic2"
                 class="hover-color"
               /><br />
-
               <ul
                 id="dropdown-create2"
                 *dropdownMenu
@@ -346,7 +337,6 @@
                       /></span>
                     </a>
                   </li>
-
                   <li role="menuitem" style="display: block">
                     <a class="dropdown-item doc" matTooltip="Landscape">
                       <span class="ellipsis"
@@ -364,7 +354,6 @@
                 </div>
               </ul>
             </div>
-
             <div class="col-4" style="text-align: right" dropdown>
               <img
                 src="assets/images/menu-doc.svg"
@@ -410,15 +399,12 @@
               </ul>
             </div>
           </div>
-          <!-- Dropdown content -->
-
           <div
             style="margin: 40px 90px; z-index: 1"
             (click)="clickedPage()"
             *ngIf="item.layerIndex === 1"
             class="button-holder fhw"
           ></div>
-
           <div
             (dblclick)="clickedHeader(item)"
             [ngStyle]="{ display: !item.isEdit ? 'block' : 'none' }"
@@ -427,34 +413,6 @@
             matTooltip="Double click to edit {{ item.type }}"
             class="button-holder header-div fhw"
           ></div>
-          <!-- <div class="plus-icon" dropdown (click)="plusBtnClick()">
-                        <div class="plus-add">
-                            <img src="assets/images/plus.svg" id="button-create5" dropdownToggle aria-controls="dropdown-basic5">
-                        </div>
-                        <ul id="dropdown-create5" *dropdownMenu class="dropdown-menu show" role="menu" aria-labelledby="button-basic5" style="display: block;width: 200px;top: 50px !important;">
-                            <li role="menuitem" style="display: block">
-                                <a class="dropdown-item">
-                                    <span class="ellipsis">Text</span>
-                                </a>
-                            </li>
-                            <li role="menuitem" style="display: block">
-                                <a class="dropdown-item">
-                                    <span class="ellipsis">Image</span>
-                                </a>
-                            </li>
-                            <li role="menuitem" style="display: block">
-                                <a class="dropdown-item">
-                                    <span class="ellipsis">Video</span>
-                                </a>
-                            </li>
-                            <li role="menuitem" style="display: block">
-                                <a class="dropdown-item">
-                                    <span class="ellipsis">Table</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div> -->
-
           <div
             style="margin-bottom: 0px"
             [ngStyle]="{ display: item.isEdit ? 'block' : 'none' }"
@@ -477,7 +435,6 @@
               ></span>
             </div>
           </div>
-
           <div [className]="item.class">
             <ckeditor
               (change)="editorOnChange($event, item)"
@@ -489,7 +446,6 @@
               debounce="500"
             >
             </ckeditor>
-
             <div
               [ngStyle]="{ display: item.isEdit ? 'block' : 'none' }"
               *ngIf="
@@ -522,7 +478,6 @@
       </div>
     </gridster>
   </div>
-
   <!-- side bar actions -->
   <div
     [className]="
@@ -553,7 +508,6 @@
             (click)="clickApproval()"
           /><br />
         </ng-template>
-
         <!-- setting condition -->
         <div *ngIf="setting; else settingElse">
           <img
@@ -569,7 +523,6 @@
             (click)="clickSetting()"
           /><br />
         </ng-template>
-
         <!-- theme condition -->
         <div *ngIf="theme; else themeElse">
           <img
@@ -602,7 +555,6 @@
           /><br />
         </ng-template>
       </div>
-
       <!-- if approval true -->
       <div
         [className]="
@@ -625,7 +577,6 @@
         <label class="design-label">BLOCKS</label>
         <div class="row sidebar-row">
           <div class="col-6 col-left">
-            <!-- <button draggable="true" (dragstart)="addWidget($event)" (dragstop)="dragStopHandler($event)">Drag</button> -->
             <div
               draggable="true"
               (dragstart)="addWidget($event, 'text-block')"
@@ -701,7 +652,6 @@
             </div>
           </div>
         </div>
-
         <label class="design-label2">FIELDS</label>
         <div class="row sidebar-row">
           <div class="col-6 col-left">
@@ -770,7 +720,6 @@
           </div>
         </div>
       </div>
-
       <!--if setting true  -->
       <div
         [className]="
@@ -932,7 +881,6 @@
           </div>
         </div>
       </div>
-
       <!--if comment true  -->
       <div class="col-10 design-section" *ngIf="comment">
         <div class="setting">
@@ -955,7 +903,6 @@
           </div>
         </div>
       </div>
-
       <!--if add receipent true  -->
       <div
         [className]="

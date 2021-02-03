@@ -16,6 +16,7 @@ export class CreateDocumentComponent implements OnInit {
     tab = 'mytemplates';
     url = 'documents';
     modalData: any;
+    selected: any;
 
     constructor(private fb: FormBuilder,
         private router: Router,
