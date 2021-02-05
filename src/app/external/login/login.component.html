@@ -44,7 +44,7 @@
 
         <div class="card-body ">
             <div class="row">
-                <!--                <div class="col-md-7 ">-->
+                <!--                <div class="col-md-7 ">
                 <!--                    <img src="/assets/images/FullColor_TransparentBg_1280x1024_72dpi.png" alt="IMG"-->
                 <!--                         class="login-img-size">-->
                 <!--                </div>-->
@@ -65,7 +65,7 @@
                                             <mat-form-field class="full-width" appearance="outline">
                                                 <!-- <mat-label>E-mail</mat-label> -->
                                                 <input matInput type="text" formControlName="email"
-                                                    placeholder="Enter email here">
+                                                    placeholder="Enter Email Here">
                                                 <mat-error *ngIf="form.controls['email'].hasError('required')">
                                                     Please enter email.
                                                 </mat-error>
@@ -80,7 +80,7 @@
                                             <label>Password</label>
                                             <mat-form-field class="full-width" appearance="outline">
                                                 <!-- <mat-label>Password</mat-label> -->
-                                                <input matInput  [type]="showPassword ? 'password' : 'text'" name="pass" placeholder="at least 8 charachters"
+                                                <input matInput  [type]="showPassword ? 'password' : 'text'" name="pass" placeholder="Enter Password Here"
                                                     formControlName="password">
                                                 <mat-error
                                                         *ngIf="form.controls['password'].hasError('required') && form.controls.password.touched">

@@ -53,9 +53,14 @@ export class AppComponent implements OnInit, OnDestroy {
         }
         this.router.events.filter((event) => event instanceof NavigationEnd).map(() => this.router).subscribe((event) => {
                     const title = this.getTitle(this.router.routerState, this.router.routerState.root).join(' | ');
+                  if(title==''){
+                    this.titleService.setTitle('Clisynk');
+                    this.http.changeTitle('Clisynk');
+                  }else{
                     this.titleService.setTitle(title);
                     this.http.changeTitle(title);
                     this.acl.validRoute(this.router.routerState, this.router);
+                  }
                 }
         );
         const userId = 'user001';
