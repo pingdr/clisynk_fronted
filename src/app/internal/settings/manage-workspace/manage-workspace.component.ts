@@ -41,9 +41,9 @@ export class ManageWorkspaceComponent implements OnInit {
           this.http.workspaceList.subscribe(wps=> this.allData = wps);
           this.http.updateWorkspace(this.selectedWorkspace);
         } else {
-          this.selectedWorkspace = this.loginData.activeWorkspaceId ? res.data.find((wps) => wps._id === this.loginData.activeWorkspaceId) : {};
+          /*this.selectedWorkspace = this.loginData.activeWorkspaceId ? res.data.find((wps) => wps._id === this.loginData.activeWorkspaceId) : {};
           this.http.updateWorkspaceList(res.data);
-          this.http.workspaceList.subscribe(wps=> this.allData = wps);
+          this.http.workspaceList.subscribe(wps=> this.allData = wps);*/
         }
         this.loader = false;
     }, () => {});

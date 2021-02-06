@@ -57,7 +57,7 @@ export class TopNavBarComponent implements OnInit {
         // this.loginData = JSON.parse(localStorage.getItem('loginData'));
         this.loginData = this.http.loginData;
         this.notificationList();
-        this.getAllWorkspaces();
+        // this.getAllWorkspaces();
         
         const secondsCounter = interval(30000);
         secondsCounter.subscribe(n => {
@@ -66,6 +66,11 @@ export class TopNavBarComponent implements OnInit {
         const obj = {skip: 0, limit: 30};
         this.http.getData(ApiUrl.TEMPLATE_LIST, obj).subscribe(res => {
             this.mailTemplates = res.data.data;
+        });
+        this.http.workspaceList.subscribe(wps=> this.workspaces = wps);
+        this.http.workspace.subscribe(wps=> {
+            console.log('wps::', wps);
+            this.selectedWorkspace = wps
         });
     }
 
@@ -216,19 +221,15 @@ export class TopNavBarComponent implements OnInit {
             res.data.map(wps => {
                 wps.backgroundColor = this.http.getRandomColor();
             });
-            this.selectedWorkspace = this.loginData.activeWorkspaceId ? res.data.find((wps) => wps._id === this.loginData.activeWorkspaceId) : {};
-            let filteredWorkspace  = res.data.filter((wps) => wps._id !== this.loginData.activeWorkspaceId);
+            let getLoggedUserFromLocalStorage = JSON.parse(localStorage.getItem("loginData"));
+            this.selectedWorkspace = getLoggedUserFromLocalStorage.activeWorkspaceId ? res.data.find((wps) => wps._id === getLoggedUserFromLocalStorage.activeWorkspaceId) : {};
+            let filteredWorkspace  = res.data.filter((wps) => wps._id !== getLoggedUserFromLocalStorage.activeWorkspaceId);
             this.http.updateWorkspaceList(filteredWorkspace);
-            this.http.workspaceList.subscribe(wps=> this.workspaces = wps);
             this.http.updateWorkspace(this.selectedWorkspace);
-            this.http.workspace.subscribe(wps=> {
-                console.log('wps::', wps);
-                this.selectedWorkspace = wps
-            });
         }, () => {});
     }
 
-    activeWorkspace(workspace){
+    async activeWorkspace(workspace) {
         this.ngxUiLoaderService.startLoader("workspace-switch");
         this.http.postWorkspaceSetActive(ApiUrl.WORKSPACE_SET_ACTIVE , {"workspaceId": workspace._id}).subscribe(() => {
             this.selectedWorkspace = {};
@@ -237,8 +238,13 @@ export class TopNavBarComponent implements OnInit {
             getLoggedUserFromLocalStorage.activeWorkspaceId = this.selectedWorkspace._id ? this.selectedWorkspace._id : "";
             localStorage.setItem("loginData", JSON.stringify(getLoggedUserFromLocalStorage));
             this.http.openSnackBar('Workspace switched successfully');
-            this.reload('/home');
-            //this.router.navigate(['/home']);
+            setTimeout(()=> {
+                this.selectedWorkspace = {};
+                this.workspaces = [];
+                this.getAllWorkspaces();
+            }, 1000);
+            this.router.navigate(['/home']);
+            this.ngxUiLoaderService.stopLoader("workspace-switch");
         }, () => {
             this.http.openSnackBar('Something went wrong while activating');
         });

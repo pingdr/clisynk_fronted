@@ -37,8 +37,9 @@ export class LeadFormsComponent implements OnInit {
     let gotForm = false;
     const res = await this.http.getLeadForm().toPromise();
     console.log(res);
-    if(Array.isArray(res.data[0].formJson.components) && res.data[0].formJson.components.length){
+    if(Array.isArray(res.data[0] && res.data[0].formJson.components) && res.data[0].formJson.components.length){
         let temp = true;
+        this.loader = false;
         for (let i in res.data){
             if((res.data[i].addedBy._id == JSON.parse(localStorage.getItem('loginData'))._id) && temp){
                 this.editForm = res.data[i] 
@@ -53,7 +54,6 @@ export class LeadFormsComponent implements OnInit {
                 console.log(res.data[i]);
                 temp = false;
                 gotForm = true;
-                this.loader = false;
             }
         }
     }
