@@ -970,11 +970,20 @@ export class ChatsComponent implements OnInit {
         let userName;
         this.activeChatList.map((user) => {
           console.log(user);
-          if ((user.temp && user.temp._id) == (data.from && data.from.user)) {
-            userName = user.temp.fullName;
-            user.unreadCount = (user.unreadCount ? user.unreadCount : 0) + 1;
-            user.lastMessage.content = data.content;
+          if (data.chatRoomId.chatType === "GROUP") {
+            if(user && user.groupDetails && user.groupDetails.name === data.chatRoomId.name) {
+              userName = user.temp.fullName;
+              user.unreadCount = (user.unreadCount ? user.unreadCount : 0) + 1;
+              user.lastMessage.content = data.content;
+            }
+          } else {
+            if ((user.temp && user.temp._id) == (data.from && data.from.user)) {
+              userName = user.temp.fullName;
+              user.unreadCount = (user.unreadCount ? user.unreadCount : 0) + 1;
+              user.lastMessage.content = data.content;
+            }
           }
+
         });
 
         this._pushNotifications.create(userName, options).subscribe(
@@ -1066,6 +1075,9 @@ export class ChatsComponent implements OnInit {
         chatRoomId: this.selectedChat._id,
         messageId: this.massageArray[this.massageArray.length - 1]._id
       });
+      console.log(this.activeChatList);
+      console.log(this.selectedChatIndex);
+
       this.activeChatList[this.selectedChatIndex].unreadCount = 0;
     }
   }
