@@ -66,7 +66,7 @@ export class AddContactComponent implements OnInit {
                 localStorage.setItem('contactId', res.data._id);
                 this.http.contactUpdated();
                 this.http.eventSubject.next({eventType: 'addContact'});
-                this.http.openSnackBar('Added Successfully');
+                this.http.openSnackBar('Contact Added Successfully');
             }, () => {
             });
             this.http.showModal(ContactOptionsComponent, 'md', obj);

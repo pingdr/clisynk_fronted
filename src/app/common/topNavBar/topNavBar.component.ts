@@ -57,7 +57,7 @@ export class TopNavBarComponent implements OnInit {
         // this.loginData = JSON.parse(localStorage.getItem('loginData'));
         this.loginData = this.http.loginData;
         this.notificationList();
-        // this.getAllWorkspaces();
+        this.getAllWorkspaces();
         
         const secondsCounter = interval(30000);
         secondsCounter.subscribe(n => {
@@ -225,7 +225,7 @@ export class TopNavBarComponent implements OnInit {
             this.selectedWorkspace = getLoggedUserFromLocalStorage.activeWorkspaceId ? res.data.find((wps) => wps._id === getLoggedUserFromLocalStorage.activeWorkspaceId) : {};
             let filteredWorkspace  = res.data.filter((wps) => wps._id !== getLoggedUserFromLocalStorage.activeWorkspaceId);
             this.http.updateWorkspaceList(filteredWorkspace);
-            this.http.updateWorkspace(this.selectedWorkspace);
+            // this.http.updateWorkspace(this.selectedWorkspace);
         }, () => {});
     }
 
