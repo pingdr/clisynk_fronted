@@ -111,6 +111,15 @@ import { CreateFolderComponent } from './../modals/create-folder/create-folder.c
 import { EmailDocumentFormatComponent } from './../modals/email-document-format/email-document-format.component';
 import { NgxSummernoteModule } from 'ngx-summernote';
 
+// Automation Module Modals components.
+import { NavigateToAppointmentComponent } from '../modals/navigate-to-appointment/navigate-to-appointment.component';
+import { NavigateToLeadFormsComponent } from '../modals/navigate-to-lead-forms/navigate-to-lead-forms.component';
+import { NavigateToProductsComponent } from '../modals/navigate-to-products/navigate-to-products.component';
+import { NavigateToTagsComponent } from '../modals/navigate-to-tags/navigate-to-tags.component';
+import { RenameAutomationComponent } from 'src/app/shared/modals/rename-automation/rename-automation.component';
+import { LeadFormDeletedComponent } from 'src/app/shared/modals/lead-form-deleted/lead-form-deleted.component';
+import { DeleteAutomationComponent } from 'src/app/shared/modals/delete-automation/delete-automation.component';
+
 
 
 const entryList = [EmailFormatComponent, SendEmailComponent, ChangePasswordComponent, ContactDetailsComponent, AddNoteComponent,
@@ -126,7 +135,9 @@ const entryList = [EmailFormatComponent, SendEmailComponent, ChangePasswordCompo
     EditAppointmentComponent, CalSlotComponent, BookModalComponent, ConfirmComponent, AppointTypeListComponent,
     AppointListComponent, AppointSuccessComponent, AddUserComponent, NotificationsComponent, DeleteContactComponent,
     SmartFormCreateComponent, CreateWorkspaceComponent, MergeContactsComponent, SmartFormDeleteComponent, LeadFormCreateComponent,
-    CreateFolderComponent, AddPageComponent, CreateDocumentComponent, DeleteDocComponent, MoveComponent, EmailDocumentFormatComponent
+    CreateFolderComponent, AddPageComponent, CreateDocumentComponent, DeleteDocComponent, MoveComponent, EmailDocumentFormatComponent,
+    DeleteAutomationComponent, LeadFormDeletedComponent, NavigateToLeadFormsComponent, NavigateToAppointmentComponent, NavigateToTagsComponent,
+    NavigateToProductsComponent, RenameAutomationComponent
 ];
 
 const importExportList = [MatStepperModule, MatTabsModule, MatSliderModule, MatInputModule, MatSelectModule,

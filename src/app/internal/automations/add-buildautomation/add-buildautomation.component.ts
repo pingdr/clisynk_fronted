@@ -39,6 +39,7 @@ export class AddBuildautomationComponent implements OnInit {
     if(this.option) {
       this.buttonName = 'Show less option'
       // console.log(this.option)
+      
       }
       else {
       this.buttonName = 'Show more option'

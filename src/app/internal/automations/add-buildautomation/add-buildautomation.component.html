@@ -31,7 +31,7 @@
                 </div>
                 <div class="short-description">...this will be automated.</div>
                 <div class="add-icon-blue">
-                    <button class="btn" [routerLink]="['/build-then-automation']">+</button>
+                    <button class="btn" [routerLink]="['/automation/build-then-automation']">+</button>
                 </div>
             </div>
         </div>
@@ -143,7 +143,7 @@
             </ng-container>
 
             <!-- ------------------after-leadsubmit-form----------------->
-            <!-- ----------------------------------------------------------------- ---->
+            <!----------------------------------------------------------------------->
             <ng-template #other_content>
                 <ng-container *ngIf="aftersubmits==true">
                     <div class="after-submitted-lead-form-main-for-edit-option">
@@ -170,6 +170,14 @@
                                                 </a>
                                             </div>
                                         </div>
+                                        <div class="go-to-your-form">
+                                            <div class="left-inner-col-footer">
+                                                <button class="btn">Go to your form <img src="../../../../assets/images/export-blue-icon.svg" width="35"> </button>
+                                            </div>
+                                            <div class="right-inner-col-footer">
+                                                <button class="btn">Done</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -178,7 +186,7 @@
                 </ng-container>
 
                     <ng-container *ngIf="appointment==true">
-                        Appointment fine
+                         Appointment fine 
                     </ng-container>
            
             </ng-template>
