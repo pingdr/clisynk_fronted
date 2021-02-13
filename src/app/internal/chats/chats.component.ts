@@ -971,16 +971,24 @@ export class ChatsComponent implements OnInit {
         this.activeChatList.map((user) => {
           console.log(user);
           if (data.chatRoomId.chatType === "GROUP") {
-            if(user && user.groupDetails && user.groupDetails.name === data.chatRoomId.name) {
+            if(user && user.groupDetails && (user.groupDetails.name === data.chatRoomId.name)) {
               userName = user.temp.fullName;
               user.unreadCount = (user.unreadCount ? user.unreadCount : 0) + 1;
               user.lastMessage.content = data.content;
+              this._pushNotifications.create(userName, options).subscribe(
+                res => console.log(res),
+                err => console.log(err)
+              );
             }
           } else {
             if ((user.temp && user.temp._id) == (data.from && data.from.user)) {
               userName = user.temp.fullName;
               user.unreadCount = (user.unreadCount ? user.unreadCount : 0) + 1;
               user.lastMessage.content = data.content;
+              this._pushNotifications.create(userName, options).subscribe(
+                res => console.log(res),
+                err => console.log(err)
+              );
             }
           }
 
@@ -1580,6 +1588,12 @@ export class ChatsComponent implements OnInit {
 
   getGroupMemberName() {
     this.selectedChat.users = [...this.selectedChat.users, this.selectedChat.temp];
+    this.selectedChat.users = this.selectedChat.users.filter((user,index)=> {
+      const u = JSON.stringify(user);
+      return index === this.selectedChat.users.findIndex(obj => {
+        return JSON.stringify(obj) === u;
+      });
+    })
     console.log('...................', this.massageArray, this.selectedChat.users)
     this.massageArray.length > 0 && this.massageArray.map((msg) => {
       this.selectedChat.users.map((user) => {

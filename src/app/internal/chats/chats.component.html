@@ -37,7 +37,7 @@
                 *ngIf="tab == 'chats'">
                 <div class="tab-pane1" id="pills-home">
                     <div class="nav flex-column nav-pills" id="v-pills-tab" aria-orientation="vertical">
-                        <div class="select-all custom-select-all">
+                        <div *ngIf="activeChatList.length != 0" class="select-all custom-select-all">
                             <label class="custom-checkbox">Select all
                                 <input type="checkbox" [formControl]="allSelect" (change)="selectAllContact()">
                                 <span class="checkmark"></span>
@@ -113,7 +113,7 @@
                 *ngIf="tab == 'groups'">
                 <div class="tab-pane1" id="pills-home">
                     <div class="nav flex-column nav-pills" id="v-pills-tab" aria-orientation="vertical">
-                        <div class="select-all custom-select-all">
+                        <div *ngIf="groupData.length != 0" class="select-all custom-select-all">
                             <label class="custom-checkbox">Select all
                                 <input type="checkbox" [formControl]="allSelect">
                                 <span class="checkmark"></span>
@@ -129,7 +129,7 @@
                                         <label class="custom-checkbox">
                                             <input type="checkbox" (change)="getSelectedCount()"
                                                 [(ngModel)]="data.isSelected">
-                                            <span class="checkmark" style="margin-left: -10px;">
+                                            <span class="checkmark" style="margin-left: -10px;z-index: 999;">
                                             </span>
                                             <span class="circle" style="top: 0;left:0">
                                                 {{data?.name?.substr(0, 1)}}

@@ -12,6 +12,7 @@ import {AppointmentService} from '../appointments/appointment.service';
 export class HomeComponent implements OnInit, OnDestroy {
 
     allData: any = {};
+    allWorkspaceData: any = {};
     myModel: any;
     loader = true;
 
@@ -28,6 +29,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.getData();
+        this.getAllWorkspace();
     }
 
     ngOnDestroy(): void {
@@ -82,6 +84,29 @@ export class HomeComponent implements OnInit, OnDestroy {
     showAccessError() {
         this.http.openSnackBar('You are not authorized to access this feature');
         return;
+    }
+
+    getAllWorkspace(){
+        this.loader = true;
+        const obj: any = {};
+        this.http.getData(ApiUrl.WORKSPACE, obj).subscribe(res => {
+            this.allWorkspaceData = res.data;
+            res.data.map(wps => {
+            wps.backgroundColor = this.http.getRandomColor();
+            });
+            let getLoggedUserFromLocalStorage = JSON.parse(localStorage.getItem("loginData"));
+            getLoggedUserFromLocalStorage.activeWorkspaceId = this.allWorkspaceData[0]._id ? this.allWorkspaceData[0]._id : "";
+            localStorage.setItem("loginData", JSON.stringify(getLoggedUserFromLocalStorage));
+            let selectedWorkspace = getLoggedUserFromLocalStorage.activeWorkspaceId ? res.data.find((wps) => wps._id === getLoggedUserFromLocalStorage.activeWorkspaceId) : {};
+            let workspaceList = res.data.filter(wps => wps._id !== getLoggedUserFromLocalStorage.activeWorkspaceId);
+            setTimeout (() => {
+                this.http.updateWorkspaceList(workspaceList);
+                this.http.updateWorkspace(selectedWorkspace);
+            }, 1000);
+            this.loader = false;
+        }, () => {
+            this.loader = false;
+        });
     }
 
 }
