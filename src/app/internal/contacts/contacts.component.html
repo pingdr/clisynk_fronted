@@ -201,7 +201,7 @@
             id="v-pills-tab"
             aria-orientation="vertical"
           >
-            <div class="select-all">
+            <div *ngIf="myModel?.contacts.length != 0" class="select-all">
               <label class="custom-checkbox"
                 >Select all
                 <input

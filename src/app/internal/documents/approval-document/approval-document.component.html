@@ -271,8 +271,6 @@
           </ul>
         </div>
       </div>
-      <!-- Dropdown content -->
-
       <div
         class="main-page-editor"
         style="margin: auto; width: 100%; max-width: 860px"
@@ -435,43 +433,259 @@
               ></span>
             </div>
           </div>
-          <div [className]="item.class">
+          <div
+            class="text-block"
+            *ngIf="item.layerIndex === 2"
+            (dblclick)="clickedHeader(item)"
+          >
             <ckeditor
               (change)="editorOnChange($event, item)"
               [(ngModel)]="item.value"
               [ngStyle]="{ display: item.isEdit ? 'block' : 'none' }"
-              *ngIf="item.layerIndex === 2"
               [config]="ckeConfig"
               [readonly]="false"
               debounce="500"
             >
             </ckeditor>
-            <div
-              [ngStyle]="{ display: item.isEdit ? 'block' : 'none' }"
-              *ngIf="
-                (item.type === 'header' || item.type === 'footer') &&
-                item.layerIndex === 2 &&
-                item.isEdit &&
-                ((lastHeaderY === item.y && item.page === 1) ||
-                  (item.page != 1 &&
-                    item.y ===
-                      (item.page - 1) * 8 + lastHeaderY + item.page - 1) ||
-                  (firstFooterY === item.y && item.page === 1) ||
-                  (item.page != 1 &&
-                    item.y ===
-                      (item.page - 1) * 8 + firstFooterY + item.page - 1))
-              "
-              class="header-prop"
+          </div>
+          <div
+            class="file-upload-block"
+            *ngIf="item.layerIndex === 3"
+            (dblclick)="clickedHeader(item)"
+          >
+            <kendo-fileselect
+              (select)="imageSelectEventHandler($event)"
+              [multiple]="false"
+            ></kendo-fileselect>
+          </div>
+          <div
+            class="video-upload-block"
+            *ngIf="item.layerIndex === 4"
+            (dblclick)="clickedHeader(item)"
+          >
+            <kendo-upload
+              [saveUrl]="uploadSaveUrl"
+              [removeUrl]="uploadRemoveUrl"
+              [multiple]="false"
+              (success)="successEventHandler($event)"
             >
-              <div class="inner-header">
-                <span class="heading">{{ item.type }}</span>
-                <span class="setting-icon"
-                  ><img
-                    src="assets/images/ic_setting.svg"
-                    width="20px"
-                    (click)="clickSetting()"
-                /></span>
+            </kendo-upload>
+          </div>
+          <div
+            class="table-row-col"
+            *ngIf="item.layerIndex === 5"
+            (dblclick)="clickedHeader(item)"
+          >
+            <kendo-editor [value]="insertDefaultTable">
+              <kendo-toolbar>
+                <kendo-editor-insert-table-button></kendo-editor-insert-table-button>
+                <kendo-toolbar-buttongroup>
+                  <kendo-toolbar-button
+                    kendoEditorAddColumnBeforeButton
+                  ></kendo-toolbar-button>
+                  <kendo-toolbar-button
+                    kendoEditorAddColumnAfterButton
+                  ></kendo-toolbar-button>
+                  <kendo-toolbar-button
+                    kendoEditorAddRowBeforeButton
+                  ></kendo-toolbar-button>
+                  <kendo-toolbar-button
+                    kendoEditorAddRowAfterButton
+                  ></kendo-toolbar-button>
+                </kendo-toolbar-buttongroup>
+              </kendo-toolbar>
+            </kendo-editor>
+          </div>
+          <div
+            class="table-pricing-row-col"
+            *ngIf="item.layerIndex === 6"
+            (dblclick)="clickedHeader(item)"
+          >
+            <kendo-editor [value]="insertDefaultPriceTable">
+              <kendo-toolbar>
+                <kendo-editor-insert-table-button></kendo-editor-insert-table-button>
+                <kendo-toolbar-buttongroup>
+                  <kendo-toolbar-button
+                    kendoEditorAddColumnBeforeButton
+                  ></kendo-toolbar-button>
+                  <kendo-toolbar-button
+                    kendoEditorAddColumnAfterButton
+                  ></kendo-toolbar-button>
+                  <kendo-toolbar-button
+                    kendoEditorAddRowBeforeButton
+                  ></kendo-toolbar-button>
+                  <kendo-toolbar-button
+                    kendoEditorAddRowAfterButton
+                  ></kendo-toolbar-button>
+                </kendo-toolbar-buttongroup>
+              </kendo-toolbar>
+            </kendo-editor>
+          </div>
+          <div
+            class="table-content-row-col"
+            *ngIf="item.layerIndex === 7"
+            (dblclick)="clickedHeader(item)"
+          >
+            <kendo-editor [value]="insertDefaultTable">
+              <kendo-toolbar>
+                <kendo-editor-insert-table-button></kendo-editor-insert-table-button>
+                <kendo-toolbar-buttongroup>
+                  <kendo-toolbar-button
+                    kendoEditorAddColumnBeforeButton
+                  ></kendo-toolbar-button>
+                  <kendo-toolbar-button
+                    kendoEditorAddColumnAfterButton
+                  ></kendo-toolbar-button>
+                  <kendo-toolbar-button
+                    kendoEditorAddRowBeforeButton
+                  ></kendo-toolbar-button>
+                  <kendo-toolbar-button
+                    kendoEditorAddRowAfterButton
+                  ></kendo-toolbar-button>
+                </kendo-toolbar-buttongroup>
+              </kendo-toolbar>
+            </kendo-editor>
+          </div>
+          <div
+            class="text-field-row-col"
+            *ngIf="item.layerIndex === 8"
+            (dblclick)="clickedHeader(item)"
+          >
+            <kendo-textbox
+              placeholder="Type your message here"
+              [clearButton]="true"
+            >
+              <ng-template kendoTextBoxPrefixTemplate>
+                <button kendoButton look="clear" icon="image"></button>
+                <button kendoButton look="clear" [icon]="'calendar'"></button>
+                <kendo-textbox-separator></kendo-textbox-separator>
+              </ng-template>
+              <ng-template kendoTextBoxSuffixTemplate>
+                <kendo-textbox-separator></kendo-textbox-separator>
+                <button kendoButton look="clear" class="send-button">
+                  Send
+                </button>
+              </ng-template>
+            </kendo-textbox>
+          </div>
+          <div
+            class="text-field-row-col"
+            *ngIf="item.layerIndex === 8"
+            (dblclick)="clickedHeader(item)"
+          >
+            <kendo-textbox
+              placeholder="Type your message here"
+              [clearButton]="true"
+            >
+              <ng-template kendoTextBoxPrefixTemplate>
+                <button kendoButton look="clear" icon="image"></button>
+                <button kendoButton look="clear" [icon]="'calendar'"></button>
+                <kendo-textbox-separator></kendo-textbox-separator>
+              </ng-template>
+              <ng-template kendoTextBoxSuffixTemplate>
+                <kendo-textbox-separator></kendo-textbox-separator>
+                <button kendoButton look="clear" class="send-button">
+                  Send
+                </button>
+              </ng-template>
+            </kendo-textbox>
+          </div>
+          <div
+            class="text-field-row-col"
+            *ngIf="item.layerIndex === 9"
+            (dblclick)="clickedHeader(item)"
+          >
+            <h2>Thanks & Regards,</h2>
+            <br />
+            <h3>Geek</h3>
+          </div>
+          <div
+            class="text-field-row-col"
+            *ngIf="item.layerIndex === 10"
+            (dblclick)="clickedHeader(item)"
+          >
+            <kendo-textbox
+              placeholder="Type your initials here"
+              [clearButton]="true"
+            >
+              <ng-template kendoTextBoxPrefixTemplate>
+                <button kendoButton look="clear" icon="image"></button>
+                <button kendoButton look="clear" [icon]="'calendar'"></button>
+                <kendo-textbox-separator></kendo-textbox-separator>
+              </ng-template>
+              <ng-template kendoTextBoxSuffixTemplate>
+                <kendo-textbox-separator></kendo-textbox-separator>
+                <button kendoButton look="clear" class="send-button">
+                  Send
+                </button>
+              </ng-template>
+            </kendo-textbox>
+          </div>
+          <div
+            class="text-field-row-col"
+            *ngIf="item.layerIndex === 11"
+            (dblclick)="clickedHeader(item)"
+          >
+            <div class="row example-config">
+              <div class="col-xs-12 col-md-3 example-col">
+                <p>Please select date</p>
+                <kendo-datepicker
+                  id="currentDate"
+                  [(value)]="currentDate"
+                ></kendo-datepicker>
               </div>
+            </div>
+          </div>
+          <div
+            class="text-field-row-col"
+            *ngIf="item.layerIndex === 12"
+            (dblclick)="clickedHeader(item)"
+          >
+            <div class="section">
+              <div class="wrap">
+                <label class="k-checkbox-label" for="terms"
+                  >I accept Terms & Conditions of clisynk</label
+                >
+                <input type="checkbox" id="terms" kendoCheckBox />
+              </div>
+            </div>
+          </div>
+          <div
+            class="text-field-row-col"
+            *ngIf="item.layerIndex === 13"
+            (dblclick)="clickedHeader(item)"
+          >
+            <div class="example-wrapper">
+              <p>Workspace:</p>
+              <kendo-dropdownlist [data]="listItemsDropDown">
+              </kendo-dropdownlist>
+            </div>
+          </div>
+          <div
+            [ngStyle]="{ display: item.isEdit ? 'block' : 'none' }"
+            *ngIf="
+              (item.type === 'header' || item.type === 'footer') &&
+              item.layerIndex === 2 &&
+              item.isEdit &&
+              ((lastHeaderY === item.y && item.page === 1) ||
+                (item.page != 1 &&
+                  item.y ===
+                    (item.page - 1) * 8 + lastHeaderY + item.page - 1) ||
+                (firstFooterY === item.y && item.page === 1) ||
+                (item.page != 1 &&
+                  item.y ===
+                    (item.page - 1) * 8 + firstFooterY + item.page - 1))
+            "
+            class="header-prop"
+          >
+            <div class="inner-header">
+              <span class="heading">{{ item.type }}</span>
+              <span class="setting-icon"
+                ><img
+                  src="assets/images/ic_setting.svg"
+                  width="20px"
+                  (click)="clickSetting()"
+              /></span>
             </div>
           </div>
         </gridster-item>
@@ -579,7 +793,7 @@
           <div class="col-6 col-left">
             <div
               draggable="true"
-              (dragstart)="addWidget($event, 'text-block')"
+              (dragstart)="addWidget($event, 'TEXT_BLOCK')"
               (dragstop)="dragStopHandler($event)"
               class="gray-box"
             >
@@ -590,8 +804,13 @@
             </div>
           </div>
           <div class="col-6 col-right">
-            <div class="gray-box">
-              <span class="gray-box-text">Image</span>
+            <div
+              draggable="true"
+              (dragstart)="addWidget($event, 'IMAGE_BLOCK')"
+              (dragstop)="dragStopHandler($event)"
+              class="gray-box"
+            >
+              <span class="gray-box-text" draggable="true">Image</span>
               <span class="gray-box-icon"
                 ><img
                   src="assets/images/image-docicon.svg"
@@ -602,8 +821,13 @@
         </div>
         <div class="row sidebar-row">
           <div class="col-6 col-left">
-            <div class="gray-box">
-              <span class="gray-box-text">Video</span>
+            <div
+              draggable="true"
+              (dragstart)="addWidget($event, 'VIDEO_BLOCK')"
+              (dragstop)="dragStopHandler($event)"
+              class="gray-box"
+            >
+              <span class="gray-box-text" draggable="true">Video</span>
               <span class="gray-box-icon"
                 ><img
                   src="assets/images/video-docicon.svg"
@@ -612,8 +836,13 @@
             </div>
           </div>
           <div class="col-6 col-right">
-            <div class="gray-box">
-              <span class="gray-box-text">Table</span>
+            <div
+              draggable="true"
+              (dragstart)="addWidget($event, 'TABLE_BLOCK')"
+              (dragstop)="dragStopHandler($event)"
+              class="gray-box"
+            >
+              <span class="gray-box-text" draggable="true">Table</span>
               <span class="gray-box-icon"
                 ><img
                   src="assets/images/table-docicon.svg"
@@ -624,8 +853,13 @@
         </div>
         <div class="row sidebar-row">
           <div class="col-6 col-left">
-            <div class="gray-box">
-              <span class="gray-box-text"
+            <div
+              draggable="true"
+              (dragstart)="addWidget($event, 'PRICING_TABLE')"
+              (dragstop)="dragStopHandler($event)"
+              class="gray-box"
+            >
+              <span class="gray-box-text" draggable="true"
                 >Pricing<br />
                 Table</span
               >
@@ -638,8 +872,13 @@
             </div>
           </div>
           <div class="col-6 col-right">
-            <div class="gray-box">
-              <span class="gray-box-text"
+            <div
+              draggable="true"
+              (dragstart)="addWidget($event, 'TABLE_OF_CONTENTS')"
+              (dragstop)="dragStopHandler($event)"
+              class="gray-box"
+            >
+              <span class="gray-box-text" draggable="true"
                 >Table of<br />
                 contents</span
               >
@@ -655,8 +894,13 @@
         <label class="design-label2">FIELDS</label>
         <div class="row sidebar-row">
           <div class="col-6 col-left">
-            <div class="blue-box">
-              <span class="gray-box-text">Text Field</span>
+            <div
+              class="blue-box"
+              draggable="true"
+              (dragstart)="addWidget($event, 'TEXT_FIELD')"
+              (dragstop)="dragStopHandler($event)"
+            >
+              <span class="gray-box-text" draggable="true">Text Field</span>
               <span class="gray-box-icon"
                 ><img
                   src="assets/images/textfield-docicon.svg"
@@ -665,7 +909,12 @@
             </div>
           </div>
           <div class="col-6 col-right">
-            <div class="blue-box">
+            <div
+              class="blue-box"
+              draggable="true"
+              (dragstart)="addWidget($event, 'SIGNATURE')"
+              (dragstop)="dragStopHandler($event)"
+            >
               <span class="gray-box-text">Signature</span>
               <span class="gray-box-icon"
                 ><img
@@ -677,8 +926,13 @@
         </div>
         <div class="row sidebar-row">
           <div class="col-6 col-left">
-            <div class="blue-box">
-              <span class="gray-box-text">Initials</span>
+            <div
+              class="blue-box"
+              draggable="true"
+              (dragstart)="addWidget($event, 'INITIALS')"
+              (dragstop)="dragStopHandler($event)"
+            >
+              <span class="gray-box-text" draggable="true">Initials</span>
               <span class="gray-box-icon"
                 ><img
                   src="assets/images/IN-docicon.svg"
@@ -687,8 +941,13 @@
             </div>
           </div>
           <div class="col-6 col-right">
-            <div class="blue-box">
-              <span class="gray-box-text">Date</span>
+            <div
+              class="blue-box"
+              draggable="true"
+              (dragstart)="addWidget($event, 'DATE')"
+              (dragstop)="dragStopHandler($event)"
+            >
+              <span class="gray-box-text" draggable="true">Date</span>
               <span class="gray-box-icon"
                 ><img
                   src="assets/images/calender-docicon.svg"
@@ -699,7 +958,12 @@
         </div>
         <div class="row sidebar-row">
           <div class="col-6 col-left">
-            <div class="blue-box">
+            <div
+              class="blue-box"
+              draggable="true"
+              (dragstart)="addWidget($event, 'TERM_CONDITION')"
+              (dragstop)="dragStopHandler($event)"
+            >
               <span class="gray-box-text">Checkbox</span>
               <span class="gray-box-icon"
                 ><img
@@ -709,10 +973,15 @@
             </div>
           </div>
           <div class="col-6 col-right">
-            <div class="blue-box">
-              <span class="gray-box-text">Dropdown</span>
-              <span class="gray-box-icon"
-                ><img
+            <div
+              class="blue-box"
+              draggable="true"
+              (dragstart)="addWidget($event, 'DROP_DOWN')"
+              (dragstop)="dragStopHandler($event)"
+            >
+              <span class="gray-box-text" draggable="true">Dropdown</span>
+              <span class="gray-box-icon">
+                <img
                   src="assets/images/checkbox-docicon.svg"
                   class="sidebar-box-icon"
               /></span>

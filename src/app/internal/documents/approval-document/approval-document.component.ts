@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, OnDestroy, ViewEncapsulation, Injectable } from '@angular/core';
 import { DisplayGrid, GridsterConfig, GridsterItem, GridType } from 'angular-gridster2';
 import * as $ from 'jquery';
 import { HttpService } from '../../../services/http.service';
@@ -7,6 +7,10 @@ import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { EmailDocumentFormatComponent } from '../../../shared/modals/email-document-format/email-document-format.component';
 declare var jQuery: any;
+import Table from '@ckeditor/ckeditor5-table/src/table';
+import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar';
+import { SelectEvent, SuccessEvent } from '@progress/kendo-angular-upload';
+
 @Component({
   selector: 'app-approval-document',
   templateUrl: './approval-document.component.html',
@@ -14,6 +18,7 @@ declare var jQuery: any;
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
+
 export class ApprovalDocumentComponent implements OnInit, OnDestroy {
 
   options: GridsterConfig;
@@ -44,7 +49,15 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
   ];
   loginData: any;
 
+  allBlocksAndFields = ['TEXT_BLOCK', 'IMAGE_BLOCK', 'VIDEO_BLOCK', 'TABLE_BLOCK', 'PRICING_TABLE', 'TABLE_OF_CONTENTS', 'TEXT_FIELD', 'SIGNATURE', 'INITIALS', 'DATE', 'TERM_CONDITION', 'DROP_DOWN'];
+  public currentDate: Date = new Date();
+  public listItemsDropDown: Array<string> = ['Workspace-1', 'Workspace-2', 'Workspace-3', 'Workspace-4', 'Workspace-5', 'Workspace-6'];
+
   selectedWidgetType = "";
+  uploadSaveUrl = 'upload-video-url-add'; // should represent an actual API endpoint
+  uploadRemoveUrl = 'upload-video-url-remove'; // should represent an actual API endpoint
+  insertDefaultTable = `<table><tbody><tr><td><p><br></p></td><td><p><br></p></td></tr><tr><td><p><br></p></td><td><p><br></p></td></tr></tbody></table>`;
+  insertDefaultPriceTable = `<table id="customers"><tr><th>Name</th><th>Price</th><th>Quantity</th><th>Total ($)</th></tr><tr><td>Geek</td><td>10.0 $</td><td>1000</td><td>10000.0 $</td></tr></table>`;
 
   constructor(private router: Router, public http: HttpService, private route: ActivatedRoute) { }
 
@@ -147,11 +160,11 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
             that.lastHeaderY = 0;
             that.setHeaderFooterSettingIndex();//to find last header/First footer Y axis and set it
             that.dashboard.forEach(element => {
-              if (element.type === 'header' || element.type === 'footer' || element.type === 'text-block') {
+              console.log('Initiated Element:::', element);
+              if (element.type === 'header' || element.type === 'footer' || element.type === 'TEXT_BLOCK') {
                 if (element.isEdit) {
                   element.isEdit = false;
                 }
-                console.log('Initiated Element:::', element);
                 $("#" + element.id).empty();
                 if (element.value != '') {
                   $("#" + element.id).append(element.value);
@@ -190,8 +203,6 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
   }
 
   addWidget(event, widgetType) {
-    console.log('Event:::', event);
-    console.log('Widget Type:::', widgetType);
     this.selectedWidgetType = widgetType;
   }
 
@@ -207,13 +218,15 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
 
   emptyCellClick(event: MouseEvent, item: any) {
     console.log('Event::', event, 'Item::', item);
+    console.log('Dashboard Count:::', this.dashboard.length);
     let page = 1;
     let that = this;
     let nextIndex = this.dashboard.length;
     let position = item.y;
+    let getSelectedIndex = this.allBlocksAndFields.findIndex((val) => val === this.selectedWidgetType);
     const isWidget = this.dashboard.filter(obj => {
-      return obj.y === position && obj.layerIndex === 2;
-    })
+      return obj.y === position;
+    });
     if (isWidget.length) {
       this.http.openSnackBar(`You can't add this widget on this place due to another widget already exits in same place`);
     } else {
@@ -228,7 +241,7 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
         rows: 1,
         y: position,
         x: this.pageX,
-        layerIndex: 2,
+        layerIndex: getSelectedIndex + 2,
         value: '',
         dragEnabled: false,
         resizeEnabled: false,
@@ -577,6 +590,7 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
   }
 
   removeItem($event: MouseEvent | TouchEvent, item: GridsterItem): void {
+    console.log('Come Here', item);
     if (item.type === 'header' || item.type === 'footer') {
       var pageWidgets = this.dashboard.filter(obj => { //Getting number of widget of select page
         return obj.page === item.page && obj.type === item.type && obj.layerIndex === item.layerIndex;
@@ -662,7 +676,7 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
         }
       }
     } else {
-      if (item.type === 'text-block') {
+      if (this.allBlocksAndFields.includes(item.type)) {
         console.log('item', item.type);
         if (this.editWidgetIndex != -1) {
           this.editWidgetIndex = -1;
@@ -679,6 +693,7 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
         var pageWidgets = this.dashboard.filter(obj => { //Getting number of widget of select page
           return obj.page === item.page
         })
+        console.log('pageWidgets::', pageWidgets);
         pageWidgets.forEach(element => {
           if (element.type === item.type) {
             let startIndex = (element.page * totalRow) - totalRow;
@@ -719,7 +734,7 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
             that.saveDocument();
           }
           i++;
-        }); //--Set auto move next text-block --//
+        });
       }
     }
   }
@@ -938,6 +953,14 @@ export class ApprovalDocumentComponent implements OnInit, OnDestroy {
     };
     this.http.showModal(EmailDocumentFormatComponent, 'lg', obj);
   }
+
+  successEventHandler(e: SuccessEvent) {
+    console.log('The ' + e.operation + ' was successful!');
+  }
+
+  imageSelectEventHandler(e: SelectEvent) {
+     console.log('File selected::', e);
+   }
 
 }
 

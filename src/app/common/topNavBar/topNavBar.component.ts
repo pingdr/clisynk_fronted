@@ -225,7 +225,7 @@ export class TopNavBarComponent implements OnInit {
             this.selectedWorkspace = getLoggedUserFromLocalStorage.activeWorkspaceId ? res.data.find((wps) => wps._id === getLoggedUserFromLocalStorage.activeWorkspaceId) : {};
             let filteredWorkspace  = res.data.filter((wps) => wps._id !== getLoggedUserFromLocalStorage.activeWorkspaceId);
             this.http.updateWorkspaceList(filteredWorkspace);
-            this.http.updateWorkspace(this.selectedWorkspace);
+            // this.http.updateWorkspace(this.selectedWorkspace);
         }, () => {});
     }
 
