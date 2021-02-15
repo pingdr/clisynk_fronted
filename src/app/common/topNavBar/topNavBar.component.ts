@@ -1,17 +1,17 @@
 import { Router } from '@angular/router';
 import { SendEmailComponent } from './../../shared/modals/send-email/send-email.component';
-import {Component, Input, OnInit} from '@angular/core';
-import {smoothlyMenu} from '../../app.helpers';
-import {HttpService} from '../../services/http.service';
-import {FormControl, FormGroup} from '@angular/forms';
-import {ApiUrl} from '../../services/apiUrls';
-import {ContactDetailsComponent} from '../../shared/modals/contact-details/contact-details.component';
-import {AddContactComponent} from '../../shared/modals/add-contact/add-contact.component';
-import {LogoutComponent} from '../../shared/modals/logout/logout.component';
+import { Component, Input, OnInit } from '@angular/core';
+import { smoothlyMenu } from '../../app.helpers';
+import { HttpService } from '../../services/http.service';
+import { FormControl, FormGroup } from '@angular/forms';
+import { ApiUrl } from '../../services/apiUrls';
+import { ContactDetailsComponent } from '../../shared/modals/contact-details/contact-details.component';
+import { AddContactComponent } from '../../shared/modals/add-contact/add-contact.component';
+import { LogoutComponent } from '../../shared/modals/logout/logout.component';
 import * as moment from 'moment';
 import $ from 'jquery';
 declare var jQuery: any;
-import {interval, Subject} from 'rxjs';
+import { interval, Subject } from 'rxjs';
 import { MailTemplateData } from 'src/app/shared/models/mail-template.model';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 
@@ -21,6 +21,16 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 })
 export class TopNavBarComponent implements OnInit {
     constructor(public http: HttpService, public router: Router, private ngxUiLoaderService: NgxUiLoaderService) {
+        // this.http.workspaceList.subscribe(wps=> this.workspaces = wps);
+        // this.http.workspace.subscribe(wps=> {
+        //     console.log('wps::', wps);
+        //     this.selectedWorkspace = wps
+        // });
+        this.http.work.subscribe((res) => {
+            if (res) {
+                this.getAllWorkspaces();
+            }
+        })
     }
 
     title: string;
@@ -58,19 +68,14 @@ export class TopNavBarComponent implements OnInit {
         this.loginData = this.http.loginData;
         this.notificationList();
         this.getAllWorkspaces();
-        
+
         const secondsCounter = interval(30000);
         secondsCounter.subscribe(n => {
             this.notificationList();
         });
-        const obj = {skip: 0, limit: 30};
+        const obj = { skip: 0, limit: 30 };
         this.http.getData(ApiUrl.TEMPLATE_LIST, obj).subscribe(res => {
             this.mailTemplates = res.data.data;
-        });
-        this.http.workspaceList.subscribe(wps=> this.workspaces = wps);
-        this.http.workspace.subscribe(wps=> {
-            console.log('wps::', wps);
-            this.selectedWorkspace = wps
         });
     }
 
@@ -85,35 +90,35 @@ export class TopNavBarComponent implements OnInit {
     }
 
     openSendEmail(data?) {
-        let obj: MailTemplateData= new MailTemplateData();
-        
+        let obj: MailTemplateData = new MailTemplateData();
+
         let firedMailTemplate = this.getTemplateByCurrentRoute();
         firedMailTemplate ? obj = firedMailTemplate : obj;
-        
+
         const modalRef = this.http.showModal(SendEmailComponent, 'md', obj);
         modalRef.content.onClose = new Subject<boolean>();
-        modalRef.content.onClose.subscribe(() =>{
+        modalRef.content.onClose.subscribe(() => {
             console.log("close")
         })
         this.searchName.patchValue('');
- 
+
     }
-    
+
     private getTemplateByCurrentRoute(): MailTemplateData {
         let currentRoute = this.router.url;
         let mailTemplates: MailTemplateData[] = this.mailTemplates;
         currentRoute = currentRoute.slice(1, currentRoute.length);
-        if(currentRoute == 'contacts') {
+        if (currentRoute == 'contacts') {
             return mailTemplates.find(x => x.name.trim() == 'Contact Information');
-        } else if(currentRoute == 'tasks') {
+        } else if (currentRoute == 'tasks') {
             return mailTemplates.find(x => x.name.trim() == 'Task Assignment');
-        } else if(currentRoute == 'appointments') {
+        } else if (currentRoute == 'appointments') {
             return mailTemplates.find(x => x.name.trim() == 'New Appointment confirmation');
-        } else if(currentRoute == 'money') {
+        } else if (currentRoute == 'money') {
             return mailTemplates.find(x => x.name.trim() == 'Invoice Generation');
-        } else if(currentRoute == 'settings/smart-forms') {
+        } else if (currentRoute == 'settings/smart-forms') {
             return mailTemplates.find(x => x.name.trim() == 'SmartForm Details Confirmation');
-        } 
+        }
         return null;
     }
 
@@ -145,22 +150,22 @@ export class TopNavBarComponent implements OnInit {
         };
         this.loader = true;
         this.http.getData(ApiUrl.CONTACTS, obj).subscribe(res => {
-                    this.contacts = res.data.data;
-                    this.loader = false;
-                },
-                () => {
-                    this.loader = false;
-                });
+            this.contacts = res.data.data;
+            this.loader = false;
+        },
+            () => {
+                this.loader = false;
+            });
     }
 
     toggleNavigation(): void {
         jQuery('body').toggleClass('mini-navbar');
         this.chatToggle = !this.chatToggle;
-        if(this.chatToggle){
-            $('.wrapper.border-bottom.white-bg').css('margin-left','65px');
+        if (this.chatToggle) {
+            $('.wrapper.border-bottom.white-bg').css('margin-left', '65px');
         }
-        else{
-            $('.wrapper.border-bottom.white-bg').css('margin-left','225px');
+        else {
+            $('.wrapper.border-bottom.white-bg').css('margin-left', '225px');
         }
         smoothlyMenu();
     }
@@ -200,7 +205,7 @@ export class TopNavBarComponent implements OnInit {
                     if (key.type === 5) {
                         key.id.dueDateTime = new Date(key.id.dueDateTime);
                     }
-                    if (key.id !== null  &&  (key.type === 7 || key.type === 8)) {
+                    if (key.id !== null && (key.type === 7 || key.type === 8)) {
                         key.startTime = key.id.startTime ? this.getTimeFromMins(key.id.startTime) : '';
                         key.endTime = key.id.endTime ? this.getTimeFromMins(key.id.endTime) : '';
                     }
@@ -215,30 +220,34 @@ export class TopNavBarComponent implements OnInit {
         document.getElementById('notifications-panel').style.width = '0';
     }
 
-    getAllWorkspaces(){
+    getAllWorkspaces() {
         const obj: any = {};
         this.http.getData(ApiUrl.WORKSPACE, obj).subscribe(res => {
+            console.log(res);
             res.data.map(wps => {
                 wps.backgroundColor = this.http.getRandomColor();
             });
             let getLoggedUserFromLocalStorage = JSON.parse(localStorage.getItem("loginData"));
             this.selectedWorkspace = getLoggedUserFromLocalStorage.activeWorkspaceId ? res.data.find((wps) => wps._id === getLoggedUserFromLocalStorage.activeWorkspaceId) : {};
-            let filteredWorkspace  = res.data.filter((wps) => wps._id !== getLoggedUserFromLocalStorage.activeWorkspaceId);
-            this.http.updateWorkspaceList(filteredWorkspace);
-            // this.http.updateWorkspace(this.selectedWorkspace);
-        }, () => {});
+            console.log(this.selectedWorkspace);
+
+            let filteredWorkspace = res.data.filter((wps) => wps._id !== getLoggedUserFromLocalStorage.activeWorkspaceId);
+            this.workspaces = filteredWorkspace;
+            // this.http.updateWorkspaceList(res.data);
+            this.http.updateWorkspace(this.selectedWorkspace);
+        }, () => { });
     }
 
     async activeWorkspace(workspace) {
         this.ngxUiLoaderService.startLoader("workspace-switch");
-        this.http.postWorkspaceSetActive(ApiUrl.WORKSPACE_SET_ACTIVE , {"workspaceId": workspace._id}).subscribe(() => {
+        this.http.postWorkspaceSetActive(ApiUrl.WORKSPACE_SET_ACTIVE, { "workspaceId": workspace._id }).subscribe(() => {
             this.selectedWorkspace = {};
             this.selectedWorkspace = workspace;
             let getLoggedUserFromLocalStorage = JSON.parse(localStorage.getItem("loginData"));
             getLoggedUserFromLocalStorage.activeWorkspaceId = this.selectedWorkspace._id ? this.selectedWorkspace._id : "";
             localStorage.setItem("loginData", JSON.stringify(getLoggedUserFromLocalStorage));
             this.http.openSnackBar('Workspace switched successfully');
-            setTimeout(()=> {
+            setTimeout(() => {
                 this.selectedWorkspace = {};
                 this.workspaces = [];
                 this.getAllWorkspaces();

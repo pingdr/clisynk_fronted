@@ -46,6 +46,7 @@ export class CreateWorkspaceComponent implements OnInit {
         this.selectedWorkspace = this.loginData.activeWorkspaceId ? res.data.find((wps) => wps._id === this.loginData.activeWorkspaceId) : {};
         this.http.updateWorkspaceList(res.data);
         this.http.updateWorkspace(this.selectedWorkspace);
+        this.http.manipulateWorkspace(true);
     }, () => {});
   }
 
