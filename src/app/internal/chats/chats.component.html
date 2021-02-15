@@ -48,7 +48,7 @@
                             <app-loader [showLoader]="loader" [length]="activeChatList?.length">
                             </app-loader>
                             <div *cdkVirtualFor="let data of activeChatList;let i = index">
-                                <a class="nav-link" [ngClass]="{'active': selectedIndex == i}">
+                                <a class="nav-link" (click)="clickChat(data,i);" [ngClass]="{'active': selectedIndex == i}">
                                     <span class="circle">
                                         <label class="custom-checkbox">
                                             <input type="checkbox" (change)="getSelectedCount()"
@@ -82,13 +82,13 @@
                                             </span>
                                         </label>
                                     </span>
-                                    <h4 (click)="clickChat(data , i);">
+                                    <h4>
                                         {{data?.chatType == 'GROUP' ? data?.groupDetails?.name : (data?.temp?.name ==
                                         undefined ? data.temp?.fullName : data?.temp?.name) }}
                                     </h4>
 
                                     <div *ngIf="data?.unreadCount > 0;else lastMsgWithoutUnreadCount"
-                                        (click)="clickChat(data);" style="display: flex;" class="video-small">
+                                      style="display: flex;" class="video-small">
                                         <div class="unread-text-blue">
                                             {{data?.lastMessage?.file ? data?.lastMessage?.file?.type :
                                             data?.lastMessage?.content}}
