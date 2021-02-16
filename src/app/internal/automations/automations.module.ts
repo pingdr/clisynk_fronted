@@ -12,6 +12,8 @@ import { FreeConsulationComponent } from './free-consulation/free-consulation.co
 import { ChooseTagComponent } from './choose-tag/choose-tag.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { FreeCosulationWhenComponent } from './free-cosulation-when/free-cosulation-when.component';
+import { BuildAutomationMainComponent } from './build-automation-main/build-automation-main.component';
+import { AutomationPreviewComponent } from './controls/automation-preview/automation-preview.component';
 
 // import { AmazingTimePickerModule } from 'amazing-time-picker';
 
@@ -20,6 +22,7 @@ const routes: Routes = [
         path: '', children: [
             { path: '', component: AutomationComponent, canActivate: [AuthGuardService], data: { title: 'Automation' } },
             { path: 'build-automation', component: BuildAutomationComponent, canActivate: [AuthGuardService], data: { title: 'Automation' } },
+            { path: 'build-automation-main', component: BuildAutomationMainComponent, canActivate: [AuthGuardService], data: { title: 'Automation' } },
             { path: 'build-automation-when', component: AddBuildautomationComponent, canActivate: [AuthGuardService], data: { title: 'Automation' } },
             { path: 'build-automation-then', component: BuildThenautomationsComponent, canActivate: [AuthGuardService], data: { title: 'Automation' } },
 
@@ -34,7 +37,7 @@ const routes: Routes = [
 @NgModule({
     declarations: [
         AutomationComponent, BuildAutomationComponent, AddBuildautomationComponent, BuildThenautomationsComponent,
-        FreeConsulationComponent, ChooseTagComponent, FreeCosulationWhenComponent
+        FreeConsulationComponent, ChooseTagComponent, FreeCosulationWhenComponent, BuildAutomationMainComponent, AutomationPreviewComponent
 
 
     ],

@@ -21,12 +21,12 @@
                     </div>
                     <div class="short-description">...this occurs, start my automation.</div>
                     <div class="add-icon-blue">
-                        <button class="btn" [routerLink]="[  '/automation/build-automation-when']">+</button>
+                        <button class="btn" [routerLink]="[AutomationURL.AUTOMATION, AutomationURL.BUILD_AUTOMATION_MAIN]">+</button>
                     </div>
                 </div>
             </ng-container>
             <ng-container *ngSwitchCase="true">
-                <div class="card-main" [routerLink]="['/automation/free-consulation-when']">
+                <div class="card-main" [routerLink]="[AutomationURL.AUTOMATION, AutomationURL.BUILD_AUTOMATION_MAIN]">
                     <div class="inner-card-main">
                         <div class="when-heading">
                             <img src="../../../assets/images/cloud-green.svg" width="20">
@@ -49,12 +49,12 @@
                     </div>
                     <div class="short-description">...this will be automated.</div>
                     <div class="add-icon-blue">
-                        <button class="btn" [routerLink]="['/automation/build-automation-then']" >+</button>
+                        <button class="btn" [routerLink]="[AutomationURL.AUTOMATION, AutomationURL.BUILD_AUTOMATION_THEN]" >+</button>
                     </div>
                 </div>
             </ng-container>
             <ng-container *ngSwitchCase="true">
-                <div class="card-main" [routerLink]="['/automation/free-consulation-then']">
+                <div class="card-main" [routerLink]="[AutomationURL.AUTOMATION, AutomationURL.FREE_CONSULATION_THEN]">
                     <div class="inner-card-main">
                         <div class="when-heading">
                             <img src="../../../assets/images/blue-flash.svg" width="20">

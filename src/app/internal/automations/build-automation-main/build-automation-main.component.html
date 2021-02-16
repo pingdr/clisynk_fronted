@@ -1,0 +1,54 @@
+<div class="add-build-automation-main">
+    <!-----------------header-main-------------------->
+    <div class="build-automation-header-main">
+        <div class="left-col">
+            <img [src]="'/assets/images/back-arrow.svg'" (click)="http.goBack()" width="50">
+            <span>Build automation</span>
+        </div>
+        <div class="right-col">
+            <span [ngClass]="{ 'color-disabled' : sectionSelected !== 'when' }">When</span>
+            <img [src]="'/assets/images/back-arrow.svg'" width="50">
+            <span [ngClass]="{ 'color-disabled' : sectionSelected !== 'then' }">Then</span>
+        </div>
+    </div>
+   <!-------------------------------------end of header--------------------------------->
+   <div class="inner-add-build-main">
+        <div class="left-col">
+            <div (click)="sectionSelected = 'when'" class="card-main first-card">
+                <div class="when-heading">
+                    <img src="../../../assets/images/cloud-green.svg" width="20">
+                    <span>When</span>
+                </div>
+                <div class="short-description">...this occurs, start my automation.</div>
+            </div>
+            
+            <div class="text-center center-down-img">
+                <img [src]="'/assets/images/back-arrow.svg'" width="50" class="down-arrow">
+            </div>
+            <div class="then-card">
+                <div class="when-heading">
+                    <img src="../../../assets/images/blue-flash.svg" width="20">
+                    <span>Then</span>
+                </div>
+                <div class="short-description">...this will be automated.</div>
+                <div class="add-icon-blue">
+                    <button class="btn" (click)="sectionSelected = 'then'">+</button>
+                </div>
+            </div>
+            <!-- <div class="card-main first-card">
+                <div class="when-heading">
+                    <img src="../../../assets/images/blue-flash.svg" width="20">
+                    <span>Then</span>
+                </div>
+                <div class="short-description"> Send Notification </div>
+            </div> -->
+        </div>
+
+        <!-- TOGGLING BETWEEN WHEN AND THEN SECTION -->
+        <ng-container [ngSwitch]="sectionSelected">
+            <ng-container *ngSwitchCase="'when'">When section is selected</ng-container>
+            <ng-container *ngSwitchCase="'then'">Then section is selected</ng-container>
+        </ng-container>
+   </div>
+  
+</div>
