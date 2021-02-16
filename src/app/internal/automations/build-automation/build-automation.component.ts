@@ -8,6 +8,9 @@ import { HttpService } from 'src/app/services/http.service';
 })
 export class BuildAutomationComponent implements OnInit {
 
+  isWhenAdded = false;
+  isThenAdded = true;
+
   constructor(public http: HttpService) { }
 
   ngOnInit() {

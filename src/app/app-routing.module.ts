@@ -23,7 +23,7 @@ const routes: Routes = [
     {path: 'ngrx', component: TodoComponent},
     // {path: 'build-automation', component: BuildAutomationComponent},
     // {path: 'add-build-automation', component: AddBuildautomationComponent},
-    // {path: 'build-then-automation', component: BuildThenautomationsComponent},
+    // {path: 'build-automation-then', component: BuildThenautomationsComponent},
     {path: 'booking/:name', component: BookingComponent},
     {path: 'preview-leadform/:id', component: PreviewLeadformComponent},
     {path: 'preview-smartform/:id', component: PreviewSmartformComponent},
