@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from 'src/app/services/http.service';
+import { SectionType } from '../constants';
 declare var $ : any;
 
 @Component({
@@ -13,7 +14,7 @@ export class BuildAutomationMainComponent implements OnInit {
   option:boolean=false;
   buttonName = 'Show more option';
   hide: any;
-
+  SectionType = SectionType;
   leadform = false;
   appointment = false;
   aftersubmits = false

@@ -20,10 +20,10 @@
     font-size: 16px;
     position: relative;
     font-weight: 400;
-    padding-left: 45px;
+    /* padding-left: 45px; */
 }
 
-.panel-group .panel .panel-title::before{
+/* .panel-group .panel .panel-title::before{
     position: absolute;
     content: '';
     background: url('../../../../../assets/images/cloud-green.svg') no-repeat;
@@ -34,7 +34,7 @@
     top: 0;
     bottom: 0;
     margin: auto;
-}
+} */
 
 .panel-body .inner-first-row-main {
     padding: 20px 30px;
