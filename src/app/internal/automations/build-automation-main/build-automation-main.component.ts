@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { HttpService } from 'src/app/services/http.service';
-import { SectionType } from '../constants';
-declare var $ : any;
+import { EventType } from '../constants';
+declare var $: any;
 
 @Component({
   selector: 'app-build-automation-main',
@@ -11,52 +12,48 @@ declare var $ : any;
 export class BuildAutomationMainComponent implements OnInit {
 
 
-  option:boolean=false;
   buttonName = 'Show more option';
   hide: any;
-  SectionType = SectionType;
-  leadform = false;
-  appointment = false;
-  aftersubmits = false
-  sectionSelected = "when";
+  EventType = EventType;
+  eventSelected = EventType.WHEN;
+  thenForm: any;
+  tasks: FormArray;
 
-  constructor(public http:HttpService) { }
+
+  constructor(public http: HttpService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-    $(document).ready(function(){
-      $(".scroll-class").click(function() {
-          $('html,body').animate({                                                          //  fine in moz, still quicker in chrome. 
-              scrollTop: $(".all-option-available").offset().top},
-              'slow');
-      }); 
-       }); 
+    this.handleAnimation();
+    this.thenForm = new FormGroup({
+      tasks: new FormArray([])
+    });
   }
 
-  Showoption(){
-    this.option = !this.option
-    // window.scrollTo(1900, 1900);
-    document.body.scrollTop = 0;
-    if(this.option) {
-      this.buttonName = 'Show less option'
-      // console.log(this.option)
-      
-      }
-      else {
-      this.buttonName = 'Show more option'
-      }
+
+  createThenTask(): FormGroup {
+    return this.formBuilder.group({
+      eventName: '',
+      eventType: '',
+      name: '',
+      description: '',
+      price: ''
+    });
   }
 
-  // ----------lead-formsubmited---------//
-  Aftersubmit(){
-    this.leadform = true;
-    this.aftersubmits =true;
-    this.appointment = false;
-    
+  addThenTask(): void {
+    this.tasks = this.thenForm.get('tasks') as FormArray;
+    this.tasks.push(this.createThenTask());
+    console.log(this.tasks);
   }
 
-  Appointment(){
-    this.leadform = true;
-    this.aftersubmits =false;
-    this.appointment = true;
+  handleAnimation() {
+    $(document).ready(function () {
+      $(".scroll-class").click(function () {
+        $('html,body').animate({                                                          //  fine in moz, still quicker in chrome. 
+          scrollTop: $(".all-option-available").offset().top
+        },
+          'slow');
+      });
+    });
   }
 }
