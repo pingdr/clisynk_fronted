@@ -1,12 +1,13 @@
 <div class="panel-group" id="accordion">
     <div class="panel panel-default">
-        <div class="panel-heading accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" [attr.href]=" '#' + random" >
+        <div class="panel-heading accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
+         [attr.href]="'#' + random.toString()" >
             <h4 class="panel-title">
                 <img class="mr-2" style="width: 45px; height: 45px" [src]="status" alt="">
                 <a>Lead Form is submitted</a>
             </h4>
         </div>
-        <div [id]="random" class="panel-collapse collapse">
+        <div [id]="random.toString()" class="panel-collapse collapse">
             <div class="panel-body">
                 <div class="inner-first-row-main">
                     <div class="inner-left-col"> 

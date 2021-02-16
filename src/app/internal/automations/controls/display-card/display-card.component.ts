@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, ChangeDetectorRef, Input } from '@angular/core';
 import { EventType } from '../../constants';
-
+import { UUID } from 'angular2-uuid';
 @Component({
   selector: 'app-display-card',
   templateUrl: './display-card.component.html',
@@ -15,8 +15,9 @@ export class DisplayCardComponent implements OnInit {
     delete: "assets/images/delete-gray.svg",
     exportBlueIcon: "assets/images/export-blue-icon.svg"
   }
-  random = this.makeid(10);
+  random;
   EventType = EventType;
+  open = false;
 
   @Input()
   eventType: string;
@@ -42,13 +43,19 @@ export class DisplayCardComponent implements OnInit {
   }
 
 
-  constructor(private changeDetection: ChangeDetectorRef) { }
+  constructor(private changeDetection: ChangeDetectorRef) {
+    this.random = this.makeid(15);
+   }
 
 
  
 
   ngOnInit() {
     console.log(this.random);
+    this.changeDetection.detectChanges();
+  }
+  ngOnChanges() {
+    
     this.changeDetection.detectChanges();
   }
   ngAfterViewInit() {
@@ -66,7 +73,7 @@ export class DisplayCardComponent implements OnInit {
 
   private makeid(length) {
     var result = '';
-    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
     var charactersLength = characters.length;
     for (var i = 0; i < length; i++) {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));

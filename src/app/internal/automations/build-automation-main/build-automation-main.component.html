@@ -46,7 +46,7 @@
             </div>
         </div>
 
-        <!-- TOGGLING BETWEEN WHEN AND THEN SECTION -->
+        <!-- TOGGLING BETWEEN WHEN AND THEN EVENT -->
         <ng-container [ngSwitch]="eventSelected">
             <ng-container *ngSwitchCase="EventType.WHEN">
 
@@ -60,24 +60,25 @@
             <ng-container *ngSwitchCase="EventType.THEN">
                 <div class="right-col">
                     <div class="after-submitted-lead-form-main-for-edit-option">
-                        <app-display-card [eventType]="EventType.THEN"></app-display-card>
-
                         <div [formGroup]="thenForm">
-                            <div formArrayName="tasks"
+                            <div  formArrayName="tasks"
+                                class="mb-5"
                                 *ngFor="let item of thenForm.get('tasks').controls; let i = index;">
-                                <!-- <div [formGroupName]="i">
-                                    <input formControlName="name" placeholder="Item name">
-                                    <input formControlName="description" placeholder="Item description">
-                                    <input formControlName="price" placeholder="Item price">
-                                </div>
-
-                                Chosen name: {{ thenForm.controls.tasks.controls[i].controls.name.value }} -->
-                                <app-display-card [taskData]="item" [eventType]="EventType.THEN"></app-display-card>
+                                <app-display-card  [taskData]="item" [eventType]="EventType.THEN"></app-display-card>
                             </div>
 
                         </div>
-                        <button (click)="addThenTask()">Add</button>
-
+                        <div class="text-and-then">
+                            and then
+                        </div>
+                        <div class="add-button">
+                            <button class="add-btn-tag" (click)="addThenTask()">
+                                <img src="../../../../assets/images/add-icon.svg" width="30">
+                            </button>
+                        </div>
+                        <div class="what-else">
+                            What else needs to be automated ?
+                        </div>
                     </div>
                 </div>
             </ng-container>
