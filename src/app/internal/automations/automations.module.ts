@@ -1,3 +1,4 @@
+import { DisplayCardComponent } from './controls/display-card/display-card.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
@@ -38,7 +39,7 @@ const routes: Routes = [
     declarations: [
         AutomationComponent, BuildAutomationComponent, AddBuildautomationComponent, BuildThenautomationsComponent,
         FreeConsulationComponent, ChooseTagComponent, FreeCosulationWhenComponent, BuildAutomationMainComponent, AutomationPreviewComponent
-
+        ,DisplayCardComponent
 
     ],
     imports: [

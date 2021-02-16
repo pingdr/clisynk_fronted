@@ -6,9 +6,18 @@
             <span>Build automation</span>
         </div>
         <div class="right-col">
-            <span [ngClass]="{ 'color-disabled' : sectionSelected !== 'when' }">When</span>
-            <img [src]="'/assets/images/back-arrow.svg'" width="50">
-            <span [ngClass]="{ 'color-disabled' : sectionSelected !== 'then' }">Then</span>
+            <div class="inner-left-col">
+                <span [ngClass]="{ 'color-disabled' : sectionSelected !== 'when' }">When</span>
+                <img [src]="'/assets/images/back-arrow.svg'" width="50">
+                <span [ngClass]="{ 'color-disabled' : sectionSelected !== 'then' }">Then</span>
+            </div>
+            <div class="inner-right-col">
+                <label *ngIf="sectionSelected == 'then'" class="previewd-save">
+                    <img src="../../../../assets/images/tick.svg" width="20">
+                    Saved
+                </label>
+                <button class="btn">Preview</button>
+            </div>
         </div>
     </div>
    <!-------------------------------------end of header--------------------------------->
@@ -46,7 +55,49 @@
 
         <!-- TOGGLING BETWEEN WHEN AND THEN SECTION -->
         <ng-container [ngSwitch]="sectionSelected">
-            <ng-container *ngSwitchCase="'when'">When section is selected</ng-container>
+            <ng-container *ngSwitchCase="'when'">
+                <div class="right-col">
+                    <div class="after-submitted-lead-form-main-for-edit-option"> 
+                        <!-- <div class="panel-group" id="accordion">
+                            <div class="panel panel-default">
+                                <div class="panel-heading accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseEleven">
+                                    <h4 class="panel-title">
+                                        <a>Lead Form is submitted</a>
+                                    </h4>
+                                </div>
+                                <div id="collapseEleven" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <div class="inner-first-row-main">
+                                            <div class="inner-left-col"> 
+                                                <label class="form-name-heading">Lead Form</label>
+                                                <span class="who-is-owner">Langermania</span>
+                                            </div>
+                                            <div class="inner-right-col">
+                                                <a class="btn-combo" >
+                                                    <img src="../../../../assets/images/edit-button-gray.svg" width="20">
+                                                </a>
+                                                <a class="btn-combo" >
+                                                    <img src="../../../../assets/images/delete-gray.svg" width="20">
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="go-to-your-form">
+                                            <div class="left-inner-col-footer">
+                                                <button class="btn" >Go to your form <img src="../../../../assets/images/export-blue-icon.svg" width="35"> </button>
+                                            </div>
+                                            <div class="right-inner-col-footer">
+                                                <button class="btn">Done</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                        <app-display-card></app-display-card>
+                    </div>
+                </div>
+
+            </ng-container>
             <ng-container *ngSwitchCase="'then'">Then section is selected</ng-container>
         </ng-container>
    </div>
