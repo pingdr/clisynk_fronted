@@ -5,8 +5,12 @@ import { EventType } from '../../automation-constants';
 declare var $: any;
 
 enum WHEN_SHOW_OPTION {
-  ON_DELETE_SHOW = 'ON_DELETE',
-  ON_ADDED_SHOW = 'ON_ADDED'
+  show_suggestions = 'SHOW_SUGGESTIONS',
+  show_card = 'SHOW_CARD'
+}
+enum THEN_SHOW_OPTION {
+  show_add_card = 'ADD_CARD_OPTION',
+  show_suggestions = 'SHOW_SUGGESIONS'
 }
 @Component({
   selector: 'app-build-automation-main',
@@ -20,12 +24,13 @@ export class BuildAutomationMainComponent implements OnInit {
   hide: any;
   EventType = EventType;
   eventSelected = EventType.WHEN;
-  whenForm: FormGroup = this.createCardObj();
+  whenForm: FormGroup = undefined;
   thenForm: any;
   thenTasks: FormArray; 
-  thenSwitchSuggestionOption: string = 'ADD';
-  whenSwitchSuggestionOption: string = WHEN_SHOW_OPTION.ON_DELETE_SHOW;
+  thenSwitchSuggestionOption: string = THEN_SHOW_OPTION.show_add_card;
+  whenSwitchSuggestionOption: string = WHEN_SHOW_OPTION.show_suggestions;
   WHEN_SHOW_OPTION = WHEN_SHOW_OPTION;
+  THEN_SHOW_OPTION = THEN_SHOW_OPTION;
 
 
   constructor(public http: HttpService, private formBuilder: FormBuilder) { }
@@ -50,12 +55,12 @@ export class BuildAutomationMainComponent implements OnInit {
 
   addThenTask(selectedOption?): void {
     if(selectedOption) {
-      this.thenSwitchSuggestionOption = "ADD";
+      this.thenSwitchSuggestionOption = THEN_SHOW_OPTION.show_add_card;
     }
     this.thenTasks = this.thenForm.get('tasks') as FormArray;
     let group = this.createCardObj();
     // TODO: Need to make it more efficient
-    group.controls.eventType.setValue(EventType.THEN) ;
+    group.controls.eventType.setValue(EventType.THEN);
     group.controls.eventName.setValue(selectedOption);
     this.thenTasks.push(group);
     console.log(this.thenTasks);
@@ -63,13 +68,20 @@ export class BuildAutomationMainComponent implements OnInit {
 
    
   addWhenTask(selectedOption) {
+    this.whenForm = this.createCardObj();
     this.whenForm.controls.eventType.setValue(EventType.WHEN) ;
     this.whenForm.controls.eventName.setValue(selectedOption);
-    this.whenSwitchSuggestionOption = WHEN_SHOW_OPTION.ON_ADDED_SHOW;
+    this.whenSwitchSuggestionOption = WHEN_SHOW_OPTION.show_card;
   }
 
-  handleDeleteTask(index: number) {   
-    this.thenTasks.removeAt(index);
+  handleDeleteTask(index: number) {
+    if(index || index == 0) {
+      this.thenTasks.removeAt(index);
+    }  else {
+      this.whenForm.reset();
+      this.whenForm = undefined;
+      this.whenSwitchSuggestionOption = WHEN_SHOW_OPTION.show_suggestions;
+    }
   }
 
 
