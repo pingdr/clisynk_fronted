@@ -322,7 +322,11 @@ export class AddInvoiceComponent implements OnInit, OnDestroy {
             });
         }
         else{
-            this.http.hideModal();
+            if(!next) {
+
+            } else {
+                this.http.hideModal();
+            }
         }
     }
 

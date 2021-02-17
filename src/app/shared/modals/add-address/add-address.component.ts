@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {FormGroup, Validators} from '@angular/forms';
-import {HttpService} from '../../../services/http.service';
-import {TableModel} from '../../models/table.common.model';
-import {ApiUrl} from '../../../services/apiUrls';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, Validators } from '@angular/forms';
+import { HttpService } from '../../../services/http.service';
+import { TableModel } from '../../models/table.common.model';
+import { ApiUrl } from '../../../services/apiUrls';
 
 @Component({
     selector: 'app-add-address',
@@ -63,7 +63,7 @@ export class AddAddressComponent implements OnInit {
                 } else {
                     this.http.openSnackBar('Address Added Successfully');
                 }
-                this.http.eventSubject.next({eventType: 'addAddress'});
+                this.http.eventSubject.next({ eventType: 'addAddress' });
             }, () => {
             });
         }
@@ -143,7 +143,8 @@ export class AddAddressComponent implements OnInit {
                 imageOriginal: res.data.original,
                 imageThumbnail: res.data.thumbnail
             });
-        }, () => {
+        }, (err) => {
+            this.loading = false;
         });
     }
 

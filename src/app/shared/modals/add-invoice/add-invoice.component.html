@@ -152,7 +152,7 @@
                                                     aria-labelledby="button-basic">
 
                                                     <li role="menuitem" *ngFor="let data of myModel?.addresses"
-                                                        (click)="selected = data;finalSubmit()">
+                                                        (click)="selected = data;finalSubmit(false)">
                                                         <a class="dropdown-item">
                                                             {{data?.name}}<br>
                                                             ({{data?.address1}})
