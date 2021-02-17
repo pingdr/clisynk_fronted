@@ -52,7 +52,21 @@
 
                 <div class="right-col">
                     <div class="after-submitted-lead-form-main-for-edit-option">
-                        <app-display-card [eventType]="EventType.WHEN"></app-display-card>
+                        <div [ngSwitch]="whenSwitchSuggestionOption">
+                            <div *ngSwitchCase="WHEN_SHOW_OPTION.ON_DELETE_SHOW">
+                                <app-when-suggestions
+                                (onSelectedEvent)="addWhenTask($event)"
+                                ></app-when-suggestions>
+                            </div>
+                            <div *ngSwitchCase="WHEN_SHOW_OPTION.ON_ADDED_SHOW">
+                                <app-display-card 
+                                    [taskData]="whenForm"
+                                    [eventType]="EventType.WHEN"
+                                ></app-display-card>
+                            </div>
+                            <div *ngSwitchDefault>output2</div>
+                        </div>
+                       
                     </div>
                 </div>
 
@@ -67,18 +81,19 @@
                                 <app-display-card 
                                 (onDelete)="handleDeleteTask($event)"
                                 [index]="i"
-                                [taskData]="item" [eventType]="EventType.THEN"></app-display-card>
+                                [taskData]="item" 
+                                [eventType]="EventType.THEN"></app-display-card>
                             </div>
 
                         </div>
-                        <div [ngSwitch]="switchSuggestedOption">
+                        <div [ngSwitch]="thenSwitchSuggestionOption">
                             <div *ngSwitchCase="'ADD'">
                                 <div class="text-and-then">
                                     and then
                                 </div>
                                 <div class="add-button">
                                     <button class="add-btn-tag" 
-                                    (click)="switchSuggestedOption = 'SHOW_SUGGESION'"
+                                    (click)="thenSwitchSuggestionOption = 'SHOW_SUGGESION'"
                                     >
                                     <!-- (click)="addThenTask()" -->
                                         <img src="../../../../assets/images/add-icon.svg" width="30">

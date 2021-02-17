@@ -4,6 +4,10 @@ import { HttpService } from 'src/app/services/http.service';
 import { EventType } from '../../automation-constants';
 declare var $: any;
 
+enum WHEN_SHOW_OPTION {
+  ON_DELETE_SHOW = 'ON_DELETE',
+  ON_ADDED_SHOW = 'ON_ADDED'
+}
 @Component({
   selector: 'app-build-automation-main',
   templateUrl: './build-automation-main.component.html',
@@ -16,9 +20,12 @@ export class BuildAutomationMainComponent implements OnInit {
   hide: any;
   EventType = EventType;
   eventSelected = EventType.WHEN;
+  whenForm: FormGroup = this.createCardObj();
   thenForm: any;
-  tasks: FormArray; 
-  switchSuggestedOption: string = 'ADD';
+  thenTasks: FormArray; 
+  thenSwitchSuggestionOption: string = 'ADD';
+  whenSwitchSuggestionOption: string = WHEN_SHOW_OPTION.ON_DELETE_SHOW;
+  WHEN_SHOW_OPTION = WHEN_SHOW_OPTION;
 
 
   constructor(public http: HttpService, private formBuilder: FormBuilder) { }
@@ -31,7 +38,7 @@ export class BuildAutomationMainComponent implements OnInit {
   }
 
 
-  createThenTask(): FormGroup {
+  createCardObj(): FormGroup {
     return this.formBuilder.group({
       eventName: '',
       eventType: '',
@@ -43,20 +50,29 @@ export class BuildAutomationMainComponent implements OnInit {
 
   addThenTask(selectedOption?): void {
     if(selectedOption) {
-      this.switchSuggestedOption = "ADD";
+      this.thenSwitchSuggestionOption = "ADD";
     }
-    this.tasks = this.thenForm.get('tasks') as FormArray;
-    let group = this.createThenTask();
+    this.thenTasks = this.thenForm.get('tasks') as FormArray;
+    let group = this.createCardObj();
     // TODO: Need to make it more efficient
-    group.controls.eventType.setValue("THEN") ;
+    group.controls.eventType.setValue(EventType.THEN) ;
     group.controls.eventName.setValue(selectedOption);
-    this.tasks.push(group);
-    console.log(this.tasks);
+    this.thenTasks.push(group);
+    console.log(this.thenTasks);
+  }
+
+   
+  addWhenTask(selectedOption) {
+    this.whenForm.controls.eventType.setValue(EventType.WHEN) ;
+    this.whenForm.controls.eventName.setValue(selectedOption);
+    this.whenSwitchSuggestionOption = WHEN_SHOW_OPTION.ON_ADDED_SHOW;
   }
 
   handleDeleteTask(index: number) {   
-    this.tasks.removeAt(index);
+    this.thenTasks.removeAt(index);
   }
+
+
   handleAnimation() {
     $(document).ready(function () {
       $(".scroll-class").click(function () {

@@ -1,6 +1,6 @@
 import { FormGroup } from '@angular/forms';
 import { Component, OnInit, ViewEncapsulation, ChangeDetectorRef, Input, Output, EventEmitter } from '@angular/core';
-import { EventType } from '../../automation-constants';
+import { EventType, Images } from '../../automation-constants';
 import { UUID } from 'angular2-uuid';
 @Component({
   selector: 'app-display-card',
@@ -9,13 +9,7 @@ import { UUID } from 'angular2-uuid';
 })
 export class DisplayCardComponent implements OnInit {
 
-  statusImages = {
-    greenCloud: "assets/images/cloud-green.svg",
-    blueFlash: "assets/images/blue-flash.svg",
-    edit: "assets/images/edit-button-gray.svg",
-    delete: "assets/images/delete-gray.svg",
-    exportBlueIcon: "assets/images/export-blue-icon.svg"
-  }
+  statusImages = Images;
   random: string;
   EventType = EventType;
 
@@ -37,7 +31,7 @@ export class DisplayCardComponent implements OnInit {
   @Output() 
   onDelete = new EventEmitter<any>();
   
-  public get status(): string {
+  public get cardStatus(): string {
     switch (this.eventType) {
       case this.EventType.WHEN: {
         return this.statusImages.greenCloud;
@@ -53,23 +47,10 @@ export class DisplayCardComponent implements OnInit {
     this.random = this.makeid(15);
    }
 
-
- 
-
   ngOnInit() {
     console.log(this.random);
-    this.changeDetection.detectChanges();
   }
-  ngOnChanges() {
-    
-    this.changeDetection.detectChanges();
-  }
-  ngAfterViewInit() {
-    this.changeDetection.detectChanges();
-
-  }
-
-
+ 
 
   onEditTask() {
 

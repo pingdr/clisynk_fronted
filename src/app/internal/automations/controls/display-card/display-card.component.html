@@ -3,11 +3,12 @@
         <div class="panel-heading accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
          [attr.href]="'#' + random.toString()" >
             <h4 class="panel-title">
-                <img class="mr-2" style="width: 45px; height: 45px" [src]="status" alt="">
+                <img class="mr-2" style="width: 45px; height: 45px" [src]="cardStatus" alt="">
                 <a>
                     <ng-container [ngSwitch]="eventType">
                         <ng-container *ngSwitchCase="EventType.WHEN">
-                            Lead Form is submitted
+                            <!-- Lead Form is submitted -->
+                            {{_taskData?.controls?.eventName.value}}
                         </ng-container>
                         <ng-container *ngSwitchCase="EventType.THEN">
                             {{_taskData?.controls?.eventName.value}}
