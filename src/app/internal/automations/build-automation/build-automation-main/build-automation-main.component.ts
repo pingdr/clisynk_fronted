@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { HttpService } from 'src/app/services/http.service';
-import { EventType } from '../automation-constants';
+import { EventType } from '../../automation-constants';
 declare var $: any;
 
 @Component({
@@ -17,7 +17,8 @@ export class BuildAutomationMainComponent implements OnInit {
   EventType = EventType;
   eventSelected = EventType.WHEN;
   thenForm: any;
-  tasks: FormArray;
+  tasks: FormArray; 
+  switchSuggestedOption: string = 'ADD';
 
 
   constructor(public http: HttpService, private formBuilder: FormBuilder) { }
@@ -40,13 +41,20 @@ export class BuildAutomationMainComponent implements OnInit {
     });
   }
 
-  addThenTask(): void {
+  addThenTask(selectedOption?): void {
+    if(selectedOption) {
+      this.switchSuggestedOption = "ADD";
+    }
     this.tasks = this.thenForm.get('tasks') as FormArray;
-    this.tasks.push(this.createThenTask());
+    let group = this.createThenTask();
+    // TODO: Need to make it more efficient
+    group.controls.eventType.setValue("THEN") ;
+    group.controls.eventName.setValue(selectedOption);
+    this.tasks.push(group);
     console.log(this.tasks);
   }
 
-  handleDeleteTask(index: number) {
+  handleDeleteTask(index: number) {   
     this.tasks.removeAt(index);
   }
   handleAnimation() {

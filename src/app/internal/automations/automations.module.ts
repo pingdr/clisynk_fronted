@@ -13,8 +13,10 @@ import { FreeConsulationComponent } from './free-consulation/free-consulation.co
 import { ChooseTagComponent } from './choose-tag/choose-tag.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { FreeCosulationWhenComponent } from './free-cosulation-when/free-cosulation-when.component';
-import { BuildAutomationMainComponent } from './build-automation-main/build-automation-main.component';
+import { BuildAutomationMainComponent } from './build-automation/build-automation-main/build-automation-main.component';
 import { AutomationPreviewComponent } from './controls/automation-preview/automation-preview.component';
+import { ThenSuggestionsComponent } from './build-automation/build-automation-main/then-suggestions/then-suggestions.component';
+import { WhenSuggestionsComponent } from './build-automation/build-automation-main/when-suggestions/when-suggestions.component';
 
 // import { AmazingTimePickerModule } from 'amazing-time-picker';
 
@@ -39,7 +41,7 @@ const routes: Routes = [
     declarations: [
         AutomationComponent, BuildAutomationComponent, AddBuildautomationComponent, BuildThenautomationsComponent,
         FreeConsulationComponent, ChooseTagComponent, FreeCosulationWhenComponent, BuildAutomationMainComponent, AutomationPreviewComponent
-        ,DisplayCardComponent
+        ,DisplayCardComponent, ThenSuggestionsComponent, WhenSuggestionsComponent
 
     ],
     imports: [

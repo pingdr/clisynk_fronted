@@ -4,7 +4,17 @@
          [attr.href]="'#' + random.toString()" >
             <h4 class="panel-title">
                 <img class="mr-2" style="width: 45px; height: 45px" [src]="status" alt="">
-                <a>Lead Form is submitted</a>
+                <a>
+                    <ng-container [ngSwitch]="eventType">
+                        <ng-container *ngSwitchCase="EventType.WHEN">
+                            Lead Form is submitted
+                        </ng-container>
+                        <ng-container *ngSwitchCase="EventType.THEN">
+                            {{_taskData?.controls?.eventName.value}}
+                        </ng-container>
+                        <ng-container *ngSwitchDefault>output2</ng-container>
+                    </ng-container>
+                </a>
             </h4>
         </div>
         <div [id]="random.toString()" class="panel-collapse collapse">

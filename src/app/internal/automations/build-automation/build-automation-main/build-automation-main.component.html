@@ -71,17 +71,32 @@
                             </div>
 
                         </div>
-                        <div class="text-and-then">
-                            and then
+                        <div [ngSwitch]="switchSuggestedOption">
+                            <div *ngSwitchCase="'ADD'">
+                                <div class="text-and-then">
+                                    and then
+                                </div>
+                                <div class="add-button">
+                                    <button class="add-btn-tag" 
+                                    (click)="switchSuggestedOption = 'SHOW_SUGGESION'"
+                                    >
+                                    <!-- (click)="addThenTask()" -->
+                                        <img src="../../../../assets/images/add-icon.svg" width="30">
+                                    </button>
+                                </div>
+                                <div class="what-else">
+                                    What else needs to be automated ?
+                                </div>
+                            </div>
+                            <div *ngSwitchCase="'SHOW_SUGGESION'">
+                                <app-then-suggestions
+                                (onSelectedEvent)="addThenTask($event)"
+                                ></app-then-suggestions>
+                            </div>
+                            <div *ngSwitchDefault>output2</div>
                         </div>
-                        <div class="add-button">
-                            <button class="add-btn-tag" (click)="addThenTask()">
-                                <img src="../../../../assets/images/add-icon.svg" width="30">
-                            </button>
-                        </div>
-                        <div class="what-else">
-                            What else needs to be automated ?
-                        </div>
+
+                        
                     </div>
                 </div>
             </ng-container>

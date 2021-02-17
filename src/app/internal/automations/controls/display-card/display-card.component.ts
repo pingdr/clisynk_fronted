@@ -1,3 +1,4 @@
+import { FormGroup } from '@angular/forms';
 import { Component, OnInit, ViewEncapsulation, ChangeDetectorRef, Input, Output, EventEmitter } from '@angular/core';
 import { EventType } from '../../automation-constants';
 import { UUID } from 'angular2-uuid';
@@ -24,7 +25,7 @@ export class DisplayCardComponent implements OnInit {
   @Input()
   index: number;
 
-  _taskData: any;
+  _taskData: FormGroup;
   @Input() 
   set taskData(value: any) {
     if(value) {

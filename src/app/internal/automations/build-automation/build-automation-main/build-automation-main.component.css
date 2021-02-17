@@ -369,7 +369,7 @@ label.previewd-save {
 .after-submitted-lead-form-main-for-edit-option .panel-group .panel .panel-title::before{
     position: absolute;
     content: '';
-    background: url('../../../../assets/images/cloud-green.svg') no-repeat;
+    background: url('../../../../../assets/images/cloud-green.svg') no-repeat;
     background-size: 30px;
     height: 30px;
     width: 30px;
