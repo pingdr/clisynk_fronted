@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { HttpService } from 'src/app/services/http.service';
-import { EventType } from '../constants';
+import { EventType } from '../automation-constants';
 declare var $: any;
 
 @Component({
@@ -46,6 +46,9 @@ export class BuildAutomationMainComponent implements OnInit {
     console.log(this.tasks);
   }
 
+  handleDeleteTask(index: number) {
+    this.tasks.removeAt(index);
+  }
   handleAnimation() {
     $(document).ready(function () {
       $(".scroll-class").click(function () {

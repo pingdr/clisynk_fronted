@@ -16,10 +16,10 @@
                     </div>
                     <div class="inner-right-col">
                         <a class="btn-combo" >
-                            <img [src]="statusImages.edit"width="20">
+                            <img (click)="onEditTask()" [src]="statusImages.edit" width="20">
                         </a>
                         <a class="btn-combo" >
-                            <img [src]="statusImages.delete" width="20">
+                            <img (click)="onDeleteTask()" [src]="statusImages.delete" width="20">
                         </a>
                     </div>
                 </div>

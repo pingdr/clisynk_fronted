@@ -64,7 +64,10 @@
                             <div  formArrayName="tasks"
                                 class="mb-5"
                                 *ngFor="let item of thenForm.get('tasks').controls; let i = index;">
-                                <app-display-card  [taskData]="item" [eventType]="EventType.THEN"></app-display-card>
+                                <app-display-card 
+                                (onDelete)="handleDeleteTask($event)"
+                                [index]="i"
+                                [taskData]="item" [eventType]="EventType.THEN"></app-display-card>
                             </div>
 
                         </div>

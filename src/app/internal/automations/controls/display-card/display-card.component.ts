@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewEncapsulation, ChangeDetectorRef, Input } from '@angular/core';
-import { EventType } from '../../constants';
+import { Component, OnInit, ViewEncapsulation, ChangeDetectorRef, Input, Output, EventEmitter } from '@angular/core';
+import { EventType } from '../../automation-constants';
 import { UUID } from 'angular2-uuid';
 @Component({
   selector: 'app-display-card',
@@ -15,12 +15,14 @@ export class DisplayCardComponent implements OnInit {
     delete: "assets/images/delete-gray.svg",
     exportBlueIcon: "assets/images/export-blue-icon.svg"
   }
-  random;
+  random: string;
   EventType = EventType;
-  open = false;
 
   @Input()
   eventType: string;
+
+  @Input()
+  index: number;
 
   _taskData: any;
   @Input() 
@@ -30,6 +32,9 @@ export class DisplayCardComponent implements OnInit {
       console.log(this._taskData);
     }
   }
+
+  @Output() 
+  onDelete = new EventEmitter<any>();
   
   public get status(): string {
     switch (this.eventType) {
@@ -65,7 +70,13 @@ export class DisplayCardComponent implements OnInit {
 
 
 
+  onEditTask() {
 
+  }
+
+  onDeleteTask() {
+    this.onDelete.emit(this.index);
+  }
 
 
 
