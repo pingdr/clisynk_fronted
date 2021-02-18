@@ -55,6 +55,9 @@ export class HttpService {
     
     private workspaceManipulateSubject = new BehaviorSubject<any>(null);
     public work = this.workspaceManipulateSubject.asObservable();
+
+    private workspaceDeleteSubject = new BehaviorSubject<any>(null);
+    public deleteWork = this.workspaceDeleteSubject.asObservable();
     
     private documentUpdatedSubject = new BehaviorSubject<any>(null);
     public documentUpdatedStatus = this.documentUpdatedSubject.asObservable();
@@ -558,6 +561,9 @@ export class HttpService {
     }
     manipulateWorkspace(payload) {
         this.workspaceManipulateSubject.next(payload);
+    }
+    deleteWorkspaceEvent(payload) {
+        this.workspaceDeleteSubject.next(payload);
     }
     getRandomColor() {
         let color = Math.floor(0x1000000 * Math.random()).toString(16);

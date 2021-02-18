@@ -26,11 +26,16 @@ export class TopNavBarComponent implements OnInit {
         //     console.log('wps::', wps);
         //     this.selectedWorkspace = wps
         // });
-        this.http.work.subscribe((res) => {
+        this.allSubscribers.push(this.http.work.subscribe((res) => {
             if (res) {
                 this.getAllWorkspaces();
             }
-        })
+        }))
+        this.allSubscribers.push(this.http.deleteWork.subscribe((res)=> {
+            if(res) {
+                this.getAllWorkspaces();
+            }
+        }))
     }
 
     title: string;
@@ -42,6 +47,7 @@ export class TopNavBarComponent implements OnInit {
     loader = false;
     loginData: any;
     showClose = false;
+    public allSubscribers:any = [];
     chatToggle = false;
     private mailTemplates: MailTemplateData[];
 
@@ -264,7 +270,11 @@ export class TopNavBarComponent implements OnInit {
         this.ngxUiLoaderService.stopLoader("workspace-switch");
         return this.router.navigateByUrl(url);
     }
-
+    ngOnDestroy() {
+        this.allSubscribers.forEach(element => {
+            element.unsubscribe();
+        });
+    }
 }
 
 
