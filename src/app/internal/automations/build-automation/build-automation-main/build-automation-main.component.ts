@@ -66,7 +66,7 @@ export class BuildAutomationMainComponent implements OnInit {
     group.controls.eventType.setValue(EventType.THEN);
     group.controls.eventName.setValue(selectedOption);
     this.thenTasks.push(group);
-    this.automationService.updateTasksList(this.thenTasks);
+    this.automationService.updateThenTasksList(this.thenTasks);
     console.log(this.thenTasks);
   }
 
@@ -76,6 +76,7 @@ export class BuildAutomationMainComponent implements OnInit {
     this.whenForm.controls.eventType.setValue(EventType.WHEN) ;
     this.whenForm.controls.eventName.setValue(selectedOption);
     this.whenInternalEvents = WHEN_INTERNAL_EVENTS.on_when_event_added;
+    this.automationService.updateWhenEvent(this.whenForm);
   }
 
   handleDeleteTask(index: number) {

@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { FormArray } from '@angular/forms';
+import { FormArray, FormGroup } from '@angular/forms';
 import { AutomationService } from './../../../automation.service';
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { EventType } from '../../../automation-constants';
@@ -19,6 +19,7 @@ export class AutomationPreviewComponent implements OnInit {
   eventSelected = EventType.WHEN;
   EventType = EventType;
   $thenTasks: Observable<FormArray>;
+  $whenEvent: Observable<FormGroup>;
   
   @Output()
   onEventChange = new EventEmitter<any>();
@@ -27,6 +28,7 @@ export class AutomationPreviewComponent implements OnInit {
 
   ngOnInit() {
     this.$thenTasks = this.automationService.thenTasks;
+    this.$whenEvent = this.automationService.whenEvent;
   }
 
 }

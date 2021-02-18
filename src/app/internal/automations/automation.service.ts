@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormArray } from '@angular/forms';
+import { FormArray, FormGroup } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -9,10 +9,18 @@ export class AutomationService {
 
   private thenTasksSubject = new BehaviorSubject<FormArray>(null);
   public thenTasks = this.thenTasksSubject.asObservable();
+
+  private whenEventSubject = new BehaviorSubject<FormGroup>(null);
+  public whenEvent = this.whenEventSubject.asObservable();
+
   constructor() { }
 
   
-  updateTasksList(thenTasks) {
+  updateThenTasksList(thenTasks) {
     this.thenTasksSubject.next(thenTasks);
+  }
+
+  updateWhenEvent(whenTask) {
+    this.whenEventSubject.next(whenTask);
   }
 }

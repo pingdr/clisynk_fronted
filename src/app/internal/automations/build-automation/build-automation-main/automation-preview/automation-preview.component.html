@@ -3,7 +3,9 @@
         <img src="../../../assets/images/cloud-green.svg" width="20">
         <span>When</span>
     </div>
-    <div class="short-description">...this occurs, start my automation.</div>
+    <div class="short-description">
+        {{ ($whenEvent|async)?.value?.eventName ? ($whenEvent|async)?.value?.eventName : '...this occurs, start my automation.'}}
+    </div>
 </div>
 
 <div class="text-center center-down-img">
@@ -22,7 +24,7 @@
     </div>
 </ng-container>
 <ng-template #addThenTask>
-    <div class="then-card choose-tag-then">
+    <div (click)="onEventChange.emit(EventType.THEN)" class="then-card choose-tag-then">
 
         <div class="then-main-inner-card">
             <div class="when-heading">
