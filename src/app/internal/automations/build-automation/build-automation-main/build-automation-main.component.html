@@ -54,20 +54,15 @@
                     <div class="after-submitted-lead-form-main-for-edit-option">
                         <div [ngSwitch]="whenSwitchSuggestionOption">
                             <div *ngSwitchCase="WHEN_SHOW_OPTION.show_suggestions">
-                                <app-when-suggestions
-                                (onSelectedEvent)="addWhenTask($event)"
-                                ></app-when-suggestions>
+                                <app-when-suggestions (onSelectedEvent)="addWhenTask($event)"></app-when-suggestions>
                             </div>
                             <div *ngSwitchCase="WHEN_SHOW_OPTION.show_card">
-                                <app-display-card 
-                                (onDelete)="handleDeleteTask($event)"
-                                    [taskData]="whenForm"
-                                    [eventType]="EventType.WHEN"
-                                ></app-display-card>
+                                <app-display-card (onDelete)="handleDeleteTask($event)" [taskData]="whenForm"
+                                    [eventType]="EventType.WHEN"></app-display-card>
                             </div>
                             <div *ngSwitchDefault>output2</div>
                         </div>
-                       
+
                     </div>
                 </div>
 
@@ -76,43 +71,43 @@
                 <div class="right-col">
                     <div class="after-submitted-lead-form-main-for-edit-option">
                         <div [formGroup]="thenForm">
-                            <div  formArrayName="tasks"
-                                class="mb-5"
+                            <div formArrayName="tasks" class="mb-5"
                                 *ngFor="let item of thenForm.get('tasks').controls; let i = index;">
                                 <app-display-card 
-                                (onDelete)="handleDeleteTask($event)"
-                                [index]="i"
-                                [taskData]="item" 
-                                [eventType]="EventType.THEN"></app-display-card>
+                                    (onDelete)="handleDeleteTask($event)" 
+                                    [index]="i" [taskData]="item"
+                                    [eventType]="EventType.THEN"></app-display-card>
                             </div>
 
                         </div>
-                        <div [ngSwitch]="thenSwitchSuggestionOption">
-                            <div *ngSwitchCase="THEN_SHOW_OPTION.show_add_card">
-                                <div class="text-and-then">
-                                    and then
+                        <ng-container *ngIf="this.thenTasks?.length == 0 || !this.thenTasks; else addCardBlock">
+                            <app-then-suggestions (onSelectedEvent)="addThenTask($event)"></app-then-suggestions>
+                        </ng-container>
+                        <ng-template #addCardBlock>
+                            <div [ngSwitch]="thenSwitchSuggestionOption">
+                                <div *ngSwitchCase="THEN_SHOW_OPTION.show_add_card">
+                                    <div class="text-and-then">
+                                        and then
+                                    </div>
+                                    <div class="add-button">
+                                        <button class="add-btn-tag"
+                                            (click)="thenSwitchSuggestionOption = THEN_SHOW_OPTION.show_suggestions">
+                                            <!-- (click)="addThenTask()" -->
+                                            <img src="../../../../assets/images/add-icon.svg" width="30">
+                                        </button>
+                                    </div>
+                                    <div class="what-else">
+                                        What else needs to be automated ?
+                                    </div>
                                 </div>
-                                <div class="add-button">
-                                    <button class="add-btn-tag" 
-                                    (click)="thenSwitchSuggestionOption = THEN_SHOW_OPTION.show_suggestions"
-                                    >
-                                    <!-- (click)="addThenTask()" -->
-                                        <img src="../../../../assets/images/add-icon.svg" width="30">
-                                    </button>
+                                <div *ngSwitchCase="THEN_SHOW_OPTION.show_suggestions">
+                                    <app-then-suggestions (onSelectedEvent)="addThenTask($event)"></app-then-suggestions>
                                 </div>
-                                <div class="what-else">
-                                    What else needs to be automated ?
-                                </div>
+                                <div *ngSwitchDefault>output2</div>
                             </div>
-                            <div *ngSwitchCase="THEN_SHOW_OPTION.show_suggestions">
-                                <app-then-suggestions
-                                (onSelectedEvent)="addThenTask($event)"
-                                ></app-then-suggestions>
-                            </div>
-                            <div *ngSwitchDefault>output2</div>
-                        </div>
+                        </ng-template>
 
-                        
+
                     </div>
                 </div>
             </ng-container>
