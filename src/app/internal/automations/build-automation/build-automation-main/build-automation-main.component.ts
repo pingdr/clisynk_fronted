@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { HttpService } from 'src/app/services/http.service';
 import { AutomationEvents, EventType } from '../../automation-constants';
+import { Observable } from 'rxjs';
 declare var $: any;
 
 enum WHEN_INTERNAL_EVENTS {
@@ -28,7 +29,10 @@ export class BuildAutomationMainComponent implements OnInit {
 
   whenForm: FormGroup = undefined;
   thenForm: any;
-  thenTasks: FormArray; 
+  // thenTasks: FormArray; 
+  $thenTasks: Observable<FormArray>;
+  $whenEvent: Observable<FormGroup>;
+  
   thenInternalEvents: string = THEN_INTERNAL_EVENTS.on_then_event_selected;
   whenInternalEvents: string = WHEN_INTERNAL_EVENTS.on_delete_card;
   WHEN_INTERNAL_EVENTS = WHEN_INTERNAL_EVENTS;
@@ -40,6 +44,8 @@ export class BuildAutomationMainComponent implements OnInit {
 
   ngOnInit() {
     this.handleAnimation();
+    this.$thenTasks = this.automationService.thenTasks;
+    this.$whenEvent = this.automationService.whenEvent;
     this.thenForm = new FormGroup({
       tasks: new FormArray([])
     });
@@ -60,14 +66,14 @@ export class BuildAutomationMainComponent implements OnInit {
     if(selectedOption) {
       this.thenInternalEvents = THEN_INTERNAL_EVENTS.on_then_event_selected;
     }
-    this.thenTasks = this.thenForm.get('tasks') as FormArray;
-    let group = this.createCardObj();
+    // this.thenTasks = this.thenForm.get('tasks') as FormArray;
     // TODO: Need to make it more efficient
+    let group = this.createCardObj();
     group.controls.eventType.setValue(EventType.THEN);
     group.controls.eventName.setValue(selectedOption);
-    this.thenTasks.push(group);
-    this.automationService.updateThenTasksList(this.thenTasks);
-    console.log(this.thenTasks);
+    // this.thenTasks.push(group);
+    this.automationService.addToThenTasksList(group);
+    // this.automationService.updateThenTasksList(this.thenTasks);
   }
 
    
@@ -81,7 +87,8 @@ export class BuildAutomationMainComponent implements OnInit {
 
   handleDeleteTask(index: number) {
     if(index || index == 0) {
-      this.thenTasks.removeAt(index);
+      // this.thenTasks.removeAt(index);
+      this.automationService.removeThenTasksFromList(index);
     }  else {
       this.whenForm.reset();
       this.whenForm = undefined;

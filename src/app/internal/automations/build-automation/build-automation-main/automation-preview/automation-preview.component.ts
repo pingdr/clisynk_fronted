@@ -12,10 +12,6 @@ import { AutomationURL } from '../../../automation-routes';
 })
 export class AutomationPreviewComponent implements OnInit {
 
-  AutomationURL = AutomationURL
-  isWhenAdded = false;
-  isThenAdded = true;
-
   eventSelected = EventType.WHEN;
   EventType = EventType;
   $thenTasks: Observable<FormArray>;

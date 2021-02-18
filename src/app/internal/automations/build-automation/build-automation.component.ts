@@ -1,3 +1,4 @@
+import { AutomationService } from './../automation.service';
 import { AutomationURL } from './../automation-routes';
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from 'src/app/services/http.service';
@@ -13,13 +14,16 @@ export class BuildAutomationComponent implements OnInit {
   isThenAdded = false;
   AutomationURL = AutomationURL
 
-  constructor(public http: HttpService) { }
+  constructor(public http: HttpService, public automationService: AutomationService) { }
 
   ngOnInit() {
-    // setInterval(()=>{
-    //   this.isThenAdded = !this.isThenAdded;
-    //   this.isWhenAdded = !this.isWhenAdded;
-    // },3000)
   }
 
+  saveDraft() {
+    this.automationService.updateThenTasksList(null);
+    this.automationService.updateWhenEvent(null);
+    this.http.goBack();
+  }
+  ngOnDestroy() {
+  }
 }
