@@ -110,7 +110,7 @@
         <div class="dropdown global-add-button ping-dr-notification">
           <div class="btn-group add-btn workspace-drop-main" dropdown>
             <div class="first-letter-div-main">{{ selectedWorkspace?.name.toUpperCase().charAt(0)}}</div>
-            <button id="button-basic1" *ngIf="workspaces?.length != 0" dropdownToggle type="button" class="btn dropdown-toggle"
+            <button id="button-basic1" *ngIf="workspaces?.length != 0" dropdownToggle type="button" class="btn dropdown-toggle" style="color: #0040db !important;"
               aria-controls="dropdown-basic">
               {{selectedWorkspace?.name}}<i class="fas fa-angle-down"></i>
 
@@ -129,7 +129,7 @@
                     <span class="badge-red">1</span>
                   </div>
                   <div class="right-col">
-                    <span class="workspace-name">{{workspace?.name}}</span>
+                    <span class="workspace-name" style="color: #0040db !important;">{{workspace?.name}}</span>
                     <span class="second-row">
                       <img src="../../../assets/images/users-bunch.svg" width="15" />
                       {{workspace?.contacts}}

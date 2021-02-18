@@ -40,7 +40,7 @@ export class AddInvoiceComponent implements OnInit, OnDestroy {
                     this.myResponse.items[data.data.index] = data.data;
                     this.selectProduct(data.data);
                     this.subTotalCal();
-                    this.finalSubmit();
+                    // this.finalSubmit();
                 }
             } else if (data && data.eventType === 'editProduct') {
                 this.myResponse.items[data.data.index] = data.data;
