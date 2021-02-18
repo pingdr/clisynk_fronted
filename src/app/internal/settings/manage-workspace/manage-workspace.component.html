@@ -22,7 +22,7 @@
           <th class="actions-table">Actions</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody *ngIf="!loader || selectedWorkspace?._id">
         <tr
           *ngFor="let workspace of allData; let i = index"
           [ngClass]="{ disabled: selectedWorkspace?._id !== workspace?._id }"
@@ -76,7 +76,7 @@
                 width="20"
               />
             </button>
-            <button
+            <button *ngIf="allData.length > 1"
               class="delete-icon"
               matTooltip="Delete"
               (click)="deleteWorkspace(deletePopup, workspace?._id)"

@@ -6,10 +6,8 @@
           <a class="minimalize-styl-2 cursor" (click)="toggleNavigation()">
             <img [src]="'assets/images/ic_menu.svg'" />
           </a>
-          <i
-            class="fas fa-times visible-md visible-xs side-close-btn d-none d-sm-block d-md-none"
-            (click)="toggleNavigation()"
-          >
+          <i class="fas fa-times visible-md visible-xs side-close-btn d-none d-sm-block d-md-none"
+            (click)="toggleNavigation()">
           </i>
           <img [src]="'/assets/images/text1280x1024.jpg'" class="top-width" />
 
@@ -27,19 +25,10 @@
                 </span>
 
                 <div class="input-field search-input no-label">
-                  <input
-                    class="new-input"
-                    type="text"
-                    placeholder="Search contacts"
-                    [formControl]="searchName"
-                    (input)="searchChange()"
-                  />
+                  <input class="new-input" type="text" placeholder="Search contacts" [formControl]="searchName"
+                    (input)="searchChange()" />
                 </div>
-                <span
-                  class="clear-icon"
-                  *ngIf="showClose"
-                  (click)="searchName.patchValue('')"
-                >
+                <span class="clear-icon" *ngIf="showClose" (click)="searchName.patchValue('')">
                   <img [src]="'assets/images/ic_close.svg'" />
                 </span>
               </div>
@@ -47,11 +36,7 @@
               <div class="results-container" *ngIf="searchName?.value?.length">
                 <div class="results">
                   <ul class="results-list">
-                    <li
-                      class="result-item"
-                      *ngFor="let data of contacts"
-                      (click)="finalSelected(data)"
-                    >
+                    <li class="result-item" *ngFor="let data of contacts" (click)="finalSelected(data)">
                       <div class="avatar-img default">
                         <h3>
                           {{data?.firstName?.substr(0,
@@ -68,23 +53,14 @@
                   </ul>
                 </div>
 
-                <app-loader
-                  [showLoader]="loader"
-                  [length]="contacts?.length"
-                ></app-loader>
+                <app-loader [showLoader]="loader" [length]="contacts?.length"></app-loader>
 
-                <section
-                  class="results-empty"
-                  *ngIf="contacts?.length === 0 && !loader"
-                >
+                <section class="results-empty" *ngIf="contacts?.length === 0 && !loader">
                   <p class="empty-results">
                     You have no contacts that match the search
                     "{{searchName?.value}}"
                   </p>
-                  <button
-                    class="btn btn-outline-primary add-contact"
-                    (click)="openAddContact(searchName.value)"
-                  >
+                  <button class="btn btn-outline-primary add-contact" (click)="openAddContact(searchName.value)">
                     Add "{{searchName?.value}}" now
                   </button>
                 </section>
@@ -92,58 +68,36 @@
             </div>
             <div class="dropdown global-add-button">
               <div class="btn-group add-btn" dropdown>
-                <button
-                  id="button-basic1"
-                  dropdownToggle
-                  type="button"
-                  class="btn dropdown-toggle"
-                  aria-controls="dropdown-basic"
-                >
+                <button id="button-basic1" dropdownToggle type="button" class="btn dropdown-toggle"
+                  aria-controls="dropdown-basic">
                   New <i class="fas fa-angle-down"></i>
                 </button>
-                <ul
-                  id="dropdown-basic1"
-                  *dropdownMenu
-                  class="dropdown-menu"
-                  role="menu"
-                  aria-labelledby="button-basic"
-                >
+                <ul id="dropdown-basic1" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
                   <li role="menuitem" *ngIf="http.checkAcl('contacts')">
                     <a class="dropdown-item" (click)="openAddContact()">
-                      <img [src]="'/assets/images/user.svg'" /> Contact</a
-                    >
+                      <img [src]="'/assets/images/user.svg'" /> Contact</a>
                   </li>
 
                   <li role="menuitem" *ngIf="http.checkAcl('appointments')">
-                    <a
-                      class="dropdown-item"
-                      (click)="http.openModal('appointment')"
-                    >
+                    <a class="dropdown-item" (click)="http.openModal('appointment')">
                       <img [src]="'/assets/images/calendar.svg'" />
-                      Appointment</a
-                    >
+                      Appointment</a>
                   </li>
 
                   <li role="menuitem" *ngIf="http.checkAcl('tasks')">
-                    <a
-                      class="dropdown-item"
-                      (click)="http.openModal('addTask')"
-                    >
+                    <a class="dropdown-item" (click)="http.openModal('addTask')">
                       <img [src]="'/assets/images/tasks.svg'" />
-                      Task</a
-                    >
+                      Task</a>
                   </li>
 
                   <li role="menuitem">
-                    <a class="dropdown-item" (click)="openSendEmail()"
-                      ><img [src]="'/assets/images/email.svg'" /> Email</a
-                    >
+                    <a class="dropdown-item" (click)="openSendEmail()"><img [src]="'/assets/images/email.svg'" />
+                      Email</a>
                   </li>
 
                   <li role="menuitem">
-                    <a class="dropdown-item" (click)="http.openModal('addNote')"
-                      ><img [src]="'/assets/images/note.svg'" /> Note</a
-                    >
+                    <a class="dropdown-item" (click)="http.openModal('addNote')"><img
+                        [src]="'/assets/images/note.svg'" /> Note</a>
                   </li>
                 </ul>
               </div>
@@ -156,44 +110,28 @@
         <div class="dropdown global-add-button ping-dr-notification">
           <div class="btn-group add-btn workspace-drop-main" dropdown>
             <div class="first-letter-div-main">{{ selectedWorkspace?.name.toUpperCase().charAt(0)}}</div>
-            <button
-              id="button-basic1"
-              dropdownToggle
-              type="button"
-              class="btn dropdown-toggle"
-              aria-controls="dropdown-basic"
-            >
+            <button id="button-basic1" *ngIf="workspaces?.length != 0" dropdownToggle type="button" class="btn dropdown-toggle"
+              aria-controls="dropdown-basic">
               {{selectedWorkspace?.name}}<i class="fas fa-angle-down"></i>
-              
+
             </button>
-            <ul
-              id="dropdown-basic1"
-              *dropdownMenu
-              class="dropdown-menu drop-work-menu"
-              role="menu"
-              aria-labelledby="button-basic"
-            >
-              <li
-                role="menuitem"
-                *ngFor="let workspace of workspaces"
-                class="workspace-list"
-                (click)="activeWorkspace(workspace)"
-              >
+            <button id="button-basic1" *ngIf="workspaces?.length === 0" type="button" class="btn dropdown-toggle"
+              aria-controls="dropdown-basic">
+              {{selectedWorkspace?.name}}
+            </button>
+            <ul id="dropdown-basic1" *dropdownMenu class="dropdown-menu drop-work-menu" role="menu"
+              aria-labelledby="button-basic">
+              <li role="menuitem" *ngFor="let workspace of workspaces" class="workspace-list"
+                (click)="activeWorkspace(workspace)">
                 <div class="main-workspace-notification">
-                  <div
-                    class="left-col"
-                    [ngStyle]="{'background-color': workspace.backgroundColor}"
-                  >
+                  <div class="left-col" [ngStyle]="{'background-color': workspace.backgroundColor}">
                     {{ workspace?.name.toUpperCase().charAt(0) }}
                     <span class="badge-red">1</span>
                   </div>
                   <div class="right-col">
                     <span class="workspace-name">{{workspace?.name}}</span>
                     <span class="second-row">
-                      <img
-                        src="../../../assets/images/users-bunch.svg"
-                        width="15"
-                      />
+                      <img src="../../../assets/images/users-bunch.svg" width="15" />
                       {{workspace?.contacts}}
                     </span>
                   </div>
@@ -211,38 +149,17 @@
             </button>
           </li>
           <div class="btn-group nav-profile-outter1" dropdown>
-            <button
-              id="button-basic3"
-              dropdownToggle
-              type="button"
-              class="btn"
-              aria-controls="dropdown-basic"
-            >
-              <img
-                [src]="'/assets/images/icon1280x1024.jpg'"
-                style="height: 29px; width: 38px"
-              />
+            <button id="button-basic3" dropdownToggle type="button" class="btn" aria-controls="dropdown-basic">
+              <img [src]="'/assets/images/icon1280x1024.jpg'" style="height: 29px; width: 38px" />
             </button>
-            <ul
-              id="dropdown-basic3"
-              *dropdownMenu
-              class="dropdown-menu"
-              role="menu"
-              aria-labelledby="button-basic"
-              style="left: -103px"
-            >
-              <li
-                role="menuitem"
-                style="display: block"
-                [routerLink]="['/settings/my-profile']"
-              >
+            <ul id="dropdown-basic3" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic"
+              style="left: -103px">
+              <li role="menuitem" style="display: block" [routerLink]="['/settings/my-profile']">
                 <a class="dropdown-item">
                   <div class="nav-profile">
                     <div class="nav-profile-img">
-                      <span
-                        >{{http?.loginData?.firstName?.substr(0,
-                        1)}}{{http?.loginData?.lastName?.substr(0, 1)}}</span
-                      >
+                      <span>{{http?.loginData?.firstName?.substr(0,
+                        1)}}{{http?.loginData?.lastName?.substr(0, 1)}}</span>
                     </div>
                     <div class="nav-profile-detail">
                       <h3>{{http?.loginData?.name}}</h3>
@@ -251,22 +168,15 @@
                   </div>
                 </a>
               </li>
-              <li
-                role="menuitem"
-                style="display: block"
-                [routerLink]="['/settings']"
-              >
-                <a class="dropdown-item"
-                  ><img [src]="'assets/images/ic_setting.svg'" />Setting</a
-                >
+              <li role="menuitem" style="display: block" [routerLink]="['/settings']">
+                <a class="dropdown-item"><img [src]="'assets/images/ic_setting.svg'" />Setting</a>
               </li>
               <!--                            <li role="menuitem" style="display: block" (click)="http.openModal('changePassword')">-->
               <!--                                <a class="dropdown-item"><img src="assets/images/ic_setting.svg">Change password</a>-->
               <!--                            </li>-->
               <li role="menuitem" style="display: block">
                 <a class="dropdown-item" (click)="logout()">
-                  <img [src]="'assets/images/ic_siginout.svg'" />Signout</a
-                >
+                  <img [src]="'assets/images/ic_siginout.svg'" />Signout</a>
               </li>
             </ul>
           </div>
@@ -302,28 +212,14 @@
 
     <section class="send-invite add-money read-all" *ngIf="unreadCount">
       <div class="view-email" dropdown>
-        <button
-          dropdownToggle
-          type="button"
-          class="btn dropdown-toggle"
-          aria-controls="dropdown-basic"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            id="more-horizontal"
-          >
+        <button dropdownToggle type="button" class="btn dropdown-toggle" aria-controls="dropdown-basic">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="more-horizontal">
             <circle cx="5" cy="12" r="2"></circle>
             <circle cx="12" cy="12" r="2"></circle>
             <circle cx="19" cy="12" r="2"></circle>
           </svg>
         </button>
-        <ul
-          *dropdownMenu
-          class="dropdown-menu"
-          role="menu"
-          aria-labelledby="button-basic"
-        >
+        <ul *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
           <li role="menuitem" (click)="notificationList(true)">
             <a class="dropdown-item"> Mark as read</a>
           </li>
