@@ -9,8 +9,8 @@ import { HttpService } from 'src/app/services/http.service';
 })
 export class BuildAutomationComponent implements OnInit {
 
-  isWhenAdded = false;
-  isThenAdded = true;
+  isWhenAdded = true;
+  isThenAdded = false;
   AutomationURL = AutomationURL
 
   constructor(public http: HttpService) { }

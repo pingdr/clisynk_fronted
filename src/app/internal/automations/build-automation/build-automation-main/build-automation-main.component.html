@@ -23,9 +23,7 @@
     <!-------------------------------------end of header--------------------------------->
     <div class="inner-add-build-main">
         <div class="left-col">
-            <app-automation-preview
-                (onEventChange)="eventSelected = $event"
-            ></app-automation-preview>
+            <app-automation-preview (onEventChange)="eventSelected = $event"></app-automation-preview>
         </div>
 
         <!-- TOGGLING BETWEEN WHEN AND THEN EVENT -->
@@ -55,9 +53,7 @@
                         <div [formGroup]="thenForm">
                             <div formArrayName="tasks" class="mb-5"
                                 *ngFor="let item of thenForm.get('tasks').controls; let i = index;">
-                                <app-display-card 
-                                    (onDelete)="handleDeleteTask($event)" 
-                                    [index]="i" [taskData]="item"
+                                <app-display-card (onDelete)="handleDeleteTask($event)" [index]="i" [taskData]="item"
                                     [eventType]="EventType.THEN"></app-display-card>
                             </div>
 
@@ -83,7 +79,8 @@
                                     </div>
                                 </div>
                                 <div *ngSwitchCase="THEN_INTERNAL_EVENTS.on_add_then_event_clicked">
-                                    <app-then-suggestions (onSelectedEvent)="addThenTask($event)"></app-then-suggestions>
+                                    <app-then-suggestions (onSelectedEvent)="addThenTask($event)">
+                                    </app-then-suggestions>
                                 </div>
                                 <div *ngSwitchDefault>output2</div>
                             </div>

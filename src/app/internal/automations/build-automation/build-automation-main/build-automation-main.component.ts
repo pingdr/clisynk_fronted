@@ -1,3 +1,4 @@
+import { AutomationService } from './../../automation.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { HttpService } from 'src/app/services/http.service';
@@ -33,7 +34,9 @@ export class BuildAutomationMainComponent implements OnInit {
   WHEN_INTERNAL_EVENTS = WHEN_INTERNAL_EVENTS;
   THEN_INTERNAL_EVENTS = THEN_INTERNAL_EVENTS;
 
-  constructor(public http: HttpService, private formBuilder: FormBuilder) { }
+  constructor(public http: HttpService,
+    private automationService: AutomationService,
+    private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.handleAnimation();
@@ -63,6 +66,7 @@ export class BuildAutomationMainComponent implements OnInit {
     group.controls.eventType.setValue(EventType.THEN);
     group.controls.eventName.setValue(selectedOption);
     this.thenTasks.push(group);
+    this.automationService.updateTasksList(this.thenTasks);
     console.log(this.thenTasks);
   }
 

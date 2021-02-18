@@ -126,6 +126,19 @@
     margin: auto;
     margin-top: 10px;
 }
+/* .then-card::before{
+    position: absolute;
+    content: '';
+    background: linear-gradient(180deg, #40C186 0%, #36A48D 29.26%, #2681AD 65.62%, #125CB7 100%);
+    width: 5px;
+    top: 0;
+    bottom: 0;
+    left: auto;
+    right: 0;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    z-index: 99;
+} */
 
 .first-card {
     background: #fff;
