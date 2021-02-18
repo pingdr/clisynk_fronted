@@ -1,4 +1,4 @@
-<div class="when-build-main-wrapper">
+<!-- <div class="when-build-main-wrapper">
     <ng-container [ngSwitch]="isWhenAdded">
         <ng-container *ngSwitchCase="false">
             <div class="card-main">
@@ -48,8 +48,8 @@
                         <span>Then</span>
                     </div>
                 </div>
-                <div class="short-description send-free-email">Send (Free consulation) email</div>
-                <!-- <div class="main-expansion-panal">
+                <div class="short-description send-free-email">Send (Free consulation) email</div> -->
+<!-- <div class="main-expansion-panal">
                     <mat-accordion>
                         <mat-expansion-panel hideToggle>
                           <mat-expansion-panel-header>
@@ -83,9 +83,34 @@
                       </mat-accordion> 
                       
                 </div> -->
-               
+<!--                
             </div>
         </ng-container>
     </ng-container>
 
+</div> -->
+
+
+
+
+<div   (click)="onEventChange.emit(EventType.WHEN)"  class="card-main first-card">
+    <div class="when-heading">
+        <img src="../../../assets/images/cloud-green.svg" width="20">
+        <span>When</span>
+    </div>
+    <div class="short-description">...this occurs, start my automation.</div>
+</div>
+
+<div class="text-center center-down-img">
+    <img [src]="'/assets/images/back-arrow.svg'" width="50" class="down-arrow">
+</div>
+<div class="then-card">
+    <div class="when-heading">
+        <img src="../../../assets/images/blue-flash.svg" width="20">
+        <span>Then</span>
+    </div>
+    <div class="short-description">...this will be automated.</div>
+    <div class="add-icon-blue">
+        <button (click)="onEventChange.emit(EventType.THEN)" class="btn" >+</button>
+    </div>
 </div>

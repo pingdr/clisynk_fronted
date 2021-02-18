@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { AutomationURL } from '../../automation-routes';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { EventType } from '../../../automation-constants';
+import { AutomationURL } from '../../../automation-routes';
 
 @Component({
   selector: 'app-automation-preview',
@@ -12,6 +13,13 @@ export class AutomationPreviewComponent implements OnInit {
   AutomationURL = AutomationURL
   isWhenAdded = false;
   isThenAdded = true;
+
+  eventSelected = EventType.WHEN;
+  EventType = EventType;
+  
+  @Output()
+  onEventChange = new EventEmitter<any>();
+
   ngOnInit() {
   }
 

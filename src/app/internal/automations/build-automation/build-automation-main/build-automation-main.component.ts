@@ -23,13 +23,14 @@ export class BuildAutomationMainComponent implements OnInit {
 
 
   eventSelected = EventType.WHEN;
+  EventType = EventType;
+
   whenForm: FormGroup = undefined;
   thenForm: any;
   thenTasks: FormArray; 
   thenInternalEvents: string = THEN_INTERNAL_EVENTS.on_then_event_selected;
   whenInternalEvents: string = WHEN_INTERNAL_EVENTS.on_delete_card;
   WHEN_INTERNAL_EVENTS = WHEN_INTERNAL_EVENTS;
-  EventType = EventType;
   THEN_INTERNAL_EVENTS = THEN_INTERNAL_EVENTS;
 
   constructor(public http: HttpService, private formBuilder: FormBuilder) { }
