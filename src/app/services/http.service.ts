@@ -184,18 +184,19 @@ export class HttpService {
 
     sweetConfirm(msg) {
         let flag = false;
-        Swal.fire({
+        return Swal.fire({
             title: 'Are you sure?',
             text: 'Do you want te delete this ' + msg,
             type: 'warning',
             showCancelButton: true,
             confirmButtonText: 'Yes, delete it!',
             cancelButtonText: 'No, keep it'
-        }).then((result) => {
-            // return !!result.value;
-            flag = true;
-        });
-        return flag;
+        })
+        // .then((result) => {
+        //     // return !!result.value;
+        //     flag = true;
+        // });
+        // return flag;
     }
 
     navigate(url, params?) {

@@ -16,10 +16,10 @@ export class BuildAutomationComponent implements OnInit {
   constructor(public http: HttpService) { }
 
   ngOnInit() {
-    setInterval(()=>{
-      this.isThenAdded = !this.isThenAdded;
-      this.isWhenAdded = !this.isWhenAdded;
-    },3000)
+    // setInterval(()=>{
+    //   this.isThenAdded = !this.isThenAdded;
+    //   this.isWhenAdded = !this.isWhenAdded;
+    // },3000)
   }
 
 }

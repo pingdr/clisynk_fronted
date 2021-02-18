@@ -1,4 +1,4 @@
-import { DisplayCardComponent } from './controls/display-card/display-card.component';
+import { DisplayCardComponent } from './build-automation/build-automation-main/display-card/display-card.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
@@ -14,7 +14,7 @@ import { ChooseTagComponent } from './choose-tag/choose-tag.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { FreeCosulationWhenComponent } from './free-cosulation-when/free-cosulation-when.component';
 import { BuildAutomationMainComponent } from './build-automation/build-automation-main/build-automation-main.component';
-import { AutomationPreviewComponent } from './controls/automation-preview/automation-preview.component';
+import { AutomationPreviewComponent } from './build-automation/automation-preview/automation-preview.component';
 import { ThenSuggestionsComponent } from './build-automation/build-automation-main/then-suggestions/then-suggestions.component';
 import { WhenSuggestionsComponent } from './build-automation/build-automation-main/when-suggestions/when-suggestions.component';
 

@@ -1,7 +1,10 @@
+import { LeadFormDeletedComponent } from 'src/app/shared/modals/lead-form-deleted/lead-form-deleted.component';
+import { HttpService } from 'src/app/services/http.service';
 import { FormGroup } from '@angular/forms';
 import { Component, OnInit, ViewEncapsulation, ChangeDetectorRef, Input, Output, EventEmitter } from '@angular/core';
-import { EventType, Images } from '../../automation-constants';
+import { EventType, Images } from '../../../automation-constants';
 import { UUID } from 'angular2-uuid';
+import { Subject } from 'rxjs';
 @Component({
   selector: 'app-display-card',
   templateUrl: './display-card.component.html',
@@ -43,7 +46,7 @@ export class DisplayCardComponent implements OnInit {
   }
 
 
-  constructor(private changeDetection: ChangeDetectorRef) {
+  constructor(private changeDetection: ChangeDetectorRef, private http: HttpService) {
     this.random = this.makeid(15);
    }
 
@@ -57,7 +60,13 @@ export class DisplayCardComponent implements OnInit {
   }
 
   onDeleteTask() {
-    this.onDelete.emit(this.index);
+    const modalRef = this.http.showModal(LeadFormDeletedComponent, 'xs navigated-to-lead');
+    modalRef.content.onClose = new Subject<boolean>();
+    modalRef.content.onClose.subscribe((res) => {
+      if (res) {
+        this.onDelete.emit(this.index);
+      }
+    });
   }
 
 
