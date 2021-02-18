@@ -10,3 +10,13 @@ export const Images = {
     delete: "assets/images/delete-gray.svg",
     exportBlueIcon: "assets/images/export-blue-icon.svg"
 }
+
+export enum AutomationEvents {
+    WHEN = 'when',
+    WHEN_show_card = 'Show card',
+    WHEN_show_suggestions = 'Show When Suggestions',
+    THEN = 'then',
+    THEN_show_card = 'Add Card Option',
+    THNE_show_suggestions = 'Show Then Suggestions'
+    
+}

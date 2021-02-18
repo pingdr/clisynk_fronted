@@ -1,17 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { HttpService } from 'src/app/services/http.service';
-import { EventType } from '../../automation-constants';
+import { AutomationEvents, EventType } from '../../automation-constants';
 declare var $: any;
 
-enum WHEN_SHOW_OPTION {
-  show_suggestions = 'SHOW_SUGGESTIONS',
-  show_card = 'SHOW_CARD'
+enum WHEN_INTERNAL_EVENTS {
+  on_delete_card = 'SHOW_SUGGESTIONS',
+  on_when_event_added = 'SHOW_WHEN_EVENT_CARD'
 }
-enum THEN_SHOW_OPTION {
-  show_add_card = 'ADD_CARD_OPTION',
-  show_suggestions = 'SHOW_SUGGESIONS'
+enum THEN_INTERNAL_EVENTS {
+  on_then_event_selected = 'SHOW_ADD_THEN_EVENT_BTN',
+  on_add_then_event_clicked = 'SHOW_SUGGESIONS'
 }
+
+
 @Component({
   selector: 'app-build-automation-main',
   templateUrl: './build-automation-main.component.html',
@@ -20,18 +22,15 @@ enum THEN_SHOW_OPTION {
 export class BuildAutomationMainComponent implements OnInit {
 
 
-  buttonName = 'Show more option';
-  hide: any;
-  EventType = EventType;
   eventSelected = EventType.WHEN;
   whenForm: FormGroup = undefined;
   thenForm: any;
   thenTasks: FormArray; 
-  thenSwitchSuggestionOption: string = THEN_SHOW_OPTION.show_add_card;
-  whenSwitchSuggestionOption: string = WHEN_SHOW_OPTION.show_suggestions;
-  WHEN_SHOW_OPTION = WHEN_SHOW_OPTION;
-  THEN_SHOW_OPTION = THEN_SHOW_OPTION;
-
+  thenInternalEvents: string = THEN_INTERNAL_EVENTS.on_then_event_selected;
+  whenInternalEvents: string = WHEN_INTERNAL_EVENTS.on_delete_card;
+  WHEN_INTERNAL_EVENTS = WHEN_INTERNAL_EVENTS;
+  EventType = EventType;
+  THEN_INTERNAL_EVENTS = THEN_INTERNAL_EVENTS;
 
   constructor(public http: HttpService, private formBuilder: FormBuilder) { }
 
@@ -55,7 +54,7 @@ export class BuildAutomationMainComponent implements OnInit {
 
   addThenTask(selectedOption?): void {
     if(selectedOption) {
-      this.thenSwitchSuggestionOption = THEN_SHOW_OPTION.show_add_card;
+      this.thenInternalEvents = THEN_INTERNAL_EVENTS.on_then_event_selected;
     }
     this.thenTasks = this.thenForm.get('tasks') as FormArray;
     let group = this.createCardObj();
@@ -71,7 +70,7 @@ export class BuildAutomationMainComponent implements OnInit {
     this.whenForm = this.createCardObj();
     this.whenForm.controls.eventType.setValue(EventType.WHEN) ;
     this.whenForm.controls.eventName.setValue(selectedOption);
-    this.whenSwitchSuggestionOption = WHEN_SHOW_OPTION.show_card;
+    this.whenInternalEvents = WHEN_INTERNAL_EVENTS.on_when_event_added;
   }
 
   handleDeleteTask(index: number) {
@@ -80,7 +79,7 @@ export class BuildAutomationMainComponent implements OnInit {
     }  else {
       this.whenForm.reset();
       this.whenForm = undefined;
-      this.whenSwitchSuggestionOption = WHEN_SHOW_OPTION.show_suggestions;
+      this.whenInternalEvents = WHEN_INTERNAL_EVENTS.on_delete_card;
     }
   }
 
