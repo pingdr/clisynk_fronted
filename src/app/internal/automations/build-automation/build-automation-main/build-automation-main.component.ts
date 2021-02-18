@@ -46,34 +46,29 @@ export class BuildAutomationMainComponent implements OnInit {
     this.handleAnimation();
     this.$thenTasks = this.automationService.thenTasks;
     this.$whenEvent = this.automationService.whenEvent;
+
+    this.$whenEvent.subscribe(res => {
+      if (res) {
+        this.whenForm = res;
+        this.whenInternalEvents = WHEN_INTERNAL_EVENTS.on_when_event_added;
+      }
+    })
+
     this.thenForm = new FormGroup({
       tasks: new FormArray([])
     });
   }
 
 
-  createCardObj(): FormGroup {
-    return this.formBuilder.group({
-      eventName: '',
-      eventType: '',
-      name: '',
-      description: '',
-      price: ''
-    });
-  }
-
   addThenTask(selectedOption?): void {
     if(selectedOption) {
       this.thenInternalEvents = THEN_INTERNAL_EVENTS.on_then_event_selected;
     }
-    // this.thenTasks = this.thenForm.get('tasks') as FormArray;
     // TODO: Need to make it more efficient
     let group = this.createCardObj();
     group.controls.eventType.setValue(EventType.THEN);
     group.controls.eventName.setValue(selectedOption);
-    // this.thenTasks.push(group);
     this.automationService.addToThenTasksList(group);
-    // this.automationService.updateThenTasksList(this.thenTasks);
   }
 
    
@@ -94,6 +89,17 @@ export class BuildAutomationMainComponent implements OnInit {
       this.whenForm = undefined;
       this.whenInternalEvents = WHEN_INTERNAL_EVENTS.on_delete_card;
     }
+  }
+  
+
+  createCardObj(): FormGroup {
+    return this.formBuilder.group({
+      eventName: '',
+      eventType: '',
+      name: '',
+      description: '',
+      price: ''
+    });
   }
 
 
