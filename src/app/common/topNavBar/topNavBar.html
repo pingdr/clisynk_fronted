@@ -124,7 +124,7 @@
               <li role="menuitem" *ngFor="let workspace of workspaces" class="workspace-list"
                 (click)="activeWorkspace(workspace)">
                 <div class="main-workspace-notification">
-                  <div class="left-col" [ngStyle]="{'background-color': workspace.backgroundColor}">
+                  <div class="left-col" style="background: #5a6079;">
                     {{ workspace?.name.toUpperCase().charAt(0) }}
                     <span class="badge-red">1</span>
                   </div>
