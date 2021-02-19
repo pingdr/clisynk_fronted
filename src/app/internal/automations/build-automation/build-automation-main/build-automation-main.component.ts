@@ -91,6 +91,7 @@ export class BuildAutomationMainComponent implements OnInit {
       this.whenForm.reset();
       this.whenForm = undefined;
       this.whenInternalEvents = WHEN_INTERNAL_EVENTS.on_delete_card;
+      this.automationService.updateWhenEvent(null);
     }
   }
   

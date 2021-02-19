@@ -82,6 +82,7 @@
     transform: rotate(270deg);
 }
  .first-card .when-heading {
+     cursor: pointer;
     font-size: 26px;
     margin-bottom: 0px;
     display: flex;
@@ -92,13 +93,15 @@
     margin-right: 10px;
 }
 .then-card {
+    cursor: pointer;
     background: #fff;
-    padding: 30px;
+    /* padding: 30px; */
     border: 1px solid #e6e6e8;
     border-radius: 10px;
     text-align: center;
+    box-shadow: 0px 2px 7px #b9b9b9;
+    position: relative;
 }
-
 .then-card .when-heading {
     font-size: 26px;
     margin-bottom: 8px;
@@ -126,7 +129,50 @@
     margin: auto;
     margin-top: 10px;
 }
-/* .then-card::before{
+.then-add-card {
+    cursor: pointer;
+    background: #fff;
+    padding: 30px;
+    border: 1px solid #e6e6e8;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0px 2px 7px #b9b9b9;
+}
+.then-add-card .when-heading {
+    font-size: 26px;
+    margin-bottom: 8px;
+}
+
+.then-add-card .when-heading img {
+    width: 31px;
+}
+
+.then-add-card .short-description {
+    font-size: 16px;
+    color: #a09fa4;
+}
+
+.then-add-card .add-icon-blue button.btn {
+    background: #2525f5;
+    color: #fff;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    font-size: 23px;
+    padding: 5px 7px;
+    border-radius: 100%;
+    margin: auto;
+    margin-top: 10px;
+}
+.then-main-inner-card {
+    padding: 30px;
+}
+.main-expansion-panal {
+    margin-bottom: 10px;
+}
+
+.then-card::before{
     position: absolute;
     content: '';
     background: linear-gradient(180deg, #40C186 0%, #36A48D 29.26%, #2681AD 65.62%, #125CB7 100%);
@@ -138,7 +184,24 @@
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
     z-index: 99;
-} */
+}
+.then-add-card {
+    position: relative;
+}
+.then-add-card::before{
+    position: absolute;
+    content: '';
+    background: #eb6a3a;
+    width: 5px;
+    top: 0;
+    bottom: 0;
+    left: auto;
+    right: 0;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    z-index: 99;
+}
+
 
 .first-card {
     background: #fff;
@@ -152,6 +215,19 @@
     position: absolute;
     content: '';
     background: #eb6a3a;
+    width: 7px;
+    top: 0;
+    bottom: 0;
+    left: auto;
+    right: 0;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.first-card-filled:before {
+    position: absolute;
+    content: '';
+    background: linear-gradient(180deg, #40C186 0%, #36A48D 29.26%, #2681AD 65.62%, #125CB7 100%);
     width: 7px;
     top: 0;
     bottom: 0;

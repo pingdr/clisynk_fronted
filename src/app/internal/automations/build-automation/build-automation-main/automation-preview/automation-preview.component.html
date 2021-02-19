@@ -1,4 +1,6 @@
-<div (click)="updateEventType(EventType.WHEN)" class="card-main first-card">
+<div (click)="updateEventType(EventType.WHEN)"
+[ngClass]="{'first-card-filled': ($whenEvent|async)?.value}"
+class="card-main first-card">
     <div class="when-heading">
         <img src="../../../assets/images/cloud-green.svg" width="20">
         <span>When</span>
@@ -12,7 +14,7 @@
     <img [src]="'/assets/images/back-arrow.svg'" width="50" class="down-arrow">
 </div>
 <ng-container *ngIf="((($thenTasks|async)?.length == 0) || (!($thenTasks|async))); else addThenTask">
-    <div class="then-card">
+    <div class="then-add-card">
         <div class="when-heading">
             <img src="../../../assets/images/blue-flash.svg" width="20">
             <span>Then</span>

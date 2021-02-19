@@ -25,7 +25,6 @@
         <div class="left-col">
             <app-automation-preview></app-automation-preview>
         </div>
-{{($eventSelected | async)}}
         <!-- TOGGLING BETWEEN WHEN AND THEN EVENT -->
         <ng-container [ngSwitch]="($eventSelected | async)">
             <ng-container *ngSwitchCase="EventType.WHEN">
@@ -54,7 +53,7 @@
                 <div class="right-col">
                     <div class="after-submitted-lead-form-main-for-edit-option">
                         <div [formGroup]="thenForm">
-                            <div formArrayName="tasks" class="mb-5"
+                            <div formArrayName="tasks" class="mb-3"
                                 *ngFor="let item of ($thenTasks|async)?.controls; let i = index;">
                                 <app-display-card (onDelete)="handleDeleteTask($event)" [index]="i" [taskData]="item"
                                     [eventType]="EventType.THEN"></app-display-card>

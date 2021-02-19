@@ -33,11 +33,9 @@ export class AutomationService {
   }
   
   addToThenTasksList(thenTask: FormGroup) {
-    console.log(this.thenTasksSubject.getValue());
-    if ( this.isNullOrEmpty(this.thenTasksSubject.getValue()) ) {
+    if (this.isNullOrEmpty(this.thenTasksSubject.getValue())) {
         this.thenTasksSubject.next(new FormArray([]));
     }
-    console.log(this.thenTasksSubject.getValue().length);
     this.thenTasksSubject.getValue().push(thenTask);
   }
 

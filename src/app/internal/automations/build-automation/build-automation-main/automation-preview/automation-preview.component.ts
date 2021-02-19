@@ -18,7 +18,7 @@ export class AutomationPreviewComponent implements OnInit {
   $thenTasks: Observable<FormArray>;
   $whenEvent: Observable<FormGroup>;
   
-
+  color = "#eb6a3a";
   constructor(private automationService: AutomationService,
     private router: Router
     ) { }
@@ -26,6 +26,13 @@ export class AutomationPreviewComponent implements OnInit {
   ngOnInit() {
     this.$thenTasks = this.automationService.thenTasks;
     this.$whenEvent = this.automationService.whenEvent;
+    this.$whenEvent.subscribe(res => {
+      if(res) {
+        this.color  = "green";
+      } else {
+        this.color = "orange";
+      }
+    })
   }
 
   updateEventType(eventType: EventType) {
