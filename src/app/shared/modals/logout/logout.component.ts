@@ -1,6 +1,6 @@
-import {Component} from '@angular/core';
-import {HttpService} from '../../../services/http.service';
-import {Subject} from 'rxjs';
+import { Component } from '@angular/core';
+import { HttpService } from '../../../services/http.service';
+import { Subject } from 'rxjs';
 
 @Component({
     selector: 'app-logout',
@@ -18,7 +18,8 @@ export class LogoutComponent {
         this.http.hideModal();
         this.http.closeAllModals();
         localStorage.removeItem('accessToken');
-        this.http.navigate('login');
-        location.reload();
+        // this.http.navigate('login');
+        // location.reload();
+        window.location.href = 'login';
     }
 }
