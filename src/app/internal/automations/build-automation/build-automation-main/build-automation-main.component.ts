@@ -1,5 +1,5 @@
 import { AutomationService } from './../../automation.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { HttpService } from 'src/app/services/http.service';
 import { AutomationEvents, EventType } from '../../automation-constants';
@@ -24,7 +24,8 @@ enum THEN_INTERNAL_EVENTS {
 export class BuildAutomationMainComponent implements OnInit {
 
 
-  eventSelected = EventType.WHEN;
+  $eventSelected: Observable<EventType>;
+  // eventSelected = EventType.WHEN;
   EventType = EventType;
 
   whenForm: FormGroup = undefined;
@@ -39,13 +40,15 @@ export class BuildAutomationMainComponent implements OnInit {
   THEN_INTERNAL_EVENTS = THEN_INTERNAL_EVENTS;
 
   constructor(public http: HttpService,
-    private automationService: AutomationService,
+    public automationService: AutomationService,
+    public changeDetection: ChangeDetectorRef,
     private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.handleAnimation();
     this.$thenTasks = this.automationService.thenTasks;
     this.$whenEvent = this.automationService.whenEvent;
+    this.$eventSelected = this.automationService.eventSelected;
 
     this.$whenEvent.subscribe(res => {
       if (res) {
@@ -101,7 +104,6 @@ export class BuildAutomationMainComponent implements OnInit {
       price: ''
     });
   }
-
 
   handleAnimation() {
     $(document).ready(function () {

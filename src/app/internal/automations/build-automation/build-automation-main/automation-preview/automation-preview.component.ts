@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { FormArray, FormGroup } from '@angular/forms';
 import { AutomationService } from './../../../automation.service';
@@ -17,14 +18,20 @@ export class AutomationPreviewComponent implements OnInit {
   $thenTasks: Observable<FormArray>;
   $whenEvent: Observable<FormGroup>;
   
-  @Output()
-  onEventChange = new EventEmitter<any>();
 
-  constructor(private automationService: AutomationService) { }
+  constructor(private automationService: AutomationService,
+    private router: Router
+    ) { }
 
   ngOnInit() {
     this.$thenTasks = this.automationService.thenTasks;
     this.$whenEvent = this.automationService.whenEvent;
+  }
+
+  updateEventType(eventType: EventType) {
+    // this.onEventChange.next(eventType);
+    this.automationService.updateEventType(eventType);
+    this.router.navigate(["/automation/build-automation-main"])
   }
 
 }

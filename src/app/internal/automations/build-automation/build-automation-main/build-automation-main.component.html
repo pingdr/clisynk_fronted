@@ -7,12 +7,12 @@
         </div>
         <div class="right-col">
             <div class="inner-left-col">
-                <span [ngClass]="{ 'color-disabled' : eventSelected !== EventType.WHEN }">When</span>
+                <span [ngClass]="{ 'color-disabled' : ($eventSelected | async) !== EventType.WHEN }">When</span>
                 <img [src]="'/assets/images/back-arrow.svg'" width="50">
-                <span [ngClass]="{ 'color-disabled' : eventSelected !== EventType.THEN }">Then</span>
+                <span [ngClass]="{ 'color-disabled' : ($eventSelected | async) !== EventType.THEN }">Then</span>
             </div>
             <div class="inner-right-col">
-                <label *ngIf="eventSelected == EventType.THEN" class="previewd-save">
+                <label *ngIf="($eventSelected | async) == EventType.THEN" class="previewd-save">
                     <img src="../../../../assets/images/tick.svg" width="20">
                     Saved
                 </label>
@@ -23,11 +23,11 @@
     <!-------------------------------------end of header--------------------------------->
     <div class="inner-add-build-main">
         <div class="left-col">
-            <app-automation-preview (onEventChange)="eventSelected = $event"></app-automation-preview>
+            <app-automation-preview></app-automation-preview>
         </div>
-
+{{($eventSelected | async)}}
         <!-- TOGGLING BETWEEN WHEN AND THEN EVENT -->
-        <ng-container [ngSwitch]="eventSelected">
+        <ng-container [ngSwitch]="($eventSelected | async)">
             <ng-container *ngSwitchCase="EventType.WHEN">
 
                 <div class="right-col">

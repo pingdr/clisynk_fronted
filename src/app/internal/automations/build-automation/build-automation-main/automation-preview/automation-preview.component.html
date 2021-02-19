@@ -1,4 +1,4 @@
-<div routerLink="/automation/build-automation-main" (click)="onEventChange.emit(EventType.WHEN)" class="card-main first-card">
+<div (click)="updateEventType(EventType.WHEN)" class="card-main first-card">
     <div class="when-heading">
         <img src="../../../assets/images/cloud-green.svg" width="20">
         <span>When</span>
@@ -19,12 +19,12 @@
         </div>
         <div class="short-description">...this will be automated.</div>
         <div class="add-icon-blue">
-            <button routerLink="/automation/build-automation-main" (click)="onEventChange.emit(EventType.THEN)" class="btn">+</button>
+            <button (click)="updateEventType(EventType.THEN)" class="btn">+</button>
         </div>
     </div>
 </ng-container>
 <ng-template #addThenTask>
-    <div routerLink="/automation/build-automation-main" (click)="onEventChange.emit(EventType.THEN)" class="then-card choose-tag-then">
+    <div (click)="updateEventType(EventType.THEN)" class="then-card choose-tag-then">
 
         <div class="then-main-inner-card">
             <div class="when-heading">
