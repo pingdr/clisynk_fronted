@@ -228,7 +228,7 @@ export class TopNavBarComponent implements OnInit {
 
     getAllWorkspaces() {
         const obj: any = {};
-        this.http.getData(ApiUrl.WORKSPACE, obj).subscribe(res => {
+        this.http.getData(ApiUrl.USERWORKSPACE, obj).subscribe(res => {
             console.log(res);
             res.data.map(wps => {
                 wps.backgroundColor = this.http.getRandomColor();

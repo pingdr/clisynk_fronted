@@ -102,6 +102,7 @@ export const ApiUrl = {
 
     //Workspace api's
     WORKSPACE: 'workspaces',
+    USERWORKSPACE:'users/workspaces',
     WORKSPACE_MERGE: 'workspaces/merge',
     WORKSPACE_SET_ACTIVE: 'workspaces/set-active'
 
