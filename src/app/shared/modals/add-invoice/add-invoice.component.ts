@@ -31,6 +31,7 @@ export class AddInvoiceComponent implements OnInit, OnDestroy {
     showDiscount = 0;
     showDeposit = 0;
     amountPaid = 0;
+    searchText: string = "";
 
     constructor(public http: HttpService, private cd: ChangeDetectorRef, public ngZone: NgZone) {
         this.myModel = new TableModel();
@@ -361,6 +362,7 @@ export class AddInvoiceComponent implements OnInit, OnDestroy {
             });
     }
 
+    products: any[];
     productList() {
         this.http.getData(ApiUrl.PRODUCTS, {}).subscribe(res => {
                 this.myModel.products = res.data;

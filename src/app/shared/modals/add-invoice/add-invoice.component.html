@@ -322,7 +322,11 @@
                                                         <span class="ellipsis"> Create a new product or service </span>
                                                     </a>
                                                 </li>
-                                                <ng-container *ngFor="let data of myModel?.products">
+                                                <input 
+                                                class="form-control p-3"
+                                                placeholder ="Search Products..."
+                                                (click)="$event.stopPropagation()" [ngModelOptions]="{standalone: true}" [(ngModel)]="searchText">
+                                                <ng-container *ngFor="let data of myModel?.products|filter: searchText">
                                                     <li role="menuitem" style="display: block"
                                                         (click)="selectProduct(data)">
                                                         <a class="dropdown-item">

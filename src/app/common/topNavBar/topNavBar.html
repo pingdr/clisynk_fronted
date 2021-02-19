@@ -109,7 +109,7 @@
       <div class="col-5 btn-group header-links col-md-3 new-header-group-main">
         <div class="dropdown global-add-button ping-dr-notification">
           <div class="btn-group add-btn workspace-drop-main" dropdown>
-            <div class="first-letter-div-main">{{ selectedWorkspace?.name.toUpperCase().charAt(0)}}</div>
+            <div class="first-letter-div-main">{{ selectedWorkspace?.name?.toUpperCase().charAt(0)}}</div>
             <button id="button-basic1" *ngIf="workspaces?.length != 0" dropdownToggle type="button" class="btn dropdown-toggle" style="color: #0040db !important;"
               aria-controls="dropdown-basic">
               {{selectedWorkspace?.name}}<i class="fas fa-angle-down"></i>

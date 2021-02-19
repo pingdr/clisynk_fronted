@@ -18,8 +18,8 @@ export class LogoutComponent {
         this.http.hideModal();
         this.http.closeAllModals();
         localStorage.removeItem('accessToken');
-        // this.http.navigate('login');
+        this.http.navigate('login');
         // location.reload();
-        window.location.href = 'login';
+        // window.location.href = 'login';
     }
 }
