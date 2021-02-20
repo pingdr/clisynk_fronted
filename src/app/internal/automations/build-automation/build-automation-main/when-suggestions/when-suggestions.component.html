@@ -11,7 +11,7 @@
                 aria-labelledby="button-basic">
                 <ng-container *ngFor="let item of listOfWhenEvents">
                     <li role="menuitem">
-                        <a class="dropdown-item" (click)="onSelectEvent(item)">{{item}} </a>
+                        <a class="dropdown-item" (click)="onSelectEvent(item)">{{item.eventDescription}} </a>
                     </li>
                 </ng-container>
                 <!-- <li role="menuitem">
@@ -32,9 +32,15 @@
         <div class="select-option-four-grid-wrapper">
             <ng-container *ngFor="let item of listOfWhenEvents">
                 <div (click)="onSelectEvent(item)" class="inner-grid-col">
-                    <span>{{item}}</span>
-                    <img  src="../../../../assets/images/lead-form-is-submitted.svg" width="60">
+                    <span>{{item.eventDescription}}</span>
+                    <img  [src]="item.img" width="60">
                 </div>    
+            </ng-container>
+            <ng-container *ngIf="loader">
+                    <ngx-skeleton-loader
+                        count="1"
+                        [theme]="{ width: '100%', 'border-radius': '10px', height: '200px', 'margin-bottom': '3px','z-index':'99','margin-left': '0px','margin-top': '0','border': 'none','left':'0'}">
+                    </ngx-skeleton-loader>
             </ng-container>
             <!-- <div class="inner-grid-col" >
                 <span>Lead form is <br/>submitted </span>

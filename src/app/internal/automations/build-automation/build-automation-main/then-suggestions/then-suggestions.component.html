@@ -28,9 +28,15 @@
 <div class="select-option-four-grid-wrapper">
     <ng-container *ngFor="let item of listOfThenEvents">
         <div (click)="onSelectEvent(item)" class="inner-grid-col">
-            <span>{{item}}</span>
+            <span>{{item.eventDescription}}</span>
             <img  src="../../../../assets/images/send-an-email-blue.svg" width="60">
         </div>    
+    </ng-container>
+    <ng-container *ngIf="loader">
+        <ngx-skeleton-loader
+            count="1"
+            [theme]="{ width: '100%', 'border-radius': '10px', height: '200px', 'margin-bottom': '3px','z-index':'99','margin-left': '0px','margin-top': '0','border': 'none','left':'0'}">
+        </ngx-skeleton-loader>
     </ng-container>
     <!-- <div class="inner-grid-col">
         <span>Send an email </span>

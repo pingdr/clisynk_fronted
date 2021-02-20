@@ -1,3 +1,4 @@
+import { EventList } from './../../models/automation';
 import { AutomationService } from './../../automation.service';
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormArray, FormBuilder } from '@angular/forms';
@@ -63,22 +64,22 @@ export class BuildAutomationMainComponent implements OnInit {
   }
 
 
-  addThenTask(selectedOption?): void {
+  addThenTask(selectedOption?: EventList): void {
     if(selectedOption) {
       this.thenInternalEvents = THEN_INTERNAL_EVENTS.on_then_event_selected;
     }
     // TODO: Need to make it more efficient
     let group = this.createCardObj();
-    group.controls.eventType.setValue(EventType.THEN);
-    group.controls.eventName.setValue(selectedOption);
+    group.controls.eventName.setValue(selectedOption.eventName);
+    group.controls.eventDescription.setValue(selectedOption.eventDescription);
     this.automationService.addToThenTasksList(group);
   }
 
    
-  addWhenTask(selectedOption) {
+  addWhenTask(selectedOption: EventList) {
     this.whenForm = this.createCardObj();
-    this.whenForm.controls.eventType.setValue(EventType.WHEN) ;
-    this.whenForm.controls.eventName.setValue(selectedOption);
+    this.whenForm.controls.eventName.setValue(selectedOption.eventName);
+    this.whenForm.controls.eventDescription.setValue(selectedOption.eventDescription);
     this.whenInternalEvents = WHEN_INTERNAL_EVENTS.on_when_event_added;
     this.automationService.updateWhenEvent(this.whenForm);
   }
@@ -99,7 +100,7 @@ export class BuildAutomationMainComponent implements OnInit {
   createCardObj(): FormGroup {
     return this.formBuilder.group({
       eventName: '',
-      eventType: '',
+      eventDescription: '',
       name: '',
       description: '',
       price: ''

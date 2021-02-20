@@ -6,7 +6,7 @@ class="card-main first-card">
         <span>When</span>
     </div>
     <div class="short-description">
-        {{ ($whenEvent|async)?.value?.eventName ? ($whenEvent|async)?.value?.eventName : '...this occurs, start my automation.'}}
+        {{ ($whenEvent|async)?.value?.eventDescription ? ($whenEvent|async)?.value?.eventDescription : '...this occurs, start my automation.'}}
     </div>
 </div>
 
@@ -41,7 +41,7 @@ class="card-main first-card">
                     <mat-expansion-panel hideToggle>
                         <mat-expansion-panel-header>
                             <mat-panel-title>
-                                {{item.value.eventName}}
+                                {{item.value.eventDescription}}
                             </mat-panel-title>
                         </mat-expansion-panel-header>
                         <p>This is the primary content of the panel.</p>

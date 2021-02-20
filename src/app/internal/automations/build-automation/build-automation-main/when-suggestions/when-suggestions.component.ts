@@ -1,6 +1,11 @@
+import { EventList } from './../../../models/automation';
+import { BackendResponse } from './../../../models/backend-response';
+import { AutomationParams } from './../../../models/params';
+import { AutomationService } from './../../../automation.service';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { HttpService } from 'src/app/services/http.service';
 import { SubmitfeedbackComponent } from 'src/app/shared/modals/submitfeedback/submitfeedback.component';
+import { Automation } from '../../../models/automation';
 
 @Component({
   selector: 'app-when-suggestions',
@@ -9,25 +14,43 @@ import { SubmitfeedbackComponent } from 'src/app/shared/modals/submitfeedback/su
 })
 export class WhenSuggestionsComponent implements OnInit {
 
+  private get whenEventsUrl() { return "automation/when-events" }
+
   showOption = false;
 
+
   @Output()
-  onSelectedEvent = new EventEmitter<any>();
+  onSelectedEvent = new EventEmitter<EventList>();
 
-  selectedEvent:string;
-  listOfWhenEvents = ['Lead form is submitted', 'Appointment is scheduled', 'Tag is added', 'Purchase is made'];
+  selectedEvent:EventList;
+  loader: boolean = false;
 
-  constructor(public http:HttpService,) { }
+  listOfWhenEvents: EventList[]
+ 
+
+  constructor(public http:HttpService) { }
 
   ngOnInit() {
+    this.getWhenEvents();
   }
-
   
+  getWhenEvents() {
+    this.loader = true;
+    return this.http.getData(this.whenEventsUrl)
+    .map((res: BackendResponse<EventList[]>) => res.data)
+    .subscribe(res =>{ 
+      this.listOfWhenEvents = res;
+      this.listOfWhenEvents.forEach(x => x.img = this.mapImage(x.eventName) ); //setting Images dynamically
+      this.loader = false;
+    });
+    ;
+  }
   openSubmitfeedback() {
     this.http.showModal(SubmitfeedbackComponent);
   }
   
-  onSelectEvent(item) {
+  onSelectEvent(item: EventList) {
+    delete item.img;
     this.selectedEvent = item;
     this.onSelectedEvent.emit(item);
   }
@@ -36,6 +59,18 @@ export class WhenSuggestionsComponent implements OnInit {
     this.showOption = !this.showOption
     document.body.scrollTop = 0;
     // window.scrollTo(1900, 1900);
+  }
+
+  private mapImage = (eventName) => {
+    switch (eventName) {
+      case "leadForm": {return 'assets/images/lead-form-is-submitted.svg'}
+      case "appointmentScheduled": {return 'assets/images/appointment-is-scheduled.svg'}
+      case "appointmentCancelled": {return 'assets/images/lead-form-is-submitted.svg'}
+      case "tagAdded": {return 'assets/images/tag-is-addwd.svg'}
+      case "productPurcased": {return 'assets/images/purchase-is-made.svg'}
+      default: {return 'assets/images/lead-form-is-submitted.svg'}
+       
+    }
   }
 
 }
