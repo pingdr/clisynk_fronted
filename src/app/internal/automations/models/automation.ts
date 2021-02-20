@@ -39,7 +39,7 @@ export interface Automation {
     dataId: string;
   }
 
-export interface EventList {
+export interface WhenThenEvent {
     eventDescription: string;
     eventName: string;
     img?: string;

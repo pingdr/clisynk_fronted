@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { HttpService } from 'src/app/services/http.service';
 import { SubmitfeedbackComponent } from 'src/app/shared/modals/submitfeedback/submitfeedback.component';
-import { EventList } from '../../../models/automation';
+import { WhenThenEvent } from '../../../models/automation';
 import { BackendResponse } from '../../../models/backend-response';
 
 @Component({
@@ -18,9 +18,9 @@ export class ThenSuggestionsComponent implements OnInit {
   @Output()
   onSelectedEvent = new EventEmitter<any>();
 
-  selectedEvent: EventList;
+  selectedEvent: WhenThenEvent;
   // listOfThenEvents = ['Send an email', 'Send notification', 'Add a tag', 'Create a task'];
-  listOfThenEvents: EventList[];
+  listOfThenEvents: WhenThenEvent[];
   loader: boolean = false;
 
   constructor(public http: HttpService) { }
@@ -32,8 +32,8 @@ export class ThenSuggestionsComponent implements OnInit {
   getThenEvents() {
     this.loader = true;
     this.http.getData(this.thenEventsUrl)
-    .map((res: BackendResponse<EventList[]>) => res.data)
-    .subscribe((res:EventList[]) => {
+    .map((res: BackendResponse<WhenThenEvent[]>) => res.data)
+    .subscribe((res:WhenThenEvent[]) => {
       this.listOfThenEvents = res;
       this.listOfThenEvents.forEach(x => x.img = this.mapImage(x.eventName) ); //setting Images dynamically
       this.loader = false;
@@ -50,7 +50,7 @@ export class ThenSuggestionsComponent implements OnInit {
     // window.scrollTo(1900, 1900);
   }
 
-  onSelectEvent(item: EventList) {
+  onSelectEvent(item: WhenThenEvent) {
     delete item.img;
     this.selectedEvent = item;
     this.onSelectedEvent.emit(item);

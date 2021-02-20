@@ -31,19 +31,16 @@
 
                 <div class="right-col">
                     <div class="after-submitted-lead-form-main-for-edit-option">
-                        <div [ngSwitch]="whenInternalEvents">
-                            <div *ngSwitchCase="WHEN_INTERNAL_EVENTS.on_delete_card">
-                                <app-when-suggestions (onSelectedEvent)="addWhenTask($event)"></app-when-suggestions>
-                            </div>
-                            <div *ngSwitchCase="WHEN_INTERNAL_EVENTS.on_when_event_added">
-                                <app-display-card 
+                        <ng-container *ngIf="(!($whenEvent|async)); else addedWhenCard">
+                            <app-when-suggestions (onSelectedEvent)="addWhenTask($event)"></app-when-suggestions>
+                        </ng-container>
+                        <ng-template #addedWhenCard>
+                            <app-display-card 
                                     (onDelete)="handleDeleteTask($event)"
                                     [taskData]="($whenEvent|async)"
                                     [eventType]="EventType.WHEN">
-                                </app-display-card>
-                            </div>
-                            <div *ngSwitchDefault>output2</div>
-                        </div>
+                            </app-display-card>
+                        </ng-template>
 
                     </div>
                 </div>

@@ -1,4 +1,4 @@
-import { EventList } from './../../../models/automation';
+import { WhenThenEvent } from './../../../models/automation';
 import { BackendResponse } from './../../../models/backend-response';
 import { AutomationParams } from './../../../models/params';
 import { AutomationService } from './../../../automation.service';
@@ -20,12 +20,12 @@ export class WhenSuggestionsComponent implements OnInit {
 
 
   @Output()
-  onSelectedEvent = new EventEmitter<EventList>();
+  onSelectedEvent = new EventEmitter<WhenThenEvent>();
 
-  selectedEvent:EventList;
+  selectedEvent:WhenThenEvent;
   loader: boolean = false;
 
-  listOfWhenEvents: EventList[]
+  listOfWhenEvents: WhenThenEvent[]
  
 
   constructor(public http:HttpService) { }
@@ -37,7 +37,7 @@ export class WhenSuggestionsComponent implements OnInit {
   getWhenEvents() {
     this.loader = true;
     return this.http.getData(this.whenEventsUrl)
-    .map((res: BackendResponse<EventList[]>) => res.data)
+    .map((res: BackendResponse<WhenThenEvent[]>) => res.data)
     .subscribe(res =>{ 
       this.listOfWhenEvents = res;
       this.listOfWhenEvents.forEach(x => x.img = this.mapImage(x.eventName) ); //setting Images dynamically
@@ -49,7 +49,7 @@ export class WhenSuggestionsComponent implements OnInit {
     this.http.showModal(SubmitfeedbackComponent);
   }
   
-  onSelectEvent(item: EventList) {
+  onSelectEvent(item: WhenThenEvent) {
     delete item.img;
     this.selectedEvent = item;
     this.onSelectedEvent.emit(item);

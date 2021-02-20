@@ -1,4 +1,4 @@
-import { EventList } from './../../models/automation';
+import { WhenThenEvent } from './../../models/automation';
 import { AutomationService } from './../../automation.service';
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormArray, FormBuilder } from '@angular/forms';
@@ -7,10 +7,6 @@ import { AutomationEvents, EventType } from '../../automation-constants';
 import { Observable } from 'rxjs';
 declare var $: any;
 
-enum WHEN_INTERNAL_EVENTS {
-  on_delete_card = 'SHOW_SUGGESTIONS',
-  on_when_event_added = 'SHOW_WHEN_EVENT_CARD'
-}
 enum THEN_INTERNAL_EVENTS {
   on_then_event_selected = 'SHOW_ADD_THEN_EVENT_BTN',
   on_add_then_event_clicked = 'SHOW_SUGGESIONS'
@@ -36,8 +32,6 @@ export class BuildAutomationMainComponent implements OnInit {
   $whenEvent: Observable<FormGroup>;
   
   thenInternalEvents: string = THEN_INTERNAL_EVENTS.on_then_event_selected;
-  whenInternalEvents: string = WHEN_INTERNAL_EVENTS.on_delete_card;
-  WHEN_INTERNAL_EVENTS = WHEN_INTERNAL_EVENTS;
   THEN_INTERNAL_EVENTS = THEN_INTERNAL_EVENTS;
 
   constructor(public http: HttpService,
@@ -54,7 +48,6 @@ export class BuildAutomationMainComponent implements OnInit {
     this.$whenEvent.subscribe(res => {
       if (res) {
         this.whenForm = res;
-        this.whenInternalEvents = WHEN_INTERNAL_EVENTS.on_when_event_added;
       }
     })
 
@@ -64,7 +57,7 @@ export class BuildAutomationMainComponent implements OnInit {
   }
 
 
-  addThenTask(selectedOption?: EventList): void {
+  addThenTask(selectedOption?: WhenThenEvent): void {
     if(selectedOption) {
       this.thenInternalEvents = THEN_INTERNAL_EVENTS.on_then_event_selected;
     }
@@ -76,22 +69,19 @@ export class BuildAutomationMainComponent implements OnInit {
   }
 
    
-  addWhenTask(selectedOption: EventList) {
+  addWhenTask(selectedOption: WhenThenEvent) {
     this.whenForm = this.createCardObj();
     this.whenForm.controls.eventName.setValue(selectedOption.eventName);
     this.whenForm.controls.eventDescription.setValue(selectedOption.eventDescription);
-    this.whenInternalEvents = WHEN_INTERNAL_EVENTS.on_when_event_added;
     this.automationService.updateWhenEvent(this.whenForm);
   }
 
   handleDeleteTask(index: number) {
     if(index || index == 0) {
-      // this.thenTasks.removeAt(index);
       this.automationService.removeThenTasksFromList(index);
     }  else {
       this.whenForm.reset();
       this.whenForm = undefined;
-      this.whenInternalEvents = WHEN_INTERNAL_EVENTS.on_delete_card;
       this.automationService.updateWhenEvent(null);
     }
   }
