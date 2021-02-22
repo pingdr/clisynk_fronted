@@ -48,7 +48,8 @@
                             <app-loader [showLoader]="loader" [length]="activeChatList?.length">
                             </app-loader>
                             <div *cdkVirtualFor="let data of activeChatList;let i = index">
-                                <a class="nav-link" (click)="clickChat(data,i);" [ngClass]="{'active': selectedIndex == i}">
+                                <a class="nav-link" (click)="clickChat(data,i);"
+                                    [ngClass]="{'active': selectedIndex == i}">
                                     <span class="circle">
                                         <label class="custom-checkbox">
                                             <input type="checkbox" (change)="getSelectedCount()"
@@ -88,7 +89,7 @@
                                     </h4>
 
                                     <div *ngIf="data?.unreadCount > 0;else lastMsgWithoutUnreadCount"
-                                      style="display: flex;" class="video-small">
+                                        style="display: flex;" class="video-small">
                                         <div class="unread-text-blue">
                                             {{data?.lastMessage?.file ? data?.lastMessage?.file?.type :
                                             data?.lastMessage?.content}}
@@ -591,19 +592,21 @@
 
 
                         <div *ngIf="!searchFlag">
-                            <span class="search-icon"><img src="assets/images/video-icon-chat.png"
+                            <span class="search-icon" *ngIf="!isBlockedBy"><img src="assets/images/video-icon-chat.png"
                                     style="cursor: pointer;width: 28px;" (click)="handleVideo()" /></span>
-                            <span class="search-icon"><img src="assets/images/phone-icon-chat.png"
+                            <span class="search-icon" *ngIf="!isBlockedBy"><img src="assets/images/phone-icon-chat.png"
                                     style="cursor: pointer;width: 26px;" (click)="handleAudio()" /></span>
                             <span class="search-icon"><img src="assets/images/search.png"
                                     style="cursor: pointer;width: 26px;" (click)="displaySearch()" /></span>
-                            <span class="search-icon" *ngIf="forwardselectmsg"><img  (click)="forwardMsg(openForwardModal,chat)" src="../../../assets/images/forward.svg"
-                                        style="cursor: pointer;width: 28px;"/></span>
+                            <span class="search-icon" *ngIf="forwardselectmsg"><img
+                                    (click)="forwardMsg(openForwardModal,chat)" src="../../../assets/images/forward.svg"
+                                    style="cursor: pointer;width: 28px;" /></span>
                             <!-- <span class="search-icon" ><img  (click)="forwardMsg(openForwardModal,chat)" src="../../../assets/images/close.svg"
                                             style="cursor: pointer;width: 28px;"/></span> -->
-                            <span class="search-icon" *ngIf="forwardselectmsg"><img  (click)="closeForward()" src="../../../assets/images/close.svg"
-                                                style="cursor: pointer;width: 28px;"/></span>
-                                        
+                            <span class="search-icon" *ngIf="forwardselectmsg"><img (click)="closeForward()"
+                                    src="../../../assets/images/close.svg"
+                                    style="cursor: pointer;width: 28px;" /></span>
+
                         </div>
 
                         <div class="invoices-page-table" style="display: contents;" *ngIf="searchFlag">
@@ -667,8 +670,10 @@
                                 <div class="row msg-row" style="margin-bottom: 5px;" [id]="chat?._id">
 
                                     <!-- CHECKBOX-FOR-FORWARD-ALL -->
-                                    <mat-checkbox *ngIf="forwardselectmsg" name="check__{{i}}" (change)="forwardCheck($event,chat)" class="example-margin" style="position: absolute;
-                                    top: 5px; bottom: 0; margin: auto; bottom: 0; margin: auto; height: 20px; left:0;"></mat-checkbox>
+                                    <mat-checkbox *ngIf="forwardselectmsg" name="check__{{i}}"
+                                        (change)="forwardCheck($event,chat)" class="example-margin" style="position: absolute;
+                                    top: 5px; bottom: 0; margin: auto; bottom: 0; margin: auto; height: 20px; left:0;">
+                                    </mat-checkbox>
                                     <!-- admin msg -->
                                     <div *ngIf="adminId === chat?.from?.user;else otherUser" style="float: right;"
                                         class="dropdown">
@@ -1795,7 +1800,7 @@
                                                         </a>
                                                     </li>
                                                     <li role="menuitem" style="display: block"
-                                                    (click)="forwardselect()">
+                                                        (click)="forwardselect()">
                                                         <a class="dropdown-item">
                                                             <img src="../../../assets/images/forward.svg" width="15"
                                                                 class="groupo-img">
@@ -1843,6 +1848,9 @@
                             style="margin-top: 10px;text-align: center;">
                             <span (click)="sidenav.toggle();openMediaProfile();" class="unblock-txt">You
                                 blocked this contact. Tap to unblock.</span>
+                        </div>
+                        <div style="margin-top: 10px;text-align: center;" *ngIf="isBlockedBy">
+                            <span class="unblock-txt">You are blocked.</span>
                         </div>
                         <ng-template #notBlockuser>
 
@@ -1914,54 +1922,56 @@
                                 </span>
                             </div>
                             <!-- icons -->
+                            <ng-container *ngIf="!isBlockedBy">
+                                <div class="form-wrapper"
+                                    *ngIf="!mediaFlag && (imageArray.length == 0 || videoArray.length == 0 || docArray.length == 0)">
+                                    <div dropdown class="drop-photos-doc">
+                                        <img class="plus-icon" src="assets/images/plusblue-docside.svg"
+                                            id="button-create" dropdownToggle aria-controls="dropdown-basic" />
+                                        <ul id="dropdown-create" *dropdownMenu class="dropdown-menu chat-menu"
+                                            role="menu" aria-labelledby="button-basic" style="top: -100px;">
+                                            <li role="menuitem" style="display: block">
+                                                <a class="dropdown-item" (click)="file.click()">
+                                                    <span class="ellipsis"><img
+                                                            src="../../../assets/images/gallery-white-doc.svg" />
+                                                        Photo & Video</span>
+                                                    <input #file type="file" multiple="true"
+                                                        (change)="choosePhoto($event)" accept="image/*,Video/*"
+                                                        style="display: none;">
+                                                </a>
+                                            </li>
+                                            <li role="menuitem" style="display: block">
+                                                <a class="dropdown-item" (click)="doc.click()">
+                                                    <span class="ellipsis"><img
+                                                            src="../../../assets/images/file-white-doc.svg" />Documents</span>
+                                                    <input #doc type="file" multiple="true" (change)="chooseDoc($event)"
+                                                        accept=".doc,.docx,.txt,.pdf" style="display: none;">
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="input-wrapper">
+                                        <input placeholder="Send a Message" [(ngModel)]="message"
+                                            (input)="textChange($event)" (keyup.enter)="sendMessage(message)" />
+                                    </div>
 
-                            <div class="form-wrapper"
-                                *ngIf="!mediaFlag && (imageArray.length == 0 || videoArray.length == 0 || docArray.length == 0)">
-                                <div dropdown class="drop-photos-doc">
-                                    <img class="plus-icon" src="assets/images/plusblue-docside.svg" id="button-create"
-                                        dropdownToggle aria-controls="dropdown-basic" />
-                                    <ul id="dropdown-create" *dropdownMenu class="dropdown-menu chat-menu" role="menu"
-                                        aria-labelledby="button-basic" style="top: -100px;">
-                                        <li role="menuitem" style="display: block">
-                                            <a class="dropdown-item" (click)="file.click()">
-                                                <span class="ellipsis"><img
-                                                        src="../../../assets/images/gallery-white-doc.svg" />
-                                                    Photo & Video</span>
-                                                <input #file type="file" multiple="true" (change)="choosePhoto($event)"
-                                                    accept="image/*,Video/*" style="display: none;">
-                                            </a>
-                                        </li>
-                                        <li role="menuitem" style="display: block">
-                                            <a class="dropdown-item" (click)="doc.click()">
-                                                <span class="ellipsis"><img
-                                                        src="../../../assets/images/file-white-doc.svg" />Documents</span>
-                                                <input #doc type="file" multiple="true" (change)="chooseDoc($event)"
-                                                    accept=".doc,.docx,.txt,.pdf" style="display: none;">
-                                            </a>
-                                        </li>
-                                    </ul>
+                                    <img src="assets/images/send.svg" width="25px"
+                                        style="margin-left: 10px;cursor: pointer; width:16px" *ngIf="message.length > 0"
+                                        (click)="sendMessage(message)" />
+                                    <!-- emoji -->
+                                    <i class='attachment' (click)="toggled = !toggled" [(emojiPickerIf)]="toggled"
+                                        [emojiPickerDirection]="'top'" (emojiPickerSelect)="handleSelection($event)">
+                                        <img class="emoji-icon" src="assets/images/emoji.svg" /></i>
+                                    <img class="gallery-icon" src="assets/images/gallery-blue.svg"
+                                        (click)="fileImg.click()" />
+                                    <input #fileImg type="file" multiple="true" (change)="choosePhoto($event)"
+                                        accept="image/*" style="display: none;">
+                                    <img class="record-icon" *ngIf="!isRecordStart" (click)="recordAudio()"
+                                        src="assets/images/record.svg" />
+                                    <img class="record-icon" *ngIf="isRecordStart" (click)="stopRecord()"
+                                        src="assets/images/mute.svg" />
                                 </div>
-                                <div class="input-wrapper">
-                                    <input placeholder="Send a Message" [(ngModel)]="message"
-                                        (input)="textChange($event)" (keyup.enter)="sendMessage(message)" />
-                                </div>
-
-                                <img src="assets/images/send.svg" width="25px"
-                                    style="margin-left: 10px;cursor: pointer; width:16px" *ngIf="message.length > 0"
-                                    (click)="sendMessage(message)" />
-                                <!-- emoji -->
-                                <i class='attachment' (click)="toggled = !toggled" [(emojiPickerIf)]="toggled"
-                                    [emojiPickerDirection]="'top'" (emojiPickerSelect)="handleSelection($event)">
-                                    <img class="emoji-icon" src="assets/images/emoji.svg" /></i>
-                                <img class="gallery-icon" src="assets/images/gallery-blue.svg"
-                                    (click)="fileImg.click()" />
-                                <input #fileImg type="file" multiple="true" (change)="choosePhoto($event)"
-                                    accept="image/*" style="display: none;">
-                                <img class="record-icon" *ngIf="!isRecordStart" (click)="recordAudio()"
-                                    src="assets/images/record.svg" />
-                                <img class="record-icon" *ngIf="isRecordStart" (click)="stopRecord()"
-                                    src="assets/images/mute.svg" />
-                            </div>
+                            </ng-container>
                         </ng-template>
 
                     </div>

@@ -96,6 +96,7 @@ export const ApiUrl = {
     CLEAR_CHAT : 'chat/clear-chat',
     BLOCK_USER : 'chat/block-user',
     UNBLOCK_USER : 'chat/unblock-user',
+    CUR_USER : 'chat/me',
     FETCH_BLOCK_USERS : 'chat/fetch-blocked-users',
     DELETE_CHATROOM : 'chat/delete-chatroom',
     CALL_LOG : 'chat/calls',

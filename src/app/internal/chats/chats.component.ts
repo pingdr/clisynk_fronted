@@ -53,6 +53,7 @@ export class ChatsComponent implements OnInit {
   showSelected = false;
   selectedIndex: number;
   selected: any;
+  isBlockedBy: boolean = false;
   selectedContactCount = 0;
 
   groupData = [];
@@ -192,6 +193,8 @@ export class ChatsComponent implements OnInit {
 
     this.getAllActiveChat(null);
     this.getNewMassages();
+    this.getUnBlockEvent();
+    this.getBlockEvent();
     this.getAcknowledgement();
     this.typingMsg();
     window.scrollTo(0, 0)
@@ -920,6 +923,23 @@ export class ChatsComponent implements OnInit {
     });
   }
 
+  getBlockEvent() {
+    this.socket.on('block', (data) => {
+      console.log(data.userId);
+      if (this.selectedChat && this.selectedChat.temp._id === data.userId) {
+        this.isBlockedBy = true;
+      }
+    })
+  }
+  getUnBlockEvent() {
+    this.socket.on('unblock', (data) => {
+      console.log(data.userId);
+      if (this.selectedChat && this.selectedChat.temp._id === data.userId) {
+        this.isBlockedBy = false;
+      }
+    })
+  }
+
   // new msg get from socket
   getNewMassages() {
     this.socket.on('new-message', (data) => {
@@ -971,7 +991,7 @@ export class ChatsComponent implements OnInit {
         this.activeChatList.map((user) => {
           console.log(user);
           if (data.chatRoomId.chatType === "GROUP") {
-            if(user && user.groupDetails && (user.groupDetails.name === data.chatRoomId.name)) {
+            if (user && user.groupDetails && (user.groupDetails.name === data.chatRoomId.name)) {
               userName = user.temp.fullName;
               user.unreadCount = (user.unreadCount ? user.unreadCount : 0) + 1;
               user.lastMessage.content = data.content;
@@ -1456,10 +1476,22 @@ export class ChatsComponent implements OnInit {
     this.selectedChat = data;
     console.log('selected chat is.......................', this.selectedChat)
     this.selectedChatIndex = index;
+    this.getCurrentUser()
     this.getOldChat();
     this.fetchAllBlockUsers();
   }
-
+  getCurrentUser() {
+    this.http.getData(ApiUrl.CUR_USER, {}).subscribe((res: any) => {
+      console.log(res);
+      this.isBlockedBy = false;
+      for (const iterator of res.data.blockedByUsers) {
+        if (iterator === this.selectedChat.temp._id) {
+          this.isBlockedBy = true;
+          break;
+        }
+      }
+    })
+  }
   // fetch all block users
   fetchAllBlockUsers() {
     this.http.getData(ApiUrl.FETCH_BLOCK_USERS, {}).subscribe(async res => {
@@ -1588,7 +1620,7 @@ export class ChatsComponent implements OnInit {
 
   getGroupMemberName() {
     this.selectedChat.users = [...this.selectedChat.users, this.selectedChat.temp];
-    this.selectedChat.users = this.selectedChat.users.filter((user,index)=> {
+    this.selectedChat.users = this.selectedChat.users.filter((user, index) => {
       const u = JSON.stringify(user);
       return index === this.selectedChat.users.findIndex(obj => {
         return JSON.stringify(obj) === u;
