@@ -96,15 +96,22 @@ export class MoneyComponent implements OnInit, OnDestroy {
             sortType: this.sortType,
             sortValue: this.sortValue
         };
+        this.myModel.loader = true;
+        this.myModel.allData = null;
         this.http.getData(ApiUrl.QUOTES_LIST, obj).subscribe((res) => {
             this.myModel.allData = res.data;
-        }, () => {
+            console.log(res)
+            this.myModel.loader = false;
+        }, (err) => {
+            console.log(err);
+            this.myModel.loader = false;
         });
     }
 
     addressList() {
         this.http.getData(ApiUrl.ADDRESS_LIST, {}).subscribe((res) => {
             this.myModel.addresses = res.data;
+            console.log(res)
         });
     }
 

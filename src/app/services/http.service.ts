@@ -1,19 +1,19 @@
-import {EventEmitter, Inject, Injectable} from '@angular/core';
-import {Router} from '@angular/router';
-import {HttpClient, HttpParams} from '@angular/common/http';
-import {environment} from '../../environments/environment';
+import { EventEmitter, Inject, Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 import * as constant from './constants';
-import {ToastrService} from 'ngx-toastr';
-import {Lightbox} from 'ngx-lightbox';
-import {BehaviorSubject} from 'rxjs';
-import {BsModalRef, BsModalService} from 'ngx-bootstrap';
-import {DOCUMENT, Location} from '@angular/common';
-import {ExportToExcelService} from './exportToExcel.service';
+import { ToastrService } from 'ngx-toastr';
+import { Lightbox } from 'ngx-lightbox';
+import { BehaviorSubject } from 'rxjs';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { DOCUMENT, Location } from '@angular/common';
+import { ExportToExcelService } from './exportToExcel.service';
 import Swal from 'sweetalert2';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {FormArray, FormBuilder} from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import * as _ from 'lodash';
-import {ApiUrl} from './apiUrls';
+import { ApiUrl } from './apiUrls';
 
 @Injectable({
     providedIn: 'root'
@@ -52,13 +52,13 @@ export class HttpService {
 
     private workspaceSubject = new BehaviorSubject<any>(null);
     public workspace = this.workspaceSubject.asObservable();
-    
+
     private workspaceManipulateSubject = new BehaviorSubject<any>(null);
     public work = this.workspaceManipulateSubject.asObservable();
 
     private workspaceDeleteSubject = new BehaviorSubject<any>(null);
     public deleteWork = this.workspaceDeleteSubject.asObservable();
-    
+
     private documentUpdatedSubject = new BehaviorSubject<any>(null);
     public documentUpdatedStatus = this.documentUpdatedSubject.asObservable();
 
@@ -69,10 +69,11 @@ export class HttpService {
 
     test: EventEmitter<any> = new EventEmitter<any>();
 
-    constructor(private router: Router, public http: HttpClient, public toastr: ToastrService,
-                public lightBox: Lightbox, public modalService: BsModalService, public fb: FormBuilder,
-                @Inject(DOCUMENT) public document: any, private location: Location,
-                public _snackBar: MatSnackBar, public exportService: ExportToExcelService
+    constructor(
+        private router: Router, public http: HttpClient, public toastr: ToastrService,
+        public lightBox: Lightbox, public modalService: BsModalService, public fb: FormBuilder,
+        @Inject(DOCUMENT) public document: any, private location: Location,
+        public _snackBar: MatSnackBar, public exportService: ExportToExcelService
     ) {
         this.apiEndpoint = environment.apiBaseUrl;
         this.domain = this.document.location.origin;
@@ -116,7 +117,7 @@ export class HttpService {
                 formData.append(key, obj[key]);
             }
         });
-        return this.http.post<any>(this.apiEndpoint + url, obj, {reportProgress: isLoading});
+        return this.http.post<any>(this.apiEndpoint + url, obj, { reportProgress: isLoading });
     }
 
     documentUpdated(data?) {
@@ -134,7 +135,7 @@ export class HttpService {
         this.contactUpdatedSubjectChat.next(data ? data : false);
     }
 
-    updateSmartFormList(data?){
+    updateSmartFormList(data?) {
         this.updateSFListSubject.next(data ? data : false);
     }
 
@@ -184,7 +185,7 @@ export class HttpService {
             return true;
         } else {
             Object.keys(form.controls).forEach(key => {
-                form.controls[key].markAsTouched({onlySelf: true});
+                form.controls[key].markAsTouched({ onlySelf: true });
             });
         }
     }
@@ -226,7 +227,7 @@ export class HttpService {
                 }
             });
         }
-        return this.http.get<any>(this.apiEndpoint + url, {params: params, reportProgress: isLoading});
+        return this.http.get<any>(this.apiEndpoint + url, { params: params, reportProgress: isLoading });
     }
 
     getDataNew(url, obj?, isLoading?: boolean) {
@@ -238,7 +239,7 @@ export class HttpService {
                 }
             });
         }
-        return this.http.get<any>(url, {params: params, reportProgress: isLoading});
+        return this.http.get<any>(url, { params: params, reportProgress: isLoading });
     }
 
     postData(url, obj, isLoading?: boolean) {
@@ -248,12 +249,12 @@ export class HttpService {
                 formData.append(key, obj[key]);
             }
         });
-        return this.http.post<any>(this.apiEndpoint + url, formData, {reportProgress: isLoading});
+        return this.http.post<any>(this.apiEndpoint + url, formData, { reportProgress: isLoading });
     }
 
-    postChatImage(url, payload ,isLoading?: boolean) {
-        
-        return this.http.post<any>(this.apiEndpoint + url, payload ,{reportProgress: isLoading});
+    postChatImage(url, payload, isLoading?: boolean) {
+
+        return this.http.post<any>(this.apiEndpoint + url, payload, { reportProgress: isLoading });
     }
 
     downloadLink(url) {
@@ -278,13 +279,13 @@ export class HttpService {
     uploadImage(url, file, isLoading?) {
         const formData = new FormData();
         formData.append('image', file);
-        return this.http.post<any>(this.apiEndpoint + url, formData, {reportProgress: isLoading});
+        return this.http.post<any>(this.apiEndpoint + url, formData, { reportProgress: isLoading });
     }
 
     uploadFile(url, file, isLoading?: boolean) {
         const formData = new FormData();
         formData.append('file', file);
-        return this.http.post<any>(this.apiEndpoint + url, formData, {reportProgress: isLoading});
+        return this.http.post<any>(this.apiEndpoint + url, formData, { reportProgress: isLoading });
     }
 
     checkImage(file) {
@@ -308,10 +309,10 @@ export class HttpService {
             initialState.modalData = data;
         }
         const modalRef = this.modalService.show(template,
-                {
-                    initialState, keyboard: true, class: `gray modal-${size ? size : 'md'}`
-                    // initialState, keyboard: true, class: `gray modal-${size ? size : 'md'}`, backdrop: 'static'
-                }
+            {
+                initialState, keyboard: true, class: `gray modal-${size ? size : 'md'}`
+                // initialState, keyboard: true, class: `gray modal-${size ? size : 'md'}`, backdrop: 'static'
+            }
         );
         if (!this.modalRefArr.includes(modalRef.content)) {
             this.modalRefArr.push(modalRef);
@@ -369,7 +370,7 @@ export class HttpService {
     }
 
     addQueryParams(obj) {
-        this.router.navigate([], {queryParams: obj});
+        this.router.navigate([], { queryParams: obj });
     }
 
     getIsSelected(arr, key) {
@@ -411,8 +412,8 @@ export class HttpService {
         }
         const unitMultiple = (binaryUnits) ? 1024 : 1000;
         const unitNames = (unitMultiple === 1024) ? // 1000 bytes in 1 Kilobyte (KB) or 1024 bytes for the binary version (KiB)
-                ['Bytes', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'] :
-                ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+            ['Bytes', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'] :
+            ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
         const unitChanges = Math.floor(Math.log(bytes) / Math.log(unitMultiple));
         return parseFloat((bytes / Math.pow(unitMultiple, unitChanges)).toFixed(decimals || 0)) + ' ' + unitNames[unitChanges];
     }
@@ -425,6 +426,43 @@ export class HttpService {
         }
     }
 
+    public findInvalidControlsRecursive(formToInvestigate: FormGroup | FormArray): string[] {
+        var invalidControls: string[] = [];
+        let recursiveFunc = (form: FormGroup | FormArray) => {
+            Object.keys(form.controls).forEach(field => {
+                const control = form.get(field);
+                if (control.invalid) invalidControls.push(field);
+                if (control instanceof FormGroup) {
+                    recursiveFunc(control);
+                } else if (control instanceof FormArray) {
+                    recursiveFunc(control);
+                }
+            });
+        }
+        recursiveFunc(formToInvestigate);
+        return invalidControls;
+    }
+
+    showToaster(message: string, toastrType: string = 'success') {
+        switch (toastrType) {
+            case "success":
+                setTimeout(() => this.toastr.success(message, "Success!"));
+                break;
+            case "error":
+                setTimeout(() => this.toastr.error(message, "Error!"));
+                break;
+            case "warning":
+                setTimeout(() => this.toastr.warning(message, "Warning!"));
+                break;
+            case "info":
+                setTimeout(() => this.toastr.info(message, "Info!"));
+                break;
+        }
+    }
+
+    handleError(msg: string) {
+        this.showToaster(msg, 'error');
+    }
     saveData(data) {
         localStorage.setItem('savedData', JSON.stringify(data));
     }
@@ -496,51 +534,51 @@ export class HttpService {
         return d.getTimezoneOffset();
     }
 
-    postSmartForm(Obj){
+    postSmartForm(Obj) {
         return this.http.post(this.apiEndpoint + "smartForms", Obj);
     }
 
-    postWorkspaceForm(url,Obj){
+    postWorkspaceForm(url, Obj) {
         return this.http.post(this.apiEndpoint + url, Obj);
     }
 
-    postWorkspaceMerge(url,Obj){
+    postWorkspaceMerge(url, Obj) {
         return this.http.post(this.apiEndpoint + url, Obj);
     }
 
-    postWorkspaceSetActive(url,Obj){
+    postWorkspaceSetActive(url, Obj) {
         return this.http.post(this.apiEndpoint + url, Obj);
     }
 
-    postLeadForm(Obj){
+    postLeadForm(Obj) {
         return this.http.post(this.apiEndpoint + "smartForms/submit", Obj);
     }
 
-    getSmartForm(isLoading?: boolean){
-        return this.http.get<any>(this.apiEndpoint + "smartForms", {reportProgress: isLoading}); 
+    getSmartForm(isLoading?: boolean) {
+        return this.http.get<any>(this.apiEndpoint + "smartForms", { reportProgress: isLoading });
     }
 
-    deleteSmartForm(Obj){
+    deleteSmartForm(Obj) {
         return this.http.delete<any>(this.apiEndpoint + "smartForms/" + Obj);
     }
 
-    deleteWorkspace(url){
+    deleteWorkspace(url) {
         return this.http.delete<any>(this.apiEndpoint + url);
     }
 
-    updateSmartForm(Obj, id){
+    updateSmartForm(Obj, id) {
         return this.http.post<any>(this.apiEndpoint + "smartForms/" + id, Obj);
     }
 
-    getLeadForm(){
+    getLeadForm() {
         return this.http.get<any>(this.apiEndpoint + "smartForms?tag=lead");
     }
 
-    getLeadFormById(id){
+    getLeadFormById(id) {
         return this.http.get<any>(this.apiEndpoint + "smartForms/" + id);
     }
 
-    updateLeadForm(Obj, id){
+    updateLeadForm(Obj, id) {
         return this.http.post<any>(this.apiEndpoint + "smartForms/" + id, Obj);
     }
 
@@ -569,11 +607,11 @@ export class HttpService {
         let color = Math.floor(0x1000000 * Math.random()).toString(16);
         return '#' + ('000000' + color).slice(-6);
     }
-    postCreateGroup(apiUrl?, obj?){
+    postCreateGroup(apiUrl?, obj?) {
         return this.http.post<any>(this.apiEndpoint + apiUrl, obj);
     }
 
-    postMoveFolder(apiUrl?, obj?){
+    postMoveFolder(apiUrl?, obj?) {
         return this.http.post<any>(this.apiEndpoint + apiUrl, obj);
     }
 

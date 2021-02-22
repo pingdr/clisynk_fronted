@@ -1,4 +1,5 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, NgZone, OnDestroy, OnInit} from '@angular/core';
+import { AddContactComponent } from './../add-contact/add-contact.component';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, NgZone, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {HttpService} from '../../../services/http.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ApiUrl} from '../../../services/apiUrls';
@@ -23,7 +24,7 @@ export class AddInvoiceComponent implements OnInit, OnDestroy {
     selected: any;
     selectedContact: any;
     isSelected = false;
-    myControl = new FormControl('');
+    myControl = new FormControl('', Validators.required);
     subTotal = 0;
     myResponse: any = [];
     isEdit = false;
@@ -32,6 +33,7 @@ export class AddInvoiceComponent implements OnInit, OnDestroy {
     showDeposit = 0;
     amountPaid = 0;
     searchText: string = "";
+    
 
     constructor(public http: HttpService, private cd: ChangeDetectorRef, public ngZone: NgZone) {
         this.myModel = new TableModel();
@@ -104,6 +106,7 @@ export class AddInvoiceComponent implements OnInit, OnDestroy {
         this.http.getData(ApiUrl.INVOICE_DETAILS, obj).subscribe(res => {
             this.myModel.loader = false;
             this.myResponse = res.data;
+            console.log(this.myResponse);
             this.productList();
 
             this.form.patchValue({
@@ -200,15 +203,29 @@ export class AddInvoiceComponent implements OnInit, OnDestroy {
             depositValue: [10],
             depositType: ['1'],
             isDeposit: [false],
-            acceptOnlinePayment: [false, Validators.required],
+            acceptOnlinePayment: [false],
             contactId: ['', Validators.required],
             dueBy: [new Date(), Validators.required],
             bankDetails: ['']
         });
+
+      this.form.get('acceptOnlinePayment').valueChanges.subscribe(res => {
+          console.log(res);
+          if (res) {
+              this.form.get('bankDetails').setValidators([Validators.required])
+            } else {
+              this.form.get('bankDetails').clearValidators();
+          }
+        this.form.get('bankDetails').updateValueAndValidity();
+      })
     }
 
+
     closeAction() {
-        this.finalSubmit();
+        const res = this.finalSubmit();
+        if(res == 'open') {
+            return;
+        }
         this.http.hideModal();
         const money = document.getElementById('money_container');
         if(money){
@@ -257,11 +274,24 @@ export class AddInvoiceComponent implements OnInit, OnDestroy {
     }
 
     finalSubmit(next?) {
+        if(this.form.invalid) {
+            let arr: string[] = this.http.findInvalidControlsRecursive(this.form);
+            console.log(arr);
+            if (arr.includes('bankDetails')) {
+                this.http.handleError("Please fill the bank details");
+            }
+            return;
+        }
+        if(this.myControl.invalid) {
+            this.http.handleError("Please select the contact");
+            return 'open';
+        }
         const money = document.getElementById('money_container');
         if(money){
             money.style.display = 'block';
         }
 
+        
         if (this.form.value.contactId && this.myResponse.items.length && this.myResponse.status !== 'Paid' && this.myResponse.status!== 'Refunded') {
 
             const obj: any = JSON.parse(JSON.stringify(this.form.value));
@@ -348,6 +378,7 @@ export class AddInvoiceComponent implements OnInit, OnDestroy {
         };
         this.http.getData(ApiUrl.CONTACTS, obj).subscribe(res => {
                 this.myModel.contacts = res.data.data;
+                console.log(this.myModel.contacts);
                 if (this.isEdit) {
                     res.data.data.forEach((val) => {
                         if (this.modalData.contactId._id === val._id) {
@@ -362,7 +393,6 @@ export class AddInvoiceComponent implements OnInit, OnDestroy {
             });
     }
 
-    products: any[];
     productList() {
         this.http.getData(ApiUrl.PRODUCTS, {}).subscribe(res => {
                 this.myModel.products = res.data;
@@ -444,6 +474,23 @@ export class AddInvoiceComponent implements OnInit, OnDestroy {
             window.print();
             window.close();
         }, 1000);
+    }
+
+    downloadPdf() {
+        // var data = document.getElementById('add_invoice_form');
+        // html2canvas(data).then(canvas => {
+        // // Few necessary setting options
+        // var imgWidth = 208;
+        // var pageHeight = 295;
+        // var imgHeight = canvas.height * imgWidth / canvas.width;
+        // var heightLeft = imgHeight;
+        
+        // const contentDataURL = canvas.toDataURL('image/png')
+        // let pdf = new jspdf('p', 'mm', 'a4'); // A4 size page of PDF
+        // var position = 0;
+        // pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)
+        // pdf.save('new-file.pdf'); // Generated PDF
+        // });
     }
 
     setHideValue(that) {

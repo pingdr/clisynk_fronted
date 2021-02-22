@@ -54,6 +54,7 @@ import {
   NgxUiLoaderHttpModule
 } from 'ngx-ui-loader';
 
+
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   bgsColor: '#87cefa',
   fgsColor: '#87cefa',

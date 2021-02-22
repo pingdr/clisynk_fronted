@@ -344,9 +344,14 @@
                                     </div>
                                 </td>
                             </tr>
-
-                            </tbody>
-                        </table>
+                        </tbody>
+                    </table>
+                    <div style="width: 100%;" *ngIf="myModel.loader">
+                        <ngx-skeleton-loader
+                            count="3"
+                            [theme]="{ width: '100%', 'border-radius': '0', height: '60px', 'margin-bottom': '3px','z-index':'99','margin-left': '0px','margin-top': '0','border': 'none','left':'0'}">
+                        </ngx-skeleton-loader>
+                    </div>
                     </div>
                 </div>
             </div>

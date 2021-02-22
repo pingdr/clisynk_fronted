@@ -67,9 +67,9 @@
                 <mat-form-field class="full-width" appearance="outline" hintLabel="Max 40 characters">
                     <mat-label class="required">Business Name</mat-label>
                     <input matInput type="text" maxlength="40" #input pattern="(^[a-zA-Z](.)*)$" formControlName="name">
-                    <mat-error *ngIf="form.controls['name'].hasError('required')">
+                    <!-- <mat-error *ngIf="form.controls['name'].hasError('required')">
                         Please enter business name.
-                    </mat-error>
+                    </mat-error> -->
                     <mat-error *ngIf="!form.get('name').valid">
                         Please enter valid business name.
                     </mat-error>
@@ -106,9 +106,9 @@
                         <mat-form-field class="full-width" appearance="outline">
                             <mat-label class="required">City</mat-label>
                             <input matInput type="text" pattern="^[a-zA-Z\s]+$" formControlName="city">
-                            <mat-error *ngIf="form.controls['city'].hasError('required')">
+                            <!-- <mat-error *ngIf="form.controls['city'].hasError('required')">
                                 Please enter city.
-                            </mat-error>
+                            </mat-error> -->
                             <mat-error *ngIf="!form.get('city').valid && form.get('city').touched">
                                 Please enter valid city.
                             </mat-error>
@@ -136,7 +136,7 @@
                             <mat-label class="required">Country</mat-label>
                             <input matInput type="text" appNumberOnly pattern="^[a-zA-Z\s]+$" formControlName="country">
                             <mat-error *ngIf="!form.get('country').valid && form.get('country').touched">
-                                Please enter valid city.
+                                Please enter valid country.
                             </mat-error>
                         </mat-form-field>
                     </div>
@@ -147,7 +147,7 @@
                             <mat-label class="required">State</mat-label>
                             <input matInput type="text" appNumberOnly pattern="^[a-zA-Z\s]+$" formControlName="state">
                             <mat-error *ngIf="!form.get('state').valid && form.get('state').touched">
-                                Please enter valid city.
+                                Please enter valid state.
                             </mat-error>
                         </mat-form-field>
                     </div>

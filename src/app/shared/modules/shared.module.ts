@@ -110,6 +110,7 @@ import { AddPageComponent } from './../modals/add-page/add-page.component';
 import { CreateFolderComponent } from './../modals/create-folder/create-folder.component';
 import { EmailDocumentFormatComponent } from './../modals/email-document-format/email-document-format.component';
 import { NgxSummernoteModule } from 'ngx-summernote';
+import { PDFExportModule } from '@progress/kendo-angular-pdf-export';
 
 
 
@@ -133,7 +134,7 @@ const importExportList = [MatStepperModule, MatTabsModule, MatSliderModule, MatI
     MatTableModule, MatPaginatorModule, MatAutocompleteModule, MatIconModule, MatButtonToggleModule, CKEditorModule,
     ReactiveFormsModule, FormsModule, MatCheckboxModule, NgxSkeletonLoaderModule, MatSnackBarModule, ScrollingModule,
     Ng2SearchPipeModule, MatDatepickerModule, MatNativeDateModule, ClickOutsideModule, TagInputModule, DragDropModule,
-    FullCalendarModule, ColorPickerModule, FormioModule, RxReactiveFormsModule, MatTooltipModule, MatSortModule
+    FullCalendarModule, ColorPickerModule, FormioModule, RxReactiveFormsModule, MatTooltipModule, MatSortModule,PDFExportModule
 
 ];
 
