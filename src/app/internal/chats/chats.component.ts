@@ -946,11 +946,11 @@ export class ChatsComponent implements OnInit {
       console.log(data);
       if (data.chatRoomId._id === (this.selectedChat && this.selectedChat._id)) {
         this.massageArray = [...this.massageArray, data];
+        this.getGroupMemberName();
       } else {
         this.handlePushNotification(data);
       }
       this.manageScroll();
-      this.getGroupMemberName();
     });
   }
 
@@ -958,7 +958,6 @@ export class ChatsComponent implements OnInit {
   handlePushNotification(data) {
     let currentUser = JSON.parse(localStorage.getItem('loginData'));
     // if (data.chatRoomId !== (this.selectedChat && this.selectedChat._id)) {
-
     if (data.from.user !== currentUser._id) {
       if (data.from.userType === 'ADMIN') {
         let options = {
@@ -982,7 +981,7 @@ export class ChatsComponent implements OnInit {
           res => console.log(res),
           err => console.log(err)
         );
-      } else {
+      } else if (data.from.userType === 'GROUP') {
         let options = {
           body: data.content,
           icon: "assets/images/chat-notify-img.png"
@@ -1018,8 +1017,91 @@ export class ChatsComponent implements OnInit {
           res => console.log(res),
           err => console.log(err)
         );
+      } else if (data.from.userType === 'CONTACT') {
+        let options = {
+          body: data.content,
+          icon: "assets/images/chat-notify-img.png"
+        }
+        let userName;
+        this.activeChatList.map((user) => {
+          if (user._id === data.chatRoomId._id) {
+            console.log(user);
+            user.users.map((admin) => {
+              if (data.from.user === admin._id) {
+                userName = admin.fullName;
+                user.unreadCount = (user.unreadCount ? user.unreadCount : 0) + 1;
+                user.lastMessage.content = data.content;
+              }
+            })
+          }
+        });
+        this._pushNotifications.create(userName, options).subscribe(
+          res => console.log(res),
+          err => console.log(err)
+        );
       }
     }
+    // if (data.from.user !== currentUser._id) {
+    //   if (data.from.userType === 'ADMIN') {
+    //     let options = {
+    //       body: data.content,
+    //       icon: "assets/images/chat-notify-img.png"
+    //     }
+    //     let userName;
+    //     this.activeChatList.map((user) => {
+    //       console.log(user);
+    //       if (user._id === data.chatRoomId) {
+    //         user.admins.map((admin) => {
+    //           if (data.from.user === admin._id) {
+    //             userName = admin.fullName;
+    //             user.unreadCount = (user.unreadCount ? user.unreadCount : 0) + 1;
+    //             user.lastMessage.content = data.content;
+    //           }
+    //         })
+    //       }
+    //     });
+    //     this._pushNotifications.create(userName, options).subscribe(
+    //       res => console.log(res),
+    //       err => console.log(err)
+    //     );
+    //   } else {
+    //     let options = {
+    //       body: data.content,
+    //       icon: "assets/images/chat-notify-img.png"
+    //     }
+    //     let userName;
+    //     this.activeChatList.map((user) => {
+    //       console.log(user);
+    //       if (data.chatRoomId.chatType === "GROUP") {
+    //         if (user && user.groupDetails && (user.groupDetails.name === data.chatRoomId.name)) {
+    //           userName = user.temp.fullName;
+    //           user.unreadCount = (user.unreadCount ? user.unreadCount : 0) + 1;
+    //           user.lastMessage.content = data.content;
+    //           this._pushNotifications.create(userName, options).subscribe(
+    //             res => console.log(res),
+    //             err => console.log(err)
+    //           );
+    //         }
+    //       } else {
+    //         if ((user.temp && user.temp._id) == (data.from && data.from.user)) {
+    //           userName = user.temp.fullName;
+    //           user.unreadCount = (user.unreadCount ? user.unreadCount : 0) + 1;
+    //           user.lastMessage.content = data.content;
+    //           this._pushNotifications.create(userName, options).subscribe(
+    //             res => console.log(res),
+    //             err => console.log(err)
+    //           );
+    //         }
+    //       }
+
+    //     });
+
+    //     this._pushNotifications.create(userName, options).subscribe(
+    //       res => console.log(res),
+    //       err => console.log(err)
+    //     );
+    //   }
+    // } 
   }
 
 
@@ -1059,11 +1141,15 @@ export class ChatsComponent implements OnInit {
 
   // scroll to msgs and default scroll to bottom
   manageScroll() {
-    let len = this.massageArray.length - 1;
-    let msgId = this.massageArray[len];
-    setTimeout(() => {
-      document.getElementById(msgId._id).scrollIntoView({ block: 'end' })
-    }, 50);
+    if(this.massageArray.length != 0) {
+      let len = this.massageArray.length - 1;
+      let msgId = this.massageArray[len];
+      if (len > 0) {
+        setTimeout(() => {
+          document.getElementById(msgId._id).scrollIntoView({ block: 'end' })
+        }, 50);
+      }
+    }
   }
 
   // forward msg contact select - unselect
@@ -1701,6 +1787,7 @@ export class ChatsComponent implements OnInit {
     this.defaultScreenFlag = false;
     this.selectedChat = data;
     this.http.postData(ApiUrl.CREATE_CHATROOM, payload).subscribe(async res => {
+      console.log(res);
       if (res && res.data) {
         let array = [];
         array = [...res.data.users, ...res.data.admins]
