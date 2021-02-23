@@ -159,9 +159,16 @@
                                    maxlength="232" pattern=".*" autocomplete="off" class="" [formControl]="search"
                                    (input)="invoiceList()">
                         </div>
+                        <mat-paginator 
+                            [length]="this.totalInvoices"
+                            (page)="pageChange($event)"
+                            [pageSize]="this.invoiceLimit"
+                            [pageIndex]="this.invoiceSkip"
+                            [pageSizeOptions]="[1,5, 10, 25, 100]">
+                        </mat-paginator>
                     </div>
                 </header>
-
+      
                 <div class="table-grid">
                     <div class="table-wrapper">
                         <table>

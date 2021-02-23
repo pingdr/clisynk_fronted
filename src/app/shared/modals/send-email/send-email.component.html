@@ -127,7 +127,7 @@
                             </button>
                             <ul id="dropdown-basic2" *dropdownMenu class="dropdown-menu" role="menu"
                                 aria-labelledby="button-basic" style="left: -103px;">
-                                <h4>Add booking link</h4>
+                                <h4 (click)="openAddAppointment()" style="cursor: pointer;">Add booking link</h4>
                                 <li role="menuitem" style="display: block"
                                     *ngFor="let data of myModel?.appointmentTypes"
                                 (click)="addLink(data)">
@@ -146,9 +146,9 @@
                         </div>
                     </div>
 
-                    <section class="tooltip">
+                    <section  class="tooltip">
                         <div class="arrow"></div>
-                        <div>Add booking link</div>
+                        <div  >Add booking link</div>
                     </section>
                 </div>
                 <div class="popover-container tooltip-container tooltip-hover">

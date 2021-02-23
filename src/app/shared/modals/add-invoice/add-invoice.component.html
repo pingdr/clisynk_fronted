@@ -171,8 +171,8 @@
                                         </div>
     
                                         <div class="number-container" *ngIf="myResponse">
-                                            <div class="invoice-number-title"> Invoice #</div>
-                                            <div class="invoice-number">{{myResponse?.srNo}}</div>
+                                            <div class="invoice-number-title"> Invoice # {{myResponse?.srNo}}</div>
+                                            <!-- <div class="invoice-number">{{myResponse?.srNo}}</div> -->
                                             <div class="paid">
                                             <span class="order-status-pill paid" *ngIf="myResponse?.status">
                                                 <div class="chip" style="background: darkgrey">

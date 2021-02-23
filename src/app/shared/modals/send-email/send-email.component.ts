@@ -1,3 +1,4 @@
+import { AddAppointmentComponent } from './../add-appointment/add-appointment.component';
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {HttpService} from '../../../services/http.service';
@@ -42,8 +43,10 @@ export class SendEmailComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        console.log(this.modalData);
         this.loginData = JSON.parse(localStorage.getItem('loginData'));
         this.formInit(this.modalData);
+        console.log(this.modalData);
         this.templateList();
         this.contactList();
         this.getAppointments();
@@ -212,6 +215,11 @@ export class SendEmailComponent implements OnInit {
         this.modalData = this.form.value;
         this.modalData.filesData = this.filesData;
         this.http.showModal(UploadComponent, 'md', this.modalData);
+    }
+
+    openAddAppointment() {
+        this.http.hideModal();
+        this.http.showModal(AddAppointmentComponent, 'more-lg', this.modalData);
     }
 
     openTemplate() {

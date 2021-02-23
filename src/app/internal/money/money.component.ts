@@ -6,6 +6,7 @@ import {ApiUrl} from '../../services/apiUrls';
 import {ActivatedRoute} from '@angular/router';
 import {DeleteComponent} from '../../shared/modals/delete/delete.component';
 import {Subject} from 'rxjs';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
     selector: 'app-money',
@@ -88,18 +89,31 @@ export class MoneyComponent implements OnInit, OnDestroy {
         }
         this.invoiceList();
     }
+    invoiceSkip = 0;
+    invoiceLimit = 5;
+    totalInvoices = 0;
+    pageChange(event: PageEvent) {
+        console.log(event);
+        this.invoiceSkip = event.pageIndex;
+        this.invoiceLimit = event.pageSize;
+        this.invoiceList();
+      }
 
     invoiceList(loader?) {
         const obj: any = {
             type: this.selectedTab,
             search: this.search.value ? this.search.value : '',
             sortType: this.sortType,
-            sortValue: this.sortValue
+            sortValue: this.sortValue,
+            skip : this.invoiceSkip,
+            limit : this.invoiceLimit
         };
         this.myModel.loader = true;
         this.myModel.allData = null;
         this.http.getData(ApiUrl.QUOTES_LIST, obj).subscribe((res) => {
             this.myModel.allData = res.data;
+            this.totalInvoices = res.data.count;
+            console.log(this.totalInvoices);
             console.log(res)
             this.myModel.loader = false;
         }, (err) => {

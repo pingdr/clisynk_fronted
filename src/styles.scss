@@ -4582,11 +4582,13 @@ section.order-terms-payments {
   flex: 1 1 0%;
   margin-right: 1rem;
   --input-margin-bottom: 0;
-  max-width: 21.875rem;
+  // max-width: 21.875rem;
   display: flex;
   -webkit-box-align: center;
   align-items: center;
   margin-bottom: 20px;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .invoices-page-table .search-bar .input-field.no-label {
@@ -4599,7 +4601,7 @@ section.order-terms-payments {
   -ms-flex-direction: column;
   flex-direction: column;
   position: relative;
-  width: 100%;
+  width: 30%;
 }
 
 .invoices-page-table .search-bar .input-field.no-label input {
@@ -7745,4 +7747,8 @@ input:-webkit-autofill:active {
 
 .ref-icon {
   width: 60px;
+}
+
+.invoice-number-title {
+  margin-bottom: 14px;
 }

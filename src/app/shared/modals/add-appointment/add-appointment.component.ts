@@ -5,6 +5,7 @@ import {AppointStep1Component} from '../appoint-step-1/appoint-step-1.component'
 import {ApiUrl} from '../../../services/apiUrls';
 import {AppointStep3Component} from '../appoint-step-3/appoint-step-3.component';
 import {AppointStep2Component} from '../appoint-step-2/appoint-step-2.component';
+import { Subject } from 'rxjs';
 
 @Component({
     selector: 'app-add-appointment',
@@ -90,8 +91,10 @@ export class AddAppointmentComponent {
                 }
                 this.selectedStep = 4;
                 break;
-            case 4:
+            case 4: {
                 this.http.hideModal();
+                this.http.openModal('sendEmail', this.modalData);
+            }
         }
         this.http.eventSubject.next({eventType: 'addAppointType', data: obj});
     }
