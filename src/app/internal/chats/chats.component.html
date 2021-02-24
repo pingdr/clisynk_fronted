@@ -9,7 +9,7 @@
                 </div>
                 <div class="invoices-page-table chat-search-bar-left-side">
                     <div class="search-bar" style="margin : 0 1.5rem">
-                        <div class="input-field no-label">
+                        <div class="input-field no-label" style="width: 100% !important;">
                             <input id="" type="search" name="" placeholder="Search" maxlength="232" pattern=".*"
                                 autocomplete="off" [formControl]="searchName" (input)="generalSearch($event)">
                         </div>
@@ -612,7 +612,7 @@
                         <div class="invoices-page-table" style="display: contents;" *ngIf="searchFlag">
                             <span>{{searchIndex}} of {{searchTotalCount}}</span>
                             <div class="search-bar" style="margin-left: 1rem;margin-bottom: 0px;max-width: 16rem;">
-                                <div class="input-field no-label">
+                                <div class="input-field no-label" style="width: 100% !important;">
                                     <input id="" type="search" name="" placeholder="Search" maxlength="50" pattern=".*"
                                         autocomplete="off" [(ngModel)]="search"
                                         (input)="handleSearch($event.target.value)">
@@ -734,12 +734,12 @@
                                                             *ngIf="chat?.loading;else notLoading" />
                                                         <ng-template #notLoading>
                                                             <img src="assets/images/blurVideoImage.gif"
-                                                                data-target="#myModal" data-toggle="modal"
                                                                 class="video-style"
                                                                 (click)="playVideo(chat?.file?.original)"
-                                                                data-target="#myModal" data-toggle="modal"
-                                                                (click)="playVideo(chat?.file?.original)" />
-                                                            <img src="assets/images/video.svg" width="40px"
+                                                                data-target="#myModal" data-toggle="modal" />
+                                                            <img src="assets/images/video.svg"
+                                                                (click)="playVideo(chat?.file?.original)"
+                                                                data-target="#myModal" data-toggle="modal" width="40px"
                                                                 class="video-icon" />
                                                         </ng-template>
                                                     </div>
@@ -808,8 +808,10 @@
                                                             (click)="playVideo(chat?.ref?.file?.original)">
                                                             <img src="assets/images/blurVideoImage.gif"
                                                                 class="image-view" />
-                                                            <img src="assets/images/video.svg" width="40px"
-                                                                class="video-icon" />
+                                                            <img src="assets/images/video.svg" data-target="#myModal"
+                                                                data-toggle="modal"
+                                                                (click)="playVideo(chat?.ref?.file?.original)"
+                                                                width="40px" class="video-icon" />
                                                         </div>
                                                         <ng-container *ngTemplateOutlet="mediaReplayPin"></ng-container>
                                                     </div>
@@ -1335,7 +1337,9 @@
                                                             (click)="playVideo(chat?.file?.original)">
                                                             <img src="assets/images/blurVideoImage.gif"
                                                                 class="video-style" />
-                                                            <img src="assets/images/video.svg" width="40px"
+                                                            <img src="assets/images/video.svg" data-target="#myModal"
+                                                                data-toggle="modal"
+                                                                (click)="playVideo(chat?.file?.original)" width="40px"
                                                                 class="video-icon" />
                                                         </div>
                                                         <div *ngIf="chat?.file?.type == 'OTHER'" style="color: white;">
@@ -2124,7 +2128,7 @@
             <div class="modal-body">
                 <div class="invoices-page-table">
                     <div class="search-bar" style="margin-left: 1rem;max-width: 100%;">
-                        <div class="input-field no-label">
+                        <div class="input-field no-label" style="width: 100% !important;">
                             <input id="" type="search" name="" placeholder="Search" maxlength="232" pattern=".*"
                                 autocomplete="off" class="form-control" [formControl]="searchName"
                                 (input)="forwardSearch($event)">
@@ -2247,10 +2251,10 @@
 
 
 <!-- play video modal -->
-<div class="modal fade video-modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div class="modal fade video-modal" id="myModal" style="z-index: 99999 !important;" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" (click)=closeVideo() class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
         <div class="modal-content">

@@ -961,7 +961,7 @@ export class ChatsComponent implements OnInit {
     if (data.from.user !== currentUser._id) {
       if (data.from.userType === 'ADMIN') {
         let options = {
-          body: data.content,
+          body: data.file ? data.file.type : data.content,
           icon: "assets/images/chat-notify-img.png"
         }
         let userName;
@@ -972,9 +972,17 @@ export class ChatsComponent implements OnInit {
               if (data.from.user === admin._id) {
                 userName = admin.fullName;
                 user.unreadCount = (user.unreadCount ? user.unreadCount : 0) + 1;
-                user.lastMessage.content = data.content;
+                if (data.file) {
+                  user.lastMessage.file = data.file;
+                } else {
+                  delete user.lastMessage.file;
+                  user.lastMessage.content = data.content;
+                }
               }
             })
+          } else {
+            userName = ''
+            options.body = "You have got new message in " + data.workspaceId.name;
           }
         });
         this._pushNotifications.create(userName, options).subscribe(
@@ -983,7 +991,7 @@ export class ChatsComponent implements OnInit {
         );
       } else if (data.from.userType === 'GROUP') {
         let options = {
-          body: data.content,
+          body: data.file ? data.file.type : data.content,
           icon: "assets/images/chat-notify-img.png"
         }
         let userName;
@@ -993,7 +1001,12 @@ export class ChatsComponent implements OnInit {
             if (user && user.groupDetails && (user.groupDetails.name === data.chatRoomId.name)) {
               userName = user.temp.fullName;
               user.unreadCount = (user.unreadCount ? user.unreadCount : 0) + 1;
-              user.lastMessage.content = data.content;
+              if (data.file) {
+                user.lastMessage.file = data.file;
+              } else {
+                delete user.lastMessage.file;
+                user.lastMessage.content = data.content;
+              }
               this._pushNotifications.create(userName, options).subscribe(
                 res => console.log(res),
                 err => console.log(err)
@@ -1003,14 +1016,18 @@ export class ChatsComponent implements OnInit {
             if ((user.temp && user.temp._id) == (data.from && data.from.user)) {
               userName = user.temp.fullName;
               user.unreadCount = (user.unreadCount ? user.unreadCount : 0) + 1;
-              user.lastMessage.content = data.content;
+              if (data.file) {
+                user.lastMessage.file = data.file;
+              } else {
+                delete user.lastMessage.file;
+                user.lastMessage.content = data.content;
+              }
               this._pushNotifications.create(userName, options).subscribe(
                 res => console.log(res),
                 err => console.log(err)
               );
             }
           }
-
         });
 
         this._pushNotifications.create(userName, options).subscribe(
@@ -1019,7 +1036,7 @@ export class ChatsComponent implements OnInit {
         );
       } else if (data.from.userType === 'CONTACT') {
         let options = {
-          body: data.content,
+          body: data.file ? data.file.type : data.content,
           icon: "assets/images/chat-notify-img.png"
         }
         let userName;
@@ -1030,9 +1047,17 @@ export class ChatsComponent implements OnInit {
               if (data.from.user === admin._id) {
                 userName = admin.fullName;
                 user.unreadCount = (user.unreadCount ? user.unreadCount : 0) + 1;
-                user.lastMessage.content = data.content;
+                if (data.file) {
+                  user.lastMessage.file = data.file;
+                } else {
+                  delete user.lastMessage.file;
+                  user.lastMessage.content = data.content;
+                }
               }
             })
+          } else {
+            userName = ''
+            options.body = "You have got new message in " + data.workspaceId.name;
           }
         });
         this._pushNotifications.create(userName, options).subscribe(
@@ -1080,7 +1105,7 @@ export class ChatsComponent implements OnInit {
 
   // scroll to msgs and default scroll to bottom
   manageScroll() {
-    if(this.massageArray.length != 0) {
+    if (this.massageArray.length != 0) {
       let len = this.massageArray.length - 1;
       let msgId = this.massageArray[len];
       if (len > 0) {
@@ -1791,6 +1816,7 @@ export class ChatsComponent implements OnInit {
     //   $("#video").stop();
     // })
   }
+
   closeVideo() {
     console.log('-----');
     $("#video").stop();
