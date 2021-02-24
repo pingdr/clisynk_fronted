@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {HttpService} from '../../../services/http.service';
 import {TableModel} from '../../models/table.common.model';
 import {ApiUrl} from '../../../services/apiUrls';
@@ -37,12 +37,43 @@ export class AddContactComponent implements OnInit {
             lastName: [''],
             email: ['', Validators.compose([Validators.pattern(this.http.CONSTANT.EMAIL_REGEX)])],
             countryCode: ['+91'],
-            phoneNumber: ['', Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(15)])],
+            phoneNumber: ['', Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(15), this.notAllZero]) ],
             notes: [''],
             type : ['work', Validators.required],
             sendEmail: [false]
         });
     }
+
+    notAllZero(control: AbstractControl) {
+        console.log(control.value)
+        // let value: string = control.value;
+        
+            if(control.value == 0 && control.value.length == 10) {
+                if (control.value == '') return;
+                console.log("all zero");
+                return {
+                    allZeroError: true
+                }
+            }else {
+                console.log("none all zero");
+                return {
+                    allZeroError: false
+                }
+            }
+        
+    }
+    
+  validateMobileNo(controller: AbstractControl): { [key: string]: any } {        
+    console.log(controller.value);
+    if (isNaN(controller.value) || new String(controller.value).length >10) {
+      console.log("Inside If Block");
+      return {
+        mobileNoInvalide: true
+      };
+    }
+    console.log("Returning null");
+    return null;
+  }
 
     fillValues() {
         if (this.modalData.firstName) {

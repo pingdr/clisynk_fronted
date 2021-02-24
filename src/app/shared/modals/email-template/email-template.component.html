@@ -23,7 +23,10 @@
                     </ng-container>
                 </ng-container>
                 <ng-template #elseBlock>
-                    Loading....
+                    <ngx-skeleton-loader
+                        count="3"
+                        [theme]="{ width: '100%', 'border-radius': '0', height: '60px', 'margin-bottom': '3px','z-index':'99','margin-left': '0px','margin-top': '0','border': 'none','left':'0'}">
+                    </ngx-skeleton-loader>
                 </ng-template>
  
             </div>

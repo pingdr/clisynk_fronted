@@ -28,8 +28,13 @@ export class UploadComponent implements OnInit {
         this.http.openModal('sendEmail', this.modalData);
     }
 
-    uploadImage(file) {
-        this.http.uploadImage(ApiUrl.UPLOAD_IMAGE, file, true).subscribe(res => {
+    uploadImage(files:any) {
+        if (files.length > 1) {
+            files = Array.prototype.slice.call(files);
+        } else {
+            files = files[0];
+        }
+        this.http.uploadImage(ApiUrl.UPLOAD_IMAGE, files, true).subscribe(res => {
             this.modalData.filesData.push({
                 original: res.data.original,
                 thumbnail: res.data.thumbnail,
@@ -37,7 +42,8 @@ export class UploadComponent implements OnInit {
                 fileName: res.data.fileName
             });
             this.goBack();
-        }, () => {
+        }, (err) => {
+            console.log(err);
         });
     }
 

@@ -71,7 +71,7 @@ export class AddUserComponent implements OnInit {
     formInit() {
         this.form = this.http.fb.group({
             firstName: ['', Validators.required],
-            lastName: [''],
+            lastName: ['', Validators.required],
             email: ['', Validators.compose([Validators.required, Validators.pattern(this.http.CONSTANT.EMAIL_REGEX)])],
             phone1: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
             roles: ['', Validators.required],

@@ -94,18 +94,22 @@
                 <mat-form-field class="full-width" appearance="outline">
                     <mat-label class="required">Phone Number</mat-label>
                     <input matInput placeholder="Enter phone number" type="tel"
-                           appNumberOnly  maxlength="15"
+                           appNumberOnly  maxlength="10"
                            formControlName="phoneNumber">
                     <mat-error *ngIf="form.controls['phoneNumber'].hasError('required')">
                         Please enter phone number.
                     </mat-error>
                 
-                    <mat-error *ngIf="form.controls['phoneNumber'].hasError('minlength')">
+                    <!-- <mat-error *ngIf="form.controls['phoneNumber'].hasError('minlength')">
                         Your phone must be at least 10 characters long.
                     </mat-error>
                     <mat-error *ngIf="form.controls['phoneNumber'].hasError('maxlength')">
                         Your phone cannot exceed 15 characters.
+                    </mat-error> -->
+                    <mat-error *ngIf="form.controls['phoneNumber'].hasError('allZeroError') || form.controls['phoneNumber'].hasError('maxlength') || form.controls['phoneNumber'].hasError('minlength')">
+                        Please add valid phone number
                     </mat-error>
+                  
                 </mat-form-field>
             </div>
 
