@@ -14,7 +14,7 @@
             </ng-container>
             <ng-container *ngSwitchCase="EventType.WHEN_EDIT_LEAD_FORM">
                 <div class="new-form-choose">
-                    <button class="close-icon-btn" >
+                    <button (click)="automationService.updateEventType(EventType.WHEN)" class="close-icon-btn" >
                             <img src="assets/images/ic_close.svg">
                     </button>
                     <span>Choose a form </span>
@@ -37,7 +37,6 @@
                 <button class="btn">Preview</button>
             </ng-container>
             <ng-container *ngSwitchCase="EventType.WHEN_EDIT_LEAD_FORM">
-                <button class="btn">Next</button>
             </ng-container>
         </ng-container>
 

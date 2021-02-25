@@ -1,0 +1,125 @@
+.choose-form-right-col-body {
+    height: 100vh;
+    padding: 0 !important;
+}
+
+.choose-form-right-col-body .inner-row-main-vc {
+    padding: 20px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ebebeb;
+}
+
+.choose-form-right-col-body .inner-row-main-vc button.btn {
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.choose-form-right-col-body .inner-row-main-vc button.btn {
+    padding: 0;
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    color: #0444d7;
+}
+
+.choose-form-right-col-body .inner-row-main-vc button.btn img {
+    width: 14px;
+    margin-left: 10px;
+}
+
+.choose-form-right-col-body .inner-row-main-vc button.btn:hover{
+    text-decoration: underline;
+}
+
+.choose-form-right-col-body .inner-row-main-vc .search-filed input.search {
+    margin-top: 0;
+    font-size: 14px;
+    padding: 8px 15px;
+    border: 1px solid #d7d3d3;
+    border-radius: 8px;
+    width: 100%;
+}
+
+.choose-form-right-col-body .inner-row-main-vc .search-filed input.search:focus{
+    border: 1px solid blue;
+}
+
+
+.formlisting-body {
+    padding: 20px 20px;
+}
+
+.formlisting-body .any-lead-form-main span {
+    display: block;
+}
+
+.formlisting-body .any-lead-form-main {
+    border-bottom: 1px solid #ebebeb;
+    padding-bottom: 20px;
+    margin-bottom: 50px;
+}
+
+.formlisting-body .any-lead-form-main .heading-form {
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 6px;
+}
+
+.formlisting-body .any-lead-form-main .sub-task-main {
+    font-size: 15px;
+    color: #656565;
+}
+
+.public-form-listing-main .heading-of-lead-form {
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ebebeb;
+    font-size: 15px;
+    color: #000;
+    font-weight: 400;
+}
+
+.public-form-listing-main .form-name-listing {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ebebeb;
+    font-size: 16px;
+    font-weight: 400;
+    cursor: pointer;
+}
+.heading-of-lead-form {
+    display: flex;
+    align-items: center;
+}
+
+.heading-of-lead-form span.comman-name {
+    display: block;
+    width: 33.33%;
+}
+
+.form-name-listing {
+    display: flex;
+    align-items: center;
+}
+
+.form-name-listing span.name {
+    width: 33.33%;
+}
+
+.form-name-listing span.date {
+    width: 33.33%;
+    color: #8a8a8a;
+    font-size: 14px !important;
+}
+
+
+.form-name-listing .tag {
+    margin-bottom: 0;
+    font-size: 12px;
+    border: none;
+    /* background: #7272eb; */
+    padding: 6px 15px;
+}
