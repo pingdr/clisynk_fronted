@@ -68,14 +68,6 @@ export class BuildAutomationMainComponent implements OnInit {
     this.automationService.addToThenTasksList(group);
   }
 
-   
-  addWhenTask(selectedOption: WhenThenEvent) {
-    this.whenForm = this.createCardObj();
-    this.whenForm.controls.eventName.setValue(selectedOption.eventName);
-    this.whenForm.controls.eventDescription.setValue(selectedOption.eventDescription);
-    this.automationService.updateWhenEvent(this.whenForm);
-  }
-
   handleDeleteTask(index: number) {
     if(index || index == 0) {
       this.automationService.removeThenTasksFromList(index);

@@ -1,3 +1,4 @@
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { WhenThenEvent } from './../../../models/automation';
 import { BackendResponse } from './../../../models/backend-response';
 import { AutomationParams } from './../../../models/params';
@@ -17,18 +18,17 @@ export class WhenSuggestionsComponent implements OnInit {
   private get whenEventsUrl() { return "automation/when-events" }
 
   showOption = false;
-
-
-  @Output()
-  onSelectedEvent = new EventEmitter<WhenThenEvent>();
-
+  
   selectedEvent:WhenThenEvent;
+  
   loader: boolean = false;
-
-  listOfWhenEvents: WhenThenEvent[]
  
+  listOfWhenEvents: WhenThenEvent[];
 
-  constructor(public http:HttpService) { }
+
+  constructor(public http:HttpService, 
+    public automationService: AutomationService,
+    private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.getWhenEvents();
@@ -52,7 +52,23 @@ export class WhenSuggestionsComponent implements OnInit {
   onSelectEvent(item: WhenThenEvent) {
     delete item.img;
     this.selectedEvent = item;
-    this.onSelectedEvent.emit(item);
+    let whenForm: FormGroup;
+    whenForm = this.createWhenEventObj();
+    whenForm.controls.eventName.setValue(item.eventName);
+    whenForm.controls.eventDescription.setValue(item.eventDescription);
+    this.automationService.updateWhenEvent(whenForm);
+  }
+
+  
+  createWhenEventObj(): FormGroup {
+    return this.formBuilder.group({
+      eventName: [''],
+      eventDescription: [''],
+      eventData : this.formBuilder.group({
+        dataId : [''],
+        params : [{}]
+      })
+    });
   }
 
   toggleOptions(){

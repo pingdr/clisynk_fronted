@@ -32,7 +32,7 @@
                 <div class="right-col">
                     <div class="after-submitted-lead-form-main-for-edit-option">
                         <ng-container *ngIf="(!($whenEvent|async)); else addedWhenCard">
-                            <app-when-suggestions (onSelectedEvent)="addWhenTask($event)"></app-when-suggestions>
+                            <app-when-suggestions></app-when-suggestions>
                         </ng-container>
                         <ng-template #addedWhenCard>
                             <app-display-card 
