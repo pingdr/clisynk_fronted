@@ -20,7 +20,7 @@ export class TwilioService {
   connectToRoom(accessToken: string, options): void {
     console.log('in connect function' , accessToken , options)
     connect(accessToken, options).then(room => {
-      console.log('connection success....')
+      console.log('connection success....', room)
       this.roomObj = room;
       this.roomParticipants = room.participants;
 
@@ -71,11 +71,14 @@ export class TwilioService {
 
   attachParticipantTracks(participant): void {
     participant.tracks.forEach(part => {
+      console.log(part,'.....----');
       this.trackPublished(part);
     });
   }
 
   trackPublished(publication) {
+    console.log(publication);
+    
     if (publication.isSubscribed)
       this.attachTracks(publication.track);
 
@@ -105,6 +108,7 @@ export class TwilioService {
 
   startLocalVideo(): void {
     createLocalVideoTrack().then(track => {
+      console.log(track);
       this.localVideo.nativeElement.appendChild(track.attach());
     });
   }

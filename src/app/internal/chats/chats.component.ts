@@ -215,8 +215,9 @@ export class ChatsComponent implements OnInit {
         this.callerName = data.fromUser.fullName;
         this.callId = data.callId;
         this.callChatroomId = data.chatRoomId;
-        if (data.fromUser._id !== this.adminId) {
+        if (data.fromUser._id !== JSON.parse(localStorage.getItem('loginData'))._id) {
           // this.incomingData = data;
+          console.log('----');
           this.callerName = data.fromUser.fullName;
           this.videoFlag = true;
           this.videoManage = true;
@@ -239,11 +240,15 @@ export class ChatsComponent implements OnInit {
         this.twilioService.removeTrack();
       }
       if (data.type == "accepted") {
-        this.outgoingFlag = true;
-        this.videoManage = true;
-        this.videoFlag = false;
-        this.videoCall();
-        // this.twilioService.startLocalVideo();
+        console.log('---accepted');
+        if(this.videoFlag) {
+        } else {
+          this.outgoingFlag = true;
+          this.videoManage = true;
+          this.videoFlag = false;
+          this.videoCall();
+          // this.twilioService.startLocalVideo();
+        }
       }
       if (data.type == 'userStatus') {
         if (this.selectedChat) {
@@ -331,8 +336,8 @@ export class ChatsComponent implements OnInit {
     this.outgoingFlag = true;
     this.videoManage = true;
     this.videoFlag = false;
-    this.videoCall();
     this.twilioService.startLocalVideo();
+    this.videoCall();
   }
 
   acceptVoiceCall() {

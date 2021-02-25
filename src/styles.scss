@@ -7061,7 +7061,10 @@ section.appt-list {
     }
   }
 }
-
+video {
+  width: 100% !important;
+  height: 100% !important;  
+}
 .workspace-drop-main {
   position: relative;
 }
