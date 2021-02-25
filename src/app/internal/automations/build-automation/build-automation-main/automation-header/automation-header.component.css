@@ -48,3 +48,14 @@ label.previewd-save {
     font-size: 16px;
     color: #59ad00;
 }
+.new-form-choose {
+    display: flex;
+    align-items: center;
+}
+
+.new-form-choose button.close-icon-btn {
+    margin-right: 10px;
+    background: #fff;
+    border: none;
+    padding: 0;
+}

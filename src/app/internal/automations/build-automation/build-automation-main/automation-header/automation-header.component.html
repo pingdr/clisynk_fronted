@@ -1,15 +1,45 @@
 <div class="right-col">
 
     <div class="inner-left-col">
-        <span [ngClass]="{ 'color-disabled' : ($eventSelected | async) !== EventType.WHEN }">When</span>
-        <img [src]="'assets/images/back-arrow.svg'" width="50">
-        <span [ngClass]="{ 'color-disabled' : ($eventSelected | async) !== EventType.THEN }">Then</span>
+        <ng-container [ngSwitch]="($eventSelected | async)">
+            <ng-container *ngSwitchCase="EventType.WHEN">
+                <span >When</span>
+                <img [src]="'assets/images/back-arrow.svg'" width="50">
+                <span class="color-disabled">Then</span>
+            </ng-container>
+            <ng-container *ngSwitchCase="EventType.THEN">
+                <span class="color-disabled">When</span>
+                <img [src]="'assets/images/back-arrow.svg'" width="50">
+                <span>Then</span>
+            </ng-container>
+            <ng-container *ngSwitchCase="EventType.WHEN_EDIT_LEAD_FORM">
+                <div class="new-form-choose">
+                    <button class="close-icon-btn" >
+                            <img src="assets/images/ic_close.svg">
+                    </button>
+                    <span>Choose a form </span>
+                </div>
+            </ng-container>
+            <ng-container *ngSwitchDefault>output2</ng-container>
+        </ng-container>
+
     </div>
     <div class="inner-right-col">
-        <label *ngIf="($eventSelected | async) == EventType.THEN" class="previewd-save">
-            <img src="assets/images/tick.svg" width="20">
-            Saved
-        </label>
-        <button class="btn">Preview</button>
+        <ng-container [ngSwitch]="($eventSelected | async)">
+            <ng-container *ngSwitchCase="EventType.WHEN">
+                <button class="btn">Preview</button>
+            </ng-container>
+            <ng-container *ngSwitchCase="EventType.THEN">
+                <label class="previewd-save">
+                    <img src="assets/images/tick.svg" width="20">
+                    Saved
+                </label>
+                <button class="btn">Preview</button>
+            </ng-container>
+            <ng-container *ngSwitchCase="EventType.WHEN_EDIT_LEAD_FORM">
+                <button class="btn">Next</button>
+            </ng-container>
+        </ng-container>
+
     </div>
 </div>
