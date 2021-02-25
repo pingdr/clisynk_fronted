@@ -27,10 +27,10 @@
                 </div>
                 <div class="go-to-your-form">
                     <div class="left-inner-col-footer">
-                        <button class="btn" >Go to your form <img [src]="statusImages.exportBlueIcon"width="35"> </button>
+                        <button class="btn" (click)="goToYourForm()" >Go to your form <img [src]="statusImages.exportBlueIcon"width="35"> </button>
                     </div>
                     <div class="right-inner-col-footer">
-                        <button class="btn">Done</button>
+                        <button class="btn" routerLink="/automation/build-automation">Done</button>
                     </div>
                 </div>
             </div>

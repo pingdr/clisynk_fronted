@@ -1,6 +1,11 @@
 export enum EventType {
     WHEN  = 'when',
-    THEN  = 'then'
+    WHEN_EDIT_LEAD_FORM  = 'redirect to lead form page',
+    WHEN_EDIT_APPOINTMENT_SCHEDULED = '',
+    WHEN_EDIT_APPOINTMENT_CANCELED = '',
+    WHEN_EDIT_TAG_ADDED = '',
+    WHEN_EDIT_PRODUCT_PURCHASED = '',
+    THEN  = 'then',
 }
 
 export const Images = {

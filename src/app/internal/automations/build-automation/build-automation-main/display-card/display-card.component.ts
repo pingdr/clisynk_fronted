@@ -1,3 +1,4 @@
+import { EventNames } from './../../../models/enum';
 import { LeadFormDeletedComponent } from 'src/app/shared/modals/lead-form-deleted/lead-form-deleted.component';
 import { HttpService } from 'src/app/services/http.service';
 import { FormGroup } from '@angular/forms';
@@ -6,6 +7,7 @@ import { EventType, Images } from '../../../automation-constants';
 import { UUID } from 'angular2-uuid';
 import { Subject } from 'rxjs';
 import { AutomationService } from '../../../automation.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-display-card',
   templateUrl: './display-card.component.html',
@@ -15,9 +17,8 @@ export class DisplayCardComponent implements OnInit {
 
   statusImages = Images;
   random: string;
-  EventType = EventType;
+  // EventType = EventType;
 
-  // @Input()
   eventType: string;
 
   @Input()
@@ -34,10 +35,10 @@ export class DisplayCardComponent implements OnInit {
   
   public get cardStatus(): string {
     switch (this.eventType) {
-      case this.EventType.WHEN: {
+      case EventType.WHEN: {
         return this.statusImages.greenCloud;
       }
-      case this.EventType.THEN: {
+      case EventType.THEN: {
         return this.statusImages.blueFlash;
       }
     }
@@ -46,6 +47,7 @@ export class DisplayCardComponent implements OnInit {
 
   constructor(private changeDetection: ChangeDetectorRef, 
     public automationService: AutomationService,
+    private router: Router,
     private http: HttpService) {
     this.random = this.makeid(15);
    }
@@ -57,7 +59,23 @@ export class DisplayCardComponent implements OnInit {
  
 
   onEditTask() {
+    switch (this._taskData.value.eventName) {
+      case EventNames.WHEN.LEAD_FORM : {
+        // list down the component lead form component.
+        this.automationService.updateEventType(EventType.WHEN_EDIT_LEAD_FORM);
+        break;
+      }
+    }
+  }
 
+  goToYourForm() {
+    switch (this._taskData.value.eventName) {
+      case EventNames.WHEN.LEAD_FORM : {
+        this.router.navigate(['/preview-leadform/6030a5803d3bbf7c9d07571c']);
+        this.automationService.updateEventType(EventType.WHEN_EDIT_LEAD_FORM);
+        break;
+      }
+    }
   }
 
   onDeleteTask() {
@@ -65,13 +83,12 @@ export class DisplayCardComponent implements OnInit {
     modalRef.content.onClose = new Subject<boolean>();
     modalRef.content.onClose.subscribe((res) => {
       if (res) {
-        // this.onDelete.emit(this.index);
         switch (this.eventType) {
-          case this.EventType.WHEN: {
+          case EventType.WHEN: {
             this.automationService.updateWhenEvent(null);
             break;
           }
-          case this.EventType.THEN: {
+          case EventType.THEN: {
             this.automationService.removeThenTasksFromList(this.index);
             break;
           }

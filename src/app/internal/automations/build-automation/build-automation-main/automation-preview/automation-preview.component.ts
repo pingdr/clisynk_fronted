@@ -26,17 +26,15 @@ export class AutomationPreviewComponent implements OnInit {
   ngOnInit() {
     this.$thenTasks = this.automationService.thenTasks;
     this.$whenEvent = this.automationService.whenEvent;
-    this.$whenEvent.subscribe(res => {
-      if(res) {
-        this.color  = "green";
-      } else {
-        this.color = "orange";
-      }
-    })
+    this.automationService.eventSelected.subscribe(res => this.eventSelected = res);
   }
 
-  updateEventType(eventType: EventType) {
-    // this.onEventChange.next(eventType);
+   updateEventType(eventType: EventType) {
+    if (this.eventSelected != EventType.WHEN && this.eventSelected != EventType.THEN) {
+      // Used to disabling the selecting event from preview while in edit mode.
+      return;
+    }
+
     this.automationService.updateEventType(eventType);
     this.router.navigate(["/automation/build-automation-main"])
   }

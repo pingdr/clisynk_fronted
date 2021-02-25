@@ -1,3 +1,4 @@
+import { EventType } from './../automation-constants';
 import { AutomationService } from './../automation.service';
 import { AutomationURL } from './../automation-routes';
 import { Component, OnInit } from '@angular/core';
@@ -22,6 +23,7 @@ export class BuildAutomationComponent implements OnInit {
   saveDraft() {
     this.automationService.updateThenTasksList(null);
     this.automationService.updateWhenEvent(null);
+    this.automationService.updateEventType(EventType.WHEN);
     this.http.goBack();
   }
   ngOnDestroy() {
