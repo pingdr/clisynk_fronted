@@ -1,8 +1,11 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpService } from 'src/app/services/http.service';
 import { SubmitfeedbackComponent } from 'src/app/shared/modals/submitfeedback/submitfeedback.component';
+import { AutomationService } from '../../../automation.service';
 import { WhenThenEvent } from '../../../models/automation';
 import { BackendResponse } from '../../../models/backend-response';
+import { THEN_INTERNAL_EVENTS } from '../../../models/enum';
 
 @Component({
   selector: 'app-then-suggestions',
@@ -23,7 +26,10 @@ export class ThenSuggestionsComponent implements OnInit {
   listOfThenEvents: WhenThenEvent[];
   loader: boolean = false;
 
-  constructor(public http: HttpService) { }
+  constructor(public http: HttpService,
+    public automationService: AutomationService,
+    private fb: FormBuilder
+    ) { }
 
   ngOnInit() {
     this.getThenEvents();
@@ -53,9 +59,24 @@ export class ThenSuggestionsComponent implements OnInit {
   onSelectEvent(item: WhenThenEvent) {
     delete item.img;
     this.selectedEvent = item;
-    this.onSelectedEvent.emit(item);
+    this.onSelectedEvent.emit(THEN_INTERNAL_EVENTS.on_then_event_selected);
+    // TODO: Need to make it more efficient
+    let group = this.createCardObj();
+    group.controls.eventName.setValue(item.eventName);
+    group.controls.eventDescription.setValue(item.eventDescription);
+    this.automationService.addToThenTasksList(group);
   }
 
+  
+  createCardObj(): FormGroup {
+    return this.fb.group({
+      eventName: '',
+      eventDescription: '',
+      name: '',
+      description: '',
+      price: ''
+    });
+  }
 
   private mapImage = (eventName) => {
     switch (eventName) {

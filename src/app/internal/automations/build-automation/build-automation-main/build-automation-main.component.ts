@@ -5,13 +5,8 @@ import { FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { HttpService } from 'src/app/services/http.service';
 import { AutomationEvents, EventType } from '../../automation-constants';
 import { Observable } from 'rxjs';
+import { THEN_INTERNAL_EVENTS } from '../../models/enum';
 declare var $: any;
-
-enum THEN_INTERNAL_EVENTS {
-  on_then_event_selected = 'SHOW_ADD_THEN_EVENT_BTN',
-  on_add_then_event_clicked = 'SHOW_SUGGESIONS'
-}
-
 
 @Component({
   selector: 'app-build-automation-main',
@@ -22,12 +17,9 @@ export class BuildAutomationMainComponent implements OnInit {
 
 
   $eventSelected: Observable<EventType>;
-  // eventSelected = EventType.WHEN;
   EventType = EventType;
 
-  whenForm: FormGroup = undefined;
-  thenForm: any;
-  // thenTasks: FormArray; 
+
   $thenTasks: Observable<FormArray>;
   $whenEvent: Observable<FormGroup>;
   
@@ -44,49 +36,15 @@ export class BuildAutomationMainComponent implements OnInit {
     this.$thenTasks = this.automationService.thenTasks;
     this.$whenEvent = this.automationService.whenEvent;
     this.$eventSelected = this.automationService.eventSelected;
-
-    this.$whenEvent.subscribe(res => {
-      if (res) {
-        this.whenForm = res;
-      }
-    })
-
-    this.thenForm = new FormGroup({
-      tasks: new FormArray([])
-    });
   }
 
-
-  addThenTask(selectedOption?: WhenThenEvent): void {
-    if(selectedOption) {
-      this.thenInternalEvents = THEN_INTERNAL_EVENTS.on_then_event_selected;
-    }
-    // TODO: Need to make it more efficient
-    let group = this.createCardObj();
-    group.controls.eventName.setValue(selectedOption.eventName);
-    group.controls.eventDescription.setValue(selectedOption.eventDescription);
-    this.automationService.addToThenTasksList(group);
-  }
 
   handleDeleteTask(index: number) {
     if(index || index == 0) {
       this.automationService.removeThenTasksFromList(index);
     }  else {
-      this.whenForm.reset();
-      this.whenForm = undefined;
       this.automationService.updateWhenEvent(null);
     }
-  }
-  
-
-  createCardObj(): FormGroup {
-    return this.formBuilder.group({
-      eventName: '',
-      eventDescription: '',
-      name: '',
-      description: '',
-      price: ''
-    });
   }
 
   handleAnimation() {

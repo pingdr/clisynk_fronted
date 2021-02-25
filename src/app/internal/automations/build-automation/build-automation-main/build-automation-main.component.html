@@ -49,8 +49,8 @@
             <ng-container *ngSwitchCase="EventType.THEN">
                 <div class="right-col">
                     <div class="after-submitted-lead-form-main-for-edit-option">
-                        <div [formGroup]="thenForm">
-                            <div formArrayName="tasks" class="mb-3"
+                        <div>
+                            <div class="mb-3"
                                 *ngFor="let item of ($thenTasks|async)?.controls; let i = index;">
                                 <app-display-card (onDelete)="handleDeleteTask($event)" [index]="i" [taskData]="item"
                                     [eventType]="EventType.THEN"></app-display-card>
@@ -58,7 +58,7 @@
 
                         </div>
                         <ng-container *ngIf="((($thenTasks|async)?.length == 0) || (!($thenTasks|async))); else addCardBlock">
-                            <app-then-suggestions (onSelectedEvent)="addThenTask($event)"></app-then-suggestions>
+                            <app-then-suggestions (onSelectedEvent)="thenInternalEvents = $event"></app-then-suggestions>
                         </ng-container>
                         <ng-template #addCardBlock>
                             <div [ngSwitch]="thenInternalEvents">
@@ -78,7 +78,7 @@
                                     </div>
                                 </div>
                                 <div *ngSwitchCase="THEN_INTERNAL_EVENTS.on_add_then_event_clicked">
-                                    <app-then-suggestions (onSelectedEvent)="addThenTask($event)">
+                                    <app-then-suggestions (onSelectedEvent)="thenInternalEvents = $event">
                                     </app-then-suggestions>
                                 </div>
                                 <div *ngSwitchDefault>output2</div>
