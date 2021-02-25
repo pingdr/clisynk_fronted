@@ -123,3 +123,66 @@
     /* background: #7272eb; */
     padding: 6px 15px;
 }
+.smart-form-listing-table table.smart-table-list tr th {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #7e7d84;
+    font-weight: 300;
+  }
+  
+  .smart-form-listing-table .smart-table-list tr {
+    border-bottom: 1px solid #e6e6e8;
+  }
+  
+  .smart-form-listing-table table.smart-table-list tr td {
+    padding: 20px 20px;
+    font-size: 13px;
+    color: #000;
+    font-weight: 400;
+  }
+  
+  .smart-form-listing-table table.smart-table-list .down-arrow {
+    background: none;
+    border: none;
+  }
+  .smart-form-listing-table .smart-table-list tbody tr {
+    cursor: pointer;
+    transition: 0.2s all ease;
+  }
+  
+  .smart-form-listing-table .smart-table-list tbody tr:hover {
+    background: #f0f0f0;
+    transition: 0.2s all ease;
+  }
+  .form-name {
+    width: 250px;
+  }
+  .description {
+    width: 500px;
+  }
+  .added-on {
+    width: 200px;
+  }
+  .status {
+    width: 200px;
+  }
+  .actions-table {
+    width: 200px;
+  }
+  
+.not-published {
+    border: none;
+    background: #f0f0f0;
+    padding: 6px 15px;
+    font-size: 12px;
+    border-radius: 20px;
+  }
+  .published {
+    background: #0d3174;
+    border: none;
+    padding: 6px 15px;
+    color: #fff;
+    font-size: 12px;
+    border-radius: 20px;
+  }
+  
