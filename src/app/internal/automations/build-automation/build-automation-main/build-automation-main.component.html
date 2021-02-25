@@ -5,8 +5,8 @@
             <img style="cursor: pointer;" [src]="'/assets/images/back-arrow.svg'" (click)="http.goBack()" width="50">
             <span>Build automation</span>
         </div>
-        <div class="right-col">
-            <div class="inner-left-col">
+        <!-- <div class="right-col"> -->
+            <!-- <div class="inner-left-col">
                 <span [ngClass]="{ 'color-disabled' : ($eventSelected | async) !== EventType.WHEN }">When</span>
                 <img [src]="'/assets/images/back-arrow.svg'" width="50">
                 <span [ngClass]="{ 'color-disabled' : ($eventSelected | async) !== EventType.THEN }">Then</span>
@@ -17,8 +17,10 @@
                     Saved
                 </label>
                 <button class="btn">Preview</button>
-            </div>
-        </div>
+            </div> -->
+
+            <app-automation-header></app-automation-header>
+        <!-- </div> -->
     </div>
     <!-------------------------------------end of header--------------------------------->
     <div class="inner-add-build-main">

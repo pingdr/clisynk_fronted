@@ -17,6 +17,7 @@ import { BuildAutomationMainComponent } from './build-automation/build-automatio
 import { AutomationPreviewComponent } from './build-automation/build-automation-main/automation-preview/automation-preview.component';
 import { ThenSuggestionsComponent } from './build-automation/build-automation-main/then-suggestions/then-suggestions.component';
 import { WhenSuggestionsComponent } from './build-automation/build-automation-main/when-suggestions/when-suggestions.component';
+import { AutomationHeaderComponent } from './build-automation/build-automation-main/automation-header/automation-header.component';
 
 // import { AmazingTimePickerModule } from 'amazing-time-picker';
 
@@ -41,7 +42,7 @@ const routes: Routes = [
     declarations: [
         AutomationComponent, BuildAutomationComponent, AddBuildautomationComponent, BuildThenautomationsComponent,
         FreeConsulationComponent, ChooseTagComponent, FreeCosulationWhenComponent, BuildAutomationMainComponent, AutomationPreviewComponent
-        ,DisplayCardComponent, ThenSuggestionsComponent, WhenSuggestionsComponent
+        ,DisplayCardComponent, ThenSuggestionsComponent, WhenSuggestionsComponent, AutomationHeaderComponent
 
     ],
     imports: [

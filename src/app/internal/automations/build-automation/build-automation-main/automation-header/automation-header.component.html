@@ -1,0 +1,15 @@
+<div class="right-col">
+
+    <div class="inner-left-col">
+        <span [ngClass]="{ 'color-disabled' : ($eventSelected | async) !== EventType.WHEN }">When</span>
+        <img [src]="'assets/images/back-arrow.svg'" width="50">
+        <span [ngClass]="{ 'color-disabled' : ($eventSelected | async) !== EventType.THEN }">Then</span>
+    </div>
+    <div class="inner-right-col">
+        <label *ngIf="($eventSelected | async) == EventType.THEN" class="previewd-save">
+            <img src="assets/images/tick.svg" width="20">
+            Saved
+        </label>
+        <button class="btn">Preview</button>
+    </div>
+</div>
