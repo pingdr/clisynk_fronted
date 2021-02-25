@@ -39,13 +39,6 @@ export class BuildAutomationMainComponent implements OnInit {
   }
 
 
-  handleDeleteTask(index: number) {
-    if(index || index == 0) {
-      this.automationService.removeThenTasksFromList(index);
-    }  else {
-      this.automationService.updateWhenEvent(null);
-    }
-  }
 
   handleAnimation() {
     $(document).ready(function () {

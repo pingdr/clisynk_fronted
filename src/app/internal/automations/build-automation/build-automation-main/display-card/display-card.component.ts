@@ -5,6 +5,7 @@ import { Component, OnInit, ViewEncapsulation, ChangeDetectorRef, Input, Output,
 import { EventType, Images } from '../../../automation-constants';
 import { UUID } from 'angular2-uuid';
 import { Subject } from 'rxjs';
+import { AutomationService } from '../../../automation.service';
 @Component({
   selector: 'app-display-card',
   templateUrl: './display-card.component.html',
@@ -16,7 +17,7 @@ export class DisplayCardComponent implements OnInit {
   random: string;
   EventType = EventType;
 
-  @Input()
+  // @Input()
   eventType: string;
 
   @Input()
@@ -27,12 +28,9 @@ export class DisplayCardComponent implements OnInit {
   set taskData(value: any) {
     if(value) {
       this._taskData = value;
-      console.log(this._taskData);
+      console.log(this._taskData.value);
     }
   }
-
-  @Output() 
-  onDelete = new EventEmitter<any>();
   
   public get cardStatus(): string {
     switch (this.eventType) {
@@ -46,12 +44,15 @@ export class DisplayCardComponent implements OnInit {
   }
 
 
-  constructor(private changeDetection: ChangeDetectorRef, private http: HttpService) {
+  constructor(private changeDetection: ChangeDetectorRef, 
+    public automationService: AutomationService,
+    private http: HttpService) {
     this.random = this.makeid(15);
    }
 
   ngOnInit() {
     console.log(this.random);
+    this.automationService.eventSelected.subscribe(res => this.eventType = res);
   }
  
 
@@ -64,7 +65,16 @@ export class DisplayCardComponent implements OnInit {
     modalRef.content.onClose = new Subject<boolean>();
     modalRef.content.onClose.subscribe((res) => {
       if (res) {
-        this.onDelete.emit(this.index);
+        // this.onDelete.emit(this.index);
+        switch (this.eventType) {
+          case this.EventType.WHEN: {
+            this.automationService.updateWhenEvent(null);
+          }
+          case this.EventType.THEN: {
+            this.automationService.removeThenTasksFromList(this.index);
+          }
+        }
+
       }
     });
   }

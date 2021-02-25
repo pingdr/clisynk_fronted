@@ -36,9 +36,8 @@
                         </ng-container>
                         <ng-template #addedWhenCard>
                             <app-display-card 
-                                    (onDelete)="handleDeleteTask($event)"
-                                    [taskData]="($whenEvent|async)"
-                                    [eventType]="EventType.WHEN">
+                                [taskData]="($whenEvent|async)"
+                                    >
                             </app-display-card>
                         </ng-template>
 
@@ -52,8 +51,8 @@
                         <div>
                             <div class="mb-3"
                                 *ngFor="let item of ($thenTasks|async)?.controls; let i = index;">
-                                <app-display-card (onDelete)="handleDeleteTask($event)" [index]="i" [taskData]="item"
-                                    [eventType]="EventType.THEN"></app-display-card>
+                                <app-display-card  [index]="i" [taskData]="item"
+                                    ></app-display-card>
                             </div>
 
                         </div>
