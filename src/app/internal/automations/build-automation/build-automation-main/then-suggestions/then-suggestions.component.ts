@@ -29,7 +29,7 @@ export class ThenSuggestionsComponent implements OnInit {
   constructor(public http: HttpService,
     public automationService: AutomationService,
     private fb: FormBuilder
-    ) { }
+  ) { }
 
   ngOnInit() {
     this.getThenEvents();
@@ -38,19 +38,19 @@ export class ThenSuggestionsComponent implements OnInit {
   getThenEvents() {
     this.loader = true;
     this.http.getData(this.thenEventsUrl)
-    .map((res: BackendResponse<WhenThenEvent[]>) => res.data)
-    .subscribe((res:WhenThenEvent[]) => {
-      this.listOfThenEvents = res;
-      this.listOfThenEvents.forEach(x => x.img = this.mapImage(x.eventName) ); //setting Images dynamically
-      this.loader = false;
-    });
+      .map((res: BackendResponse<WhenThenEvent[]>) => res.data)
+      .subscribe((res: WhenThenEvent[]) => {
+        this.listOfThenEvents = res;
+        this.listOfThenEvents.forEach(x => x.img = this.mapImage(x.eventName)); //setting Images dynamically
+        this.loader = false;
+      });
   }
   openSubmitfeedback() {
     this.http.showModal(SubmitfeedbackComponent);
   }
 
 
-  toggleOptions(){
+  toggleOptions() {
     this.showOption = !this.showOption
     document.body.scrollTop = 0;
     // window.scrollTo(1900, 1900);
@@ -62,32 +62,45 @@ export class ThenSuggestionsComponent implements OnInit {
     this.onSelectedEvent.emit(THEN_INTERNAL_EVENTS.on_then_event_selected);
     // TODO: Need to make it more efficient
     let group = this.createCardObj();
-    group.controls.eventName.setValue(item.eventName);
-    group.controls.eventDescription.setValue(item.eventDescription);
+    group.patchValue(item);
     this.automationService.addToThenTasksList(group);
   }
 
-  
+
   createCardObj(): FormGroup {
     return this.fb.group({
       eventName: '',
       eventDescription: '',
-      name: '',
-      description: '',
-      price: ''
+      eventData: this.fb.group({
+        dataId: [''],
+        params: [{}],
+      }),
+      isDelayed: [''],
+      delayedOptions: this.fb.group({
+        delayType: [''],
+        dayInterval: this.fb.group({
+          intervalType: [''],
+          value: [''],
+        }),
+        timeInterval: this.fb.group({
+          intervalType: [''],
+          value: [''],
+        }),
+
+      }),
     });
   }
 
   private mapImage = (eventName) => {
     switch (eventName) {
-      case "sendEmail": {return 'assets/images/send-an-email-blue.svg'}
-      case "sendNotification": {return 'assets/images/send-notification-blue.svg'}
-      case "addTag": {return 'assets/images/tag-is-addwd-blue.svg'}
-      case "tagAdded": {return 'assets/images/tag-is-addwd.svg'}
-      case "createTask": {return 'assets/images/create-a-task-blue.svg'}
-      case "removeTag": {return 'assets/images/tag-is-addwd.svg'}
-      default: {return 'assets/images/send-an-email-blue.svg'}
-       
+      case "sendEmail": { return 'assets/images/send-an-email-blue.svg' }
+      case "sendNotification": { return 'assets/images/send-notification-blue.svg' }
+      case "addTag": { return 'assets/images/tag-is-addwd-blue.svg' }
+      case "tagAdded": { return 'assets/images/tag-is-addwd.svg' }
+      case "createTask": { return 'assets/images/create-a-task-blue.svg' }
+      case "removeTag": { return 'assets/images/tag-is-addwd.svg' }
+      default: { return 'assets/images/send-an-email-blue.svg' }
+
     }
   }
 }

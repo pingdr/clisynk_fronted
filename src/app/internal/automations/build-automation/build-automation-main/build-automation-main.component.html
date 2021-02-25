@@ -5,22 +5,7 @@
             <img style="cursor: pointer;" [src]="'/assets/images/back-arrow.svg'" (click)="http.goBack()" width="50">
             <span>Build automation</span>
         </div>
-        <!-- <div class="right-col"> -->
-            <!-- <div class="inner-left-col">
-                <span [ngClass]="{ 'color-disabled' : ($eventSelected | async) !== EventType.WHEN }">When</span>
-                <img [src]="'/assets/images/back-arrow.svg'" width="50">
-                <span [ngClass]="{ 'color-disabled' : ($eventSelected | async) !== EventType.THEN }">Then</span>
-            </div>
-            <div class="inner-right-col">
-                <label *ngIf="($eventSelected | async) == EventType.THEN" class="previewd-save">
-                    <img src="../../../../assets/images/tick.svg" width="20">
-                    Saved
-                </label>
-                <button class="btn">Preview</button>
-            </div> -->
-
-            <app-automation-header></app-automation-header>
-        <!-- </div> -->
+        <app-automation-header></app-automation-header>
     </div>
     <!-------------------------------------end of header--------------------------------->
     <div class="inner-add-build-main">
@@ -28,6 +13,8 @@
             <app-automation-preview></app-automation-preview>
         </div>
         <!-- TOGGLING BETWEEN WHEN AND THEN EVENT -->
+        <!-- {{($whenEvent|async)?.value|json}} -->
+        <!-- {{($thenTasks|async)?.value |json}} -->
         <ng-container [ngSwitch]="($eventSelected | async)">
             <ng-container *ngSwitchCase="EventType.WHEN">
 
@@ -37,12 +24,8 @@
                             <app-when-suggestions></app-when-suggestions>
                         </ng-container>
                         <ng-template #addedWhenCard>
-                            <app-display-card 
-                                [taskData]="($whenEvent|async)"
-                                    >
-                            </app-display-card>
+                            <app-display-card [taskData]="($whenEvent|async)"></app-display-card>
                         </ng-template>
-
                     </div>
                 </div>
 
@@ -50,13 +33,8 @@
             <ng-container *ngSwitchCase="EventType.THEN">
                 <div class="right-col">
                     <div class="after-submitted-lead-form-main-for-edit-option">
-                        <div>
-                            <div class="mb-3"
-                                *ngFor="let item of ($thenTasks|async)?.controls; let i = index;">
-                                <app-display-card  [index]="i" [taskData]="item"
-                                    ></app-display-card>
-                            </div>
-
+                        <div class="mb-3" *ngFor="let item of ($thenTasks|async)?.controls; let i = index;">
+                            <app-display-card [index]="i" [taskData]="item"></app-display-card>
                         </div>
                         <ng-container *ngIf="((($thenTasks|async)?.length == 0) || (!($thenTasks|async))); else addCardBlock">
                             <app-then-suggestions (onSelectedEvent)="thenInternalEvents = $event"></app-then-suggestions>
@@ -79,8 +57,7 @@
                                     </div>
                                 </div>
                                 <div *ngSwitchCase="THEN_INTERNAL_EVENTS.on_add_then_event_clicked">
-                                    <app-then-suggestions (onSelectedEvent)="thenInternalEvents = $event">
-                                    </app-then-suggestions>
+                                    <app-then-suggestions (onSelectedEvent)="thenInternalEvents = $event"></app-then-suggestions>
                                 </div>
                                 <div *ngSwitchDefault>output2</div>
                             </div>

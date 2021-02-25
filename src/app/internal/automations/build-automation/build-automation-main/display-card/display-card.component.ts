@@ -69,9 +69,11 @@ export class DisplayCardComponent implements OnInit {
         switch (this.eventType) {
           case this.EventType.WHEN: {
             this.automationService.updateWhenEvent(null);
+            break;
           }
           case this.EventType.THEN: {
             this.automationService.removeThenTasksFromList(this.index);
+            break;
           }
         }
 

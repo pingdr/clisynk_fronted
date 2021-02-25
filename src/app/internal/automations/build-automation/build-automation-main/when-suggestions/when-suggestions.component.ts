@@ -52,10 +52,8 @@ export class WhenSuggestionsComponent implements OnInit {
   onSelectEvent(item: WhenThenEvent) {
     delete item.img;
     this.selectedEvent = item;
-    let whenForm: FormGroup;
-    whenForm = this.createWhenEventObj();
-    whenForm.controls.eventName.setValue(item.eventName);
-    whenForm.controls.eventDescription.setValue(item.eventDescription);
+    let whenForm = this.createWhenEventObj();
+    whenForm.patchValue(item);
     this.automationService.updateWhenEvent(whenForm);
   }
 
