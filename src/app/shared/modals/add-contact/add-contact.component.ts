@@ -37,7 +37,7 @@ export class AddContactComponent implements OnInit {
             lastName: [''],
             email: ['', Validators.compose([Validators.pattern(this.http.CONSTANT.EMAIL_REGEX)])],
             countryCode: ['+91'],
-            phoneNumber: ['', Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(15), this.notAllZero]) ],
+            phoneNumber: ['', Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(10), this.notAllZero]) ],
             notes: [''],
             type : ['work', Validators.required],
             sendEmail: [false]
