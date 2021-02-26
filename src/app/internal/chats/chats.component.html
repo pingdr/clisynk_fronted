@@ -150,12 +150,12 @@
                 *ngIf="tab == 'allContact'">
                 <div class="tab-pane1" id="pills-home">
                     <div class="nav flex-column nav-pills" id="v-pills-tab" aria-orientation="vertical">
-                        <div class="select-all custom-select-all">
+                        <!-- <div class="select-all custom-select-all">
                             <label class="custom-checkbox">Select all
-                                <input type="checkbox" [formControl]="allSelect" (change)="selectAllContact()">
+                                <input type="checkbox" [formControl]="allSelect" (change)="selectAllContacts()">
                                 <span class="checkmark"></span>
                             </label>
-                        </div>
+                        </div> -->
                         <cdk-virtual-scroll-viewport itemSize="50" class="full-port">
                             <app-loader [showLoader]="loader" [length]="chatModel?.contacts?.length">
                             </app-loader>
@@ -164,10 +164,10 @@
                                 <a class="nav-link group-add-main-contact" [ngClass]="{'active': selectedIndex == i}">
                                     <span class="circle" style="margin-top: 10px;">
                                         <label class="custom-checkbox">
-                                            <input type="checkbox" (change)="getSelectedCount()"
+                                            <!-- <input type="checkbox" (change)="getSelectedCounts()"
                                                 [(ngModel)]="data.isSelected">
-                                            <span class="checkmark" style="margin-left: -10px;">
-                                            </span>
+                                            <span class="checkmark" style="margin-left: -10px;z-index: 999;">
+                                            </span> -->
                                             <span class="circle" style="top: 0;left:0">
                                                 <span *ngIf="data?.profileImage?.thumbnail;else onlyName">
                                                     <img [src]="data?.profileImage?.thumbnail"

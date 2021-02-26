@@ -229,7 +229,7 @@ export class ChatsComponent implements OnInit {
           this.callerName = this.selectedChat.temp.name;
           this.videoFlag = false;
           this.outgoingVoiceFlag = false;
-          // this.videoCall();
+          this.videoCall();
           this.twilioService.startLocalVideo();
         }
       }
@@ -241,13 +241,16 @@ export class ChatsComponent implements OnInit {
       }
       if (data.type == "accepted") {
         console.log('---accepted');
-        if(this.videoFlag) {
+        if (this.videoFlag) {
         } else {
-          this.outgoingFlag = true;
           this.videoManage = true;
           this.videoFlag = false;
-          this.videoCall();
-          // this.twilioService.startLocalVideo();
+          if (this.outgoingFlag) {
+            // if(this.room)
+            // this.videoCall();
+            // this.twilioService.startLocalVideo();
+          }
+          this.outgoingFlag = true;
         }
       }
       if (data.type == 'userStatus') {
@@ -436,6 +439,7 @@ export class ChatsComponent implements OnInit {
       chatRoomId: this.selectedChat._id,
       type: 'new-call'
     });
+    this.twilioService.startLocalVideo();
   }
 
   // audio call function
@@ -840,6 +844,17 @@ export class ChatsComponent implements OnInit {
       this.unselectAll();
     }
   }
+  selectAllContacts() {
+    if (this.allSelect.value) {
+      this.showSelected = !this.showSelected;
+      this.chatModel.contacts.forEach((val) => {
+        val.isSelected = true;
+      });
+      this.getSelectedCounts();
+    } else {
+      this.unselectAll();
+    }
+  }
 
   // select all group
   selectAllGroup() {
@@ -859,6 +874,9 @@ export class ChatsComponent implements OnInit {
     this.activeChatList.forEach((val) => {
       val.isSelected = false;
     });
+    this.chatModel.contacts.forEach((res) => {
+      res.isSelected = false;
+    })
     this.selectedContactCount = 0;
     this.allSelect.patchValue('');
   }
@@ -885,6 +903,24 @@ export class ChatsComponent implements OnInit {
     });
     if (tempCount == this.activeChatList.length) {
       this.activeChatList.forEach((val) => {
+        val.isSelected = true;
+      });
+      this.allSelect.patchValue(true)
+    }
+    this.selectedContactCount = tempCount;
+  }
+  getSelectedCounts() {
+    let tempCount = 0;
+    this.chatModel.contacts.forEach((val) => {
+      if (val.isSelected) {
+        tempCount++;
+      }
+      else {
+        this.allSelect.patchValue('');
+      }
+    });
+    if (tempCount == this.chatModel.contacts.length) {
+      this.chatModel.contacts.forEach((val) => {
         val.isSelected = true;
       });
       this.allSelect.patchValue(true)

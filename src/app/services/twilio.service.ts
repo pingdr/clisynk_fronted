@@ -1,5 +1,5 @@
 import { Injectable, ElementRef } from '@angular/core';
-import { connect, createLocalVideoTrack} from 'twilio-video';
+import { connect, createLocalVideoTrack } from 'twilio-video';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
@@ -18,25 +18,25 @@ export class TwilioService {
   }
 
   connectToRoom(accessToken: string, options): void {
-    console.log('in connect function' , accessToken , options)
+    console.log('in connect function', accessToken, options)
     connect(accessToken, options).then(room => {
       console.log('connection success....', room)
       this.roomObj = room;
       this.roomParticipants = room.participants;
-
       //if participent already in room
       room.participants.forEach(participant => {
-        console.log('participent..............',participant)
+        console.log('participent..............', participant)
         this.attachParticipantTracks(participant);
       });
-
+      
       // when participent disconnect
       room.on('participantDisconnected', (participant) => {
         this.removeTrack();
       });
-
+      
+      // this.attachParticipantTracks(room.localParticipant)
       // when participent connect
-      room.once('participantConnected', participant => {
+      room.on('participantConnected', participant => {
         this.attachParticipantTracks(participant);
       });
 
@@ -71,14 +71,15 @@ export class TwilioService {
 
   attachParticipantTracks(participant): void {
     participant.tracks.forEach(part => {
-      console.log(part,'.....----');
+      console.log(part, '.....----');
+      if(part.kind !== 'data')
       this.trackPublished(part);
     });
   }
 
   trackPublished(publication) {
     console.log(publication);
-    
+
     if (publication.isSubscribed)
       this.attachTracks(publication.track);
 
@@ -115,7 +116,7 @@ export class TwilioService {
 
   detachParticipantTracks() {
     var tracks = Array.from(this.roomObj.localParticipant.tracks.values());
-    console.log('in tracks.............',tracks)
+    console.log('in tracks.............', tracks)
     this.detachTracks(tracks);
   }
 
@@ -129,7 +130,8 @@ export class TwilioService {
 
   // add remote track
   attachTracks(track) {
-    console.log('track.........................',track)
-    this.remoteVideo.nativeElement.appendChild(track.attach());
+    console.log('track.........................', track)
+    if (track.kind !== 'data')
+      this.remoteVideo.nativeElement.appendChild(track.attach());
   }
 }

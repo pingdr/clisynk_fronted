@@ -1195,12 +1195,14 @@ small-box h3,
 
 .lb-data .lb-close {
   position: absolute;
-  top: -40px;
   margin-right: 0;
   text-align: right !important;
-  right: 37%;
+  right: 26.5%;
+  top: -35px;
 }
-
+.lb-outerContainer {
+  position: relative !important;
+}
 .iti.iti--allow-dropdown {
   width: 100%;
 }
