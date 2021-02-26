@@ -1,3 +1,6 @@
+import { EventType } from './../../../../../automation-constants';
+import { FormGroup } from '@angular/forms';
+import { AutomationService } from './../../../../../automation.service';
 import { LoadingService } from './../../../../../loading.service';
 import { BackendResponse } from './../../../../../models/backend-response';
 import { SmartForm } from './../../../../../../../models/smart-form';
@@ -7,7 +10,7 @@ import { HttpService } from 'src/app/services/http.service';
 import { SmartFormCreateComponent } from 'src/app/shared/modals/smart-form-create/smart-form-create.component';
 import { Sort } from '@angular/material/sort';
 import { format } from 'date-fns'
-import { finalize, map, tap } from 'rxjs/operators';
+import { finalize, map, tap, filter } from 'rxjs/operators';
 
 
 @Component({
@@ -17,17 +20,14 @@ import { finalize, map, tap } from 'rxjs/operators';
 })
 export class ChooseLeadFormComponent implements OnInit {
 
-  loader = false;
   smartForms: SmartForm[];
   leadForm: SmartForm;
   sortedData: SmartForm[];
   searchText = '';
 
-  loader$: Observable<boolean>;
-  smartForms$: Observable<SmartForm[]>;
-  sortedData$: Observable<SmartForm[]>;
-
-  constructor(public http: HttpService, public loadingService: LoadingService) { }
+  constructor(public http: HttpService, 
+    public automationService: AutomationService,
+    public loadingService: LoadingService) { }
 
   async ngOnInit() {
     await this.loadData();
@@ -36,10 +36,10 @@ export class ChooseLeadFormComponent implements OnInit {
   }
 
   async loadData() {
-    this.loader$ = this.loadingService.loader$;
     this.loadingService.loadingOn()
-    await forkJoin([this.getLeadForm(), this.getSmartFormList()])
+    const data = await forkJoin([this.getLeadForm(), this.getSmartFormList()])
       .pipe(finalize(() => this.loadingService.loadingOff())).toPromise();
+    console.log(data)
     console.log(this.leadForm);
     console.log(this.smartForms)
   }
@@ -48,6 +48,7 @@ export class ChooseLeadFormComponent implements OnInit {
     return this.http.getSmartForm()
       .pipe(
         map((res: BackendResponse<SmartForm[]>) => res.data),
+        map(smartForms => smartForms.filter(smartForm => smartForm.status == 'PUBLISHED')),
         tap(x => {
           this.smartForms = x;
           this.sortedData = this.smartForms.slice();
@@ -60,6 +61,18 @@ export class ChooseLeadFormComponent implements OnInit {
         map((res: BackendResponse<SmartForm[]>) => res.data),
         tap(x => this.leadForm = x[0])
       )
+  }
+
+  onSelectForm(form: SmartForm) {
+    const whenEvent: FormGroup = this.automationService.getWhenEvent()
+    whenEvent.patchValue({
+      eventData :{
+        dataId : form._id,
+        params : { name: form.name}
+      }
+    })
+    this.automationService.updateWhenEvent(whenEvent);
+    this.automationService.updateEventType(EventType.WHEN);
   }
 
   openCreateSmartForm(data?: any) {

@@ -7,8 +7,8 @@ import { Injectable } from '@angular/core';
 export class LoadingService {
 
 
-  loaderSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  loader$ = this.loaderSubject.asObservable();
+  private loaderSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public loader$ = this.loaderSubject.asObservable();
 
   constructor() { }
 

@@ -6,16 +6,11 @@
         </div>
     </div>
     <div class="formlisting-body">
-            <div *ngIf="!(loader$|async)" class="any-lead-form-main">
+            <div *ngIf="!(loadingService.loader$|async)" class="any-lead-form-main">
                     <span class="heading-form">{{leadForm.name}}</span>
                     <span class="sub-task-main">When lead form is submitted </span>
             </div>
-            <ng-container *ngIf="(loader$|async)">
-                <ngx-skeleton-loader
-                    count="1"
-                    [theme]="{ width: '100%', 'border-radius': '0', height: '60px', 'margin-bottom': '3px','z-index':'99','margin-left': '0px','margin-top': '0','border': 'none','left':'0'}">
-                </ngx-skeleton-loader>
-            </ng-container>
+            <app-loading [length]="1"></app-loading>
     </div>
     <div class="smart-form-listing-table">
         <table class="smart-table-list" matSort (matSortChange)="sortData($event)">
@@ -28,8 +23,8 @@
                     <!-- <th class="actions-table">Actions</th> -->
                 </tr>
             </thead>
-            <tbody *ngIf="!(loader$|async)">
-                <tr *ngFor="let f of sortedData| filter:searchText; let i=index">
+            <tbody *ngIf="!(loadingService.loader$|async)">
+                <tr (click)="onSelectForm(f)" *ngFor="let f of sortedData| filter:searchText; let i=index">
                     <td class="form-name">
                         {{ f.name }}
                         <span>
@@ -51,17 +46,12 @@
             </tbody>
         </table>
     </div>
-    <ng-container *ngIf="(loader$|async)">
         <div class="first-section-wrapper">
             <div class="gravatar-title">
                 <div>
-                    <ngx-skeleton-loader
-                        count="3"
-                        [theme]="{ width: '100%', 'border-radius': '0', height: '60px', 'margin-bottom': '3px','z-index':'99','margin-left': '0px','margin-top': '0','border': 'none','left':'0'}">
-                    </ngx-skeleton-loader>
+                    <app-loading [length]="3"></app-loading>
                 </div>
             </div>
         </div>
-    </ng-container>
 </div>  
 

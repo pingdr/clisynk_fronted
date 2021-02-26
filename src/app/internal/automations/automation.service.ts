@@ -44,8 +44,12 @@ export class AutomationService {
   }
 
   // WHEN Event
-  updateWhenEvent(whenTask) {
-    this.whenEventSubject.next(whenTask);
+  updateWhenEvent(whenEvent: FormGroup) {
+    this.whenEventSubject.next(whenEvent);
+  }
+  
+  getWhenEvent() {
+    return this.whenEventSubject.getValue();
   }
 
   isNullOrEmpty(value) {

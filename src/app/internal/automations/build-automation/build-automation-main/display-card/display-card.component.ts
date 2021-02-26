@@ -72,7 +72,7 @@ export class DisplayCardComponent implements OnInit {
     switch (this._taskData.value.eventName) {
       case EventNames.WHEN.LEAD_FORM : {
         this.router.navigate(['/preview-leadform/6030a5803d3bbf7c9d07571c']);
-        this.automationService.updateEventType(EventType.WHEN_EDIT_LEAD_FORM);
+        this.automationService.updateEventType(EventType.WHEN);
         break;
       }
     }

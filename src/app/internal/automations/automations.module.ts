@@ -20,6 +20,7 @@ import { WhenSuggestionsComponent } from './build-automation/build-automation-ma
 import { AutomationHeaderComponent } from './build-automation/build-automation-main/automation-header/automation-header.component';
 import { ChooseLeadFormComponent } from './build-automation/build-automation-main/edit/when/choose-lead-form/choose-lead-form.component';
 import { ChooseAppointmentTypeComponent } from './build-automation/build-automation-main/edit/when/choose-appointment-type/choose-appointment-type.component';
+import { LoadingComponent } from './loading/loading.component';
 
 // import { AmazingTimePickerModule } from 'amazing-time-picker';
 
@@ -44,7 +45,7 @@ const routes: Routes = [
     declarations: [
         AutomationComponent, BuildAutomationComponent, AddBuildautomationComponent, BuildThenautomationsComponent,
         FreeConsulationComponent, ChooseTagComponent, FreeCosulationWhenComponent, BuildAutomationMainComponent, AutomationPreviewComponent
-        ,DisplayCardComponent, ThenSuggestionsComponent, WhenSuggestionsComponent, AutomationHeaderComponent, ChooseLeadFormComponent, ChooseAppointmentTypeComponent
+        ,DisplayCardComponent, ThenSuggestionsComponent, WhenSuggestionsComponent, AutomationHeaderComponent, ChooseLeadFormComponent, ChooseAppointmentTypeComponent, LoadingComponent
 
     ],
     imports: [
