@@ -137,6 +137,7 @@ export class HttpService {
         this.updateSFListSubject.next(data ? data : false);
     }
 
+    // Automations 
     updateAutomationsList(data: Automation[]) {
         this.automationsSubject.next(data);
     }
@@ -529,6 +530,10 @@ export class HttpService {
     }
 
     deleteWorkspace(url){
+        return this.http.delete<any>(this.apiEndpoint + url);
+    }
+
+    deleteAutomation(url){
         return this.http.delete<any>(this.apiEndpoint + url);
     }
 

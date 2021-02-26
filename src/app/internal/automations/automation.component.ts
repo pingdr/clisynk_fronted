@@ -39,15 +39,15 @@ export class AutomationComponent implements OnInit {
       .pipe(
         map((res: BackendResponse<Automation[]>) => res.data),
         finalize(() => this.loadingService.loadingOff())
-      ).subscribe(data => this.http.updateAutomationsList(data));
+      )
+      .subscribe(data => this.http.updateAutomationsList(data));
   }
 
   openRenameautomation(automation: Automation) {
     const modalRef = this.http.showModal(RenameAutomationComponent, 'sm custom-class-rename-automation', automation);
     modalRef.content.onClose = new Subject<boolean>();
-    modalRef.content.onClose.subscribe(() => {
-
-      this.loadAutomations()
+    modalRef.content.onClose.subscribe((res) => {
+      if (res) { this.loadAutomations(); }
       console.log("renamed");
     })
   }
@@ -56,8 +56,12 @@ export class AutomationComponent implements OnInit {
     this.http.showModal(SubmitfeedbackComponent);
   }
 
-  openDeleteautomation() {
-    this.http.showModal(DeleteAutomationComponent, 'xs');
+  openDeleteautomation(automation: Automation) {
+    const modalRef = this.http.showModal(DeleteAutomationComponent, 'xs', automation);
+    modalRef.content.onClose = new Subject<boolean>();
+    modalRef.content.onClose.subscribe((res) => {
+      if (res) { this.loadAutomations(); console.log("deleted");}
+    })
   }
 
   Previewautomation() {
