@@ -13,135 +13,53 @@
       
             <div class="left-menu-pannal-main">
                 <!-------------------first-menu-strips---------------->
-                <div class="comman-row-main">
-                        <div class="first-icon">
-                            <img src="../../../assets/images/flash.svg" width="20">
-                        </div>
-                        <div class="title-main" (click)="Previewautomation()">
-                            <div class="main-menu-title">My Automation</div>
-                            <div class="status-for-document">Draft</div>
-                        </div>
-                        <div class="right-menu-thing">
-                            <!-- <button mat-button [matMenuTriggerFor]="menu">
-                                <img src="../../../assets/images/menu-dots.svg" width="30">
-                            </button>
-                            <mat-menu #menu="matMenu">
-                                <button >Itdwem 1</button>
-                                <button mat-menu-item>Item 2</button>
-                            </mat-menu> -->
-                            <div class="dropdown global-add-button automation-main">
-                                <div class="btn-group add-btn" dropdown>
-                                    <button id="button-basic1" dropdownToggle type="button" class="btn dropdown-toggle "
-                                            aria-controls="dropdown-basic">
-                                            <img src="../../../assets/images/menu-dots.svg" width="30">
-                                    </button>
-                                    <ul id="dropdown-basic1" *dropdownMenu class="dropdown-menu" role="menu"
-                                        aria-labelledby="button-basic">
-            
-                                        <li role="menuitem">
-                                            <div class="edit-automation comman-list" (click)="openRenameautomation()">
-                                               <img src="../../../assets/images/edit-black.svg" width="20"> 
-                                               Edit    
-                                            </div>
-                                        </li>
-                                        <li role="menuitem">
-                                            <div class="delete-automation comman-list" (click)="openDeleteautomation()">
-                                               <img src="../../../assets/images/red-delete.svg" width="20"> 
-                                               Delete
-                                            </div>
-                                        </li>                                          
-                                    </ul>
-                                </div> 
+                <ng-container *ngFor="let automation of (http.automationsStatus$|async)">
+                    
+                    <div class="comman-row-main">
+                            <div class="first-icon">
+                                <img src="../../../assets/images/flash.svg" width="20">
                             </div>
-                            
-                        </div>
-                </div>
-                <!------------------- second-menu-strips------------------>
-                <div class="comman-row-main">
-                    <div class="first-icon">
-                        <img src="../../../assets/images/flash.svg" width="20">
-                    </div>
-                    <div class="title-main">
-                        <div class="main-menu-title">Ask new Customers for a review</div>
-                        <div class="status-for-document">Draft</div>
-                    </div>
-                    <div class="right-menu-thing">
-                        <!-- <button mat-button [matMenuTriggerFor]="menu">
-                            <img src="../../../assets/images/menu-dots.svg" width="30">
-                        </button>
-                        <mat-menu #menu="matMenu">
-                            <button mat-menu-item>Item 1</button>
-                            <button mat-menu-item>Item 2</button>
-                        </mat-menu> -->
-                        <div class="dropdown global-add-button automation-main">
-                            <div class="btn-group add-btn" dropdown>
-                                <button id="button-basic1" dropdownToggle type="button" class="btn dropdown-toggle "
-                                        aria-controls="dropdown-basic">
-                                        <img src="../../../assets/images/menu-dots.svg" width="30">
+                            <div class="title-main" (click)="Previewautomation()">
+                                <div class="main-menu-title">{{ automation.automationName}}</div>
+                                <div class="status-for-document">Draft</div>
+                            </div>
+                            <div class="right-menu-thing">
+                                <!-- <button mat-button [matMenuTriggerFor]="menu">
+                                    <img src="../../../assets/images/menu-dots.svg" width="30">
                                 </button>
-                                <ul id="dropdown-basic1" *dropdownMenu class="dropdown-menu" role="menu"
-                                    aria-labelledby="button-basic">
-        
-                                    <li role="menuitem">
-                                        <div class="edit-automation comman-list">
-                                           <img src="../../../assets/images/edit-black.svg" width="20"> 
-                                           Edit    
-                                        </div>
-                                    </li>
-                                    <li role="menuitem">
-                                        <div class="delete-automation comman-list">
-                                           <img src="../../../assets/images/red-delete.svg" width="20"> 
-                                           Delete
-                                        </div>
-                                    </li>                                          
-                                </ul>
-                            </div> 
-                        </div>
+                                <mat-menu #menu="matMenu">
+                                    <button >Itdwem 1</button>
+                                    <button mat-menu-item>Item 2</button>
+                                </mat-menu> -->
+                                <div class="dropdown global-add-button automation-main">
+                                    <div class="btn-group add-btn" dropdown>
+                                        <button id="button-basic1" dropdownToggle type="button" class="btn dropdown-toggle "
+                                                aria-controls="dropdown-basic">
+                                                <img src="../../../assets/images/menu-dots.svg" width="30">
+                                        </button>
+                                        <ul id="dropdown-basic1" *dropdownMenu class="dropdown-menu" role="menu"
+                                            aria-labelledby="button-basic">
+                
+                                            <li role="menuitem">
+                                                <div class="edit-automation comman-list" (click)="openRenameautomation(automation)">
+                                                   <img src="../../../assets/images/edit-black.svg" width="20"> 
+                                                   Edit    
+                                                </div>
+                                            </li>
+                                            <li role="menuitem">
+                                                <div class="delete-automation comman-list" (click)="openDeleteautomation(automation)">
+                                                   <img src="../../../assets/images/red-delete.svg" width="20"> 
+                                                   Delete
+                                                </div>
+                                            </li>                                          
+                                        </ul>
+                                    </div> 
+                                </div>
+                                
+                            </div>
                     </div>
-                </div>
-                <!-------------------third-menu-strips---------------->
-                <div class="comman-row-main">
-                    <div class="first-icon">
-                        <img src="../../../assets/images/flash.svg" width="20">
-                    </div>
-                    <div class="title-main">
-                        <div class="main-menu-title">Free consultation</div>
-                        <div class="status-for-document">Draft</div>
-                    </div>
-                    <div class="right-menu-thing">
-                        <!-- <button mat-button [matMenuTriggerFor]="menu">
-                            <img src="../../../assets/images/menu-dots.svg" width="30">
-                        </button>
-                        <mat-menu #menu="matMenu">
-                            <button mat-menu-item>Item 1</button>
-                            <button mat-menu-item>Item 2</button>
-                        </mat-menu> -->
-                        <div class="dropdown global-add-button automation-main">
-                            <div class="btn-group add-btn" dropdown>
-                                <button id="button-basic1" dropdownToggle type="button" class="btn dropdown-toggle "
-                                        aria-controls="dropdown-basic">
-                                        <img src="../../../assets/images/menu-dots.svg" width="30">
-                                </button>
-                                <ul id="dropdown-basic1" *dropdownMenu class="dropdown-menu" role="menu"
-                                    aria-labelledby="button-basic">
-        
-                                    <li role="menuitem">
-                                        <div class="edit-automation comman-list">
-                                           <img src="../../../assets/images/edit-black.svg" width="20"> 
-                                           Edit    
-                                        </div>
-                                    </li>
-                                    <li role="menuitem">
-                                        <div class="delete-automation comman-list">
-                                           <img src="../../../assets/images/red-delete.svg" width="20"> 
-                                           Delete
-                                        </div>
-                                    </li>                                          
-                                </ul>
-                            </div> 
-                        </div>
-                    </div>
-                </div>
+                </ng-container>
+                <app-loading [length]="3"></app-loading>
             </div>
     </div>
     <ng-container *ngIf="rightdefault==false else other_content">

@@ -1,3 +1,5 @@
+import { LoadingService } from './loading.service';
+import { Observable, Subject } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from 'src/app/services/http.service';
 import { SubmitfeedbackComponent } from 'src/app/shared/modals/submitfeedback/submitfeedback.component';
@@ -6,6 +8,8 @@ import { DeleteAutomationComponent } from 'src/app/shared/modals/delete-automati
 import { AutomationParams } from './models/params';
 import { Automation } from './models/automation';
 import { BackendResponse } from './models/backend-response';
+import { User } from 'src/app/models/user';
+import { map, finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-automation',
@@ -19,34 +23,50 @@ export class AutomationComponent implements OnInit {
 
   rightdefault = false;
 
-  constructor(public http:HttpService) { 
-    this.automationParams.workspaceId = '6002783fded689592434f04a';
-    this.http.getData(this.listAutomationsUrl, this.automationParams).subscribe((res: BackendResponse<Automation[]>) => {
-      console.log(res.data);
-    });
+  constructor(public http: HttpService, public loadingService: LoadingService) {
+    this.loadAutomations();
   }
 
   ngOnInit() {
   }
-  openSubmitfeedback() {
-    this.http.showModal(SubmitfeedbackComponent);
+
+  loadAutomations() {
+    let user: User = JSON.parse(localStorage.getItem("loginData"));
+    this.automationParams.workspaceId = user.activeWorkspaceId;
+    this.loadingService.loadingOn();
+    this.http.updateAutomationsList([]);
+    this.http.getData(this.listAutomationsUrl, this.automationParams)
+      .pipe(
+        map((res: BackendResponse<Automation[]>) => res.data),
+        finalize(() => this.loadingService.loadingOff())
+      ).subscribe(data => this.http.updateAutomationsList(data));
   }
 
-  openRenameautomation() {
-    this.http.showModal(RenameAutomationComponent, 'sm custom-class-rename-automation');
+  openRenameautomation(automation: Automation) {
+    const modalRef = this.http.showModal(RenameAutomationComponent, 'sm custom-class-rename-automation', automation);
+    modalRef.content.onClose = new Subject<boolean>();
+    modalRef.content.onClose.subscribe(() => {
+
+      this.loadAutomations()
+      console.log("renamed");
+    })
+  }
+
+  openSubmitfeedback() {
+    this.http.showModal(SubmitfeedbackComponent);
   }
 
   openDeleteautomation() {
     this.http.showModal(DeleteAutomationComponent, 'xs');
   }
 
-  Previewautomation(){
+  Previewautomation() {
     this.rightdefault = true;
   }
 
-  Closepreview(){
+  Closepreview() {
     this.rightdefault = false;
   }
-  
+
 
 }

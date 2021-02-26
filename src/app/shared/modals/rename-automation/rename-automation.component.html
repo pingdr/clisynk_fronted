@@ -12,14 +12,19 @@
         <div class="text-area-main rename-field-main">
             <mat-form-field class="full-width" appearance="outline">
                 <mat-label class="required">Name</mat-label>
-                <input matInput type="text" placeholder="Name">
+                <input [formControl]="automationName" matInput type="text" placeholder="Name">
+                <mat-error *ngIf="automationName.hasError('required')">
+                    Please specify automation name.
+                </mat-error>
             </mat-form-field>
         </div>
         <div class="last-button-row">
-            <button class="icon-only submit-btn" type="button" >
+            <button class="icon-only submit-btn" type="button" (click)="updateAutomation()">
+                <i class="fa mr-2" *ngIf="loader" [ngClass]="{'fa-spin fa-spinner': loader}"></i>
                 Update
             </button>
-            <button class="icon-only cancel-btn" type="button" aria-label="Close" (click)="http.hideModal()">
+            <button class="icon-only cancel-btn" type="button" aria-label="Close" (click)="http.hideModal(); onClose.next(true)">
+                
                 Cancel
             </button>
         </div>

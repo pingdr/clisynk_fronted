@@ -1,3 +1,4 @@
+import { Automation } from './../internal/automations/models/automation';
 import {EventEmitter, Inject, Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {HttpClient, HttpParams} from '@angular/common/http';
@@ -52,8 +53,13 @@ export class HttpService {
 
     private workspaceSubject = new BehaviorSubject<any>(null);
     public workspace = this.workspaceSubject.asObservable();
+
     private documentUpdatedSubject = new BehaviorSubject<any>(null);
     public documentUpdatedStatus = this.documentUpdatedSubject.asObservable();
+
+    private automationsSubject = new BehaviorSubject<Automation[]>(null);
+    public automationsStatus$ = this.automationsSubject.asObservable();
+
 
     public heading: string;
     domain: string;
@@ -129,6 +135,10 @@ export class HttpService {
 
     updateSmartFormList(data?){
         this.updateSFListSubject.next(data ? data : false);
+    }
+
+    updateAutomationsList(data: Automation[]) {
+        this.automationsSubject.next(data);
     }
 
     openModal(name, data?) {
@@ -565,6 +575,30 @@ export class HttpService {
     postMoveFolder(apiUrl?, obj?){
         return this.http.post<any>(this.apiEndpoint + apiUrl, obj);
     }
+
+    postAutomation(url, obj, isLoading?: boolean) {
+        // const formData = this.jsonToFormData(obj);
+        return this.http.post<any>(this.apiEndpoint + url, obj, {reportProgress: isLoading});
+    }
+
+    public jsonToFormData(object) {
+        const formData = new FormData();
+        Object.keys(object).forEach(key => {
+          if(object[key] instanceof Object ){
+            if(object[key] instanceof File) {
+              console.log(typeof object[key], key, object[key])
+              formData.append(key,object[key]);
+            }else {
+              console.log(typeof object[key], key, object[key])
+              formData.append(key, JSON.stringify(object[key]));
+            }
+          }else {
+            console.log(typeof object[key], key, object[key])
+            formData.append(key,object[key]);
+          }
+        });
+        return formData;
+      }
 
 }
 

@@ -9,6 +9,8 @@ export interface Automation {
     createdAt: string;
     updatedAt: string;
     __v: number;
+    automationName: string;
+    deletedBy?: string;
   }
   
 export interface WhenEvent {
