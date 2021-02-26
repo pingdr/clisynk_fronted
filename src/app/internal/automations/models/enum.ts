@@ -3,7 +3,10 @@ export enum THEN_INTERNAL_EVENTS {
     on_add_then_event_clicked = 'SHOW_SUGGESIONS'
 }
 
-
+export enum FormType {
+    LEAD_FORM  = 'lead-form',
+    SMART_FORM  = 'smart-form'
+}
 export const EventNames = {
     WHEN : {
         LEAD_FORM : 'leadForm',

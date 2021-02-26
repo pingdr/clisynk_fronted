@@ -4,7 +4,7 @@
         <!-- ---------------upper-dropdown-main -->
         <div class="btn-group add-btn start-automation-dropdown" dropdown>
             <button id="button-basic1" dropdownToggle type="button" class="btn dropdown-toggle " aria-controls="dropdown-basic">
-                {{ selectedEvent ? selectedEvent : 'What starts your automation?' }}
+                {{ selectedEvent ? selectedEvent.eventDescription : 'What starts your automation?' }}
                 <i class="fas fa-angle-down"></i>
             </button>
             <ul id="dropdown-basic1" *dropdownMenu class="dropdown-menu" role="menu"

@@ -11,6 +11,7 @@ import { SmartFormCreateComponent } from 'src/app/shared/modals/smart-form-creat
 import { Sort } from '@angular/material/sort';
 import { format } from 'date-fns'
 import { finalize, map, tap, filter } from 'rxjs/operators';
+import { FormType } from 'src/app/internal/automations/models/enum';
 
 
 @Component({
@@ -40,8 +41,6 @@ export class ChooseLeadFormComponent implements OnInit {
     const data = await forkJoin([this.getLeadForm(), this.getSmartFormList()])
       .pipe(finalize(() => this.loadingService.loadingOff())).toPromise();
     console.log(data)
-    console.log(this.leadForm);
-    console.log(this.smartForms)
   }
 
   getSmartFormList() {
@@ -68,7 +67,7 @@ export class ChooseLeadFormComponent implements OnInit {
     whenEvent.patchValue({
       eventData :{
         dataId : form._id,
-        params : { name: form.name}
+        params : { name: form.name, formTag: FormType.SMART_FORM}
       }
     })
     this.automationService.updateWhenEvent(whenEvent);
@@ -79,7 +78,6 @@ export class ChooseLeadFormComponent implements OnInit {
     const modalRef = this.http.showModal(SmartFormCreateComponent, 'custom-class-for-create-smart-form', data);
     modalRef.content.onClose = new Subject<boolean>();
     modalRef.content.onClose.subscribe(() => {
-      // this.getSmartFormList();
       this.loadData();
     })
   }

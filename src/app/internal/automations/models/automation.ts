@@ -2,7 +2,7 @@
 export interface Automation {
     isDeleted: boolean;
     _id: string;
-    whenEvent: string;
+    whenEvent: WhenEvent;
     thenEvents: ThenEvent[];
     addedBy: string;
     workspaceId: string;
@@ -11,7 +11,12 @@ export interface Automation {
     __v: number;
   }
   
-  interface ThenEvent {
+export interface WhenEvent {
+    eventName: string;
+    eventData: EventData;
+  }
+  
+export interface ThenEvent {
     eventData: EventData;
     delayedOptions: DelayedOptions;
     isDelayed: boolean;
@@ -19,24 +24,28 @@ export interface Automation {
     event: string;
   }
   
-  interface DelayedOptions {
+export interface DelayedOptions {
     dayInterval: DayInterval;
     timeInterval: TimeInterval;
     delayType: string;
   }
   
-  interface TimeInterval {
+export interface TimeInterval {
     value: any[];
     intervalType: string;
   }
   
-  interface DayInterval {
+export interface DayInterval {
     intervalType: string;
     value: string;
   }
   
-  interface EventData {
+export interface EventData {
     dataId: string;
+    params: {
+      formTag?: string,
+      name?: string
+    }
   }
 
 export interface WhenThenEvent {

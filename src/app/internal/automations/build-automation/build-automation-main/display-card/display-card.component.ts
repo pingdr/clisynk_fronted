@@ -1,4 +1,5 @@
-import { EventNames } from './../../../models/enum';
+import { WhenEvent } from './../../../models/automation';
+import { EventNames, FormType } from './../../../models/enum';
 import { LeadFormDeletedComponent } from 'src/app/shared/modals/lead-form-deleted/lead-form-deleted.component';
 import { HttpService } from 'src/app/services/http.service';
 import { FormGroup } from '@angular/forms';
@@ -71,11 +72,20 @@ export class DisplayCardComponent implements OnInit {
   goToYourForm() {
     switch (this._taskData.value.eventName) {
       case EventNames.WHEN.LEAD_FORM : {
-        this.router.navigate(['/preview-leadform/6030a5803d3bbf7c9d07571c']);
-        this.automationService.updateEventType(EventType.WHEN);
+        this.goToLeadFormPreview();
         break;
       }
     }
+  }
+
+  goToLeadFormPreview() {
+    const whenEvent: WhenEvent = this.automationService.getWhenEvent().value;
+    if (whenEvent.eventData.params.formTag == FormType.LEAD_FORM) {
+      this.router.navigate([]).then(result => { window.open(`/preview-leadform/${whenEvent.eventData.dataId}`)})
+    } else if (whenEvent.eventData.params.formTag == FormType.SMART_FORM) {
+      this.router.navigate([]).then(result => { window.open(`/preview-smartform/${whenEvent.eventData.dataId}`)})
+    }
+    this.automationService.updateEventType(EventType.WHEN);
   }
 
   onDeleteTask() {
