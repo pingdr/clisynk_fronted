@@ -36,7 +36,7 @@
                     <th class="actions-table">Actions</th>
                 </tr>
             </thead>
-            <tbody *ngIf="!loader">
+            <tbody *ngIf="!(loader)">
                 <tr *ngFor="let f of sortedData| filter:searchText; let i=index">
                     <td class="form-name" (click)="onUpdate(f)">
                         {{ f.name }}
