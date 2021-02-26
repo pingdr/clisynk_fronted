@@ -56,24 +56,11 @@ export class AddContactComponent implements OnInit {
                 }
             }else {
                 console.log("none all zero");
-                return {
-                    allZeroError: false
-                }
+                return null;
             }
         
     }
     
-  validateMobileNo(controller: AbstractControl): { [key: string]: any } {        
-    console.log(controller.value);
-    if (isNaN(controller.value) || new String(controller.value).length >10) {
-      console.log("Inside If Block");
-      return {
-        mobileNoInvalide: true
-      };
-    }
-    console.log("Returning null");
-    return null;
-  }
 
     fillValues() {
         if (this.modalData.firstName) {
