@@ -222,15 +222,16 @@ export class ChatsComponent implements OnInit {
           this.videoFlag = true;
           this.videoManage = true;
           this.outgoingFlag = false;
+          // this.videoCall();
         }
         else {
           // this.outgoingData = data;
           this.outgoingFlag = true;
-          this.callerName = this.selectedChat.temp.name;
+          // this.callerName = this.selectedChat.temp.name;
           this.videoFlag = false;
           this.outgoingVoiceFlag = false;
           this.videoCall();
-          this.twilioService.startLocalVideo();
+          // this.twilioService.startLocalVideo();
         }
       }
       if (data.type == "rejected" || data.type == "ended") {
@@ -238,16 +239,18 @@ export class ChatsComponent implements OnInit {
         this.videoFlag = false;
         this.outgoingFlag = false;
         this.twilioService.removeTrack();
+        $('#local').empty();
+        $('#remote').empty();
       }
       if (data.type == "accepted") {
         console.log('---accepted');
         if (this.videoFlag) {
         } else {
+          // this.videoCall();
           this.videoManage = true;
           this.videoFlag = false;
           if (this.outgoingFlag) {
             // if(this.room)
-            // this.videoCall();
             // this.twilioService.startLocalVideo();
           }
           this.outgoingFlag = true;
@@ -336,9 +339,9 @@ export class ChatsComponent implements OnInit {
       room: this.room,
       callId: this.callId
     });
+    this.videoFlag = false;
     this.outgoingFlag = true;
     this.videoManage = true;
-    this.videoFlag = false;
     this.twilioService.startLocalVideo();
     this.videoCall();
   }
@@ -403,8 +406,8 @@ export class ChatsComponent implements OnInit {
     this.outgoingFlag = false;
     this.twilioService.removeTrack();
     this.twilioService.detachParticipantTracks();
-    $('#local').remove();
-    $('#remote').remove();
+    $('#local').empty();
+    $('#remote').empty();
   }
 
   deleteVoiceCall() {
@@ -424,6 +427,8 @@ export class ChatsComponent implements OnInit {
   }
 
   videoCall() {
+    console.log('----------Video Call Function -----------');
+    
     this.twilioService.connectToRoom(this.videoCallToken, { name: this.room, video: true })
   }
 

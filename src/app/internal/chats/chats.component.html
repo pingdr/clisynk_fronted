@@ -2018,7 +2018,7 @@
             <!-- incoming video call -->
             <div *ngIf="videoFlag" id="video-section" class="video-section-main">
                 <div class="inner-video-call">
-                    <div class="header-name">{{callerName.substr(0, 1)}}</div>
+                    <div class="header-name">{{callerName?.substr(0, 1)}}</div>
                     <div class="caller-id">{{callerName}}</div>
                     <div class="status">Incomming Call..</div>
                     <div class="footer-call">

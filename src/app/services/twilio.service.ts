@@ -28,15 +28,23 @@ export class TwilioService {
         console.log('participent..............', participant)
         this.attachParticipantTracks(participant);
       });
-      
+
       // when participent disconnect
       room.on('participantDisconnected', (participant) => {
         this.removeTrack();
       });
-      
+
       // this.attachParticipantTracks(room.localParticipant)
       // when participent connect
       room.on('participantConnected', participant => {
+        console.log('------participantConnected --------', participant);
+        let prFlag = false;
+        this.roomParticipants.forEach((pr) => {
+          if (pr.sid === participant.sid) {
+            prFlag = true;
+          }
+        })
+        if(!prFlag)
         this.attachParticipantTracks(participant);
       });
 
@@ -72,8 +80,8 @@ export class TwilioService {
   attachParticipantTracks(participant): void {
     participant.tracks.forEach(part => {
       console.log(part, '.....----');
-      if(part.kind !== 'data')
-      this.trackPublished(part);
+      if (part.kind !== 'data')
+        this.trackPublished(part);
     });
   }
 
