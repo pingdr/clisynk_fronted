@@ -185,4 +185,41 @@
     font-size: 12px;
     border-radius: 20px;
   }
-  
+  .button-send-invite button {
+    display: flex;
+    align-items: center;
+    color: #0040db !important;
+    background: transparent !important;
+    padding: 10px 15px;
+    border-radius: 6px;
+    border: none;
+    font-size: 14px;
+}
+
+.button-send-invite button svg {
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+}
+
+.button-send-invite button svg {
+    height: var(--icon-size, 1.1rem);
+    width: var(--icon-size, 1.1rem);
+    min-height: var(--icon-size, 1.1rem);
+    min-width: var(--icon-size, 1.1rem);
+    margin-right: 5px;
+    fill: #0440db;
+}
+
+
+.button-send-invite button:hover {
+  background-color: rgba(0, 64, 219, 0.1) !important;
+  color: #0040db !important;
+}
+
+.links {
+  color: #0444d9 !important;
+}
+a.links:hover {
+  text-decoration: underline;
+}

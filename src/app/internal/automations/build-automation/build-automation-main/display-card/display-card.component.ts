@@ -18,7 +18,7 @@ export class DisplayCardComponent implements OnInit {
 
   statusImages = Images;
   random: string;
-  // EventType = EventType;
+  EventType = EventType;
 
   eventType: string;
 

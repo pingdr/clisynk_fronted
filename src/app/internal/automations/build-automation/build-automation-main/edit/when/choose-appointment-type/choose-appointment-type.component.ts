@@ -10,9 +10,12 @@ import { forkJoin, Subject } from 'rxjs';
 import { EventType } from 'src/app/internal/automations/automation-constants';
 import { FormType } from 'src/app/internal/automations/models/enum';
 import { SmartFormCreateComponent } from 'src/app/shared/modals/smart-form-create/smart-form-create.component';
-import { map, tap } from 'lodash';
-import { finalize } from 'rxjs/operators';
+import { finalize, map, tap } from 'rxjs/operators';
 import { BackendResponse } from 'src/app/internal/automations/models/backend-response';
+import { ApiUrl } from 'src/app/services/apiUrls';
+import { Appointment } from 'src/app/models/appointment';
+import { AppointmentService } from 'src/app/internal/appointments/appointment.service';
+import { AddAppointmentComponent } from 'src/app/shared/modals/add-appointment/add-appointment.component';
 
 @Component({
   selector: 'app-choose-appointment-type',
@@ -21,36 +24,38 @@ import { BackendResponse } from 'src/app/internal/automations/models/backend-res
 })
 export class ChooseAppointmentTypeComponent implements OnInit {
 
-  smartForms: SmartForm[];
-  leadForm: SmartForm;
-  sortedData: SmartForm[];
+  appointments: Appointment[];
+  leadForm: Appointment;
+  sortedData: Appointment[];
   searchText = '';
   constructor(public http: HttpService, 
     public automationService: AutomationService,
+    public appoint: AppointmentService,
     public loadingService: LoadingService) { }
 
   async ngOnInit() {
+    await this.loadData();
     console.log("data loaded");
-
+    // this.getAppointmentTypes();
   }
 
   async loadData() {
     this.loadingService.loadingOn()
-    const data = await forkJoin([this.getLeadForm(), this.getSmartFormList()])
+    const data = await forkJoin([this.getAppointmentTypes()])
       .pipe(finalize(() => this.loadingService.loadingOff())).toPromise();
     console.log(data)
   }
 
-  getSmartFormList() {
-    // return this.http.getSmartForm()
-    //   .pipe(
-    //     map((res: BackendResponse<SmartForm[]>) => res.data),
-    //     map(smartForms => smartForms.filter(smartForm => smartForm.status == 'PUBLISHED')),
-    //     tap(x => {
-    //       this.smartForms = x;
-    //       this.sortedData = this.smartForms.slice();
-    //     })
-    //   )
+  getAppointmentTypes() {
+    return this.http.getData(ApiUrl.APPOINTMENT_LIST_TYPES, {})
+        .pipe(
+          map((res: BackendResponse<Appointment[]>) => res.data),
+          tap(x => {
+            this.appointments = x;
+            this.sortedData = x;
+          })
+        );
+      
   }
   getLeadForm() {
     // return this.http.getLeadForm()
@@ -60,20 +65,20 @@ export class ChooseAppointmentTypeComponent implements OnInit {
     //   )
   }
   
-  onSelectForm(form: SmartForm) {
+  onSelectForm(form: Appointment) {
     const whenEvent: FormGroup = this.automationService.getWhenEvent()
     whenEvent.patchValue({
       eventData :{
         dataId : form._id,
-        params : { name: form.name, formTag: FormType.SMART_FORM}
+        params : { name: form.name}
       }
     })
     this.automationService.updateWhenEvent(whenEvent);
     this.automationService.updateEventType(EventType.WHEN);
   }
 
-  openCreateSmartForm(data?: any) {
-    const modalRef = this.http.showModal(SmartFormCreateComponent, 'custom-class-for-create-smart-form', data);
+  openAddAppointment(data?: any) {
+    const modalRef = this.http.showModal(AddAppointmentComponent, 'custom-class-for-create-smart-form', data);
     modalRef.content.onClose = new Subject<boolean>();
     modalRef.content.onClose.subscribe(() => {
       this.loadData();
@@ -81,7 +86,7 @@ export class ChooseAppointmentTypeComponent implements OnInit {
   }
 
   sortData(sort: Sort) {
-    const data = this.smartForms.slice();
+    const data = this.appointments.slice();
     if (!sort.active || sort.direction === '') {
       this.sortedData = data;
       return;
@@ -92,7 +97,7 @@ export class ChooseAppointmentTypeComponent implements OnInit {
       switch (sort.active) {
         case 'name': return this.compare(a.name.toLowerCase(), b.name.toLowerCase(), isAsc);
         case 'addedOn': return this.compare(format(new Date(a.createdAt), 't'), format(new Date(b.createdAt), 't'), isAsc);
-        case 'status': return this.compare(a.status, b.status, isAsc);
+        // case 'status': return this.compare(a.status, b.status, isAsc);
         default: return 0;
       }
     });

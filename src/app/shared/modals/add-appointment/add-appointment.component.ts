@@ -1,3 +1,4 @@
+import { Subject } from 'rxjs';
 import {Component, ViewChild} from '@angular/core';
 import {TableModel} from '../../models/table.common.model';
 import {HttpService} from '../../../services/http.service';
@@ -19,6 +20,7 @@ export class AddAppointmentComponent {
     myModel: any;
     modalData: any;
     selectedStep = 1;
+    onClose: Subject<boolean>;
 
     constructor(public http: HttpService) {
         this.myModel = new TableModel();
@@ -92,6 +94,8 @@ export class AddAppointmentComponent {
                 break;
             case 4:
                 this.http.hideModal();
+                this.onClose.next(true);
+                break;
         }
         this.http.eventSubject.next({eventType: 'addAppointType', data: obj});
     }
