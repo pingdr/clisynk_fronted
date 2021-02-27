@@ -1,3 +1,4 @@
+import { ApiUrl } from 'src/app/services/apiUrls';
 import { LoadingService } from './loading.service';
 import { Observable, Subject } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
@@ -18,7 +19,6 @@ import { map, finalize } from 'rxjs/operators';
 })
 export class AutomationComponent implements OnInit {
 
-  private get listAutomationsUrl() { return "automation/get-automations" }
   automationParams = new AutomationParams();
 
   rightdefault = false;
@@ -35,7 +35,7 @@ export class AutomationComponent implements OnInit {
     this.automationParams.workspaceId = user.activeWorkspaceId;
     this.loadingService.loadingOn();
     this.http.updateAutomationsList([]);
-    this.http.getData(this.listAutomationsUrl, this.automationParams)
+    this.http.getData(ApiUrl.GET_AUTOMATIONS, this.automationParams)
       .pipe(
         map((res: BackendResponse<Automation[]>) => res.data),
         finalize(() => this.loadingService.loadingOff())

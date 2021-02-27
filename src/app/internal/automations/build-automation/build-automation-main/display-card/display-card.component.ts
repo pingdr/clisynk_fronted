@@ -66,6 +66,11 @@ export class DisplayCardComponent implements OnInit {
         this.automationService.updateEventType(EventType.WHEN_EDIT_LEAD_FORM);
         break;
       }
+      case EventNames.WHEN.APPOINTMENT_SCHEDULED : {
+        // list down the component lead form component.
+        this.automationService.updateEventType(EventType.WHEN_EDIT_APPOINTMENT_SCHEDULED);
+        break;
+      }
     }
   }
 

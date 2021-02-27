@@ -65,6 +65,10 @@ export class WhenSuggestionsComponent implements OnInit {
         this.loadDefaultLeadform(whenForm);
         break;
       }
+      case EventNames.WHEN.APPOINTMENT_SCHEDULED: {
+        // this.automationService.updateEventType()
+        break;
+      }
     }
 
     this.automationService.updateWhenEvent(whenForm);

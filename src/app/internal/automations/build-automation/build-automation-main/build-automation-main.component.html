@@ -74,6 +74,10 @@
                 <app-choose-lead-form></app-choose-lead-form>
             </ng-container>
 
+            <ng-container *ngSwitchCase="EventType.WHEN_EDIT_APPOINTMENT_SCHEDULED">
+                <app-choose-appointment-type></app-choose-appointment-type>
+            </ng-container>
+
         </ng-container>
     </div>
 

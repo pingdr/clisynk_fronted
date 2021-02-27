@@ -1,3 +1,4 @@
+import { ApiUrl } from 'src/app/services/apiUrls';
 import { finalize } from 'rxjs/operators';
 import { Automation } from './../../../internal/automations/models/automation';
 import { Component, OnInit } from '@angular/core';
@@ -12,7 +13,6 @@ import { Subject } from 'rxjs';
 })
 export class RenameAutomationComponent implements OnInit {
 
-  postAutomationUrl = "automation/add-automation-event";
   modalData: Automation;
   public onClose: Subject<boolean>;
   loader: boolean = false;
@@ -45,7 +45,7 @@ export class RenameAutomationComponent implements OnInit {
 
 
     this.loader = true;
-    this.http.postAutomation(this.postAutomationUrl, obj)
+    this.http.postAutomation(ApiUrl.ADD_AUTOMATION, obj)
       .pipe(finalize(() => { this.loader = false; }))
       .subscribe(res => {
         console.log(res);
