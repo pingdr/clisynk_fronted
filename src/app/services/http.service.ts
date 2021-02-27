@@ -282,6 +282,12 @@ export class HttpService {
         return this.http.post<any>(this.apiEndpoint + url, formData, { reportProgress: isLoading });
     }
 
+    uploadMultipleImages(url:string, files: File[], isLoading) {
+        const formData = new FormData();
+        files.forEach((file,index) => formData.append(`image`, file));
+        return this.http.post<any>(this.apiEndpoint + url, formData, { reportProgress: isLoading });
+    }
+
     uploadFile(url, file, isLoading?: boolean) {
         const formData = new FormData();
         formData.append('file', file);
