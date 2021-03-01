@@ -3,7 +3,7 @@ import { AutomationService } from './../../automation.service';
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { HttpService } from 'src/app/services/http.service';
-import { AutomationEvents, EventType } from '../../automation-constants';
+import { EventType } from '../../automation-constants';
 import { Observable } from 'rxjs';
 import { THEN_INTERNAL_EVENTS } from '../../models/enum';
 declare var $: any;

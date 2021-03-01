@@ -14,7 +14,15 @@
                 <div class="inner-first-row-main">
                     <div class="inner-left-col"> 
                         <label class="form-name-heading">{{_taskData?.value?.eventData?.params?.name}}</label>
-                        <span class="who-is-owner">Langermania</span>
+                        <span class="who-is-owner">
+                            <ng-container [ngSwitch]="(_taskData?.value)?.eventName">
+                                <ng-container *ngSwitchCase="EventNames.WHEN.LEAD_FORM"></ng-container>
+                                <ng-container *ngSwitchCase="EventNames.WHEN.APPOINTMENT_SCHEDULED">
+                                    {{ _taskData?.value?.eventData?.dataId ? '':"Any Appointment is scheduled."}}
+                                  </ng-container>
+                                <ng-container *ngSwitchDefault>{{_taskData?.value?.eventDescription}}</ng-container>
+                            </ng-container>
+                        </span>
                     </div>
                     <div class="inner-right-col">
                         <a class="btn-combo" >
@@ -27,7 +35,15 @@
                 </div>
                 <div class="go-to-your-form">
                     <div class="left-inner-col-footer">
-                        <button class="btn" (click)="goToYourForm()" >Go to your form <img [src]="statusImages.exportBlueIcon"width="35"> </button>
+                        <ng-container [ngSwitch]="_taskData?.value?.eventName">
+                            <ng-container *ngSwitchCase="EventNames.WHEN.LEAD_FORM">
+                                <button class="btn" (click)="goToYourForm()" >Go to your form <img [src]="statusImages.exportBlueIcon"width="35"> </button>
+                            </ng-container>
+                            <ng-container *ngSwitchCase="EventNames.WHEN.APPOINTMENT_SCHEDULED"></ng-container>
+                            <ng-container *ngSwitchDefault>
+                                
+                            </ng-container>
+                        </ng-container>
                     </div>
                     <div class="right-inner-col-footer">
                         <button class="btn" routerLink="/automation/build-automation">Done</button>

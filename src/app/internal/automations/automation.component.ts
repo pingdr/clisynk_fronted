@@ -32,7 +32,7 @@ export class AutomationComponent implements OnInit {
         this.loadAutomations();
         console.log('reloaded')
         reloadSub.unsubscribe();
-        this.automationService.reloadAutomations(false);
+        this.automationService.reloadAutomationsList(false);
       } else { /*do nothing */}
     });
   }

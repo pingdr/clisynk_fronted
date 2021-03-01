@@ -62,6 +62,13 @@ export class AutomationService {
     return this.whenEventSubject.getValue();
   }
 
+  // Resest 
+  resetState() {
+    this.updateThenTasksList(null);
+    this.updateWhenEvent(null);
+    this.updateEventType(EventType.WHEN);
+  }
+
   isNullOrEmpty(value) {
     if(value == undefined || value == '' || value == null){
       return true;
@@ -70,7 +77,7 @@ export class AutomationService {
     }
   }
 
-  reloadAutomations(reload: boolean) {
+  reloadAutomationsList(reload: boolean) {
     this.reloadAutomationsListSubject.next(reload);
   }
 
