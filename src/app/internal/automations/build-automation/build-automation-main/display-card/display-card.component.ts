@@ -10,6 +10,7 @@ import { UUID } from 'angular2-uuid';
 import { Subject } from 'rxjs';
 import { AutomationService } from '../../../automation.service';
 import { Router } from '@angular/router';
+import { NavigateToProductsComponent } from 'src/app/shared/modals/navigate-to-products/navigate-to-products.component';
 @Component({
   selector: 'app-display-card',
   templateUrl: './display-card.component.html',
@@ -79,6 +80,10 @@ export class DisplayCardComponent implements OnInit {
         this.automationService.updateEventType(EventType.WHEN_EDIT_TAG_ADDED);
         break;
       }
+      case EventNames.WHEN.PRODUCT_PURCHASED : {
+        this.automationService.updateEventType(EventType.WHEN_EDIT_PRODUCT_PURCHASED);
+        break;
+      }
     }
   }
 
@@ -90,6 +95,10 @@ export class DisplayCardComponent implements OnInit {
       }
       case EventNames.WHEN.TAG_ADDED : {
         this.goToManageTags();
+        break;
+      }
+      case EventNames.WHEN.PRODUCT_PURCHASED : {
+        this.goToManageProducts();
         break;
       }
     }
@@ -111,6 +120,16 @@ export class DisplayCardComponent implements OnInit {
     modalRef.content.onClose.subscribe((res) => {
       if (res) {
         this.router.navigate(["/contacts/tag-settings"]);
+      }
+    })
+  }
+
+  goToManageProducts() {
+    const modalRef = this.http.showModal(NavigateToProductsComponent, 'xs lead-form-popup-main manage-product-modal');
+    modalRef.content.onClose = new Subject<boolean>();
+    modalRef.content.onClose.subscribe((res) => {
+      if (res) {
+        this.router.navigate(["/settings/products"]);
       }
     })
   }

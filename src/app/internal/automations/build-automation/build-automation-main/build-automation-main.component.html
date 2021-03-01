@@ -86,6 +86,10 @@
                 <app-choose-tag></app-choose-tag>
             </ng-container>
 
+            <ng-container *ngSwitchCase="EventType.WHEN_EDIT_PRODUCT_PURCHASED">
+                <app-choose-product></app-choose-product>
+            </ng-container>
+
         </ng-container>
     </div>
 

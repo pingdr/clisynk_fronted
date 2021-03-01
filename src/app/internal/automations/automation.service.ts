@@ -37,7 +37,15 @@ export class AutomationService {
     this.eventSelectedSubject.next(event);
   }
 
+  getCurrentEventType() {
+    return this.eventSelectedSubject.getValue();
+  }
+
   // THEN Tasks List
+  getThenTasksList() {
+    return this.thenTasksSubject.getValue();
+  }
+
   updateThenTasksList(thenTasks) {
     this.thenTasksSubject.next(thenTasks);
   }

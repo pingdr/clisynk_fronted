@@ -25,9 +25,8 @@ import { AddTagComponent } from 'src/app/shared/modals/add-tag/add-tag.component
 })
 export class ChooseTagComponent implements OnInit {
 
-  tags: Tag[];
-  leadForm: Appointment;
-  sortedData: Tag[];
+  tags: Tag[] = [];
+  sortedData: Tag[] = [];
   searchText = '';
   constructor(public http: HttpService,
     public automationService: AutomationService,
@@ -42,6 +41,7 @@ export class ChooseTagComponent implements OnInit {
   }
 
   async loadData() {
+    this.sortedData.splice(0, this.sortedData.length);
     this.loadingService.loadingOn()
     const data = await forkJoin([this.getAppointmentTypes()])
       .pipe(finalize(() => this.loadingService.loadingOff())).toPromise();

@@ -1,3 +1,4 @@
+import { Subject } from 'rxjs';
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, Validators} from '@angular/forms';
 import {HttpService} from '../../../services/http.service';
@@ -13,6 +14,7 @@ export class AddProductComponent implements OnInit {
     form: FormGroup;
     myModel: any;
     modalData: any;
+    onClose: Subject<boolean>;
 
     constructor(public http: HttpService) {
         this.myModel = new TableModel();
@@ -68,6 +70,7 @@ export class AddProductComponent implements OnInit {
                     console.log(res.data, 'data');
                     this.http.hideModal();
                     this.myModel.loader = false;
+                    this.onClose.next(true);
                     this.http.openSnackBar(`Product ${this.modalData ? 'Updated' : 'Added'} Successfully`);
                     this.http.eventSubject.next({eventType: 'addProduct', data: res.data});
                 }, () => {

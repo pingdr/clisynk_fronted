@@ -48,7 +48,8 @@ export interface EventData {
     params: {
       formTag?: string,
       name?: string,
-      tagCategoryName?: string
+      tagCategoryName?: string,
+      price?: string
     }
   }
 
