@@ -20,6 +20,9 @@
                                 <ng-container *ngSwitchCase="EventNames.WHEN.APPOINTMENT_SCHEDULED">
                                     {{ _taskData?.value?.eventData?.dataId ? '':"Any Appointment is scheduled."}}
                                   </ng-container>
+                                <ng-container *ngSwitchCase="EventNames.WHEN.APPOINTMENT_CANCELED">
+                                    {{ _taskData?.value?.eventData?.dataId ? '':"Any Appointment is canceled."}}
+                                  </ng-container>
                                 <ng-container *ngSwitchDefault>{{_taskData?.value?.eventDescription}}</ng-container>
                             </ng-container>
                         </span>
@@ -40,6 +43,7 @@
                                 <button class="btn" (click)="goToYourForm()" >Go to your form <img [src]="statusImages.exportBlueIcon"width="35"> </button>
                             </ng-container>
                             <ng-container *ngSwitchCase="EventNames.WHEN.APPOINTMENT_SCHEDULED"></ng-container>
+                            <ng-container *ngSwitchCase="EventNames.WHEN.APPOINTMENT_CANCELED"></ng-container>
                             <ng-container *ngSwitchDefault>
                                 
                             </ng-container>

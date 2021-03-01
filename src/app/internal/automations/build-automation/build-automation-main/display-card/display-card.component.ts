@@ -63,13 +63,15 @@ export class DisplayCardComponent implements OnInit {
   onEditTask() {
     switch (this._taskData.value.eventName) {
       case EventNames.WHEN.LEAD_FORM : {
-        // list down the component lead form component.
         this.automationService.updateEventType(EventType.WHEN_EDIT_LEAD_FORM);
         break;
       }
       case EventNames.WHEN.APPOINTMENT_SCHEDULED : {
-        // list down the component lead form component.
         this.automationService.updateEventType(EventType.WHEN_EDIT_APPOINTMENT_SCHEDULED);
+        break;
+      }
+      case EventNames.WHEN.APPOINTMENT_CANCELED : {
+        this.automationService.updateEventType(EventType.WHEN_EDIT_APPOINTMENT_CANCELED);
         break;
       }
     }
