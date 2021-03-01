@@ -1,15 +1,15 @@
 <!-- -------first-drop-down------------- -->
 <div class="dropdown-main-for-auto">
     <div class="btn-group add-btn start-automation-dropdown add-then-automation-dropdown" dropdown>
-        <button id="button-basic1" dropdownToggle type="button" class="btn dropdown-toggle "
+        <button id="button-basic2" dropdownToggle type="button" class="btn dropdown-toggle "
             aria-controls="dropdown-basic">
             {{ selectedEvent ? selectedEvent : 'What will be automated ?' }} <i class="fas fa-angle-down"></i>
         </button>
-        <ul id="dropdown-basic1" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+        <ul id="dropdown-basic2" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
 
             <ng-container *ngFor="let item of listOfThenEvents">
                 <li role="menuitem">
-                    <a class="dropdown-item" (click)="onSelectEvent(item)">{{item}} </a>
+                    <a class="dropdown-item" (click)="onSelectEvent(item)">{{item?.eventDescription}} </a>
                 </li>
             </ng-container>
         </ul>
@@ -28,7 +28,7 @@
 <div class="select-option-four-grid-wrapper">
     <ng-container *ngFor="let item of listOfThenEvents">
         <div (click)="onSelectEvent(item)" class="inner-grid-col">
-            <span>{{item.eventDescription}}</span>
+            <span>{{item?.eventDescription}}</span>
             <img  src="../../../../assets/images/send-an-email-blue.svg" width="60">
         </div>    
     </ng-container>
