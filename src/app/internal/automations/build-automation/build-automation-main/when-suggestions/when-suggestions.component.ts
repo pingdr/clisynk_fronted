@@ -1,7 +1,7 @@
 import { EventNames, FormType } from './../../../models/enum';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { WhenThenEvent } from './../../../models/automation';
-import { BackendResponse } from './../../../models/backend-response';
+import { BackendResponse } from '../../../../../models/backend-response';
 import { AutomationParams } from './../../../models/params';
 import { AutomationService } from './../../../automation.service';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';

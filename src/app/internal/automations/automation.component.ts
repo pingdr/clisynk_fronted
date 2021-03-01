@@ -9,7 +9,7 @@ import { RenameAutomationComponent } from 'src/app/shared/modals/rename-automati
 import { DeleteAutomationComponent } from 'src/app/shared/modals/delete-automation/delete-automation.component';
 import { AutomationParams } from './models/params';
 import { Automation } from './models/automation';
-import { BackendResponse } from './models/backend-response';
+import { BackendResponse } from '../../models/backend-response';
 import { User } from 'src/app/models/user';
 import { map, finalize, shareReplay } from 'rxjs/operators';
 

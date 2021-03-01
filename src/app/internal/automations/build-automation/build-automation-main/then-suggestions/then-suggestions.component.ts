@@ -4,7 +4,7 @@ import { HttpService } from 'src/app/services/http.service';
 import { SubmitfeedbackComponent } from 'src/app/shared/modals/submitfeedback/submitfeedback.component';
 import { AutomationService } from '../../../automation.service';
 import { WhenThenEvent } from '../../../models/automation';
-import { BackendResponse } from '../../../models/backend-response';
+import { BackendResponse } from '../../../../../models/backend-response';
 import { THEN_INTERNAL_EVENTS } from '../../../models/enum';
 
 @Component({

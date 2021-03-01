@@ -36,6 +36,14 @@
                     <span>Choose appointment type </span>
                 </div>
             </ng-container>
+            <ng-container *ngSwitchCase="EventType.WHEN_EDIT_TAG_ADDED">
+                <div class="new-form-choose">
+                    <button (click)="automationService.updateEventType(EventType.WHEN)" class="close-icon-btn" >
+                            <img src="assets/images/ic_close.svg">
+                    </button>
+                    <span>Choose a tag</span>
+                </div>
+            </ng-container>
             <ng-container *ngSwitchDefault>output2</ng-container>
         </ng-container>
 
@@ -52,12 +60,10 @@
                 </label>
                 <button class="btn">Preview</button>
             </ng-container>
-            <ng-container *ngSwitchCase="EventType.WHEN_EDIT_LEAD_FORM">
-            </ng-container>
-            <ng-container *ngSwitchCase="EventType.WHEN_EDIT_APPOINTMENT_SCHEDULED">
-            </ng-container>
-            <ng-container *ngSwitchCase="EventType.WHEN_EDIT_APPOINTMENT_CANCELED">
-            </ng-container>
+            <ng-container *ngSwitchCase="EventType.WHEN_EDIT_LEAD_FORM"></ng-container>
+            <ng-container *ngSwitchCase="EventType.WHEN_EDIT_APPOINTMENT_SCHEDULED"></ng-container>
+            <ng-container *ngSwitchCase="EventType.WHEN_EDIT_APPOINTMENT_CANCELED"></ng-container>
+            <ng-container *ngSwitchCase="EventType.WHEN_EDIT_TAG_ADDED"></ng-container>
         </ng-container>
 
     </div>

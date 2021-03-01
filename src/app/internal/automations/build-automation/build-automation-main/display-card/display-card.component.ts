@@ -1,3 +1,4 @@
+import { NavigateToTagsComponent } from 'src/app/shared/modals/navigate-to-tags/navigate-to-tags.component';
 import { WhenEvent } from './../../../models/automation';
 import { EventNames, FormType } from './../../../models/enum';
 import { LeadFormDeletedComponent } from 'src/app/shared/modals/lead-form-deleted/lead-form-deleted.component';
@@ -74,13 +75,21 @@ export class DisplayCardComponent implements OnInit {
         this.automationService.updateEventType(EventType.WHEN_EDIT_APPOINTMENT_CANCELED);
         break;
       }
+      case EventNames.WHEN.TAG_ADDED : {
+        this.automationService.updateEventType(EventType.WHEN_EDIT_TAG_ADDED);
+        break;
+      }
     }
   }
 
-  goToYourForm() {
+  goTo() {
     switch (this._taskData.value.eventName) {
       case EventNames.WHEN.LEAD_FORM : {
         this.goToLeadFormPreview();
+        break;
+      }
+      case EventNames.WHEN.TAG_ADDED : {
+        this.goToManageTags();
         break;
       }
     }
@@ -94,6 +103,16 @@ export class DisplayCardComponent implements OnInit {
       this.router.navigate([]).then(result => { window.open(`/preview-smartform/${whenEvent.eventData.dataId}`)})
     }
     this.automationService.updateEventType(EventType.WHEN);
+  }
+
+  goToManageTags() {
+    const modalRef = this.http.showModal(NavigateToTagsComponent, 'xs lead-form-popup-main navigated-appointment-modal');
+    modalRef.content.onClose = new Subject<boolean>();
+    modalRef.content.onClose.subscribe((res) => {
+      if (res) {
+        this.router.navigate(["/contacts/tag-settings"]);
+      }
+    })
   }
 
   onDeleteTask() {

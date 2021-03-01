@@ -82,6 +82,10 @@
                 <app-choose-appointment-type></app-choose-appointment-type>
             </ng-container>
 
+            <ng-container *ngSwitchCase="EventType.WHEN_EDIT_TAG_ADDED">
+                <app-choose-tag></app-choose-tag>
+            </ng-container>
+
         </ng-container>
     </div>
 

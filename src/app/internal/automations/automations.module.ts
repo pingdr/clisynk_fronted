@@ -10,7 +10,7 @@ import { BuildAutomationComponent } from './build-automation/build-automation.co
 import { AddBuildautomationComponent } from './add-buildautomation/add-buildautomation.component';
 import { BuildThenautomationsComponent } from './build-thenautomations/build-thenautomations.component';
 import { FreeConsulationComponent } from './free-consulation/free-consulation.component';
-import { ChooseTagComponent } from './choose-tag/choose-tag.component';
+import { FreeConsultaionThen } from './choose-tag/choose-tag.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { FreeCosulationWhenComponent } from './free-cosulation-when/free-cosulation-when.component';
 import { BuildAutomationMainComponent } from './build-automation/build-automation-main/build-automation-main.component';
@@ -21,6 +21,7 @@ import { AutomationHeaderComponent } from './build-automation/build-automation-m
 import { ChooseLeadFormComponent } from './build-automation/build-automation-main/edit/when/choose-lead-form/choose-lead-form.component';
 import { ChooseAppointmentTypeComponent } from './build-automation/build-automation-main/edit/when/choose-appointment-type/choose-appointment-type.component';
 import { LoadingComponent } from './loading/loading.component';
+import { ChooseTagComponent } from './build-automation/build-automation-main/edit/when/choose-tag/choose-tag.component';
 
 // import { AmazingTimePickerModule } from 'amazing-time-picker';
 
@@ -34,7 +35,7 @@ const routes: Routes = [
             { path: 'build-automation-then', component: BuildThenautomationsComponent, canActivate: [AuthGuardService], data: { title: 'Automation' } },
 
             { path: 'free-consulation', component: FreeConsulationComponent, canActivate: [AuthGuardService], data: { title: 'Automation' } },
-            { path: 'free-consulation-then', component: ChooseTagComponent, canActivate: [AuthGuardService], data: { title: 'Automation' } },
+            { path: 'free-consulation-then', component: FreeConsultaionThen, canActivate: [AuthGuardService], data: { title: 'Automation' } },
             { path: 'free-consulation-when', component: FreeCosulationWhenComponent, canActivate: [AuthGuardService], data: { title: 'Automation' } },
         ]
     }
@@ -44,8 +45,9 @@ const routes: Routes = [
 @NgModule({
     declarations: [
         AutomationComponent, BuildAutomationComponent, AddBuildautomationComponent, BuildThenautomationsComponent,
-        FreeConsulationComponent, ChooseTagComponent, FreeCosulationWhenComponent, BuildAutomationMainComponent, AutomationPreviewComponent
-        ,DisplayCardComponent, ThenSuggestionsComponent, WhenSuggestionsComponent, AutomationHeaderComponent, ChooseLeadFormComponent, ChooseAppointmentTypeComponent, LoadingComponent
+        FreeConsulationComponent, FreeConsultaionThen, FreeCosulationWhenComponent, BuildAutomationMainComponent, AutomationPreviewComponent
+        ,DisplayCardComponent, ThenSuggestionsComponent, WhenSuggestionsComponent, AutomationHeaderComponent, 
+        ChooseLeadFormComponent, ChooseAppointmentTypeComponent, LoadingComponent, ChooseTagComponent
 
     ],
     imports: [

@@ -2,7 +2,7 @@ import { EventType } from './../../../../../automation-constants';
 import { FormGroup } from '@angular/forms';
 import { AutomationService } from './../../../../../automation.service';
 import { LoadingService } from './../../../../../loading.service';
-import { BackendResponse } from './../../../../../models/backend-response';
+import { BackendResponse } from '../../../../../../../models/backend-response';
 import { SmartForm } from './../../../../../../../models/smart-form';
 import { Component, OnInit } from '@angular/core';
 import { Subject, Observable, concat, forkJoin } from 'rxjs';

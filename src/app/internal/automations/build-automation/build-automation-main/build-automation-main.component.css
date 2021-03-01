@@ -32,6 +32,9 @@ app-choose-lead-form {
 app-choose-appointment-type {
     width: 75%;
 }
+app-choose-tag {
+    width: 75%;
+}
 .add-build-automation-main .build-automation-header-main .left-col img {
     width: 32px;
     margin-right: 15px;

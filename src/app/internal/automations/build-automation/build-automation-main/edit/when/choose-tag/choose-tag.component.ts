@@ -1,3 +1,4 @@
+import { PaginatedResponse } from './../../../../../../../models/paginated-response';
 import { Component, OnInit } from '@angular/core';
 import { AutomationService } from 'src/app/internal/automations/automation.service';
 import { LoadingService } from 'src/app/internal/automations/loading.service';
@@ -13,19 +14,22 @@ import { Appointment } from 'src/app/models/appointment';
 import { AppointmentService } from 'src/app/internal/appointments/appointment.service';
 import { NavigateToAppointmentComponent } from 'src/app/shared/modals/navigate-to-appointment/navigate-to-appointment.component';
 import { Router } from '@angular/router';
+import { Tag } from 'src/app/models/tag';
+import { AddTagComponent } from 'src/app/shared/modals/add-tag/add-tag.component';
+
 
 @Component({
-  selector: 'app-choose-appointment-type',
-  templateUrl: './choose-appointment-type.component.html',
-  styleUrls: ['./choose-appointment-type.component.css']
+  selector: 'app-choose-tag',
+  templateUrl: './choose-tag.component.html',
+  styleUrls: ['./choose-tag.component.css']
 })
-export class ChooseAppointmentTypeComponent implements OnInit {
+export class ChooseTagComponent implements OnInit {
 
-  appointments: Appointment[];
+  tags: Tag[];
   leadForm: Appointment;
-  sortedData: Appointment[];
+  sortedData: Tag[];
   searchText = '';
-  constructor(public http: HttpService, 
+  constructor(public http: HttpService,
     public automationService: AutomationService,
     public appoint: AppointmentService,
     public router: Router,
@@ -33,7 +37,7 @@ export class ChooseAppointmentTypeComponent implements OnInit {
 
   async ngOnInit() {
     await this.loadData();
-    console.log("data loaded");
+    console.log("tags loaded");
     // this.getAppointmentTypes();
   }
 
@@ -45,42 +49,40 @@ export class ChooseAppointmentTypeComponent implements OnInit {
   }
 
   getAppointmentTypes() {
-    return this.http.getData(ApiUrl.APPOINTMENT_LIST_TYPES, {})
-        .pipe(
-          map((res: BackendResponse<Appointment[]>) => res.data),
-          tap(x => {
-            this.appointments = x;
-            this.sortedData = x;
-          })
-        );
-      
+    return this.http.getData(ApiUrl.TAGS, {})
+      .pipe(
+        map((res: BackendResponse<PaginatedResponse<Tag[]>>) => res.data),
+        tap((x: PaginatedResponse<Tag[]>) => {
+          this.tags = x.data;
+          this.sortedData = x.data;
+        })
+      );
+
   }
-  
-  onSelectForm(form: Appointment) {
-    const whenEvent: FormGroup = this.automationService.getWhenEvent()
+
+  onSelectTag(tag: Tag) {
+    const whenEvent: FormGroup = this.automationService.getWhenEvent();
+    const tagCategoryName = tag.tagCategoryId ? tag.tagCategoryId.name ? tag.tagCategoryId.name : '' : '';
     whenEvent.patchValue({
-      eventData :{
-        dataId : form._id,
-        params : { name: form.name}
+      eventData: {
+        dataId: tag._id,
+        params: { name: tag.name, tagCategoryName: tagCategoryName  }
       }
     })
     this.automationService.updateWhenEvent(whenEvent);
     this.automationService.updateEventType(EventType.WHEN);
   }
 
-  openAddAppointment(data?: any) {
-    const modalRef = this.http.showModal(NavigateToAppointmentComponent, 'xs lead-form-popup-main navigated-appointment-modal');
+  openAddTag(data?: any) {
+    const modalRef = this.http.showModal(AddTagComponent, 'more-sm', {});
     modalRef.content.onClose = new Subject<boolean>();
-    modalRef.content.onClose.subscribe((res) => {
-      
-      if (res) {
-        this.router.navigate(["appointments"]);
-      }
+    modalRef.content.onClose.subscribe(async (res) => {
+      await this.loadData();
     })
   }
 
   sortData(sort: Sort) {
-    const data = this.appointments.slice();
+    const data = this.tags.slice();
     if (!sort.active || sort.direction === '') {
       this.sortedData = data;
       return;

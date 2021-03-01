@@ -47,7 +47,8 @@ export interface EventData {
     dataId: string;
     params: {
       formTag?: string,
-      name?: string
+      name?: string,
+      tagCategoryName?: string
     }
   }
 

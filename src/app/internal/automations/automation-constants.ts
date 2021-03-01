@@ -1,10 +1,10 @@
 export enum EventType {
     WHEN  = 'when',
     WHEN_EDIT_LEAD_FORM  = 'show lead form page',
-    WHEN_EDIT_APPOINTMENT_SCHEDULED = 'show appointment listing screen',
-    WHEN_EDIT_APPOINTMENT_CANCELED = '',
-    WHEN_EDIT_TAG_ADDED = '',
-    WHEN_EDIT_PRODUCT_PURCHASED = '',
+    WHEN_EDIT_APPOINTMENT_SCHEDULED = 'show appointment listing screen for scheduling',
+    WHEN_EDIT_APPOINTMENT_CANCELED = 'show appointment listing screen for cancelation ',
+    WHEN_EDIT_TAG_ADDED = 'show tags list',
+    WHEN_EDIT_PRODUCT_PURCHASED = 'show products list',
     THEN  = 'then',
 }
 

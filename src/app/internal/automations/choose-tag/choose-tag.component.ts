@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { HttpService } from 'src/app/services/http.service';
 
 @Component({
-  selector: 'app-choose-tag',
+  selector: 'app-free-consulation',
   templateUrl: './choose-tag.component.html',
   styleUrls: ['./choose-tag.component.css']
 })
-export class ChooseTagComponent implements OnInit {
+export class FreeConsultaionThen implements OnInit {
 
   choosetag: boolean = false;
   aftersubmits: boolean = false;

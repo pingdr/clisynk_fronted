@@ -23,6 +23,9 @@
                                 <ng-container *ngSwitchCase="EventNames.WHEN.APPOINTMENT_CANCELED">
                                     {{ _taskData?.value?.eventData?.dataId ? '':"Any Appointment is canceled."}}
                                   </ng-container>
+                                <ng-container *ngSwitchCase="EventNames.WHEN.TAG_ADDED">
+                                    {{ _taskData?.value?.eventData?.params?.tagCategoryName ? _taskData.value.eventData.params.tagCategoryName :"Tag Added"}}
+                                  </ng-container>
                                 <ng-container *ngSwitchDefault>{{_taskData?.value?.eventDescription}}</ng-container>
                             </ng-container>
                         </span>
@@ -40,10 +43,13 @@
                     <div class="left-inner-col-footer">
                         <ng-container [ngSwitch]="_taskData?.value?.eventName">
                             <ng-container *ngSwitchCase="EventNames.WHEN.LEAD_FORM">
-                                <button class="btn" (click)="goToYourForm()" >Go to your form <img [src]="statusImages.exportBlueIcon"width="35"> </button>
+                                <button class="btn" (click)="goTo()" >Go to your form <img [src]="statusImages.exportBlueIcon"width="35"> </button>
                             </ng-container>
                             <ng-container *ngSwitchCase="EventNames.WHEN.APPOINTMENT_SCHEDULED"></ng-container>
                             <ng-container *ngSwitchCase="EventNames.WHEN.APPOINTMENT_CANCELED"></ng-container>
+                            <ng-container *ngSwitchCase="EventNames.WHEN.TAG_ADDED">
+                                <button class="btn" (click)="goTo()" >Manage Tags <img [src]="statusImages.exportBlueIcon"width="35"> </button>
+                            </ng-container>
                             <ng-container *ngSwitchDefault>
                                 
                             </ng-container>
