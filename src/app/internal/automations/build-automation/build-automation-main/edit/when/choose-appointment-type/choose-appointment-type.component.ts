@@ -16,6 +16,8 @@ import { ApiUrl } from 'src/app/services/apiUrls';
 import { Appointment } from 'src/app/models/appointment';
 import { AppointmentService } from 'src/app/internal/appointments/appointment.service';
 import { AddAppointmentComponent } from 'src/app/shared/modals/add-appointment/add-appointment.component';
+import { NavigateToAppointmentComponent } from 'src/app/shared/modals/navigate-to-appointment/navigate-to-appointment.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-choose-appointment-type',
@@ -31,6 +33,7 @@ export class ChooseAppointmentTypeComponent implements OnInit {
   constructor(public http: HttpService, 
     public automationService: AutomationService,
     public appoint: AppointmentService,
+    public router: Router,
     public loadingService: LoadingService) { }
 
   async ngOnInit() {
@@ -78,11 +81,19 @@ export class ChooseAppointmentTypeComponent implements OnInit {
   }
 
   openAddAppointment(data?: any) {
-    const modalRef = this.http.showModal(AddAppointmentComponent, 'custom-class-for-create-smart-form', data);
+    const modalRef = this.http.showModal(NavigateToAppointmentComponent, 'xs lead-form-popup-main navigated-appointment-modal');
     modalRef.content.onClose = new Subject<boolean>();
-    modalRef.content.onClose.subscribe(() => {
-      this.loadData();
+    modalRef.content.onClose.subscribe((res) => {
+      
+      if (res) {
+        this.router.navigate(["appointments"]);
+      }
     })
+    // const modalRef = this.http.showModal(AddAppointmentComponent, 'custom-class-for-create-smart-form', data);
+    // modalRef.content.onClose = new Subject<boolean>();
+    // modalRef.content.onClose.subscribe(() => {
+    //   this.loadData();
+    // })
   }
 
   sortData(sort: Sort) {
@@ -96,7 +107,8 @@ export class ChooseAppointmentTypeComponent implements OnInit {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
         case 'name': return this.compare(a.name.toLowerCase(), b.name.toLowerCase(), isAsc);
-        case 'addedOn': return this.compare(format(new Date(a.createdAt), 't'), format(new Date(b.createdAt), 't'), isAsc);
+        case 'link': return this.compare(a.name.toLowerCase(), b.name.toLowerCase(), isAsc);
+        // case 'addedOn': return this.compare(format(new Date(a.createdAt), 't'), format(new Date(b.createdAt), 't'), isAsc);
         // case 'status': return this.compare(a.status, b.status, isAsc);
         default: return 0;
       }

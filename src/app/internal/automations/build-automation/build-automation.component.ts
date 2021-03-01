@@ -20,10 +20,14 @@ export class BuildAutomationComponent implements OnInit {
   ngOnInit() {
   }
 
-  saveDraft() {
-    this.automationService.updateThenTasksList(null);
-    this.automationService.updateWhenEvent(null);
-    this.automationService.updateEventType(EventType.WHEN);
+  async saveDraft() {
+    (await this.automationService.saveAutomationDraft()).subscribe(res => {
+      console.log('saved')
+      this.automationService.reloadAutomations(true);
+      this.automationService.updateThenTasksList(null);
+      this.automationService.updateWhenEvent(null);
+      this.automationService.updateEventType(EventType.WHEN);
+    });
     this.http.goBack();
   }
   ngOnDestroy() {

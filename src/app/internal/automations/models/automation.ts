@@ -1,15 +1,16 @@
 
 export interface Automation {
-    isDeleted: boolean;
-    _id: string;
+    automationName: string;
     whenEvent: WhenEvent;
     thenEvents: ThenEvent[];
     addedBy: string;
     workspaceId: string;
-    createdAt: string;
-    updatedAt: string;
-    __v: number;
-    automationName: string;
+    
+    isDeleted?: boolean;
+    _id?: string;
+    createdAt?: string;
+    updatedAt?: string;
+    __v?: number;
     deletedBy?: string;
   }
   

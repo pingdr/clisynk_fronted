@@ -1,3 +1,4 @@
+import { AutomationService } from 'src/app/internal/automations/automation.service';
 import { ApiUrl } from 'src/app/services/apiUrls';
 import { LoadingService } from './loading.service';
 import { Observable, Subject } from 'rxjs';
@@ -10,7 +11,7 @@ import { AutomationParams } from './models/params';
 import { Automation } from './models/automation';
 import { BackendResponse } from './models/backend-response';
 import { User } from 'src/app/models/user';
-import { map, finalize } from 'rxjs/operators';
+import { map, finalize, shareReplay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-automation',
@@ -23,8 +24,17 @@ export class AutomationComponent implements OnInit {
 
   rightdefault = false;
 
-  constructor(public http: HttpService, public loadingService: LoadingService) {
+  constructor(public http: HttpService, public loadingService: LoadingService, public automationService: AutomationService) {
     this.loadAutomations();
+    const reloadSub = this.automationService.reloadAutomationsList$.subscribe((reload: boolean) =>{
+      console.log(reload);
+      if (reload) {
+        this.loadAutomations();
+        console.log('reloaded')
+        reloadSub.unsubscribe();
+        this.automationService.reloadAutomations(false);
+      } else { /*do nothing */}
+    });
   }
 
   ngOnInit() {
@@ -38,7 +48,8 @@ export class AutomationComponent implements OnInit {
     this.http.getData(ApiUrl.GET_AUTOMATIONS, this.automationParams)
       .pipe(
         map((res: BackendResponse<Automation[]>) => res.data),
-        finalize(() => this.loadingService.loadingOff())
+        finalize(() => this.loadingService.loadingOff()),
+        shareReplay()
       )
       .subscribe(data => this.http.updateAutomationsList(data));
   }

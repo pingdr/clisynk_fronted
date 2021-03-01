@@ -61,35 +61,13 @@ export class ThenSuggestionsComponent implements OnInit {
     this.selectedEvent = item;
     this.onSelectedEvent.emit(THEN_INTERNAL_EVENTS.on_then_event_selected);
     // TODO: Need to make it more efficient
-    let group = this.createCardObj();
+    let group = this.automationService.createThenEventObj();
     group.patchValue(item);
     this.automationService.addToThenTasksList(group);
   }
 
 
-  createCardObj(): FormGroup {
-    return this.fb.group({
-      eventName: '',
-      eventDescription: '',
-      eventData: this.fb.group({
-        dataId: [''],
-        params: [{}],
-      }),
-      isDelayed: [''],
-      delayedOptions: this.fb.group({
-        delayType: [''],
-        dayInterval: this.fb.group({
-          intervalType: [''],
-          value: [''],
-        }),
-        timeInterval: this.fb.group({
-          intervalType: [''],
-          value: [''],
-        }),
-
-      }),
-    });
-  }
+  
 
   private mapImage = (eventName) => {
     switch (eventName) {

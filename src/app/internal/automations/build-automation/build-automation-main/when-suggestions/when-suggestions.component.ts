@@ -56,7 +56,7 @@ export class WhenSuggestionsComponent implements OnInit {
     delete item.img;
     this.selectedEvent = item;
 
-    let whenForm = this.createWhenEventObj();
+    let whenForm = this.automationService.createWhenEventObj();
     whenForm.patchValue(item);
 
 
@@ -86,16 +86,7 @@ export class WhenSuggestionsComponent implements OnInit {
   }
 
 
-  createWhenEventObj(): FormGroup {
-    return this.formBuilder.group({
-      eventName: [''],
-      eventDescription: [''],
-      eventData: this.formBuilder.group({
-        dataId: [''],
-        params: [{}]
-      })
-    });
-  }
+ 
 
   toggleOptions() {
     this.showOption = !this.showOption
