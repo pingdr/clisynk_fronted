@@ -1,0 +1,43 @@
+<div class="right-col create-email-body-main">
+    <div class="email-main-row">
+            <div class="title-email">Email title:</div>
+            <div class="edit-title">
+                    <input type="text" [value]="emailTemplate?.name">
+            </div>
+    </div>
+    <div class="email-main-row">
+        <div class="title-email">From:</div>
+        <div class="edit-title">
+            <input type="text" >
+        </div>
+    </div>
+    <div class="email-main-row">
+        <div class="title-email">Subject:</div>
+        <div class="edit-title">
+            <input type="text" [value]="emailTemplate?.subject">
+        </div>
+    </div>
+    <div class="email-template">
+        <ckeditor  debounce="500" [config]="ckeConfig">
+        </ckeditor>
+    </div>
+    <section class="toggle-switch">
+        <div class="Signature">
+            <span>Signature</span>
+        </div>
+        <div class="Signature-toggle">
+            <label class="switch">
+                <input type="checkbox">
+                <span class="slider round"></span>
+            </label>
+        </div>
+    </section>
+    <div class="like-and-calender-button">
+        <button class="btn">
+            <img src="../../../../assets/images/gray-calendar.svg" width="20">
+        </button>
+        <button class="btn">
+            <img src="../../../../assets/images/like.svg" width="20">
+        </button>
+    </div>
+</div>

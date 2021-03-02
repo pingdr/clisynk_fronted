@@ -16,6 +16,12 @@
     margin: 0px 11px;
     transform: rotate(180deg);
 }
+.right-col  img.back-arrow  {
+    width: 32px;
+    margin: 0px 11px;
+    transform: rotate(0deg) !important;
+}
+
 .right-col .inner-left-col {
     display: flex;
     align-items: center;

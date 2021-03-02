@@ -94,6 +94,10 @@
                 <app-choose-template></app-choose-template>
             </ng-container>
 
+            <ng-container *ngSwitchCase="EventType.THEN_EDIT_SEND_EMAIL_SELECT">
+                <app-email-editor></app-email-editor>
+            </ng-container>
+
         </ng-container>
     </div>
 

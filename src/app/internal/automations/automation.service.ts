@@ -1,3 +1,4 @@
+import { MailTemplateListData } from './../../shared/models/mail-template-list.model';
 import { LoadingService } from 'src/app/internal/automations/loading.service';
 import { Automation } from 'src/app/internal/automations/models/automation';
 import { HttpService } from 'src/app/services/http.service';
@@ -15,6 +16,8 @@ import { ApiUrl } from 'src/app/services/apiUrls';
 })
 export class AutomationService {
 
+
+  public currentEmailTemplateEdited: MailTemplateListData;
 
   private eventSelectedSubject = new BehaviorSubject<EventType>(EventType.WHEN);
   public eventSelected = this.eventSelectedSubject.asObservable();
@@ -72,17 +75,10 @@ export class AutomationService {
 
   // Resest 
   resetState() {
+    this.currentEmailTemplateEdited = undefined;
     this.updateThenTasksList(null);
     this.updateWhenEvent(null);
     this.updateEventType(EventType.WHEN);
-  }
-
-  isNullOrEmpty(value) {
-    if(value == undefined || value == '' || value == null){
-      return true;
-    }else {
-      return false;
-    }
   }
 
   reloadAutomationsList(reload: boolean) {
@@ -147,4 +143,14 @@ export class AutomationService {
       }),
     });
   }
+
+  
+  isNullOrEmpty(value) {
+    if(value == undefined || value == '' || value == null){
+      return true;
+    }else {
+      return false;
+    }
+  }
+
 }

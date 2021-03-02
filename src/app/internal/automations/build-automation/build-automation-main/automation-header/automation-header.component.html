@@ -60,6 +60,14 @@
                     <span>Choose a template</span>
                 </div>
             </ng-container>
+            <ng-container *ngSwitchCase="EventType.THEN_EDIT_SEND_EMAIL_SELECT">
+                <div class="new-form-choose ">
+                    <button (click)="automationService.updateEventType(EventType.WHEN)" class="close-icon-btn" >
+                            <img class="back-arrow" src="assets/images/back-arrow.svg">
+                    </button>
+                    <span>Edit Content</span>
+                </div>
+            </ng-container>
             <ng-container *ngSwitchDefault>output2</ng-container>
         </ng-container>
 
@@ -82,6 +90,9 @@
             <ng-container *ngSwitchCase="EventType.WHEN_EDIT_TAG_ADDED"></ng-container>
             <ng-container *ngSwitchCase="EventType.WHEN_EDIT_PRODUCT_PURCHASED"></ng-container>
             <ng-container *ngSwitchCase="EventType.THEN_EDIT_SEND_EMAIL"></ng-container>
+            <ng-container *ngSwitchCase="EventType.THEN_EDIT_SEND_EMAIL_SELECT">
+                <button class="btn">Next</button>
+            </ng-container>
         </ng-container>
 
     </div>

@@ -62,6 +62,9 @@ export class ChooseTemplateComponent implements OnInit {
 
   onSelectMailTemplate(mailTemplate: MailTemplateListData) {
     console.log(mailTemplate);
+    this.automationService.currentEmailTemplateEdited = mailTemplate;
+    this.automationService.updateEventType(EventType.THEN_EDIT_SEND_EMAIL_SELECT);
+    
     // const whenEvent: FormGroup = this.automationService.getWhenEvent();
     // whenEvent.patchValue({
     //   eventData: {
