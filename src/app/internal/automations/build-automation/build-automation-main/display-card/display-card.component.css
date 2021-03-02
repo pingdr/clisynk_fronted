@@ -99,3 +99,10 @@
 .panel-body {
     padding: 0;
 }
+
+.edit-timings .col-8 {
+    font-size: 14px;
+}
+.edit-timings .blue-link {
+    font-size: 14px;
+}

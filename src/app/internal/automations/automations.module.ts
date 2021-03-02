@@ -23,6 +23,7 @@ import { ChooseAppointmentTypeComponent } from './build-automation/build-automat
 import { LoadingComponent } from './loading/loading.component';
 import { ChooseTagComponent } from './build-automation/build-automation-main/edit/when/choose-tag/choose-tag.component';
 import { ChooseProductComponent } from './build-automation/build-automation-main/edit/when/choose-product/choose-product.component';
+import { ChooseTemplateComponent } from './build-automation/build-automation-main/edit/then/choose-template/choose-template.component';
 
 // import { AmazingTimePickerModule } from 'amazing-time-picker';
 
@@ -48,7 +49,7 @@ const routes: Routes = [
         AutomationComponent, BuildAutomationComponent, AddBuildautomationComponent, BuildThenautomationsComponent,
         FreeConsulationComponent, FreeConsultaionThen, FreeCosulationWhenComponent, BuildAutomationMainComponent, AutomationPreviewComponent
         ,DisplayCardComponent, ThenSuggestionsComponent, WhenSuggestionsComponent, AutomationHeaderComponent, 
-        ChooseLeadFormComponent, ChooseAppointmentTypeComponent, LoadingComponent, ChooseTagComponent, ChooseProductComponent
+        ChooseLeadFormComponent, ChooseAppointmentTypeComponent, LoadingComponent, ChooseTagComponent, ChooseProductComponent, ChooseTemplateComponent
 
     ],
     imports: [

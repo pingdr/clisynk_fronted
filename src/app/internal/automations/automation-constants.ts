@@ -5,7 +5,18 @@ export enum EventType {
     WHEN_EDIT_APPOINTMENT_CANCELED = 'show appointment listing screen for cancelation ',
     WHEN_EDIT_TAG_ADDED = 'show tags list',
     WHEN_EDIT_PRODUCT_PURCHASED = 'show products list',
+    
+    
     THEN  = 'then',
+    THEN_EDIT_SEND_EMAIL = 'show list of email templates',
+    THEN_EDIT_SEND_EMAIL_SELECT = 'open email editor',
+
+    THEN_EDIT_SEND_NOTIFICATION = 'show create notification',
+
+    THEN_EDIT_ADD_TAG = 'open list of tags',
+    THEN_EDIT_CREATE_TASK = ''
+
+
 }
 
 export const Images = {

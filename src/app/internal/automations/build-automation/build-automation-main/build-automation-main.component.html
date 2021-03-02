@@ -90,6 +90,10 @@
                 <app-choose-product></app-choose-product>
             </ng-container>
 
+            <ng-container *ngSwitchCase="EventType.THEN_EDIT_SEND_EMAIL">
+                <app-choose-template></app-choose-template>
+            </ng-container>
+
         </ng-container>
     </div>
 
