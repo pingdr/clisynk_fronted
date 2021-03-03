@@ -16,15 +16,15 @@ export interface Automation {
   
 export interface WhenEvent {
     eventName: string;
-    eventData: EventData;
+    eventData: WhenEventData;
   }
   
 export interface ThenEvent {
-    eventData: EventData;
+    eventData: ThenEventData;
     delayedOptions: DelayedOptions;
     isDelayed: boolean;
     _id: string;
-    event: string;
+    eventName: string;
   }
   
 export interface DelayedOptions {
@@ -43,13 +43,21 @@ export interface DayInterval {
     value: string;
   }
   
-export interface EventData {
+export interface ThenEventData {
+    dataId: string;
+    params: {
+      thenTaskIndex?: number,
+      emailData?: any,
+    }
+  }
+  
+export interface WhenEventData {
     dataId: string;
     params: {
       formTag?: string,
       name?: string,
       tagCategoryName?: string,
-      price?: string
+      price?: string,
     }
   }
 

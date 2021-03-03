@@ -1,20 +1,14 @@
-import { MailTemplateData } from './../../../../../../../shared/models/mail-template.model';
-import { PaginatedResponse } from './../../../../../../../models/paginated-response';
 import { Component, OnInit } from '@angular/core';
 import { AutomationService } from 'src/app/internal/automations/automation.service';
 import { LoadingService } from 'src/app/internal/automations/loading.service';
 import { HttpService } from 'src/app/services/http.service';
 import { Sort } from '@angular/material/sort';
-import { FormGroup } from '@angular/forms';
-import { forkJoin, Subject } from 'rxjs';
+import { forkJoin } from 'rxjs';
 import { EventType } from 'src/app/internal/automations/automation-constants';
 import { finalize, map, tap } from 'rxjs/operators';
 import { BackendResponse } from 'src/app/models/backend-response';
-import { ApiUrl } from 'src/app/services/apiUrls';
 import { AppointmentService } from 'src/app/internal/appointments/appointment.service';
 import { Router } from '@angular/router';
-import { Tag } from 'src/app/models/tag';
-import { AddTagComponent } from 'src/app/shared/modals/add-tag/add-tag.component';
 import { MailTemplateListData } from 'src/app/shared/models/mail-template-list.model';
 
 
@@ -36,8 +30,7 @@ export class ChooseTemplateComponent implements OnInit {
 
   async ngOnInit() {
     await this.loadData();
-    console.log("tags loaded");
-    console.log(this.automationService.getCurrentEditedThenTask());
+    console.log("templates loaded");
     // this.getAppointmentTypes();
   }
 
@@ -63,18 +56,17 @@ export class ChooseTemplateComponent implements OnInit {
 
   onSelectMailTemplate(mailTemplate: MailTemplateListData) {
     console.log(mailTemplate);
-    this.automationService.currentEmailTemplateEdited = mailTemplate;
+
+    const index = this.automationService.currentThenTaskIndex;
+    const editedThenTaskGroup = this.automationService.getThenTaskByIndex(index);
+    editedThenTaskGroup.patchValue({
+      eventData: {
+        dataId: mailTemplate._id,
+        params: { name: mailTemplate.name, thenTaskIndex: index}
+      }
+    })
+    this.automationService.updateThenTask(editedThenTaskGroup, index);
     this.automationService.updateEventType(EventType.THEN_EDIT_SEND_EMAIL_SELECT);
-    
-    // const whenEvent: FormGroup = this.automationService.getWhenEvent();
-    // whenEvent.patchValue({
-    //   eventData: {
-    //     dataId: mailTemplate._id,
-    //     params: { name: mailTemplate.name }
-    //   }
-    // })
-    // this.automationService.updateWhenEvent(whenEvent);
-    // this.automationService.updateEventType(EventType.WHEN);
   }
 
   startWithBlankMail() {

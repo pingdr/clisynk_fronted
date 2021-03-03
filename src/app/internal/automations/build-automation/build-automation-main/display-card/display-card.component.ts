@@ -111,10 +111,12 @@ export class DisplayCardComponent extends CardHelperFunctions implements OnInit 
   thenTaskEditMode() {
     this._taskData.patchValue({
       eventData: {
-        params: { index: this.index }
+        params: { thenTaskIndex: this.index }
       }
     })
-    this.automationService.setCurrentEditedThenTask(this._taskData);
+    // this.automationService.setCurrentEditedThenTask(this._taskData);
+    this.automationService.updateThenTask(this._taskData, this.index);
+    this.automationService.currentThenTaskIndex = this.index;
 
   }
 
@@ -130,7 +132,7 @@ export class DisplayCardComponent extends CardHelperFunctions implements OnInit 
             break;
           }
           case EventType.THEN: {
-            this.automationService.removeThenTasksFromList(this.index);
+            this.automationService.removeThenTaskFromList(this.index);
             break;
           }
         }

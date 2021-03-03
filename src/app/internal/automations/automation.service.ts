@@ -1,10 +1,10 @@
 import { MailTemplateListData } from './../../shared/models/mail-template-list.model';
 import { LoadingService } from 'src/app/internal/automations/loading.service';
-import { Automation } from 'src/app/internal/automations/models/automation';
+import { Automation, ThenEvent } from 'src/app/internal/automations/models/automation';
 import { HttpService } from 'src/app/services/http.service';
 import { EventType } from './automation-constants';
 import { Injectable } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { NavigationEnd, Router } from '@angular/router';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { finalize } from 'rxjs/operators';
@@ -17,7 +17,6 @@ import { ApiUrl } from 'src/app/services/apiUrls';
 export class AutomationService {
 
 
-  public currentEmailTemplateEdited: MailTemplateListData;
 
   private eventSelectedSubject = new BehaviorSubject<EventType>(EventType.WHEN);
   public eventSelected = this.eventSelectedSubject.asObservable();
@@ -67,6 +66,10 @@ export class AutomationService {
     this.thenTasksSubject.next(thenTasks);
   }
   
+  updateThenTask(thenTask: FormGroup| AbstractControl, index: number = this.currentThenTaskIndex) {
+    this.thenTasksSubject.getValue().at(index).patchValue(thenTask);
+  }
+  
   addToThenTasksList(thenTask: FormGroup) {
     if (this.isNullOrEmpty(this.thenTasksSubject.getValue())) {
         this.thenTasksSubject.next(new FormArray([]));
@@ -74,7 +77,7 @@ export class AutomationService {
     this.thenTasksSubject.getValue().push(thenTask);
   }
 
-  getThenTaskByIndex(index: number) {
+  getThenTaskByIndex(index: number): AbstractControl|FormGroup {
     if (!this.isNullOrEmpty(this.thenTasksSubject.getValue())) {
       return this.thenTasksSubject.getValue().at(index);
     } else {
@@ -82,24 +85,38 @@ export class AutomationService {
     }
   }
 
-  removeThenTasksFromList(index: number) {
+  removeThenTaskFromList(index: number) {
     this.thenTasksSubject.getValue().removeAt(index);
   }
   //#endregion
 
   //#region CURRENT-THEN-TASK
 
-  getCurrentEditedThenTask(): FormGroup{
-    return this.currentThenTaskSubject.getValue();
+  private _currentThenTaskIndex: number = 0;
+  set currentThenTaskIndex(index) {
+    this._currentThenTaskIndex = index;
+  }
+  get currentThenTaskIndex() {
+    return this._currentThenTaskIndex;
   }
 
-  setCurrentEditedThenTask(thenTask: FormGroup): void {
-    this.currentThenTaskSubject.next(thenTask);
-  }
 
-  isThenTaskInEditMode(): boolean {
-    return !!this.currentThenTaskSubject.getValue();
-  }
+  // getCurrentEditedThenTask(): FormGroup{
+  //   // return this.currentThenTaskSubject.getValue();
+  //   return this.currentThenTaskSubject.getValue();
+  // }
+
+  // getCurrentEditedThenTaskIndex(): number {
+  //   return (this.currentThenTaskSubject.getValue().value as ThenEvent).eventData.params.thenTaskIndex;
+  // }
+
+  // setCurrentEditedThenTask(thenTask: FormGroup): void {
+  //   this.currentThenTaskSubject.next(thenTask);
+  // }
+
+  // isThenTaskInEditMode(): boolean {
+  //   return !!this.currentThenTaskSubject.getValue();
+  // }
 
   //#endregion
 
@@ -110,7 +127,6 @@ export class AutomationService {
   }
 
   resetState() {
-    this.currentEmailTemplateEdited = undefined;
     this.updateThenTasksList(null);
     this.updateWhenEvent(null);
     this.updateEventType(EventType.WHEN);
