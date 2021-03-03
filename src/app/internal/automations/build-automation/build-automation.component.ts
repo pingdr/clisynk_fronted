@@ -22,6 +22,7 @@ export class BuildAutomationComponent implements OnInit {
       this.automationService.reloadAutomationsList(true);
     });
     this.automationService.resetState();
+    this.automationService.resetCurrentThenTask();
     this.http.goBack();
   }
   ngOnDestroy() {

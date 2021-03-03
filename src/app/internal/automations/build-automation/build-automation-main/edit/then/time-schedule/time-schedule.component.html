@@ -1,0 +1,109 @@
+<div class="right-col edit-options-emails">
+    <span class="first-heading-title">Send (introduction) email</span>
+    <!-- ----------------------Tabination-------------- -->
+    <div class="tabbable-panel margin-tops4  edit-tabs">
+        <div class="tabbable-line">
+          <ul class="nav nav-tabs tabtop  tabsetting">
+            <li class="active"> <a href="#tab_default_1" data-toggle="tab"> Immediately </a> </li>
+            <li> <a href="#tab_default_2" data-toggle="tab"> Delayed</a> </li>
+          </ul>
+          <div class="tab-content margin-tops">
+            <div class="tab-pane active fade" id="tab_default_1">
+                <!-- ------------blank ------here-first---- -->
+            </div>
+            <div class="tab-pane fade" id="tab_default_2">
+                <div class="edit-options-delayed-main">
+                    <div class="type-main-drop">
+                        <mat-form-field class="full-width select-height" appearance="outline">
+                            <mat-label class="required"> Delay Type</mat-label>
+                            <mat-select>
+                                <mat-option value="work" default>Wait</mat-option>
+                                <mat-option value="home">Wait until a specific date</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="second-row-for-day">
+                        <div class="left-text-block">
+                            <mat-form-field class="full-width my-form-field" appearance="outline">
+                                <mat-label class="required">Number</mat-label>
+                                <input matInput placeholder="Number" type="text"  #input>
+                            </mat-form-field>
+                        </div>
+                        <div class="right-text-block">
+                            <mat-form-field class="full-width select-height" appearance="outline">
+                                <mat-label class="required"> Day</mat-label>
+                                <mat-select>
+                                    <mat-option value="work" default>Monday</mat-option>
+                                    <mat-option value="home">Home</mat-option>
+                                    <mat-option value="mobile">Mobile</mat-option>
+                                    <mat-option value="other">Other</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="choose-date-after-show">
+                        <!-- <mat-form-field appearance="outline">
+                            <mat-label>Due Date</mat-label>
+                            <input matInput type="text" bsDatepicker #dp="bsDatepicker">
+                        </mat-form-field> -->
+                        <mat-form-field appearance="outline">
+                            <mat-label>Choose a date</mat-label>
+                            <input matInput [matDatepicker]="picker">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                          </mat-form-field>
+                    </div>
+                    <div class="check-items-for-delayed">
+                        <mat-checkbox class="example-margin">At a specific time of day</mat-checkbox>
+                    </div>
+                    <!-- ------------tabs--time-------------->
+                    <div class="at-between-main-tabs">
+                        <nav>
+                            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">At</a>
+                                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Between</a>
+                            </div>
+                        </nav>
+                        <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                <div class="custom-time-picker-main">
+                                    <mat-form-field class="full-width" appearance="outline">
+                                        <mat-label class="required">Time</mat-label>
+                                        <input matInput placeholder="Time" type="text"  value="{{time}}" #input1>
+                                        <img src="../../../../assets/images/ic_clock.svg" (click)="open()" width="20">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                <div class="between-time-pick-main">
+                                    <div class="left-col-time custom-time-picker-main">
+                                        <mat-form-field class="full-width" appearance="outline">
+                                            <mat-label class="required">Time</mat-label>
+                                            <input matInput placeholder="Time" type="text"  value="{{time}}" #input1>
+                                            <img src="../../../../assets/images/ic_clock.svg" (click)="open()" width="20">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="center-col-time">
+                                        and
+                                    </div>
+                                    <div class="right-col-time custom-time-picker-main">
+                                        <mat-form-field class="full-width" appearance="outline">
+                                            <mat-label class="required">Time</mat-label>
+                                            <input matInput placeholder="Time" type="text"  value="{{time}}" #input1>
+                                            <img src="../../../../assets/images/ic_clock.svg" (click)="open()" width="20">
+                                        </mat-form-field>
+                                    </div>
+
+                                </div>
+                            </div>
+                            
+                        </div>
+                    
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+ </div>

@@ -23,7 +23,7 @@ export class DisplayCardComponent extends CardHelperFunctions implements OnInit 
   eventType: string;
 
   @Input()
-  index: number;
+  index: number = 0;
 
   _taskData: FormGroup;
   @Input()
@@ -84,6 +84,7 @@ export class DisplayCardComponent extends CardHelperFunctions implements OnInit 
         break;
       }
       case EventNames.THEN.SEND_EMAIL: {
+        this.thenTaskEditMode();
         this.automationService.updateEventType(EventType.THEN_EDIT_SEND_EMAIL);
         break;
       }
@@ -107,6 +108,15 @@ export class DisplayCardComponent extends CardHelperFunctions implements OnInit 
     }
   }
 
+  thenTaskEditMode() {
+    this._taskData.patchValue({
+      eventData: {
+        params: { index: this.index }
+      }
+    })
+    this.automationService.setCurrentEditedThenTask(this._taskData);
+
+  }
 
 
   onDeleteTask() {

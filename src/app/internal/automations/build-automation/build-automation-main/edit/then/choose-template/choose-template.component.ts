@@ -37,6 +37,7 @@ export class ChooseTemplateComponent implements OnInit {
   async ngOnInit() {
     await this.loadData();
     console.log("tags loaded");
+    console.log(this.automationService.getCurrentEditedThenTask());
     // this.getAppointmentTypes();
   }
 

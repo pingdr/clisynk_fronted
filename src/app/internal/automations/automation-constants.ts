@@ -8,13 +8,16 @@ export enum EventType {
     
     
     THEN  = 'then',
+
+    THEN_TIME_SCHEDULE = 'schedule then time schedule',
+
     THEN_EDIT_SEND_EMAIL = 'show list of email templates',
     THEN_EDIT_SEND_EMAIL_SELECT = 'open email editor',
 
     THEN_EDIT_SEND_NOTIFICATION = 'show create notification',
 
     THEN_EDIT_ADD_TAG = 'open list of tags',
-    THEN_EDIT_CREATE_TASK = ''
+    THEN_EDIT_CREATE_TASK = 'create a task'
 
 
 }

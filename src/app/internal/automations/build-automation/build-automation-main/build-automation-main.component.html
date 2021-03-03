@@ -98,6 +98,10 @@
                 <app-email-editor></app-email-editor>
             </ng-container>
 
+            <ng-container *ngSwitchCase="EventType.THEN_TIME_SCHEDULE">
+                <app-time-schedule></app-time-schedule>
+            </ng-container>
+
         </ng-container>
     </div>
 

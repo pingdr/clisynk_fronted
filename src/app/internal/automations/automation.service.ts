@@ -25,6 +25,9 @@ export class AutomationService {
   private thenTasksSubject = new BehaviorSubject<FormArray>(new FormArray([]));
   public thenTasks = this.thenTasksSubject.asObservable();
 
+  private currentThenTaskSubject = new BehaviorSubject<FormGroup>(null);
+  public currentThenTask = this.currentThenTaskSubject.asObservable();
+
   private whenEventSubject = new BehaviorSubject<FormGroup>(null);
   public whenEvent = this.whenEventSubject.asObservable();
 
@@ -34,17 +37,28 @@ export class AutomationService {
 
   constructor(public http: HttpService, public loadingService: LoadingService,private fb: FormBuilder) { }
 
-  
-  // Event Type
+  //#region EventType
+
   updateEventType(event: EventType) {
     this.eventSelectedSubject.next(event);
   }
-
+  
   getCurrentEventType() {
     return this.eventSelectedSubject.getValue();
   }
+  //#endregion 
 
-  // THEN Tasks List
+  //#region WHEN-EVENT
+  updateWhenEvent(whenEvent: FormGroup) {
+    this.whenEventSubject.next(whenEvent);
+  }
+  
+  getWhenEvent() {
+    return this.whenEventSubject.getValue();
+  }
+  //#endregion
+
+  //#region THEN-TASKS
   getThenTasksList() {
     return this.thenTasksSubject.getValue();
   }
@@ -60,40 +74,57 @@ export class AutomationService {
     this.thenTasksSubject.getValue().push(thenTask);
   }
 
+  getThenTaskByIndex(index: number) {
+    if (!this.isNullOrEmpty(this.thenTasksSubject.getValue())) {
+      return this.thenTasksSubject.getValue().at(index);
+    } else {
+      return null;
+    }
+  }
+
   removeThenTasksFromList(index: number) {
     this.thenTasksSubject.getValue().removeAt(index);
   }
+  //#endregion
 
-  // WHEN Event
-  updateWhenEvent(whenEvent: FormGroup) {
-    this.whenEventSubject.next(whenEvent);
-  }
-  
-  getWhenEvent() {
-    return this.whenEventSubject.getValue();
+  //#region CURRENT-THEN-TASK
+
+  getCurrentEditedThenTask(): FormGroup{
+    return this.currentThenTaskSubject.getValue();
   }
 
-  // Resest 
+  setCurrentEditedThenTask(thenTask: FormGroup): void {
+    this.currentThenTaskSubject.next(thenTask);
+  }
+
+  isThenTaskInEditMode(): boolean {
+    return !!this.currentThenTaskSubject.getValue();
+  }
+
+  //#endregion
+
+  //#region Resest 
+
+  resetCurrentThenTask() {
+    this.currentThenTaskSubject.next(null);
+  }
+
   resetState() {
     this.currentEmailTemplateEdited = undefined;
     this.updateThenTasksList(null);
     this.updateWhenEvent(null);
     this.updateEventType(EventType.WHEN);
   }
+  //#endregion
 
+  //#region reloadData
   reloadAutomationsList(reload: boolean) {
     this.reloadAutomationsListSubject.next(reload);
   }
+  //#endregion
 
-  async saveAutomationDraft() {
 
-    const obj = this.getAutomationObj();
-
-    this.loadingService.loadingOn();
-    return this.http.postAutomation(ApiUrl.ADD_AUTOMATION, obj)
-    .pipe(finalize(() => { this.loadingService.loadingOff(); }))
-  }
-
+  //#region Blank FormGroup
   getAutomationObj() {
     const user: User = JSON.parse(localStorage.getItem("loginData"));
     const whenEvent = this.whenEventSubject.getValue();
@@ -143,8 +174,20 @@ export class AutomationService {
       }),
     });
   }
+  //#endregion
 
-  
+  //#region API-Calls
+  async saveAutomationDraft() {
+
+    const obj = this.getAutomationObj();
+
+    this.loadingService.loadingOn();
+    return this.http.postAutomation(ApiUrl.ADD_AUTOMATION, obj)
+    .pipe(finalize(() => { this.loadingService.loadingOff(); }))
+  }
+  //#endregion
+
+  //#region Utils
   isNullOrEmpty(value) {
     if(value == undefined || value == '' || value == null){
       return true;
@@ -152,5 +195,5 @@ export class AutomationService {
       return false;
     }
   }
-
+  //#endregion
 }
