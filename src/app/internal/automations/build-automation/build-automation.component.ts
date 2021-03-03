@@ -20,8 +20,8 @@ export class BuildAutomationComponent implements OnInit {
     (await this.automationService.saveAutomationDraft()).subscribe(res => {
       console.log('saved')
       this.automationService.reloadAutomationsList(true);
-      this.automationService.resetState();
     });
+    this.automationService.resetState();
     this.http.goBack();
   }
   ngOnDestroy() {

@@ -76,12 +76,8 @@ export class ChooseTemplateComponent implements OnInit {
     // this.automationService.updateEventType(EventType.WHEN);
   }
 
-  startWithBlankMail(data?: any) {
-    const modalRef = this.http.showModal(AddTagComponent, 'more-sm', {});
-    modalRef.content.onClose = new Subject<boolean>();
-    modalRef.content.onClose.subscribe(async (res) => {
-      await this.loadData();
-    })
+  startWithBlankMail() {
+    this.automationService.updateEventType(EventType.THEN_EDIT_SEND_EMAIL_SELECT);
   }
 
   sortData(sort: Sort) {
