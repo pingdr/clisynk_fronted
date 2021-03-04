@@ -8,6 +8,7 @@ import { Subject } from 'rxjs';
 import { AutomationService } from '../../../automation.service';
 import { Router } from '@angular/router';
 import { CardHelperFunctions } from "./card-helper-functions";
+import { ThenEvent } from '../../../models/automation';
 @Component({
   selector: 'app-display-card',
   templateUrl: './display-card.component.html',
@@ -84,6 +85,12 @@ export class DisplayCardComponent extends CardHelperFunctions implements OnInit 
         break;
       }
       case EventNames.THEN.SEND_EMAIL: {
+        
+        const currentTask = this.automationService.getThenTaskByIndex(this.index);
+        if (currentTask && (currentTask.value as ThenEvent).eventData.dataId) { // in editMode
+          this.automationService.updateEventType(EventType.THEN_EDIT_SEND_EMAIL_SELECT);  
+          return;
+        } 
         this.thenTaskEditMode();
         this.automationService.updateEventType(EventType.THEN_EDIT_SEND_EMAIL);
         break;
@@ -114,10 +121,8 @@ export class DisplayCardComponent extends CardHelperFunctions implements OnInit 
         params: { thenTaskIndex: this.index }
       }
     })
-    // this.automationService.setCurrentEditedThenTask(this._taskData);
-    this.automationService.updateThenTask(this._taskData, this.index);
     this.automationService.currentThenTaskIndex = this.index;
-
+    this.automationService.updateThenTask(this._taskData, this.index);
   }
 
 

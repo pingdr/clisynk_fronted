@@ -102,7 +102,7 @@
                 <button class="btn" (click)="automationService.updateEventType(EventType.THEN_TIME_SCHEDULE)">Next</button>
             </ng-container>
             <ng-container *ngSwitchCase="EventType.THEN_TIME_SCHEDULE">
-                <button class="btn">Done</button>
+                <button class="btn" (click)="automationService.updateEventType(EventType.THEN)">Done</button>
             </ng-container>
         </ng-container>
 
