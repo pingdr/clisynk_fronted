@@ -4,7 +4,7 @@ import { Automation, ThenEvent } from 'src/app/internal/automations/models/autom
 import { HttpService } from 'src/app/services/http.service';
 import { EventType } from './automation-constants';
 import { Injectable } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavigationEnd, Router } from '@angular/router';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { finalize } from 'rxjs/operators';
@@ -175,7 +175,7 @@ export class AutomationService {
         dataId: [''],
         params: [{}],
       }),
-      isDelayed: [''],
+      isDelayed: [false, Validators.required],
       delayedOptions: this.fb.group({
         delayType: [''],
         dayInterval: this.fb.group({
