@@ -7,7 +7,7 @@ import { MailTemplateListData } from './../../../../../../../../shared/models/ma
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AutomationService } from 'src/app/internal/automations/automation.service';
 import { EditorContent } from 'src/app/shared/models/editor.model';
-import { map } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
 import { MailTemplateData } from 'src/app/shared/models/mail-template.model';
 import { ApiUrl } from 'src/app/services/apiUrls';
 import { IDropdownSettings } from 'ng-multiselect-dropdown/multiselect.model';
@@ -18,7 +18,7 @@ import { IDropdownSettings } from 'ng-multiselect-dropdown/multiselect.model';
 })
 export class EmailEditorComponent implements OnInit {
 
-  form: FormGroup;
+  form: FormGroup ;
   ckeConfig: any = EditorContent;
   currentEmailTemplateListEdited: MailTemplateListData;
   currentThenTaskGroup: FormGroup;
@@ -43,42 +43,20 @@ export class EmailEditorComponent implements OnInit {
 
   ngOnInit() {
     this.configure();
-    this.formInit();
-    console.log(this.form.value)
     this.contactList();
   }
 
 
   configure() {
     this.loginData = JSON.parse(localStorage.getItem('loginData'));
-    const index = this.automationService.currentThenTaskIndex;
-    this.currentThenTaskGroup = <FormGroup>this.automationService.getThenTaskByIndex(index);
+    this.currentThenTaskGroup = <FormGroup>this.automationService.getThenTaskByIndex();
     this.currentThenTask = this.currentThenTaskGroup.value;
-    console.log(this.currentThenTask)
-    // if (this.currentThenTask.eventData.params.emailData.fromEmails) {
+    this.formInit();
 
-    //   this.selectedContacts = this.currentThenTask.eventData.params.emailData.fromEmails;
-    // }
-  
     if (!this.automationService.isNullOrEmpty(this.currentThenTask.eventData.dataId)) {
       this.loadData();
     }
 
-  }
-  onItemSelect(item: any) {
-    console.log(item);
-    console.log(this.selectedContacts)
-    this.form.patchValue({
-      fromEmails: this.selectedContacts
-    });
-    if(this.form.valid) {
-      this.currentThenTask.eventData.params.emailData = this.form.value;
-    }
-    this.currentThenTaskGroup.patchValue(this.currentThenTask);
-    this.automationService.updateThenTask(this.currentThenTaskGroup);
-  }
-  onSelectAll(items: any) {
-    console.log(items);
   }
 
   loadData() {
@@ -88,26 +66,29 @@ export class EmailEditorComponent implements OnInit {
       ).subscribe((emailTemplate) => {
         this.emailTemplate = emailTemplate;
         this.formInit(this.emailTemplate);
-
-        console.log(this.emailTemplate);
       })
   }
 
   formInit(data?: MailTemplateData) {
+
+
     this.form = this.http.fb.group({
       name: [data && data.name ? data.name : '', Validators.required],
       fromEmails: [[]],
       subject: [data && data.subject ? data.subject : '', Validators.required],
       html: [data && data.html ? data.html : '', Validators.required],
     });
-    if (data) {
-      this.form.patchValue({
-        name: data.name,
-        subject: data.subject,
-        html: data.html,
-      });
+
+    if(this.currentThenTask.eventData.params.emailData) {
+      const emailData = this.currentThenTask.eventData.params.emailData;
+      this.form.patchValue(emailData);
     }
 
+    this.form.valueChanges.pipe(filter(()=> this.form.valid)).subscribe(res => {
+      this.currentThenTask.eventData.params.emailData = this.form.value;
+      this.currentThenTaskGroup.patchValue(this.currentThenTask);
+      this.automationService.updateThenTask(this.currentThenTaskGroup);
+    })
   }
 
   contactList(search?) {
@@ -130,4 +111,6 @@ export class EmailEditorComponent implements OnInit {
       () => {
       });
   }
+
+
 }

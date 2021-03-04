@@ -77,7 +77,7 @@ export class AutomationService {
     this.thenTasksSubject.getValue().push(thenTask);
   }
 
-  getThenTaskByIndex(index: number): AbstractControl|FormGroup {
+  getThenTaskByIndex(index: number = this.currentThenTaskIndex): AbstractControl|FormGroup {
     if (!this.isNullOrEmpty(this.thenTasksSubject.getValue())) {
       return this.thenTasksSubject.getValue().at(index);
     } else {

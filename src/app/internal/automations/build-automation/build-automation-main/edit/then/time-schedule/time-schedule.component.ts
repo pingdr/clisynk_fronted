@@ -1,3 +1,4 @@
+import { AutomationService } from 'src/app/internal/automations/automation.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,9 +9,10 @@ import { Component, OnInit } from '@angular/core';
 export class TimeScheduleComponent implements OnInit {
 
   time=''
-  constructor() { }
+  constructor(public automationService: AutomationService) { }
 
   ngOnInit() {
+    console.log(this.automationService.getThenTaskByIndex().value)
   }
 
   open() {

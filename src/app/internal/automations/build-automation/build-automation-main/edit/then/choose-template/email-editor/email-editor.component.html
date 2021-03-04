@@ -11,12 +11,12 @@
             <ng-multiselect-dropdown
                 [placeholder]="'Select Contacts'"
                 [data]="contacts"
-                [(ngModel)]="selectedContacts"
-                [ngModelOptions]="{ standalone: true}"
+                [formControl]="form.controls['fromEmails']"
                 [settings]="dropdownSettings"
-                (onSelect)="onItemSelect($event)"
-                (onSelectAll)="onSelectAll($event)"
-            >
+                >
+                <!-- (onSelect)="onItemSelect($event)" -->
+                <!-- [ngModelOptions]="{ standalone: true}" -->
+                <!-- [(ngModel)]="selectedContacts" -->
           </ng-multiselect-dropdown>
         </div>
         <!-- <mat-error
