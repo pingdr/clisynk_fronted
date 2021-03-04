@@ -85,13 +85,14 @@ export class DisplayCardComponent extends CardHelperFunctions implements OnInit 
         break;
       }
       case EventNames.THEN.SEND_EMAIL: {
+        this.automationService.currentThenTaskIndex = this.index;
         
         const currentTask = this.automationService.getThenTaskByIndex(this.index);
         if (currentTask && (currentTask.value as ThenEvent).eventData.dataId) { // in editMode
           this.automationService.updateEventType(EventType.THEN_EDIT_SEND_EMAIL_SELECT);  
           return;
         } 
-        this.thenTaskEditMode();
+        this.automationService.updateThenTask(this._taskData, this.index);
         this.automationService.updateEventType(EventType.THEN_EDIT_SEND_EMAIL);
         break;
       }
@@ -113,16 +114,6 @@ export class DisplayCardComponent extends CardHelperFunctions implements OnInit 
         break;
       }
     }
-  }
-
-  thenTaskEditMode() {
-    this._taskData.patchValue({
-      eventData: {
-        params: { thenTaskIndex: this.index }
-      }
-    })
-    this.automationService.currentThenTaskIndex = this.index;
-    this.automationService.updateThenTask(this._taskData, this.index);
   }
 
 

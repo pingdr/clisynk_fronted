@@ -11,6 +11,8 @@ import { map, filter } from 'rxjs/operators';
 import { MailTemplateData } from 'src/app/shared/models/mail-template.model';
 import { ApiUrl } from 'src/app/services/apiUrls';
 import { IDropdownSettings } from 'ng-multiselect-dropdown/multiselect.model';
+import * as _ from 'lodash';
+
 @Component({
   selector: 'app-email-editor',
   templateUrl: './email-editor.component.html',
@@ -49,7 +51,7 @@ export class EmailEditorComponent implements OnInit {
 
   configure() {
     this.loginData = JSON.parse(localStorage.getItem('loginData'));
-    this.currentThenTaskGroup = <FormGroup>this.automationService.getThenTaskByIndex();
+    this.currentThenTaskGroup = _.cloneDeep(<FormGroup>this.automationService.getThenTaskByIndex());
     this.currentThenTask = this.currentThenTaskGroup.value;
     this.formInit();
 
@@ -71,7 +73,6 @@ export class EmailEditorComponent implements OnInit {
 
   formInit(data?: MailTemplateData) {
 
-
     this.form = this.http.fb.group({
       name: [data && data.name ? data.name : '', Validators.required],
       fromEmails: [[]],
@@ -80,6 +81,7 @@ export class EmailEditorComponent implements OnInit {
     });
 
     if(this.currentThenTask.eventData.params.emailData) {
+      console.log("got updated");
       const emailData = this.currentThenTask.eventData.params.emailData;
       this.form.patchValue(emailData);
     }
@@ -88,6 +90,17 @@ export class EmailEditorComponent implements OnInit {
       this.currentThenTask.eventData.params.emailData = this.form.value;
       this.currentThenTaskGroup.patchValue(this.currentThenTask);
       this.automationService.updateThenTask(this.currentThenTaskGroup);
+    })
+
+    this.signStatus.valueChanges.subscribe(()=>{
+      console.log(this.signStatus.value);
+      // if (this.signStatus.value) {
+      //   const temp = this.form.value.html + `<br><br><section class="signature-preview">
+      //   <h4>${this.loginData.name}</h4> <p>${this.loginData.email}</p><p>${this.loginData.countryCode ? this.loginData.countryCode : ''}${this.loginData.phoneNumber ? this.loginData.phoneNumber : ''}</p>
+      //    </section>`;
+      //   this.form.controls.html.patchValue(temp);
+      //   // obj.content = temp;
+      // }
     })
   }
 

@@ -3,7 +3,6 @@
     <!-- ----------------------Tabination-------------- -->
     <div  [formGroup]="form" class="tabbable-panel margin-tops4  edit-tabs">
         <div class="tabbable-line">
-            {{form.value|json}}
           <ul class="nav nav-tabs tabtop  tabsetting">
             <li (click)="f.isDelayed.setValue(false)" class="active"> <a href="#tab_default_1" data-toggle="tab"> Immediately </a> </li>
             <li (click)="f.isDelayed.setValue(true)"> <a href="#tab_default_2" data-toggle="tab"> Delayed</a> </li>

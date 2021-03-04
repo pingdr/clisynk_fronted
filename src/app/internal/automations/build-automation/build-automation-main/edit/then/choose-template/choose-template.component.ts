@@ -10,7 +10,7 @@ import { BackendResponse } from 'src/app/models/backend-response';
 import { AppointmentService } from 'src/app/internal/appointments/appointment.service';
 import { Router } from '@angular/router';
 import { MailTemplateListData } from 'src/app/shared/models/mail-template-list.model';
-
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-choose-template',
@@ -57,15 +57,16 @@ export class ChooseTemplateComponent implements OnInit {
   onSelectMailTemplate(mailTemplate: MailTemplateListData) {
     console.log(mailTemplate);
 
-    const index = this.automationService.currentThenTaskIndex;
-    const editedThenTaskGroup = this.automationService.getThenTaskByIndex(index);
+    const editedThenTaskGroup =_.cloneDeep(this.automationService.getThenTaskByIndex());
+    // const editedThenTaskGroup = Object.assign({}, this.automationService.getThenTaskByIndex(index)) ;
     editedThenTaskGroup.patchValue({
       eventData: {
         dataId: mailTemplate._id,
-        params: { name: mailTemplate.name, thenTaskIndex: index}
+        params: { name: mailTemplate.name}
       }
     })
-    this.automationService.updateThenTask(editedThenTaskGroup, index);
+    this.automationService.updateThenTask(editedThenTaskGroup);
+    console.log(this.automationService.getThenTaskByIndex().value)
     this.automationService.updateEventType(EventType.THEN_EDIT_SEND_EMAIL_SELECT);
   }
 

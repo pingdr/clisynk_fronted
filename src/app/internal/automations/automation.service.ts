@@ -67,7 +67,7 @@ export class AutomationService {
   }
   
   updateThenTask(thenTask: FormGroup| AbstractControl, index: number = this.currentThenTaskIndex) {
-    this.thenTasksSubject.getValue().at(index).patchValue(thenTask);
+    this.thenTasksSubject.getValue().at(index).patchValue(thenTask.value);
   }
   
   addToThenTasksList(thenTask: FormGroup) {

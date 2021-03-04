@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AutomationService } from 'src/app/internal/automations/automation.service';
 import { Component, OnInit } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox/typings/checkbox';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-time-schedule',
@@ -24,7 +25,7 @@ export class TimeScheduleComponent implements OnInit {
   constructor(public automationService: AutomationService, private fb: FormBuilder) { }
 
   ngOnInit() {
-    this.form = <FormGroup>this.automationService.getThenTaskByIndex();
+    this.form = <FormGroup>_.cloneDeep(this.automationService.getThenTaskByIndex())
     console.log(this.form.value);
     this.conditionalFormChanges();
   }
@@ -40,7 +41,7 @@ export class TimeScheduleComponent implements OnInit {
     const dayInterval = this.form.get('delayedOptions.dayInterval');
     const timeInterval = this.form.get('delayedOptions.timeInterval');
 
-    delayType.setValue(this.WAIT_TYPES.WAIT);
+    // delayType.setValue(this.WAIT_TYPES.WAIT);
     delayType.valueChanges.subscribe(res => {
       dayInterval.reset({
         intervalType: '',
@@ -50,6 +51,7 @@ export class TimeScheduleComponent implements OnInit {
 
     isDelayed.valueChanges.subscribe(isDelayed => {
       this.specifictTime = false;
+      if(isDelayed == false) {
         delayedOptions.reset({
           delayType: '',
           dayInterval: {
@@ -61,11 +63,13 @@ export class TimeScheduleComponent implements OnInit {
             value: '',
           }
         })
+      }
     })
 
 
     this.form.valueChanges.pipe(filter(()=> this.form.valid)).subscribe(res => {
       console.log(res)
+      this.automationService.updateThenTask(this.form);
     })
   }
 }
