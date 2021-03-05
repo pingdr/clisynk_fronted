@@ -184,7 +184,7 @@ export class AutomationService {
         }),
         timeInterval: this.fb.group({
           intervalType: [''],
-          value: [''],
+          value: [[]],
         }),
 
       }),

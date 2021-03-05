@@ -107,5 +107,42 @@
     margin: 0px 15px !important;
     font-size: 15px;
     position: relative;
-    top: -9px;
+}
+
+ul.delayed-options {
+    padding-left: 0;
+    list-style-type: none;
+    display: flex;
+}
+
+ul.delayed-options li {
+    border: 1px solid #ccc;
+    padding: 13px 50px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+ul.delayed-options li.active {
+    background: #656565;
+}
+
+ul.delayed-options li.active a{
+    color: #fff;
+}
+
+ul.delayed-options li:first-child {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-right: 0 !important;
+}
+
+ul.delayed-options li:nth-child(2) {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+ul.delayed-options li a {
+    font-size: 14px;
+    font-weight: 500;
+    color: blue;
 }

@@ -7746,3 +7746,11 @@ input:-webkit-autofill:active {
 .ref-icon {
   width: 60px;
 }
+
+.at-between-main-tabs timepicker table {
+  width: auto !important;
+}
+
+.at-between-main-tabs timepicker table tbody td {
+  float: none;
+}
