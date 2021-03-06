@@ -23,3 +23,13 @@ export const EventNames = {
         REMOVE_TAG : 'removeTag'
     }
 }
+
+export const DELAY_TYPES = {
+    WAIT: 'wait',
+    WAIT_UNTIL: 'waitUntil'
+  }
+
+export const TIME_TYPES = {
+    atTime: 'atTime',
+    betweenTime: 'betweenTime'
+  }

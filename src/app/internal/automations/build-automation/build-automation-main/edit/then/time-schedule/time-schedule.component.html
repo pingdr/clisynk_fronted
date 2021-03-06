@@ -20,14 +20,14 @@
                                 <mat-form-field class="full-width select-height" appearance="outline">
                                     <mat-label class="required"> Delay Type</mat-label>
                                     <mat-select formControlName="delayType">
-                                        <mat-option [value]="WAIT_TYPES.WAIT" default>Wait</mat-option>
-                                        <mat-option [value]="WAIT_TYPES.WAIT_UNTIL">Wait until a specific date
+                                        <mat-option [value]="DELAY_TYPES.WAIT" default>Wait</mat-option>
+                                        <mat-option [value]="DELAY_TYPES.WAIT_UNTIL">Wait until a specific date
                                         </mat-option>
                                     </mat-select>
                                 </mat-form-field>
                             </div>
                             <ng-container
-                                *ngIf="f?.delayedOptions?.get('delayType').value == WAIT_TYPES.WAIT;else showChooseDate">
+                                *ngIf="f?.delayedOptions?.get('delayType').value == DELAY_TYPES.WAIT;else showChooseDate">
                                 <ng-container formGroupName="dayInterval">
                                     <div class="second-row-for-day">
 

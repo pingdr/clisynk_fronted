@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { EventType } from './../automation-constants';
 import { AutomationService } from './../automation.service';
 import { Component, OnInit } from '@angular/core';
@@ -10,7 +11,7 @@ import { HttpService } from 'src/app/services/http.service';
 })
 export class BuildAutomationComponent implements OnInit {
 
-  constructor(public http: HttpService, public automationService: AutomationService) { }
+  constructor(public http: HttpService,public router: Router, public automationService: AutomationService) { }
 
   ngOnInit() {
   }
@@ -23,7 +24,7 @@ export class BuildAutomationComponent implements OnInit {
     });
     this.automationService.resetState();
     this.automationService.resetCurrentThenTask();
-    this.http.goBack();
+    this.router.navigate(['automation']);
   }
   ngOnDestroy() {
   }

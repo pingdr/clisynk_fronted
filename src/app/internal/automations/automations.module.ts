@@ -27,6 +27,7 @@ import { ChooseTemplateComponent } from './build-automation/build-automation-mai
 import { EmailEditorComponent } from './build-automation/build-automation-main/edit/then/choose-template/email-editor/email-editor.component';
 import { SendNotificationComponent } from './build-automation/build-automation-main/edit/then/send-notification/send-notification.component';
 import { TimeScheduleComponent } from './build-automation/build-automation-main/edit/then/time-schedule/time-schedule.component';
+import { ThenTimePipe } from './build-automation/build-automation-main/display-card/then-time.pipe';
 
 // import { AmazingTimePickerModule } from 'amazing-time-picker';
 
@@ -52,7 +53,7 @@ const routes: Routes = [
         AutomationComponent, BuildAutomationComponent, AddBuildautomationComponent, BuildThenautomationsComponent,
         FreeConsulationComponent, FreeConsultaionThen, FreeCosulationWhenComponent, BuildAutomationMainComponent, AutomationPreviewComponent
         ,DisplayCardComponent, ThenSuggestionsComponent, WhenSuggestionsComponent, AutomationHeaderComponent, 
-        ChooseLeadFormComponent, ChooseAppointmentTypeComponent, LoadingComponent, ChooseTagComponent, ChooseProductComponent, ChooseTemplateComponent, EmailEditorComponent, SendNotificationComponent, TimeScheduleComponent
+        ChooseLeadFormComponent, ChooseAppointmentTypeComponent, LoadingComponent, ChooseTagComponent, ChooseProductComponent, ChooseTemplateComponent, EmailEditorComponent, SendNotificationComponent, TimeScheduleComponent, ThenTimePipe
 
     ],
     imports: [

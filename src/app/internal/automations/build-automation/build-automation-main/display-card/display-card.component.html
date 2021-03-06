@@ -42,10 +42,10 @@
                         </a>
                     </div>
                 </div>
-                <section *ngIf="eventType == EventType.THEN" class="edit-timings">
+                <section *ngIf="eventType == EventType.THEN && thenEvent?.eventData?.dataId" class="edit-timings">
                     <div class="row p-4 bg-light">
-                        <div class="col-8">wait until Date at start to end Time</div>
-                        <div class="col-4 text-center blue-link"> Edit Timer</div>
+                        <div class="col-8">{{thenEvent?.delayedOptions | thenTime}}</div>
+                        <div class="col-4 text-center blue-link" (click)="onEditTimer()"> Edit Timer</div>
                     </div>
                 </section>
                 <div class="go-to-your-form">

@@ -1,4 +1,5 @@
-import { EventNames } from './../../../models/enum';
+import { WhenEvent } from './../../../models/automation';
+import { EventNames, TIME_TYPES, DELAY_TYPES } from './../../../models/enum';
 import { LeadFormDeletedComponent } from 'src/app/shared/modals/lead-form-deleted/lead-form-deleted.component';
 import { HttpService } from 'src/app/services/http.service';
 import { FormGroup } from '@angular/forms';
@@ -17,6 +18,8 @@ import { ThenEvent } from '../../../models/automation';
 export class DisplayCardComponent extends CardHelperFunctions implements OnInit {
 
   statusImages = Images;
+  TIME_TYPES = TIME_TYPES;
+  DELAY_TYPES = DELAY_TYPES;
   random: string;
   EventType = EventType;
   EventNames = EventNames;
@@ -25,6 +28,9 @@ export class DisplayCardComponent extends CardHelperFunctions implements OnInit 
 
   @Input()
   index: number = 0;
+
+  whenEvent: WhenEvent;
+  thenEvent: ThenEvent;
 
   _taskData: FormGroup;
   @Input()
@@ -46,7 +52,6 @@ export class DisplayCardComponent extends CardHelperFunctions implements OnInit 
     }
   }
 
-
   constructor(public changeDetection: ChangeDetectorRef,
     public automationService: AutomationService,
     public router: Router,
@@ -58,7 +63,14 @@ export class DisplayCardComponent extends CardHelperFunctions implements OnInit 
 
   ngOnInit() {
     console.log(this.random);
-    this.automationService.eventSelected.subscribe(res => this.eventType = res);
+    this.automationService.eventSelected.subscribe(res => {
+      this.eventType = res;
+      if (this.eventType == EventType.WHEN) {
+        this.whenEvent = this._taskData.value;
+      } else if (this.eventType == EventType.THEN) {
+        this.thenEvent = this._taskData.value;
+      }
+    });
   }
 
 
@@ -86,17 +98,23 @@ export class DisplayCardComponent extends CardHelperFunctions implements OnInit 
       }
       case EventNames.THEN.SEND_EMAIL: {
         this.automationService.currentThenTaskIndex = this.index;
-        
+
         const currentTask = this.automationService.getThenTaskByIndex(this.index);
         if (currentTask && (currentTask.value as ThenEvent).eventData.dataId) { // in editMode
-          this.automationService.updateEventType(EventType.THEN_EDIT_SEND_EMAIL_SELECT);  
+          this.automationService.updateEventType(EventType.THEN_EDIT_SEND_EMAIL_SELECT);
           return;
-        } 
+        }
         this.automationService.updateThenTask(this._taskData, this.index);
         this.automationService.updateEventType(EventType.THEN_EDIT_SEND_EMAIL);
         break;
       }
     }
+  }
+
+  onEditTimer() {
+    this.automationService.currentThenTaskIndex = this.index;
+    this.automationService.updateThenTask(this._taskData, this.index);
+    this.automationService.updateEventType(EventType.THEN_TIME_SCHEDULE);
   }
 
   goTo() {

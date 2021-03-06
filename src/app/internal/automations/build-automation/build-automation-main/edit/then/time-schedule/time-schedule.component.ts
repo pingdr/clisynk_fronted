@@ -7,6 +7,7 @@ import { MatCheckboxChange } from '@angular/material/checkbox/typings/checkbox';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import { TimepickerComponent } from "ngx-bootstrap/timepicker";
+import { TIME_TYPES, DELAY_TYPES } from 'src/app/internal/automations/models/enum';
 
 @Component({
   selector: 'app-time-schedule',
@@ -16,21 +17,11 @@ import { TimepickerComponent } from "ngx-bootstrap/timepicker";
 export class TimeScheduleComponent implements OnInit {
 
   form: FormGroup;
-
-  WAIT_TYPES = {
-    WAIT: 'wait',
-    WAIT_UNTIL: 'waitUntil'
-  }
-
-  TIME_TYPES = {
-    atTime: 'atTime',
-    betweenTime: 'betweenTime'
-  }
-
   atTime = new Date();
   startTime = new Date();
   endTime = new Date();
-
+  TIME_TYPES = TIME_TYPES;
+  DELAY_TYPES = DELAY_TYPES;
   get f() { return this.form.controls; }
   get isSpecificTime() { return !this.auto.isNullOrEmpty(this.form.get('delayedOptions.timeInterval.intervalType').value); }
   get isDelayed() { return this.form.get('isDelayed'); }
@@ -87,7 +78,7 @@ export class TimeScheduleComponent implements OnInit {
           }
         })
       } else {
-        this.delayType.reset(this.WAIT_TYPES.WAIT);
+        this.delayType.reset(DELAY_TYPES.WAIT);
       }
     })
 
@@ -109,13 +100,13 @@ export class TimeScheduleComponent implements OnInit {
     
     this.dayIntervalValue.valueChanges
       .pipe(
-        filter((val) => this.delayType.value == this.WAIT_TYPES.WAIT_UNTIL && !this.auto.isNullOrEmpty(val)),
+        filter((val) => this.delayType.value == DELAY_TYPES.WAIT_UNTIL && !this.auto.isNullOrEmpty(val)),
         first()
       )
       .subscribe(val => {
         console.log('first time called')
         this.timeInterval.reset({
-          intervalType: this.TIME_TYPES.atTime,
+          intervalType: TIME_TYPES.atTime,
           value: [],
         })
       })
