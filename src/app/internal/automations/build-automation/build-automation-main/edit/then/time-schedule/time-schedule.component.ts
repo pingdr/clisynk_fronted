@@ -81,7 +81,7 @@ export class TimeScheduleComponent implements OnInit {
 
 
     this.form.valueChanges.pipe(filter(() => this.form.valid)).subscribe(res => {
-      console.log(res)
+      // console.log(res)
       this.auto.updateThenTask(this.form);
     })
 

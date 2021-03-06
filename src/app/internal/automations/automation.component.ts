@@ -2,7 +2,7 @@ import { AutomationService } from 'src/app/internal/automations/automation.servi
 import { ApiUrl } from 'src/app/services/apiUrls';
 import { LoadingService } from './loading.service';
 import { Observable, Subject } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpService } from 'src/app/services/http.service';
 import { SubmitfeedbackComponent } from 'src/app/shared/modals/submitfeedback/submitfeedback.component';
 import { RenameAutomationComponent } from 'src/app/shared/modals/rename-automation/rename-automation.component';
@@ -19,7 +19,7 @@ import { Router } from '@angular/router';
   templateUrl: './automation.component.html',
   styleUrls: ['./automation.component.css']
 })
-export class AutomationComponent implements OnInit {
+export class AutomationComponent implements OnInit, OnDestroy {
 
   automationParams = new AutomationParams();
 
@@ -41,6 +41,10 @@ export class AutomationComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy() {
+    console.log("SAVE THE AUTOMATION");
   }
 
   loadAutomations() {

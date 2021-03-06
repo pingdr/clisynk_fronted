@@ -83,14 +83,14 @@
     <div class="inner-right-col">
         <ng-container [ngSwitch]="($eventSelected | async)">
             <ng-container *ngSwitchCase="EventType.WHEN">
-                <button class="btn" routerLink="/automation/build-automation">Preview</button>
+                <button class="btn" routerLink="/automation/build-automation" (click)="saveAutomation()">Preview</button>
             </ng-container>
             <ng-container *ngSwitchCase="EventType.THEN">
-                <label class="previewd-save">
+                <!-- <label class="previewd-save">
                     <img src="assets/images/tick.svg" width="20">
                     Saved
-                </label>
-                <button class="btn" routerLink="/automation/build-automation">Preview</button>
+                </label> -->
+                <button class="btn" routerLink="/automation/build-automation" (click)="saveAutomation()">Preview</button>
             </ng-container>
             <ng-container *ngSwitchCase="EventType.WHEN_EDIT_LEAD_FORM"></ng-container>
             <ng-container *ngSwitchCase="EventType.WHEN_EDIT_APPOINTMENT_SCHEDULED"></ng-container>
