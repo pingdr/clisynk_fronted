@@ -34,8 +34,8 @@
                                         <div class="left-text-block">
                                             <mat-form-field class="full-width my-form-field" appearance="outline">
                                                 <mat-label class="required">Number</mat-label>
-                                                <input placeholder="number" matInput appNumberOnly formControlName="value" type="text"
-                                                    #input>
+                                                <input placeholder="number" matInput appNumberOnly
+                                                    formControlName="value" type="text" #input>
                                             </mat-form-field>
                                         </div>
                                         <div class="right-text-block">
@@ -69,40 +69,37 @@
                                         </mat-form-field>
                                     </div>
                                 </ng-container>
-                                <ng-container *ngIf="!automationService.isNullOrEmpty(dayIntervalValue.value)" formGroupName="timeInterval">
-                            
+                                <ng-container *ngIf="!auto.isNullOrEmpty(dayIntervalValue.value)"
+                                    formGroupName="timeInterval">
+
                                     <div class="at-between-main-tabs">
                                         <ul class="delayed-options">
                                             <li (click)="timeIntervalType.setValue(TIME_TYPES.atTime)"
-                                                [class.active]="timeIntervalType.value == TIME_TYPES.atTime"
-                                                > <a> At </a> </li>
+                                                [class.active]="timeIntervalType.value == TIME_TYPES.atTime"> <a> At
+                                                </a> </li>
                                             <li (click)="timeIntervalType.setValue(TIME_TYPES.betweenTime)"
-                                                [class.active]="timeIntervalType.value == TIME_TYPES.betweenTime"
-                                                >
+                                                [class.active]="timeIntervalType.value == TIME_TYPES.betweenTime">
                                                 <a> Between</a>
                                             </li>
                                         </ul>
-        
+
                                         <ng-container *ngIf="timeIntervalType.value == TIME_TYPES.atTime;else between">
-                                            <timepicker [(ngModel)]="atTime"
-                                                #at
-                                                [showMeridian]="true"
-                                                (ngModelChange)="atTimeChange(at)" [ngModelOptions]="{standalone:true}">
+                                            <timepicker [(ngModel)]="atTime" [showMeridian]="true"
+                                                (ngModelChange)="atTimeChange()" [ngModelOptions]="{standalone:true}">
                                             </timepicker>
                                         </ng-container>
                                         <ng-template #between>
                                             <div class="between-time-pick-main">
-                                                <timepicker #start [(ngModel)]="startTime" 
-                                                [showMeridian]="true"
-                                                (ngModelChange)="betweenTimeChange(start,'start')"    
-                                                [ngModelOptions]="{standalone:true}"></timepicker>
+                                                <timepicker [(ngModel)]="startTime" [showMeridian]="true"
+                                                    (ngModelChange)="betweenTimeChange('start')"
+                                                    [ngModelOptions]="{standalone:true}"></timepicker>
                                                 <div class="center-col-time">
                                                     and
                                                 </div>
-                                                <timepicker #end [(ngModel)]="endTime" [showMeridian]="true"
-                                                (ngModelChange)="betweenTimeChange(end,'end')"    
-                                                [ngModelOptions]="{standalone:true}"></timepicker>
-        
+                                                <timepicker [(ngModel)]="endTime" [showMeridian]="true"
+                                                    (ngModelChange)="betweenTimeChange('end')"
+                                                    [ngModelOptions]="{standalone:true}"></timepicker>
+
                                             </div>
                                         </ng-template>
                                     </div>
@@ -114,7 +111,7 @@
                                     class="example-margin">At a specific time of day</mat-checkbox>
                             </div> -->
 
-                            
+
                         </div>
                     </ng-container>
                 </div>
