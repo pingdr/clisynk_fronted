@@ -38,6 +38,14 @@ export class BuildAutomationMainComponent implements OnInit {
     this.$eventSelected = this.automationService.eventSelected;
   }
 
+  async saveAutomation(){
+      
+    (await this.automationService.saveAutomation()).subscribe(automation => {
+      console.log('saved');
+      this.automationService.automation = automation;
+      this.http.showToaster('Automation Saved Successfully!');
+    });
+  }
 
 
   handleAnimation() {

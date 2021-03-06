@@ -1,13 +1,12 @@
-import { MailTemplateListData } from './../../shared/models/mail-template-list.model';
+import { BackendResponse } from 'src/app/models/backend-response';
 import { LoadingService } from 'src/app/internal/automations/loading.service';
-import { Automation, ThenEvent } from 'src/app/internal/automations/models/automation';
+import { Automation } from 'src/app/internal/automations/models/automation';
 import { HttpService } from 'src/app/services/http.service';
 import { EventType } from './automation-constants';
 import { Injectable } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NavigationEnd, Router } from '@angular/router';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { finalize } from 'rxjs/operators';
+import { BehaviorSubject, Subject, Observable } from 'rxjs';
+import { finalize, map } from 'rxjs/operators';
 import { User } from 'src/app/models/user';
 import { ApiUrl } from 'src/app/services/apiUrls';
 
@@ -16,20 +15,14 @@ import { ApiUrl } from 'src/app/services/apiUrls';
 })
 export class AutomationService {
 
-
-
   private eventSelectedSubject = new BehaviorSubject<EventType>(EventType.WHEN);
   public eventSelected = this.eventSelectedSubject.asObservable();
 
   private thenTasksSubject = new BehaviorSubject<FormArray>(new FormArray([]));
   public thenTasks = this.thenTasksSubject.asObservable();
 
-  private currentThenTaskSubject = new BehaviorSubject<FormGroup>(null);
-  public currentThenTask = this.currentThenTaskSubject.asObservable();
-
   private whenEventSubject = new BehaviorSubject<FormGroup>(null);
   public whenEvent = this.whenEventSubject.asObservable();
-
 
   private reloadAutomationsListSubject = new Subject<boolean>();
   public reloadAutomationsList$ = this.reloadAutomationsListSubject.asObservable();
@@ -130,15 +123,10 @@ export class AutomationService {
 
   //#region Resest 
 
-  resetCurrentThenTask() {
-    this.currentThenTaskSubject.next(null);
-  }
-
   resetState() {
     this.automation = null;
     this.updateThenTasksList(null);
     this.updateWhenEvent(null);
-    this.resetCurrentThenTask();
     this.updateEventType(EventType.WHEN);
   }
   //#endregion
@@ -206,13 +194,16 @@ export class AutomationService {
   //#endregion
 
   //#region API-Calls
-  async saveAutomation() {
+  saveAutomation(): Observable<Automation>{
 
     const obj = this.getAutomationObj();
 
     this.loadingService.loadingOn();
     return this.http.postAutomation(ApiUrl.ADD_AUTOMATION, obj)
-    .pipe(finalize(() => { this.loadingService.loadingOff(); }))
+    .pipe(
+      map((val: BackendResponse<Automation>) => val.data),
+      finalize(() => { this.loadingService.loadingOff(); })
+    );
   }
   //#endregion
 

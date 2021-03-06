@@ -604,6 +604,27 @@ export class HttpService {
         });
         return formData;
       }
+    showToaster(message: string, toastrType: string = 'success') {
+    switch (toastrType) {
+        case "success":
+        setTimeout(() => this.toastr.success(message, "Success!"));
+        break;
+        case "error":
+        setTimeout(() => this.toastr.error(message, "Error!"));
+        break;
+        case "warning":
+        setTimeout(() => this.toastr.warning(message, "Warning!"));
+        break;
+        case "info":
+        setTimeout(() => this.toastr.info(message, "Info!"));
+        break;
+    }
+    }
+
+    handleError(msg: string) {
+    this.showToaster(msg, 'error');
+    }
+    
 
 }
 

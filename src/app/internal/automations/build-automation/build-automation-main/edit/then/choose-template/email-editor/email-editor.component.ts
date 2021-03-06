@@ -55,7 +55,7 @@ export class EmailEditorComponent implements OnInit {
     this.currentThenTask = this.currentThenTaskGroup.value;
     this.formInit();
 
-    if (!this.automationService.isNullOrEmpty(this.currentThenTask.eventData.dataId)) {
+    if (!this.automationService.isNullOrEmpty(this.currentThenTask.eventData.dataId) && !this.currentThenTask.eventData.params.emailData) {
       this.loadData();
     }
 

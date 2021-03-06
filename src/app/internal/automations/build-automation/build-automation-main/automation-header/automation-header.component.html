@@ -54,7 +54,7 @@
             </ng-container>
             <ng-container *ngSwitchCase="EventType.THEN_EDIT_SEND_EMAIL">
                 <div class="new-form-choose"> 
-                    <button (click)="automationService.updateEventType(EventType.THEN);automationService.resetCurrentThenTask()" class="close-icon-btn" >
+                    <button (click)="automationService.updateEventType(EventType.THEN);" class="close-icon-btn" >
                             <img src="assets/images/ic_close.svg">
                     </button>
                     <span>Choose a template</span>
