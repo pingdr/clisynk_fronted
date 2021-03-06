@@ -1,12 +1,9 @@
-import { filter, first, tap } from 'rxjs/operators';
-import { DelayedOptions } from './../../../../../models/automation';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { filter, first } from 'rxjs/operators';
+import { FormGroup } from '@angular/forms';
 import { AutomationService } from 'src/app/internal/automations/automation.service';
-import { Component, OnInit, ChangeDetectorRef, Renderer2 } from '@angular/core';
-import { MatCheckboxChange } from '@angular/material/checkbox/typings/checkbox';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import * as _ from 'lodash';
 import * as moment from 'moment';
-import { TimepickerComponent } from "ngx-bootstrap/timepicker";
 import { TIME_TYPES, DELAY_TYPES } from 'src/app/internal/automations/models/enum';
 
 @Component({
@@ -17,9 +14,9 @@ import { TIME_TYPES, DELAY_TYPES } from 'src/app/internal/automations/models/enu
 export class TimeScheduleComponent implements OnInit {
 
   form: FormGroup;
-  atTime = new Date();
-  startTime = new Date();
-  endTime = new Date();
+  atTime;
+  startTime;
+  endTime;
   TIME_TYPES = TIME_TYPES;
   DELAY_TYPES = DELAY_TYPES;
   get f() { return this.form.controls; }
@@ -88,7 +85,7 @@ export class TimeScheduleComponent implements OnInit {
       this.auto.updateThenTask(this.form);
     })
 
-    if (this.dayIntervalValue.value instanceof Date) {
+    if (moment(this.dayIntervalValue.value).toDate() instanceof Date) {
       const tIV: Array<string> = this.timeIntervalValue.value;
       if (!this.auto.isNullOrEmpty(tIV[0]) && this.auto.isNullOrEmpty(tIV[1])) {
         this.atTime = moment(tIV[0]).toDate();

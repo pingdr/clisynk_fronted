@@ -4,7 +4,7 @@
         <div class="left-header-main">
             <div class="heading-main">My Automations</div>
             <div class="right-add-icon"> 
-                <a title="add-icon" [routerLink]="['build-automation']">
+                <a title="add-icon" [routerLink]="['build-automation']" (click)="automationService.resetState();">
                     <img src="../../../assets/images/add-icon.svg" width="40">
                 </a>
             </div> 
@@ -19,7 +19,7 @@
                             <div class="first-icon">
                                 <img src="../../../assets/images/flash.svg" width="20">
                             </div>
-                            <div class="title-main" (click)="Previewautomation()">
+                            <div class="title-main" (click)="editAutomation(automation)">
                                 <div class="main-menu-title">{{ automation.automationName}}</div>
                                 <div class="status-for-document">Draft</div>
                             </div>

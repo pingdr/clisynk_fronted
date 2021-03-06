@@ -24,7 +24,7 @@ export class NavigateToProductsComponent implements OnInit {
   async confirm() {
 
     this.loader = true;
-    (await this.automationService.saveAutomationDraft()).pipe(finalize(()=> {this.loader = false;})).subscribe(res => {
+    (await this.automationService.saveAutomation()).pipe(finalize(()=> {this.loader = false;})).subscribe(res => {
       console.log('draft saved')
       this.automationService.resetState();
       this.http.hideModal();

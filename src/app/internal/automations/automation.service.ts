@@ -34,6 +34,14 @@ export class AutomationService {
   private reloadAutomationsListSubject = new Subject<boolean>();
   public reloadAutomationsList$ = this.reloadAutomationsListSubject.asObservable();
 
+  private _automation: Automation = null;
+  set automation(value) {
+    this._automation = value;
+  }
+  get automation() {
+    return this._automation;
+  }
+
   constructor(public http: HttpService, public loadingService: LoadingService,private fb: FormBuilder) { }
 
   //#region EventType
@@ -127,8 +135,10 @@ export class AutomationService {
   }
 
   resetState() {
+    this.automation = null;
     this.updateThenTasksList(null);
     this.updateWhenEvent(null);
+    this.resetCurrentThenTask();
     this.updateEventType(EventType.WHEN);
   }
   //#endregion
@@ -146,13 +156,16 @@ export class AutomationService {
     const whenEvent = this.whenEventSubject.getValue();
     const thenTasks = this.thenTasksSubject.getValue();
 
-    const obj: Automation = {
-      automationName: 'My Automation',
-      whenEvent: whenEvent ? whenEvent.value : this.createWhenEventObj().value,
+    const obj: Partial<Automation> = {
+      automationName: this.automation && this.automation.automationName ? this.automation.automationName : 'My Automation',
       thenEvents: thenTasks ? thenTasks.value : [],
       workspaceId: user.activeWorkspaceId,
       addedBy: user._id
     };
+    
+    whenEvent ? obj.whenEvent = whenEvent.value : null; //sending no whenObj if there is no whenEvent.
+    this.automation && this.automation._id ? obj._id = this._automation._id  : '';
+
     return obj;
   }
   
@@ -193,7 +206,7 @@ export class AutomationService {
   //#endregion
 
   //#region API-Calls
-  async saveAutomationDraft() {
+  async saveAutomation() {
 
     const obj = this.getAutomationObj();
 

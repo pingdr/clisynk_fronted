@@ -12,6 +12,7 @@ import { Automation } from './models/automation';
 import { BackendResponse } from '../../models/backend-response';
 import { User } from 'src/app/models/user';
 import { map, finalize, shareReplay } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-automation',
@@ -24,7 +25,9 @@ export class AutomationComponent implements OnInit {
 
   rightdefault = false;
 
-  constructor(public http: HttpService, public loadingService: LoadingService, public automationService: AutomationService) {
+  constructor(public http: HttpService, public loadingService: LoadingService, 
+    private router: Router,
+    public automationService: AutomationService) {
     this.loadAutomations();
     const reloadSub = this.automationService.reloadAutomationsList$.subscribe((reload: boolean) =>{
       console.log(reload);
@@ -75,7 +78,24 @@ export class AutomationComponent implements OnInit {
     })
   }
 
-  Previewautomation() {
+  editAutomation(automation: Automation) {
+    this.automationService.resetState();
+
+    if (!this.automationService.isNullOrEmpty(automation.whenEvent)) {
+      const whenEvent = this.automationService.createWhenEventObj()
+      whenEvent.patchValue(automation.whenEvent);
+      this.automationService.updateWhenEvent(whenEvent);
+    }
+    
+    automation.thenEvents.forEach(thenEvent => {
+      const thenEventGroup = this.automationService.createThenEventObj()
+      thenEventGroup.patchValue(thenEvent);
+      this.automationService.addToThenTasksList(thenEventGroup);
+    })
+
+    this.automationService.automation = automation;
+    
+    this.router.navigate(["/automation/build-automation-main"]);
     this.rightdefault = true;
   }
 

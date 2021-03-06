@@ -11,19 +11,18 @@ import { HttpService } from 'src/app/services/http.service';
 })
 export class BuildAutomationComponent implements OnInit {
 
-  constructor(public http: HttpService,public router: Router, public automationService: AutomationService) { }
+  constructor(public http: HttpService, public automationService: AutomationService, private router: Router) { }
 
   ngOnInit() {
   }
 
   async saveDraft() {
     
-    (await this.automationService.saveAutomationDraft()).subscribe(res => {
+    (await this.automationService.saveAutomation()).subscribe(res => {
       console.log('saved')
       this.automationService.reloadAutomationsList(true);
     });
     this.automationService.resetState();
-    this.automationService.resetCurrentThenTask();
     this.router.navigate(['automation']);
   }
   ngOnDestroy() {

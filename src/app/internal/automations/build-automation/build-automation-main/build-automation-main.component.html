@@ -2,7 +2,7 @@
     <!-----------------header-main-------------------->
     <div class="build-automation-header-main">
         <div class="left-col">
-            <img style="cursor: pointer;" [src]="'/assets/images/back-arrow.svg'" (click)="http.goBack(); automationService.updateEventType(EventType.WHEN)" width="50">
+            <img style="cursor: pointer;" [src]="'/assets/images/back-arrow.svg'" routerLink="/automation/build-automation" (click)="automationService.updateEventType(EventType.WHEN)" width="50">
             <span>Build automation</span>
         </div>
         <app-automation-header></app-automation-header>
