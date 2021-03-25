@@ -12,12 +12,15 @@ export class TwilioService {
   msgSubject = new BehaviorSubject("");
   microphone = true;
   roomParticipants;
-
+  accessToken: any;
+  options: any;
   constructor() {
 
   }
 
   connectToRoom(accessToken: string, options): void {
+    this.accessToken = accessToken;
+    this.options = options;
     console.log('in connect function', accessToken, options)
     connect(accessToken, options).then(room => {
       console.log('connection success....', room)
@@ -31,20 +34,22 @@ export class TwilioService {
 
       // when participent disconnect
       room.on('participantDisconnected', (participant) => {
-        this.removeTrack();
+        this.detachTracks(participant.tracks);
       });
 
       // this.attachParticipantTracks(room.localParticipant)
       // when participent connect
       room.on('participantConnected', participant => {
         console.log('------participantConnected --------', participant);
-        let prFlag = false;
-        this.roomParticipants.forEach((pr) => {
-          if (pr.sid === participant.sid) {
-            prFlag = true;
-          }
-        })
-        if(!prFlag)
+        this.roomParticipants = room.participants;
+
+        // let prFlag = false;
+        // this.roomParticipants.forEach((pr) => {
+        //   if (pr.sid === participant.sid) {
+        //     prFlag = true;
+        //   }
+        // })
+        // if(!prFlag)
         this.attachParticipantTracks(participant);
       });
 
@@ -54,27 +59,46 @@ export class TwilioService {
       // });
 
       // When a Participant adds a Track, attach it to the DOM.
-      room.on('trackAdded', (track, participant) => {
-        this.attachTracks([track]);
-      });
+      // room.on('trackAdded', (track, participant) => {
+      //   this.attachTracks([track]);
+      // });
 
-      // When a Participant removes a Track, detach it from the DOM.
-      room.on('trackRemoved', (track, participant) => {
-        this.detachTracks([track]);
-      });
+      // // When a Participant removes a Track, detach it from the DOM.
+      // room.on('trackRemoved', (track, participant) => {
+      //   this.detachTracks([track]);
+      // });
 
       // when me left room
-      room.on('disconnected', room => {
+      room.on('disconnected', (room, error) => {
         this.removeTrack();
       });
     });
   }
-
+  remoeLocatVideoTrack() {
+    this.roomObj.localParticipant.videoTracks.forEach(video => {
+      const trackConst = [video][0].track;
+      trackConst.stop(); // <- error
+      trackConst.detach().forEach(element => element.remove());
+      this.roomObj.localParticipant.unpublishTrack(trackConst);
+    });
+    let element = this.remoteVideo.nativeElement;
+    while (element.firstChild) {
+      element.removeChild(element.firstChild);
+    }
+    let localElement = this.localVideo.nativeElement;
+    while (localElement.firstChild) {
+      localElement.removeChild(localElement.firstChild);
+    }
+  }
   removeTrack() {
     console.log('rrom obj is..................', this.roomObj)
-    this.roomObj.localParticipant.tracks.forEach(function (track) {
-      track.track.stop();
+    this.roomObj.localParticipant.tracks.forEach(function (tra) {
+      console.log(tra);
+      tra.track.stop();
+      const attachedElements = tra.track.detach();
+      attachedElements.forEach(element => element.remove());
     });
+    // this.roomObj.disconnect();
   }
 
   attachParticipantTracks(participant): void {

@@ -114,22 +114,22 @@
                 *ngIf="tab == 'groups'">
                 <div class="tab-pane1" id="pills-home">
                     <div class="nav flex-column nav-pills" id="v-pills-tab" aria-orientation="vertical">
-                        <div *ngIf="groupData.length != 0" class="select-all custom-select-all">
+                        <!-- <div *ngIf="groupData.length != 0" class="select-all custom-select-all">
                             <label class="custom-checkbox">Select all
                                 <input type="checkbox" [formControl]="allSelect">
                                 <span class="checkmark"></span>
                             </label>
 
-                        </div>
-                        <cdk-virtual-scroll-viewport itemSize="20" class="full-port">
+                        </div> -->
+                        <cdk-virtual-scroll-viewport itemSize="20" class="full-port" style="height: calc(100vh - 253px) !important;">
                             <app-loader [showLoader]="loader" [length]="groupData?.length"></app-loader>
                             <div *cdkVirtualFor="let data of groupData;let i = index">
 
                                 <a class="nav-link group-add-main" [ngClass]="{'active': selectedIndex == i}">
                                     <span class="circle">
                                         <label class="custom-checkbox">
-                                            <input type="checkbox" (change)="getSelectedCount()"
-                                                [(ngModel)]="data.isSelected">
+                                            <!-- <input type="checkbox" (change)="getSelectedCount()"
+                                                [(ngModel)]="data.isSelected"> -->
                                             <span class="checkmark" style="margin-left: -10px;z-index: 999;">
                                             </span>
                                             <span class="circle" style="top: 0;left:0">
@@ -156,7 +156,7 @@
                                 <span class="checkmark"></span>
                             </label>
                         </div> -->
-                        <cdk-virtual-scroll-viewport itemSize="50" class="full-port">
+                        <cdk-virtual-scroll-viewport itemSize="50" class="full-port" style="height: calc(100vh - 253px) !important;">
                             <app-loader [showLoader]="loader" [length]="chatModel?.contacts?.length">
                             </app-loader>
                             <div *cdkVirtualFor="let data of chatModel?.contacts;let i = index">

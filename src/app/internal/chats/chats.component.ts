@@ -210,15 +210,15 @@ export class ChatsComponent implements OnInit {
     this.socket.on('video-call', (data) => {
       if (data.type == 'join') {
         console.log('video join event............................', data)
+        this.callerName = data.fromUser.fullName;
         this.videoCallToken = data.accessToken;
         this.room = data.room;
-        this.callerName = data.fromUser.fullName;
         this.callId = data.callId;
         this.callChatroomId = data.chatRoomId;
         if (data.fromUser._id !== JSON.parse(localStorage.getItem('loginData'))._id) {
           // this.incomingData = data;
           console.log('----');
-          this.callerName = data.fromUser.fullName;
+          // this.callerName = data.fromUser.fullName;
           this.videoFlag = true;
           this.videoManage = true;
           this.outgoingFlag = false;
@@ -235,6 +235,7 @@ export class ChatsComponent implements OnInit {
         }
       }
       if (data.type == "rejected" || data.type == "ended") {
+        console.log(data.type);
         this.videoManage = false;
         this.videoFlag = false;
         this.outgoingFlag = false;
@@ -244,17 +245,17 @@ export class ChatsComponent implements OnInit {
       }
       if (data.type == "accepted") {
         console.log('---accepted');
-        if (this.videoFlag) {
-        } else {
+        // if (this.videoFlag) {
+        // } else {
           // this.videoCall();
-          this.videoManage = true;
-          this.videoFlag = false;
-          if (this.outgoingFlag) {
+          // this.videoManage = true;
+          // this.videoFlag = false;
+          // if (this.outgoingFlag) {
             // if(this.room)
             // this.twilioService.startLocalVideo();
-          }
-          this.outgoingFlag = true;
-        }
+          // }
+          // this.outgoingFlag = true;
+        // }
       }
       if (data.type == 'userStatus') {
         if (this.selectedChat) {
@@ -291,7 +292,7 @@ export class ChatsComponent implements OnInit {
           this.callerName = this.selectedChat.temp.name;
           this.outgoingVoiceFlag = true;
           this.voiceFlag = false;
-          // this.videoCall();
+          this.voiceCall();
           // this.twilioService.startLocalVideo();
         }
       }
@@ -305,14 +306,13 @@ export class ChatsComponent implements OnInit {
         this.outgoingVoiceFlag = true;
         this.videoManage = true;
         this.voiceFlag = false;
-        this.voiceCall();
         this.st.newTimer(this.timerName, 1, true);
         this.callStatus = String(this.counter);
         // this.twilioService.startLocalVideo();
       }
       if (data.type == 'userStatus') {
-        this.callerName = this.selectedChat.temp.name;
         if (this.selectedChat) {
+          this.callerName = this.selectedChat.temp.name;
           if (data.onlineUsers && data.onlineUsers.includes(this.callChatroomId)) {
             this.callStatus = "Ringing.....";
           } else {
@@ -404,10 +404,11 @@ export class ChatsComponent implements OnInit {
     this.videoManage = false;
     this.videoFlag = false;
     this.outgoingFlag = false;
-    this.twilioService.removeTrack();
+    // this.twilioService.removeTrack();
+    this.twilioService.remoeLocatVideoTrack();
     this.twilioService.detachParticipantTracks();
-    $('#local').empty();
-    $('#remote').empty();
+    // $('#local').empty();
+    // $('#remote').empty();
   }
 
   deleteVoiceCall() {
@@ -421,6 +422,7 @@ export class ChatsComponent implements OnInit {
     this.voiceFlag = false;
     this.outgoingVoiceFlag = false;
     if (this.twilioService.roomObj && this.twilioService.roomObj !== null) {
+      this.twilioService.detachParticipantTracks();
       this.twilioService.roomObj.disconnect();
       this.twilioService.roomObj = null;
     }
@@ -1101,11 +1103,12 @@ export class ChatsComponent implements OnInit {
                 }
               }
             })
-          } else {
-            userName = ''
-            options.body = "You have got new message in " + data.workspaceId.name;
           }
         });
+        if(!userName) {
+            userName = '';
+            options.body = "You have got new message in " + data.workspaceId.name;
+        }
         this._pushNotifications.create(userName, options).subscribe(
           res => console.log(res),
           err => console.log(err)
@@ -1806,7 +1809,9 @@ export class ChatsComponent implements OnInit {
             res.data.temp = admin;
           }
         })
+        
         this.selectedChat = res.data;
+        console.log(this.selectedChat);
         this.getOldChat();
       }
     })
