@@ -1170,6 +1170,7 @@ export class ChatsComponent implements OnInit {
     var temp = this.forwardMsgContact.findIndex(o => o._id == item._id);
     if (temp === -1) {
       this.forwardMsgContact.push(item);
+      console.log(this.forwardMsgContact);
     }
     else {
       this.forwardMsgContact.map((data, index) => {
@@ -1183,13 +1184,14 @@ export class ChatsComponent implements OnInit {
   // forward msg socket event
   sendForwardMsg() {
     this.forwardMsgContact.map((chatRoomId) => {
+      console.log(chatRoomId);
       this.socket.emit('forward', {
         chatRoomId: chatRoomId,
         messageIds: this.forwardIds
       });
-      this.forwardIds = []
-      this.forwardselectmsg = false;
     });
+    this.forwardselectmsg = false;
+    this.forwardIds = []
   }
 
   // manage unread count using socket emit view event
@@ -1231,7 +1233,7 @@ export class ChatsComponent implements OnInit {
           message: { content: this.message, ref: null },
           code: timestamp
         });
-        this.clickChat(this.selectedChat, this.selectedChatIndex);
+        this.clickChat(this.selectedChat, this.selectedChatIndex,true);
         this.manageScroll();
       }
       else {
@@ -1239,7 +1241,7 @@ export class ChatsComponent implements OnInit {
           chatRoomId: this.selectedChat._id,
           message: { content: this.message, ref: this.replayData._id }
         });
-        this.clickChat(this.selectedChat, this.selectedChatIndex);
+        this.clickChat(this.selectedChat, this.selectedChatIndex,true);
         this.manageScroll();
       }
     }
@@ -1339,7 +1341,9 @@ export class ChatsComponent implements OnInit {
     this.replayFlag = false;
     this.http.postChatImage(ApiUrl.SEND_IMAGE, formData).subscribe(res => {
       this.massageArray = _.without(this.massageArray, ...temp);
-      this.massageArray = [...this.massageArray, ...res.data];
+      for (let i = 0; i < res.data.length; i++) {
+        this.massageArray = [...this.massageArray, ...res.data[i]];
+      }
       this.sidebarUpdateMsg(res.data);
       this.manageScroll();
       this.message = '';
@@ -1567,7 +1571,7 @@ export class ChatsComponent implements OnInit {
   }
 
   // get msg for perticular chat
-  clickChat(data, index) {
+  clickChat(data, index,loading?) {
     this.sidenav.close();
     this.isRecordStart = false;
     this.isRecording = false;
@@ -1576,7 +1580,11 @@ export class ChatsComponent implements OnInit {
     console.log('selected chat is.......................', this.selectedChat)
     this.selectedChatIndex = index;
     this.getCurrentUser()
-    this.getOldChat();
+    if(loading) {
+      this.getOldChat(true);
+    } else {
+      this.getOldChat();
+    }
     this.fetchAllBlockUsers();
   }
   getCurrentUser() {
@@ -1700,8 +1708,10 @@ export class ChatsComponent implements OnInit {
   }
 
   // get chat old data
-  getOldChat() {
-    this.simmerLoader = true;
+  getOldChat(showLoad?) {
+    if(!showLoad){
+      this.simmerLoader = true;
+    }
     const obj = {
       chatRoomId: this.selectedChat._id,
       limit: 50,

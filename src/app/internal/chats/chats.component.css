@@ -552,11 +552,11 @@ hr{
     min-width: 70px;
 }
 .img-replay-preview{
-    width: 150px;
-    height: auto;
+    width: 150px !important;
+    height: 150px !important;
 }
 .upload-container{
-  padding:15px;display: flex;max-width: 600px;width: 100%;margin-left: 60px;
+  padding:15px;display: flex;max-width: 80%;width: 100%;margin-left: 60px;overflow: scroll;
 }
 .scroll-to-bottom{
   bottom: 115px;
