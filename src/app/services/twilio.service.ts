@@ -34,13 +34,13 @@ export class TwilioService {
 
       // when participent disconnect
       room.on('participantDisconnected', (participant) => {
-        this.detachTracks(participant.tracks);
+        console.log(participant);
+        this.removeTrack();
       });
 
       // this.attachParticipantTracks(room.localParticipant)
       // when participent connect
       room.on('participantConnected', participant => {
-        console.log('------participantConnected --------', participant);
         this.roomParticipants = room.participants;
 
         // let prFlag = false;

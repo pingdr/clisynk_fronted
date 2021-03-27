@@ -120,6 +120,7 @@ export class ChatsComponent implements OnInit {
   outgoingVoiceFlag = false;
 
   outgoingData = "";
+
   incomingData = '';
 
   timerName = 'call';
@@ -136,7 +137,7 @@ export class ChatsComponent implements OnInit {
   // socket var
   socket;
   private url = environment.apiBaseUrl;
-
+  sound: any;
   // localstorage data
   accessToken = localStorage.getItem('accessToken');
   adminData = JSON.parse(localStorage.getItem('loginData'));
@@ -220,6 +221,10 @@ export class ChatsComponent implements OnInit {
           console.log('----');
           // this.callerName = data.fromUser.fullName;
           this.videoFlag = true;
+          this.sound = new Audio();
+          this.sound.src = "/assets/call_on_me.mp3";
+          this.sound.load();
+          this.sound.play();
           this.videoManage = true;
           this.outgoingFlag = false;
           // this.videoCall();
@@ -227,7 +232,11 @@ export class ChatsComponent implements OnInit {
         else {
           // this.outgoingData = data;
           this.outgoingFlag = true;
-          // this.callerName = this.selectedChat.temp.name;
+          if (this.selectedChat.chatType === 'GROUP') {
+            this.callerName = this.selectedChat.groupDetails.name;
+          } else {
+            this.callerName = this.selectedChat.temp.fullName;
+          }
           this.videoFlag = false;
           this.outgoingVoiceFlag = false;
           this.videoCall();
@@ -245,21 +254,26 @@ export class ChatsComponent implements OnInit {
       }
       if (data.type == "accepted") {
         console.log('---accepted');
+        this.callStatus = '';
         // if (this.videoFlag) {
         // } else {
-          // this.videoCall();
-          // this.videoManage = true;
-          // this.videoFlag = false;
-          // if (this.outgoingFlag) {
-            // if(this.room)
-            // this.twilioService.startLocalVideo();
-          // }
-          // this.outgoingFlag = true;
+        // this.videoCall();
+        // this.videoManage = true;
+        // this.videoFlag = false;
+        // if (this.outgoingFlag) {
+        // if(this.room)
+        // this.twilioService.startLocalVideo();
+        // }
+        // this.outgoingFlag = true;
         // }
       }
       if (data.type == 'userStatus') {
         if (this.selectedChat) {
-          this.callerName = this.selectedChat.temp.name;
+          if (this.selectedChat.chatType === 'GROUP') {
+            this.callerName = this.selectedChat.groupDetails.name;
+          } else {
+            this.callerName = this.selectedChat.temp.fullName;
+          }
           if (data.onlineUsers && data.onlineUsers.includes(this.callChatroomId)) {
             this.callStatus = "Ringing.....";
           } else {
@@ -277,19 +291,29 @@ export class ChatsComponent implements OnInit {
         console.log('audio join event............................', data)
         this.voiceCallToken = data.accessToken;
         this.room = data.room;
-        this.callerName = data.fromUser.name;
+        this.callerName = data.fromUser.fullName;
         this.callId = data.callId;
         this.callChatroomId = data.chatRoomId;
         if (data.fromUser._id !== this.adminId) {
           // this.incomingData = data;
           this.voiceFlag = true;
+          this.sound = new Audio();
+          this.sound.src = "/assets/call_on_me.mp3";
+          this.sound.load();
+          this.sound.play();
           this.videoManage = true;
           this.outgoingVoiceFlag = false;
           this.callerName = data.fromUser.fullName;
+          console.log(this.callerName);
+
         }
         else {
           // this.outgoingData = data;
-          this.callerName = this.selectedChat.temp.name;
+          if (this.selectedChat.chatType === 'GROUP') {
+            this.callerName = this.selectedChat.groupDetails.name;
+          } else {
+            this.callerName = this.selectedChat.temp.fullName;
+          }
           this.outgoingVoiceFlag = true;
           this.voiceFlag = false;
           this.voiceCall();
@@ -297,6 +321,7 @@ export class ChatsComponent implements OnInit {
         }
       }
       if (data.type == "rejected" || data.type == "ended") {
+        console.log(data.type);
         this.videoManage = false;
         this.voiceFlag = false;
         this.outgoingVoiceFlag = false;
@@ -312,7 +337,11 @@ export class ChatsComponent implements OnInit {
       }
       if (data.type == 'userStatus') {
         if (this.selectedChat) {
-          this.callerName = this.selectedChat.temp.name;
+          if (this.selectedChat.chatType === 'GROUP') {
+            this.callerName = this.selectedChat.groupDetails.name;
+          } else {
+            this.callerName = this.selectedChat.temp.fullName;
+          }
           if (data.onlineUsers && data.onlineUsers.includes(this.callChatroomId)) {
             this.callStatus = "Ringing.....";
           } else {
@@ -339,6 +368,8 @@ export class ChatsComponent implements OnInit {
       room: this.room,
       callId: this.callId
     });
+    this.sound.pause();
+    this.sound.src = "";
     this.videoFlag = false;
     this.outgoingFlag = true;
     this.videoManage = true;
@@ -353,6 +384,8 @@ export class ChatsComponent implements OnInit {
       room: this.room,
       callId: this.callId
     });
+    this.sound.pause();
+    this.sound.src = "";
     this.outgoingVoiceFlag = true;
     this.videoManage = true;
     this.voiceFlag = false;
@@ -367,6 +400,8 @@ export class ChatsComponent implements OnInit {
       room: this.room,
       callId: this.callId
     });
+    this.sound.pause();
+    this.sound.src = "";
     this.videoManage = false;
     this.videoFlag = false;
     this.outgoingFlag = false;
@@ -379,6 +414,8 @@ export class ChatsComponent implements OnInit {
       room: this.room,
       callId: this.callId
     });
+    this.sound.pause();
+    this.sound.src = "";
     this.videoManage = false;
     this.voiceFlag = false;
     this.outgoingVoiceFlag = false;
@@ -430,7 +467,7 @@ export class ChatsComponent implements OnInit {
 
   videoCall() {
     console.log('----------Video Call Function -----------');
-    
+
     this.twilioService.connectToRoom(this.videoCallToken, { name: this.room, video: true })
   }
 
@@ -1105,9 +1142,9 @@ export class ChatsComponent implements OnInit {
             })
           }
         });
-        if(!userName) {
-            userName = '';
-            options.body = "You have got new message in " + data.workspaceId.name;
+        if (!userName) {
+          userName = '';
+          options.body = "You have got new message in " + data.workspaceId.name;
         }
         this._pushNotifications.create(userName, options).subscribe(
           res => console.log(res),
@@ -1233,7 +1270,7 @@ export class ChatsComponent implements OnInit {
           message: { content: this.message, ref: null },
           code: timestamp
         });
-        this.clickChat(this.selectedChat, this.selectedChatIndex,true);
+        this.clickChat(this.selectedChat, this.selectedChatIndex, true);
         this.manageScroll();
       }
       else {
@@ -1241,7 +1278,7 @@ export class ChatsComponent implements OnInit {
           chatRoomId: this.selectedChat._id,
           message: { content: this.message, ref: this.replayData._id }
         });
-        this.clickChat(this.selectedChat, this.selectedChatIndex,true);
+        this.clickChat(this.selectedChat, this.selectedChatIndex, true);
         this.manageScroll();
       }
     }
@@ -1571,7 +1608,7 @@ export class ChatsComponent implements OnInit {
   }
 
   // get msg for perticular chat
-  clickChat(data, index,loading?) {
+  clickChat(data, index, loading?) {
     this.sidenav.close();
     this.isRecordStart = false;
     this.isRecording = false;
@@ -1580,7 +1617,7 @@ export class ChatsComponent implements OnInit {
     console.log('selected chat is.......................', this.selectedChat)
     this.selectedChatIndex = index;
     this.getCurrentUser()
-    if(loading) {
+    if (loading) {
       this.getOldChat(true);
     } else {
       this.getOldChat();
@@ -1709,7 +1746,7 @@ export class ChatsComponent implements OnInit {
 
   // get chat old data
   getOldChat(showLoad?) {
-    if(!showLoad){
+    if (!showLoad) {
       this.simmerLoader = true;
     }
     const obj = {
@@ -1819,7 +1856,7 @@ export class ChatsComponent implements OnInit {
             res.data.temp = admin;
           }
         })
-        
+
         this.selectedChat = res.data;
         console.log(this.selectedChat);
         this.getOldChat();

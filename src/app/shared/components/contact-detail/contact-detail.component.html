@@ -390,7 +390,7 @@
                             </div>
 
                             <div class="col-md-4 file-upload">
-                                <span *ngIf="!isLoader">Upload a file</span>
+                                <!-- <span *ngIf="!isLoader">Upload a file</span> -->
                                 <span *ngIf="isLoader">Uploading...</span>
                                 <input style="height: 40px !important;" [disabled]="isLoader"
                                         type="file" value="Upload a file" (change)="uploadImage($event.target.files[0])">
