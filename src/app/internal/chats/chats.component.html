@@ -276,7 +276,7 @@
             <ng-template #mediaContent>
                 <div *ngIf="openMediaFlag;else defaultContent">
                     <i class="fa fa-arrow-left" aria-hidden="true"
-                        style="float: right;font-size: 20px;cursor: pointer; color: #c5c5c5;"
+                        style="float: right;font-size: 20px;cursor: pointer; color: #c5c5c5;padding-top: 5px;"
                         (click)="clickProfileBack()"></i>
                     <ng-container>
                         <ul class="nav nav-pills mb-3 contact-h-tab-heading pt-4">
@@ -301,7 +301,7 @@
             <ng-template #defaultContent>
                 <div *ngIf="toggleProfileOpen">
                     <i class="fa fa-arrow-left" (click)="sidenav.toggle()" aria-hidden="true"
-                        style="float: right;font-size: 20px;cursor: pointer;"></i>
+                        style="float: right;font-size: 20px;cursor: pointer;padding-top: 10px;"></i>
                     <div class="profile-section">
                         <div class="profile-img-container">
                             <div *ngIf="selectedChat?.chatType == 'GROUP';else privateChat">

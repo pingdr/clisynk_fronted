@@ -1376,10 +1376,20 @@ export class ChatsComponent implements OnInit {
 
     this.docArray = [];
     this.replayFlag = false;
-    this.http.postChatImage(ApiUrl.SEND_IMAGE, formData).subscribe(res => {
+    this.http.postChatImage(ApiUrl.SEND_IMAGE, formData).subscribe((res:any) => {
       this.massageArray = _.without(this.massageArray, ...temp);
-      for (let i = 0; i < res.data.length; i++) {
-        this.massageArray = [...this.massageArray, ...res.data[i]];
+      console.log(res.data[0]);
+      
+      if(res.data.length > 1) {
+        // for (let i = 0; i < res.data.length; i++) {
+          // this.massageArray = [...this.massageArray, ...res.data];
+          this.getOldChat(true);
+        // }
+      } else {
+        if(res.data.length === 1) {
+          this.massageArray = [...this.massageArray, ...res.data];
+          // this.massageArray.push(res.data[0])
+        }
       }
       this.sidebarUpdateMsg(res.data);
       this.manageScroll();

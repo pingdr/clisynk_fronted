@@ -408,6 +408,7 @@
 .replay-msgs{
   background: #dfdfdf;
   padding: 3px;
+  word-break: break-all;
   border-radius: 5px 5px 0px 0px;
   color: black;
   font-size: 14px;
@@ -950,6 +951,7 @@ span.search-icon img {
     display: inline-table;
     padding: 20px;
     max-width: 100%;
+    z-index: 99;
 }
 .input-wrapper {
     /* position: absolute; */
@@ -1068,6 +1070,7 @@ span.search-icon img {
   margin: 5px 0px;
   width: 100%;
   max-width: 650px;
+  padding: 5px;
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
@@ -1217,7 +1220,10 @@ span.search-icon img {
 .replay-msg{
     padding: 15px;
     /* border: 1px solid gray; */
+    word-break: break-all;
     margin: 8px 65px;
+    position: relative;
+    max-width: 90%;
     background: #80808024;
     border-radius: 10px;
     border-left: 5px solid blue;
@@ -1228,6 +1234,9 @@ span.search-icon img {
 .remove-replay-msg{
   cursor: pointer;
   float: right;
+  position: absolute;
+  top: 8px;
+  right: 8px;
 
 }
 .replay-msg-class{
