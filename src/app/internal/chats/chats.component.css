@@ -643,10 +643,10 @@ hr{
   position: fixed;
   height: 100%;
   overflow: hidden;
-  left: 0;
+  left: 224px;
   right: 0;
-  margin: 0 15px;
-  margin-left: 224px;
+  /* margin: 0 15px; */
+  /* margin-left: 224px; */
 }
 .wrapper.border-bottom.white-bg .contact {
   border-right: 1px solid #ddd;

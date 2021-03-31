@@ -1899,14 +1899,17 @@
                             </div>
                             <!-- upload image preview -->
                             <div *ngIf="imageArray.length > 0;" style="display: flex;align-items: center;">
-                                <div *ngIf="imageArray.length > 0;" class="upload-container">
-                                    <div *ngFor='let data of imageArray;let i = index'
-                                        style="margin-right: 20px;display: flex;">
-                                        <img [src]="data?.url" style="height: 90px;width: 90px;">
-                                        <div class="close-icon" (click)="deleteImage(data , i)">X</div>
+                                <div *ngIf="imageArray.length > 0;" style="display: flex;align-items: center;">
+                                    <div *ngIf="imageArray.length > 0;" class="upload-container">
+                                        <div *ngFor='let data of imageArray;let i = index'
+                                            style="margin-right: 20px;display: flex;">
+                                            <img [src]="data?.url" style="height: 90px;width: 90px;">
+                                            <div class="close-icon" (click)="deleteImage(data , i)">X</div>
+                                        </div>
                                     </div>
                                 </div>
-                                <span *ngIf="imageArray.length > 0;" style="cursor: pointer;display: flex;align-items: center;padding-left: 10px;"
+                                <span *ngIf="imageArray.length > 0;"
+                                    style="cursor: pointer;display: flex;align-items: center;padding-left: 10px;"
                                     (click)="uploadImage()">
                                     <img src="assets/images/send.png" width="25px" />
                                 </span>
@@ -1918,21 +1921,25 @@
                                     <video [src]="data?.url" style="height:90px;"></video>
                                     <div class="close-icon" (click)="deleteVideo(data , i)">X</div>
                                 </div>
-                                <span style="cursor: pointer;display: flex;align-items: center;" (click)="uploadVideo()">
+                                <span style="cursor: pointer;display: flex;align-items: center;"
+                                    (click)="uploadVideo()">
                                     <img src="assets/images/send.png" width="25px" />
                                 </span>
                             </div>
                             <!-- upload doc preview -->
-                            <div *ngIf="docArray.length > 0" class="upload-container">
-                                <div *ngFor='let data of docArray;let i = index'
-                                    style="margin-right: 20px;display: flex;">
-                                    <span class="doc-style">
-                                        <img src="assets/images/document-chat.svg"
-                                            style="margin-right: 8px;" />{{data?.file?.name}}
-                                    </span>
-                                    <div class="close-icon" (click)="deleteDoc(data , i)">X</div>
+                            <div *ngIf="docArray.length > 0" style="display: flex;align-items: center;">
+                                <div *ngIf="docArray.length > 0" class="upload-container">
+                                    <div *ngFor='let data of docArray;let i = index'
+                                        style="margin-right: 20px;display: flex;">
+                                        <span class="doc-style">
+                                            <img src="assets/images/document-chat.svg"
+                                                style="margin-right: 8px;" />{{data?.file?.name}}
+                                        </span>
+                                        <div class="close-icon" (click)="deleteDoc(data , i)">X</div>
+                                    </div>
                                 </div>
-                                <span style="cursor: pointer;display: flex;align-items: center;" (click)="uploadDoc()">
+                                <span style="cursor: pointer;display: flex;align-items: center;padding-left: 10px;"
+                                    (click)="uploadDoc()">
                                     <img src="assets/images/send.png" width="25px" />
                                 </span>
                             </div>
