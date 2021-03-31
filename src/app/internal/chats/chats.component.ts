@@ -232,10 +232,12 @@ export class ChatsComponent implements OnInit {
         else {
           // this.outgoingData = data;
           this.outgoingFlag = true;
-          if (this.selectedChat.chatType === 'GROUP') {
-            this.callerName = this.selectedChat.groupDetails.name;
-          } else {
-            this.callerName = this.selectedChat.temp.fullName;
+          if (this.outgoingFlag) {
+            if (this.selectedChat.chatType === 'GROUP') {
+              this.callerName = this.selectedChat.groupDetails.name;
+            } else {
+              this.callerName = this.selectedChat.temp.fullName;
+            }
           }
           this.videoFlag = false;
           this.outgoingVoiceFlag = false;
@@ -268,11 +270,14 @@ export class ChatsComponent implements OnInit {
         // }
       }
       if (data.type == 'userStatus') {
+
         if (this.selectedChat) {
-          if (this.selectedChat.chatType === 'GROUP') {
-            this.callerName = this.selectedChat.groupDetails.name;
-          } else {
-            this.callerName = this.selectedChat.temp.fullName;
+          if (this.outgoingFlag) {
+            if (this.selectedChat.chatType === 'GROUP') {
+              this.callerName = this.selectedChat.groupDetails.name;
+            } else {
+              this.callerName = this.selectedChat.temp.fullName;
+            }
           }
           if (data.onlineUsers && data.onlineUsers.includes(this.callChatroomId)) {
             this.callStatus = "Ringing.....";
@@ -1376,17 +1381,17 @@ export class ChatsComponent implements OnInit {
 
     this.docArray = [];
     this.replayFlag = false;
-    this.http.postChatImage(ApiUrl.SEND_IMAGE, formData).subscribe((res:any) => {
+    this.http.postChatImage(ApiUrl.SEND_IMAGE, formData).subscribe((res: any) => {
       this.massageArray = _.without(this.massageArray, ...temp);
       console.log(res.data[0]);
-      
-      if(res.data.length > 1) {
+
+      if (res.data.length > 1) {
         // for (let i = 0; i < res.data.length; i++) {
-          // this.massageArray = [...this.massageArray, ...res.data];
-          this.getOldChat(true);
+        // this.massageArray = [...this.massageArray, ...res.data];
+        this.getOldChat(true);
         // }
       } else {
-        if(res.data.length === 1) {
+        if (res.data.length === 1) {
           this.massageArray = [...this.massageArray, ...res.data];
           // this.massageArray.push(res.data[0])
         }
