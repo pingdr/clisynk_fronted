@@ -443,6 +443,8 @@ export class ChatsComponent implements OnInit {
       room: this.room,
       callId: this.callId
     });
+    this.sound.pause();
+    this.sound.src = "";
     this.videoManage = false;
     this.videoFlag = false;
     this.outgoingFlag = false;
@@ -460,6 +462,8 @@ export class ChatsComponent implements OnInit {
       room: this.room,
       callId: this.callId
     });
+    this.sound.pause();
+    this.sound.src = "";
     this.videoManage = false;
     this.voiceFlag = false;
     this.outgoingVoiceFlag = false;
