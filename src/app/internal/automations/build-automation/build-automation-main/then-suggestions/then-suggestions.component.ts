@@ -1,3 +1,4 @@
+import { ApiUrl } from 'src/app/services/apiUrls';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpService } from 'src/app/services/http.service';
@@ -14,7 +15,6 @@ import { THEN_INTERNAL_EVENTS } from '../../../models/enum';
 })
 export class ThenSuggestionsComponent implements OnInit {
 
-  private get thenEventsUrl() { return "automation/then-events" }
 
   showOption = false;
 
@@ -37,7 +37,7 @@ export class ThenSuggestionsComponent implements OnInit {
 
   getThenEvents() {
     this.loader = true;
-    this.http.getData(this.thenEventsUrl)
+    this.http.getData(ApiUrl.GET_THEN_EVENTS)
       .map((res: BackendResponse<WhenThenEvent[]>) => res.data)
       .subscribe((res: WhenThenEvent[]) => {
         this.listOfThenEvents = res;

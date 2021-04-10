@@ -1,3 +1,4 @@
+import { ApiUrl } from 'src/app/services/apiUrls';
 import { EventNames, FormType } from './../../../models/enum';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { WhenThenEvent } from './../../../models/automation';
@@ -18,7 +19,6 @@ import { map } from 'rxjs/operators';
 })
 export class WhenSuggestionsComponent implements OnInit {
 
-  private get whenEventsUrl() { return "automation/when-events" }
 
   showOption = false;
 
@@ -39,7 +39,7 @@ export class WhenSuggestionsComponent implements OnInit {
 
   getWhenEvents() {
     this.loader = true;
-    return this.http.getData(this.whenEventsUrl)
+    return this.http.getData(ApiUrl.GET_WHEN_EVENTS)
       .map((res: BackendResponse<WhenThenEvent[]>) => res.data)
       .subscribe(res => {
         this.listOfWhenEvents = res;
