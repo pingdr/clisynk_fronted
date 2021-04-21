@@ -3,7 +3,7 @@
         <h1>High five, {{http?.loginData?.name}}!</h1>
         <h1>Your link is ready to share.</h1>
         <img src="assets/images/hand.png">
-        <button class="btn-outline-primary" (click)="appoint.openBooking(inputData.name)">
+        <button class="btn-outline-primary" (click)="appoint.openBooking(inputData?.name)">
             Preview live page
         </button>
         <!--        <p>letsmeet.io/langermania/ghfghf</p>-->
@@ -19,7 +19,7 @@
                 Email Link
             </button>
 
-            <button class="text-button" [appCopyClipboard]="appoint.getBookingLink(inputData.name)"
+            <button class="text-button" [appCopyClipboard]="appoint.getBookingLink(inputData?.name)"
                     (copied)="appoint.copied($event)">
                 <svg>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"

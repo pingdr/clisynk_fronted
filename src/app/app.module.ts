@@ -33,9 +33,9 @@ import { PushNotificationsModule } from 'ng-push';
 // firebase
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { AngularFireModule } from '@angular/fire';
-import { BuildAutomationComponent } from './internal/automations/build-automation/build-automation.component';
-import { AddBuildautomationComponent } from './internal/automations/add-buildautomation/add-buildautomation.component';
-import { BuildThenautomationsComponent } from './internal/automations/build-thenautomations/build-thenautomations.component';
+// import { BuildAutomationComponent } from './internal/automations/build-automation/build-automation.component';
+// import { AddBuildautomationComponent } from './internal/automations/add-buildautomation/add-buildautomation.component';
+// import { BuildThenautomationsComponent } from './internal/automations/build-thenautomations/build-thenautomations.component';
 import { SubmitfeedbackComponent } from './shared/modals/submitfeedback/submitfeedback.component';
 import { MatChipsModule } from '@angular/material';
 import { PreviewLeadformComponent } from './internal/settings/preview-leadform/preview-leadform.component';
@@ -64,7 +64,9 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
 @NgModule({
     declarations: [
         CapitalizePipe, AppComponent, LoginComponent, PrivacyComponent, SubmitfeedbackComponent,
-        ReceiptComponent, BookingComponent, TodoComponent, BuildAutomationComponent, AddBuildautomationComponent, BuildThenautomationsComponent, PreviewLeadformComponent, PreviewSmartformComponent,
+        ReceiptComponent, BookingComponent, TodoComponent, 
+        // BuildAutomationComponent, AddBuildautomationComponent, BuildThenautomationsComponent,
+         PreviewLeadformComponent, PreviewSmartformComponent,
         ForgotPasswordComponent
         
     ],

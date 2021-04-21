@@ -14,6 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import * as _ from 'lodash';
 import { ApiUrl } from './apiUrls';
+import { Automation } from '../internal/automations/models/automation';
 
 @Injectable({
     providedIn: 'root'
@@ -61,6 +62,10 @@ export class HttpService {
 
     private documentUpdatedSubject = new BehaviorSubject<any>(null);
     public documentUpdatedStatus = this.documentUpdatedSubject.asObservable();
+
+    private automationsSubject = new BehaviorSubject<Automation[]>(null);
+    public automationsStatus$ = this.automationsSubject.asObservable();
+
 
     public heading: string;
     domain: string;
@@ -139,6 +144,11 @@ export class HttpService {
         this.updateSFListSubject.next(data ? data : false);
     }
 
+    // Automations 
+    updateAutomationsList(data: Automation[]) {
+        this.automationsSubject.next(data);
+    }
+
     openModal(name, data?) {
         const obj: any = {
             name: name,
@@ -192,18 +202,19 @@ export class HttpService {
 
     sweetConfirm(msg) {
         let flag = false;
-        Swal.fire({
+        return Swal.fire({
             title: 'Are you sure?',
             text: 'Do you want te delete this ' + msg,
             type: 'warning',
             showCancelButton: true,
             confirmButtonText: 'Yes, delete it!',
             cancelButtonText: 'No, keep it'
-        }).then((result) => {
-            // return !!result.value;
-            flag = true;
-        });
-        return flag;
+        })
+        // .then((result) => {
+        //     // return !!result.value;
+        //     flag = true;
+        // });
+        // return flag;
     }
 
     navigate(url, params?) {
@@ -448,24 +459,6 @@ export class HttpService {
         recursiveFunc(formToInvestigate);
         return invalidControls;
     }
-
-    showToaster(message: string, toastrType: string = 'success') {
-        switch (toastrType) {
-            case "success":
-                setTimeout(() => this.toastr.success(message, "Success!"));
-                break;
-            case "error":
-                setTimeout(() => this.toastr.error(message, "Error!"));
-                break;
-            case "warning":
-                setTimeout(() => this.toastr.warning(message, "Warning!"));
-                break;
-            case "info":
-                setTimeout(() => this.toastr.info(message, "Info!"));
-                break;
-        }
-    }
-
     handleError(msg: string) {
         this.showToaster(msg, 'error');
     }
@@ -572,7 +565,11 @@ export class HttpService {
         return this.http.delete<any>(this.apiEndpoint + url);
     }
 
-    updateSmartForm(Obj, id) {
+    deleteAutomation(url){
+        return this.http.delete<any>(this.apiEndpoint + url);
+    }
+
+    updateSmartForm(Obj, id){
         return this.http.post<any>(this.apiEndpoint + "smartForms/" + id, Obj);
     }
 
@@ -619,6 +616,46 @@ export class HttpService {
 
     postMoveFolder(apiUrl?, obj?) {
         return this.http.post<any>(this.apiEndpoint + apiUrl, obj);
+    }
+
+    postAutomation(url, obj, isLoading?: boolean) {
+        // const formData = this.jsonToFormData(obj);
+        return this.http.post<any>(this.apiEndpoint + url, obj, {reportProgress: isLoading});
+    }
+
+    public jsonToFormData(object) {
+        const formData = new FormData();
+        Object.keys(object).forEach(key => {
+          if(object[key] instanceof Object ){
+            if(object[key] instanceof File) {
+              console.log(typeof object[key], key, object[key])
+              formData.append(key,object[key]);
+            }else {
+              console.log(typeof object[key], key, object[key])
+              formData.append(key, JSON.stringify(object[key]));
+            }
+          }else {
+            console.log(typeof object[key], key, object[key])
+            formData.append(key,object[key]);
+          }
+        });
+        return formData;
+      }
+    showToaster(message: string, toastrType: string = 'success') {
+    switch (toastrType) {
+        case "success":
+        setTimeout(() => this.toastr.success(message, "Success!"));
+        break;
+        case "error":
+        setTimeout(() => this.toastr.error(message, "Error!"));
+        break;
+        case "warning":
+        setTimeout(() => this.toastr.warning(message, "Warning!"));
+        break;
+        case "info":
+        setTimeout(() => this.toastr.info(message, "Info!"));
+        break;
+    }
     }
 
 }

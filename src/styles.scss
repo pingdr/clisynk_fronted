@@ -32,7 +32,7 @@
 
 .modal-doc-add {
   padding: 20px 0px 0px 20px;
-  box-shadow: 0 6px 10px -4px rgba(0 0 0/ 56%);
+  box-shadow: 0 6px 10px -4px rgba(0, 0, 0, 56%);
 }
 
 .blank-text {
@@ -7755,4 +7755,11 @@ input:-webkit-autofill:active {
 
 .invoice-number-title {
   margin-bottom: 14px;
+.at-between-main-tabs timepicker table {
+  width: auto !important;
+}
+
+.at-between-main-tabs timepicker table tbody td {
+  float: none;
+}
 }

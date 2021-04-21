@@ -110,6 +110,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-column-gap: 20px;
+    grid-row-gap: 20px;
 }
 
 .main-automations .right-col-main .right-body-content-main .free-grid-main .inner-grid-main {
@@ -294,4 +295,54 @@
         grid-template-columns: repeat(2, 1fr);
         grid-row-gap: 20px;
     }
+}
+
+
+/* ------------------drop-down------------------- */
+.comman-row-main .right-menu-thing .dropdown .add-btn {
+    margin-top: 0;
+}
+
+.comman-row-main .right-menu-thing .dropdown .add-btn .btn {
+    text-align: center;
+    padding: 0;
+    position: relative;
+    left: 14px;
+}
+
+.automation-main .dropdown-menu {
+    left: -120px !important;
+    min-width: 190px !important;
+}
+
+.automation-main .dropdown-menu li {
+    padding: 15px 18px;
+}
+
+.automation-main .dropdown-menu li .comman-list img {
+    width: 19px !important;
+    margin-right: 8px;
+}
+
+.automation-main .dropdown-menu li .comman-list {
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.automation-main .dropdown-menu li .delete-automation {
+    color: #e02601;
+}
+
+
+
+/* -------------preview-------------------- */
+.preview-main .right-header-main {
+    display: flex;
+    align-items: center;
+}
+
+
+.preview-main .right-header-main button {
+    padding: 0;
+    margin-right: 20px;
 }

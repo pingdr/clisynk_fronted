@@ -106,6 +106,7 @@ export class AddTagComponent implements OnInit {
                 } else {
                     this.http.openSnackBar('Tag Added Successfully');
                 }
+                this.onClose.next(true);
                 this.http.eventSubject.next({eventType: 'addTag'});
             }, () => {
             });

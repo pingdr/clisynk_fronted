@@ -1,3 +1,4 @@
+import { Subject } from 'rxjs';
 import {Component, ViewChild} from '@angular/core';
 import {TableModel} from '../../models/table.common.model';
 import {HttpService} from '../../../services/http.service';
@@ -5,7 +6,6 @@ import {AppointStep1Component} from '../appoint-step-1/appoint-step-1.component'
 import {ApiUrl} from '../../../services/apiUrls';
 import {AppointStep3Component} from '../appoint-step-3/appoint-step-3.component';
 import {AppointStep2Component} from '../appoint-step-2/appoint-step-2.component';
-import { Subject } from 'rxjs';
 
 @Component({
     selector: 'app-add-appointment',
@@ -20,6 +20,7 @@ export class AddAppointmentComponent {
     myModel: any;
     modalData: any;
     selectedStep = 1;
+    onClose: Subject<boolean>;
 
     constructor(public http: HttpService) {
         this.myModel = new TableModel();
@@ -95,6 +96,8 @@ export class AddAppointmentComponent {
                 this.http.hideModal();
                 this.http.openModal('sendEmail', this.modalData);
             }
+                this.onClose.next(true);
+                break;
         }
         this.http.eventSubject.next({eventType: 'addAppointType', data: obj});
     }

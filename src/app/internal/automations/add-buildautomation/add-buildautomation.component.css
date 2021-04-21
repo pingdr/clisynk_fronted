@@ -320,7 +320,7 @@
     justify-content: space-between;
     padding: 20px 22px;
     background: #fff;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #e6e6e6;
     cursor: pointer;
 }
 
@@ -343,4 +343,70 @@
     top: 0;
     bottom: 0;
     margin: auto;
+}
+
+
+.after-submitted-lead-form-main-for-edit-option .panel-body .inner-first-row-main {
+    padding: 20px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.after-submitted-lead-form-main-for-edit-option .panel-body .inner-first-row-main .inner-left-col label.form-name-heading {
+    display: block;
+    margin-bottom: 2px;
+    font-size: 18px;
+    color: #000;
+    font-weight: 400;
+}
+
+.after-submitted-lead-form-main-for-edit-option .panel-body .inner-first-row-main .inner-left-col span.who-is-owner {
+    font-size: 16px;
+    color: #b9b9b9;
+}
+
+.after-submitted-lead-form-main-for-edit-option .panel-body .inner-first-row-main .inner-right-col a.btn-combo {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.after-submitted-lead-form-main-for-edit-option .panel-body .inner-first-row-main .inner-right-col a.btn-combo img {
+    width: 25px;
+}
+
+.after-submitted-lead-form-main-for-edit-option .go-to-your-form {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 13px 20px;
+    border-top: 1px solid #e6e6e6;
+}
+
+.after-submitted-lead-form-main-for-edit-option .go-to-your-form .left-inner-col-footer button.btn {
+    font-size: 15px;
+    color: #0444d7;
+    display: flex;
+    align-items: center;
+}
+.after-submitted-lead-form-main-for-edit-option .go-to-your-form .left-inner-col-footer button.btn:hover {
+   text-decoration: underline;
+}
+
+.after-submitted-lead-form-main-for-edit-option .go-to-your-form .left-inner-col-footer button.btn img {
+    width: 16px;
+    margin-left: 8px;
+}
+
+.after-submitted-lead-form-main-for-edit-option .go-to-your-form .right-inner-col-footer button.btn {
+    font-size: 15px;
+    color: #0444d7;
+}
+
+.after-submitted-lead-form-main-for-edit-option .go-to-your-form .right-inner-col-footer button.btn:hover {
+    text-decoration: underline;
+}
+
+.after-submitted-lead-form-main-for-edit-option .panel-body {
+    padding: 0;
 }

@@ -105,7 +105,14 @@ export const ApiUrl = {
     WORKSPACE: 'workspaces',
     USERWORKSPACE:'users/workspaces',
     WORKSPACE_MERGE: 'workspaces/merge',
-    WORKSPACE_SET_ACTIVE: 'workspaces/set-active'
+    WORKSPACE_SET_ACTIVE: 'workspaces/set-active',
 
+    // Automations Api's
+    GET_AUTOMATIONS : 'automation/get-automations',
+    DELETE_AUTOMATION : 'automation/delete-automation',
+    ADD_AUTOMATION : 'automation/add-automation-event',
+
+    GET_THEN_EVENTS: 'automation/then-events',
+    GET_WHEN_EVENTS: 'automation/when-events'
 };
 
