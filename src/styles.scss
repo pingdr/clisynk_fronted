@@ -7728,6 +7728,20 @@ input:-webkit-autofill:active {
 
 // ---------------------------New-UI-Designs-----------------------------------------------------------------------//
 
+.nav li a{
+  font-size: 18px;
+  font-weight: 400;
+}
+.navbar-nav {
+  margin-top: 20px;
+}
+.side-icon {
+  width: 26px;
+  vertical-align: middle;
+  height: 31px;
+  object-fit: scale-down;
+  filter: brightness(100%);
+}
 
 .top-height {
   position: fixed;
@@ -7944,7 +7958,7 @@ input:-webkit-autofill:active {
   font-size: 14px;
   letter-spacing: 0.02em;
   color: #2A2A2A;
-  min-height: 50px;
+  min-height: 70px;
 }
 
 // ----------Settings-shimeer-------------//
@@ -8136,6 +8150,9 @@ input:-webkit-autofill:active {
     margin-right: 40px;
     padding-right: 40px;
   }
+  .nav li a{
+    font-size: 17px;
+  }
 }
 @media (max-width:1400px) {
   .top-height .navbar-static-top .col-md-7{
@@ -8171,6 +8188,15 @@ input:-webkit-autofill:active {
     font-size: 12px;
     padding: 6px 30px !important;
   }
+  .nav li a {
+    font-size: 16px;
+    line-height: 42px;
+  }
+  .side-icon {
+    width: 22px;
+    vertical-align: middle;
+    height: 23px;
+  }
 }
 @media (max-width:1200px) {
   .top-width {
@@ -8182,6 +8208,14 @@ input:-webkit-autofill:active {
   }
   .setting-grid-main{
     grid-template-columns: repeat(2, 1fr);
+  }
+  .nav li a {
+    font-size: 14px;
+  }
+  .side-icon {
+    width: 21px;
+    vertical-align: middle;
+    height: 20px;
   }
 }
 
