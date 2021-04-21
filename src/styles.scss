@@ -585,7 +585,7 @@ section#close button.icon-only:hover {
 // }
 .Clients_list_heading {
   border-bottom: 1px solid #e6e6e8;
-  padding: 1rem 1rem;
+  padding: 1.5rem 2rem;
   display: flex;
   margin-bottom: 20px;
 }
@@ -8011,6 +8011,102 @@ input:-webkit-autofill:active {
 }
 
 
+// ------------------Personal-Details-----------------//
+.Clients_list_heading {
+  align-items: center;
+  justify-content: space-between;
+}
+.Clients_list_heading .inter-page-heading {
+  margin-bottom: 0;
+}
+.Clients_list_heading .btn-combobox .back-btn {
+  background: #FFFFFF;
+  border: 1px solid #4776E6;
+  box-sizing: border-box;
+  border-radius: 5px;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  letter-spacing: 0.02em;
+  color: #4776E6;
+  padding: 8px 30px;
+  margin-right: 20px;
+  transition:0.2s all ease;
+}
+
+.Clients_list_heading .btn-combobox .back-btn:hover{
+  background: #4776E6;
+  color: #fff;
+}
+
+.Clients_list_heading .btn-combobox .add-user-btn {
+  background: #4776E6;
+  border: 1px solid #4776E6;
+  box-sizing: border-box;
+  border-radius: 5px;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  letter-spacing: 0.02em;
+  color: #fff;
+  padding: 8px 25px;
+  transition: 0.2s all ease;
+}
+.Clients_list_heading .btn-combobox .add-user-btn:hover{
+  background: #fff;
+  color: #4776e6;
+}
+.form-label {
+  margin-bottom: 30px;
+  margin-top: 30px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.profile-section form.my-prof {
+  max-width: 100%;
+  display: flex;
+}
+.profile-section form.my-prof .modal-body {
+  width: 50% !important;
+  margin-right: 100px;
+  border-right: 1px solid #DCDCDC;
+  padding-right: 90px;
+}
+.preview-signature {
+  width: 50% !important;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+.email-box {
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: 5px;
+  margin-top: 15px;
+  box-shadow: none;
+  border: 1px solid #E5E5E5;
+  width: 50%;
+}
+.preview-signature .form-label {
+  margin-top: 180px;
+}
+// ---------------Preview-shimmer---------------//
+.shimmer-main-preview .shimmer-heading {
+  width: 100%;
+  height: 15px;
+  margin-bottom: 10px;
+}
+
+.shimmer-main-preview .email-id-shimmer {
+  width: 50%;
+  height: 10px;
+  margin-bottom: 10px;
+}
+
+.shimmer-main-preview .mobile-num-shimmer {
+  width: 25%;
+  height: 10px;
+}
 
 // --------------------New-Responsive-------------//
 @media (max-width: 1660px) {
@@ -8031,6 +8127,16 @@ input:-webkit-autofill:active {
     min-height: 60px;
   }
 }
+@media (max-width: 1500px) {
+  .email-box{
+    width:80%;
+  }
+  .profile-section form.my-prof .modal-body {
+    width: 50% !important;
+    margin-right: 40px;
+    padding-right: 40px;
+  }
+}
 @media (max-width:1400px) {
   .top-height .navbar-static-top .col-md-7{
     flex: inherit !important;
@@ -8049,6 +8155,23 @@ input:-webkit-autofill:active {
   }
 }
 
+@media (max-width:1300px){
+  .profile-section form.my-prof .modal-body{
+      width: 70% !important;
+  }
+  .preview-signature {
+    width: 40% !important;
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+  .email-box{
+    width:90%;
+  }
+  .Clients_list_heading .btn-combobox button {
+    font-size: 12px;
+    padding: 6px 30px !important;
+  }
+}
 @media (max-width:1200px) {
   .top-width {
     width: 80px;

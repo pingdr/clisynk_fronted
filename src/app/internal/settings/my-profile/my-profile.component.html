@@ -3,8 +3,11 @@
     <div class="contact-header">
 
         <div class="Clients_list_heading">
-            <img src="/assets/images/back-arrow.svg" (click)="http.goBack()">
-            <h3 class="page-title">My profile</h3>
+            <h3 class="inter-page-heading">Personal Details</h3>
+            <div class="btn-combobox">
+                <button class="back-btn" (click)="http.goBack()" >Back</button>
+                <button class="add-user-btn">Update</button>
+            </div>
         </div>
 
         <form [formGroup]="form" (ngSubmit)="finalSubmit()" autocomplete="off" class="my-prof">
@@ -45,6 +48,7 @@
                     <input accept="image/x-png,image/gif,image/jpeg" multiple="" type="file"
                            (change)="uploadImage($event.target.files[0])">
                 </div>
+                <div class="form-label">Genral information</div>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="btn-group add-btn select-opt">
@@ -86,59 +90,8 @@
                     </mat-form-field>
                 </div>
 
-                <div class="input-field">
-                    <mat-form-field class="full-width" appearance="outline">
-                        <mat-label class="required">Address 1</mat-label>
-                        <input matInput type="text" autocomplete="off"
-                               formControlName="address1" #address (addressSelect)="addressDetails($event)"
-                               appGoogleplace onkeydown="return (event.keyCode!==13);">
-                        <mat-error *ngIf="form.controls['address1'].hasError('required')">
-                            Please enter Address 1.
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-
-                <div class="row">
-
-                    <div class="col-md-6">
-                        <div class="input-field">
-                            <mat-form-field class="full-width" appearance="outline">
-                                <mat-label class="required">City</mat-label>
-                                <input matInput type="text" id="myId"
-                                       formControlName="city">
-                                <mat-error *ngIf="form.controls['city'].hasError('required')">
-                                    Please enter city.
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="input-field">
-                            <mat-form-field class="full-width" appearance="outline">
-                                <mat-label class="required">Postal code</mat-label>
-                                <input matInput type="text"
-                                       formControlName="postalCode" maxlength="7" appNumberOnly>
-                                <mat-error *ngIf="form.controls['postalCode'].hasError('required')">
-                                    Please enter postal code.
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="input-field">
-                            <mat-form-field class="full-width" appearance="outline">
-                                <mat-label class="required">State</mat-label>
-                                <input matInput type="text"
-                                       formControlName="state">
-                            </mat-form-field>
-                        </div>
-                    </div>
-                </div>
-
+                <!-- --------------add-phone-number-------------- -->
+                 <div class="form-label">Phone and Email</div>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="input-field">
@@ -220,22 +173,79 @@
                     </mat-form-field>
                 </div>
 
+                <!-- -----------------End-add-phone-number---------- -->
+
+                <div class="form-label">Address</div>
+                <div class="input-field">
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label class="required">Address 1</mat-label>
+                        <input matInput type="text" autocomplete="off"
+                               formControlName="address1" #address (addressSelect)="addressDetails($event)"
+                               appGoogleplace onkeydown="return (event.keyCode!==13);">
+                        <mat-error *ngIf="form.controls['address1'].hasError('required')">
+                            Please enter Address 1.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="input-field">
+                            <mat-form-field class="full-width" appearance="outline">
+                                <mat-label class="required">City</mat-label>
+                                <input matInput type="text" id="myId"
+                                       formControlName="city">
+                                <mat-error *ngIf="form.controls['city'].hasError('required')">
+                                    Please enter city.
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="input-field">
+                            <mat-form-field class="full-width" appearance="outline">
+                                <mat-label class="required">Postal code</mat-label>
+                                <input matInput type="text"
+                                       formControlName="postalCode" maxlength="7" appNumberOnly>
+                                <mat-error *ngIf="form.controls['postalCode'].hasError('required')">
+                                    Please enter postal code.
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="input-field">
+                            <mat-form-field class="full-width" appearance="outline">
+                                <mat-label class="required">State</mat-label>
+                                <input matInput type="text"
+                                       formControlName="state">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="preview-signature">
+                <div class="form-label">Email & Signature Preview</div>
                 <div class="email-box">
-                    <h3>Email signature preview</h3>
                     <h2>{{form.controls['firstName'].value}} {{form.controls['lastName'].value}}</h2>
                     <p>{{form.controls['email'].value}}</p>
                     <p>{{form.controls['phone1'].value}}</p>
                 </div>
-
-
-                <div class="button-row">
-                    <button type="submit" class="btn btn-outline-primary">Update</button>
-                    <!--                    <button type="button" class="btn btn-link text-button" (click)="http.goBack()">Cancel-->
-                    <!--                    </button>-->
+                <div class="shimmer-main-preview email-box">
+                        <div class="shimmer-heading shine"></div>
+                        <div class="email-id-shimmer shine"></div>
+                        <div class="mobile-num-shimmer shine"></div>
                 </div>
-                <br>
-                <br>
-                <section class="contact-details-section profile-bottom">
+                <!-- <div class="button-row">
+                    <button type="submit" class="btn btn-outline-primary">Update</button>
+                </div> -->
+               
+                <!-- <section class="contact-details-section profile-bottom">
                     <h5>Login Id</h5>
                     <div class="field-grid">
                         <div class="view-field">
@@ -266,14 +276,11 @@
                         </div>
 
                     </div>
-                </section>
-
+                </section> -->
 
             </div>
         </form>
     </div>
 </div>
 
-<!--<button style="display: none" id="myId" >-->
-<!--</button>-->
 
