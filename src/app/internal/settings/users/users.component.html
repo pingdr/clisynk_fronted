@@ -1,15 +1,17 @@
 <div class="profile-section">
 
-    <div class="contact-header">
-        <div class="Clients_list_heading">
-            <img [src]="'/assets/images/back-arrow.svg'" (click)="http.goBack()">
-            <h3 class="page-title">Users</h3>
-            <button class="btn-outline-primary t-r-btn"
-                    (click)="openAddUser()">Add a user
-            </button>
+    <div class="Clients_list_heading">  
+        <h3 class="inter-page-heading">Users</h3>
+        <div class="btn-combobox">
+            <button class="back-btn" (click)="http.goBack()" >Back</button>
+            <button class="add-user-btn"  (click)="openAddUser()">Add a user</button>
         </div>
+    </div>
 
-        <div class="table-grid">
+    <div class="contact-header">
+
+        <!-- --------------------------------------------OLD CODE COMMENTED HERE---------------------------------------------- -->
+        <!-- <div class="table-grid">
             <div class="table-wrapper">
                 <table>
                     <colgroup>
@@ -81,11 +83,108 @@
                             </div>
                         </td>
                     </tr>
-
-                    </tbody>
+                    </tbody> 
                 </table>
             </div>
+        </div> -->
+
+
+        <!-- -------------------------------------------NEW CODE------------------------------- -->
+        <div class="search-on-tables">
+            <input type="text" placeholder="Search User...">
+
         </div>
+
+        <div class="new-table-main">
+                <table class="genral-table">
+                    <thead>
+                        <tr>
+                            <th class="first-col-new">#</th>
+                            <th class="second-col-new">Name</th>
+                            <th class="third-col-new">Phone</th>
+                            <th class="fourth-col-new">Email</th>
+                            <th class="fifth-col-new">Role</th>
+                            <th class="sixth-col-new">Action</th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <ng-container  *ngIf="!isEmpty && !myModel?.users?.data?.length">
+                            <tr *ngFor="let item of [1, 2, 3, 4, 5]" >
+                                <td class="first-col-new">
+                                    <div class="shimmer-table shine"></div>
+                                </td>
+                                <td class="second-col-new">
+                                    <div class="shimmer-table shine"></div>
+                                </td>
+                                <td class="third-col-new">
+                                    <div class="shimmer-table shine"></div>
+                                </td>
+                                <td class="fourth-col-new">
+                                    <div class="shimmer-table shine"></div>
+                                </td>
+                                <td class="fifth-col-new">
+                                    <div class="role-icons">
+                                        <div class="shimmer-table shine"></div>
+                                        <div class="shimmer-table shine"></div>
+                                        <div class="shimmer-table shine"></div>
+                                        <div class="shimmer-table shine"></div>
+                                        <div class="shimmer-table shine"></div>
+                                        <div class="shimmer-table shine"></div>
+                                        <div class="shimmer-table shine"></div>
+                                        <div class="shimmer-table shine"></div>
+                                        <div class="shimmer-table shine"></div>
+                                        <div class="shimmer-table shine"></div>
+                                    </div>
+                                </td> 
+                                <td class="sixth-col-new">
+                                    <div class="action-btn">
+                                        <div class="shimmer-table shine"></div>
+                                        <div class="shimmer-table shine"></div>
+                                    </div>           
+                                </td>
+
+                            </tr>
+                        </ng-container>
+
+                        <tr *ngFor="let data of myModel?.users?.data;let i = index">
+                            <td class="first-col-new">{{i + 1}}</td>
+                            <td class="second-col-new"><div class="comman-text-field">{{data?.firstName || '-'}}</div></td>
+                            <td class="third-col-new">{{data?.phone1 || '-'}}</td>
+                            <td class="fourth-col-new"><div class="comman-text-field">{{data?.email || '-'}}</div></td>
+                            <td class="fifth-col-new">
+                                <div class="role-icons">
+                                    <a href="#"><img src="../../../../assets/images/New-ui-images/background-people.svg"></a>
+                                    <a href="#"><img src="../../../../assets/images/New-ui-images/home-background.svg"></a>
+                                    <a href="#"><img src="../../../../assets/images/New-ui-images/pad-background.svg"></a>
+                                    <a href="#"><img src="../../../../assets/images/New-ui-images/cards-background.svg"></a>
+                                    <a href="#"><img src="../../../../assets/images/New-ui-images/card-money.svg"></a>
+                                    <a href="#"><img src="../../../../assets/images/New-ui-images/card-broadcast.svg"></a>
+                                    <a href="#"><img src="../../../../assets/images/New-ui-images/card-piplinne.svg"></a>
+                                    <a href="#"><img src="../../../../assets/images/New-ui-images/chats-card.svg"></a>
+                                    <a href="#"><img src="../../../../assets/images/New-ui-images/card-vijli.svg"></a>
+                                    <a href="#"><img src="../../../../assets/images/New-ui-images/card-document.svg"></a>
+
+                                </div>
+                            </td> 
+                            <td class="sixth-col-new">
+                                <div class="action-btn">
+                                    <a   (click)="openAddUser(data)"> <img src="../../../../assets/images/New-ui-images/pencil.svg"> </a>
+                                    <a href="#"> <img src="../../../../assets/images/New-ui-images/delete.svg"> </a>
+                                </div>           
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+
+                </table>
+
+
+
+        </div>
+
+
 
     </div>
 </div>

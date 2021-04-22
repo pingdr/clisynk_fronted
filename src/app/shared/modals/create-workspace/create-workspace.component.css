@@ -34,28 +34,42 @@
 }*/
 
 .last-button-row {
-  margin-top: 10px;
+  margin-top: 20px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
+  margin-bottom: 30px;
 }
 
 .last-button-row .submit-btn {
   margin-right: 20px;
-  background: #0440db;
-  padding: 8px 20px;
-  border-radius: 6px;
-  color: #fff;
-  transition: 0.2s all ease;
+    background: #4776E6;
+    padding: 8px 30px;
+    border-radius: 6px;
+    color: #fff;
+    transition: 0.2s all ease;
 }
 
 .last-button-row .submit-btn:hover {
-  background: #4d5fb9;
-  color: #fff;
-  transition: 0.2s all ease;
+  color: #4776e6;
+  background: #fff;
+  border: 1px solid #4776e6;
+  border-radius: 5px;
+  padding: 8px 30px;
 }
 
 .last-button-row .cancel-btn {
-  color: #4d5fb9;
+  color: #4776e6;
+  background: #fff;
+  border: 1px solid #4776e6;
+  border-radius: 5px;
+  padding: 8px 25px;
+
+}
+.last-button-row .cancel-btn:hover{
+
+  color: #fff;
+  background: #4776e6;
+
 }
 
 .create-or-edit-workspace-main .name-field {

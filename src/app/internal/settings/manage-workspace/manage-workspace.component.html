@@ -1,5 +1,13 @@
 <div class="profile-section">
-  <div class="contact-header">
+
+  <div class="Clients_list_heading">  
+      <h3 class="inter-page-heading">Workspace</h3>
+      <div class="btn-combobox">
+          <button class="back-btn" (click)="http.goBack()" >Back</button>
+          <button class="add-user-btn"   (click)="http.openModal('createWorkspace')"> Create a Workspace</button>
+      </div>
+  </div>
+  <!-- <div class="contact-header">
     <div class="Clients_list_heading">
       <img [src]="'/assets/images/back-arrow.svg'" (click)="http.goBack()" />
       <h3 class="page-title">Workspace</h3>
@@ -10,8 +18,11 @@
         Create a Workspace
       </button>
     </div>
-  </div>
-  <!-- ---------------------table for form listing ---------------------------->
+  </div> -->
+  
+
+     <!-- --------------------------------------------OLD CODE COMMENTED HERE---------------------------------------------- -->
+  
   <div class="smart-form-listing-table">
     <table class="smart-table-list">
       <thead>
@@ -123,6 +134,95 @@
       </div>
     </div>
   </ng-container>
+  
+
+
+   <!-- --------------------------------------------NEW CODE---------------------------------------------- -->
+   <div class="search-on-tables">
+    <input type="text" placeholder="Search Workspace...">
+  </div>
+
+  <div class="new-table-main manage-workspace-table-main">
+    <table class="genral-table">
+        <thead>
+            <tr>
+                <th class="second-col-new">Name</th>
+                <th class="third-col-new">Contacts</th>
+                <th class="fourth-col-new">Description</th>
+                <th class="fifth-col-new">Created On </th>
+                <th class="sixth-col-new">Action</th>
+            </tr>
+
+        </thead>
+        <tbody>
+            <ng-container>
+                <tr *ngFor="let item of [1, 2, 3, 4, 5]" > 
+                    <td class="second-col-new">
+                        <div class="shimmer-table shine"></div>
+                    </td>
+                    <td class="third-col-new">
+                        <div class="shimmer-table shine"></div>
+                    </td>
+                    <td class="fourth-col-new">
+                        <div class="shimmer-table shine"></div>
+                    </td>
+                    <td class="fifth-col-new">
+                        <div class="role-icons">
+                            <div class="date-shimer shimmer-table shine"></div>
+                        </div>
+                    </td> 
+                    <td class="sixth-col-new">
+                        <div class="action-btn">
+                            <div class="shimmer-table shine"></div>
+                            <div class="shimmer-table shine"></div>
+                            <div class="shimmer-table shine"></div>
+                        </div>           
+                    </td>
+
+                </tr>
+            </ng-container>
+
+            <tr *ngFor="let item of [1, 2, 3, 4, 5]">
+                <td class="second-col-new"><div class="comman-text-field">Hello Face</div></td>
+                <td class="third-col-new">0</td>
+                <td class="fourth-col-new"><div class="comman-text-field">AI Startup </div></td>
+                <td class="fifth-col-new">
+                    <div class="role-icons">
+                          04/04/2021  
+                    </div>
+                </td> 
+                <td class="sixth-col-new">
+                    <div class="action-btn">
+                        <a  href="#" matTooltip=" Edit"> <img src="../../../../assets/images/New-ui-images/pencil.svg"> </a>
+                        <a  href="#"  matTooltip="Manage Workspace"> <img src="../../../../assets/images/New-ui-images/expert-icon.svg"> </a>
+                        <a href="#" matTooltip="Delete"> <img src="../../../../assets/images/New-ui-images/delete.svg"> </a>
+                    </div>           
+                </td>
+            </tr>
+
+        </tbody>
+
+
+    </table>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 </div>
 
 <ng-template #deletePopup>
