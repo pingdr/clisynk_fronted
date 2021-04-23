@@ -3,25 +3,26 @@
 }
 
 .main-lead-forms .right-col-lead {
-    width: 40%;
-    margin-top: -40px;
+    width: 50%;
+    margin-top: 0px;
     margin-left: 40px;
     margin-right: 20px;
 }
 
 .main-lead-forms .left-col-lead {
-    width: 60%;
+    width: 50%;
     margin-left: 20px;
     margin-bottom: 30px;
     
 }
 
 .first-alert-strips {
-    background: #e6e6e8;
-    padding: 30px 20px;
-    border-radius: 20px;
+    background: #FFF7D6;
+    padding: 30px 30px;
+    border-radius: 5px;
     display: flex;
-    align-items: center;
+    margin-bottom: 50px;
+
 }
 
 .first-alert-strips p {
@@ -74,19 +75,22 @@
 }
 
 .add-your-business-main .label-name {
-    margin-bottom: 5px;
-    font-size: 18px;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 25px;
+    letter-spacing: 0.02em;
+    color: #2A2A2A;
 }
 
 .upload-logo-optional {
-    width: 45%;
-    margin-top: 12px;
+    width: 50%;
+    margin-top: 21px;
     border: 2px dashed #dadada;
-    padding: 25px;
+    padding: 40px 0px;
     position: relative;
     border-radius: 20px;
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 30px;    
 }
 
 .upload-logo-optional input.upload-btn {
@@ -102,15 +106,23 @@
 }
 
 .add-your-logo-heading {
-    font-size: 18px;
-    margin-top: 10px;
-    margin-right: 0;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 25px;
+    letter-spacing: 0.02em;
+    color: #2A2A2A;
+    
 }
 
 .upload-logo-optional .logo-heading {
-    font-size: 25px;
     margin-top: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+    letter-spacing: 0.02em;
+    color: #BBBBBB;
+    font-weight: 400;
 }
 
 .upload-logo-optional p.text-description {
@@ -153,10 +165,13 @@
 }
 
 .lead-form-preview {
-    font-size: 21px;
-    font-weight: 400;
-    margin-top: -1px;
-    margin-bottom: -4px;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 25px;
+    letter-spacing: 0.02em;
+    color: #2A2A2A;
+    margin-bottom: 40px;
+    margin-top: 20px;
 }
 
 
@@ -186,6 +201,56 @@
     background-color: #0040db;
     color: #fff;
 }
+.browse-btn {
+    position: relative;
+}
+
+.upload-logo-optional img {
+    margin: 10px 0px !important;
+    width: 60px;
+}
+p.text-description {
+    font-size: 14px !important;
+    line-height: 17px !important;
+    text-align: center;
+    letter-spacing: 0.02em;
+    color: #BBBBBB;
+}
+
+.browse-btn {
+    margin: 30px 0px;
+    display: inline-block;
+    background: #4776E6;
+    border-radius: 5px;
+    color: #fff;
+    padding: 10px 40px;
+    cursor: pointer;
+}
+.margin-top-main {
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+
+.preview-main {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    margin-top: 20px;
+}
+.preview-main .lead-form-preview {
+    margin-bottom: 0;
+    margin-top: 0;
+}
+.preview-main button.copy-btn {
+    background: transparent;
+    border: none;
+}
+.preview-main button.copy-btn img {
+    margin-right: 8px;
+}
+.preview-main button.copy-btn:hover {
+    text-decoration: underline;
+}
 
 @media(max-width:1660px){
     .upload-logo-optional{
@@ -194,9 +259,9 @@
 }
 
 @media(max-width:1500px){
-    /* .main-lead-forms{
-        grid-column-gap: 50px;
-    } */
+    .browse-btn{
+        margin: 20px 0px;
+    }
     .first-alert-strips p{
         font-size: 13px;
         line-height: 19px;
@@ -211,15 +276,15 @@
         
     }
     .upload-logo-optional{
-        width: 55%;
+        width: 90%;
     }
     .upload-logo-optional .logo-heading{
-        font-size: 18px;
+        font-size: 15px;
         margin-top: 9px;
-        margin-bottom: 15px;
+        margin-bottom: 5px;
     }
     .upload-logo-optional  p.text-description{
-        font-size: 13px;
+        font-size: 12px !important;
     }
     .info-about-logo{
         font-size: 15px;
@@ -238,6 +303,12 @@
     .right-edit-form-main  span.logo-text-both{
         margin-bottom: 20px;
         font-size: 20px;
+    }
+    .upload-logo-optional img{
+        width:40px;
+    }
+    .main-lead-forms .right-col-lead{
+        margin-left: 30px;
     }
 }
 
@@ -303,10 +374,13 @@
 }
 
 .form-description-inner-main {
-    padding: 10px 33px;
-    font-size: 18px;
-    font-weight: 100;
-    color: #0442db;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 25px;
+    letter-spacing: 0.02em;
+    color: #2A2A2A;
+    margin-bottom: 40px;
+    margin-top: 20px;
 }
 
 .last-edit-btn {
@@ -397,7 +471,7 @@
     .form-description-inner-main{
         font-size:14px;
     }
-    .main-lead-forms .right-col-lead{
+    /* .main-lead-forms .right-col-lead{
         margin-top: -29px;
-    }
+    } */
 }

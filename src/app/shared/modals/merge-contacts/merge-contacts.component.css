@@ -42,9 +42,9 @@
 
 .last-button-row .submit-btn {
     margin-right: 20px;
-    background: #0440db;
-    padding: 8px 20px;
-    border-radius: 6px;
+    background: #4776E8;
+    padding: 10px 25px;
+    border-radius: 5px;
     color: #fff;
     transition: 0.2s all ease;
 }
@@ -56,7 +56,16 @@
 }
 
 .last-button-row .cancel-btn {
-    color: #4d5fb9;
+    color: #4776E6;
+    border: 1px solid #4776E6;
+    border-radius: 5px;
+    padding: 9px 20px;
+    transition: 0.2s all ease;
+}
+.last-button-row .cancel-btn:hover{
+    color: #fff;
+    background: #4776e6;
+    
 }
 
 .create-or-edit-workspace-main .name-field {
@@ -84,7 +93,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 8px;
+    margin-bottom: 60px;
+    margin-top: 30px;
 }
 
 .create-or-edit-workspace-main .from-to-main-div .first-col span.from-title {
@@ -160,4 +170,11 @@
 
 .more-option .dropdown .btn-group.add-btn button.btn:hover {
     text-decoration: underline;
+}
+
+.last-button-row {
+    display: flex;
+    justify-content: center;
+    margin-top: 80px;
+    margin-bottom: 20px;
 }

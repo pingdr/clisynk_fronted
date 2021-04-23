@@ -193,9 +193,9 @@
                 </td> 
                 <td class="sixth-col-new">
                     <div class="action-btn">
-                        <a  href="#" matTooltip=" Edit"> <img src="../../../../assets/images/New-ui-images/pencil.svg"> </a>
-                        <a  href="#"  matTooltip="Manage Workspace"> <img src="../../../../assets/images/New-ui-images/expert-icon.svg"> </a>
-                        <a href="#" matTooltip="Delete"> <img src="../../../../assets/images/New-ui-images/delete.svg"> </a>
+                        <a  matTooltip=" Edit"> <img src="../../../../assets/images/New-ui-images/pencil.svg"> </a>
+                        <a   matTooltip="Manage Workspace" (click)="openEditManageWorkspace()"> <img src="../../../../assets/images/New-ui-images/expert-icon.svg"> </a>
+                        <a matTooltip="Delete"> <img src="../../../../assets/images/New-ui-images/delete.svg"> </a>
                     </div>           
                 </td>
             </tr>
@@ -229,24 +229,26 @@
   <div class="delete-comp xs">
     <div class="delete-comp-inner">
       <h4>Delete workspace</h4>
-      <p>Are you sure you want to delete this workspace?</p>
-      <div class="button-row form-group">
-        <button
-          class="delete-btn"
-          type="submit"
-          (click)="http.hideModal(); changeStatus(4)"
-        >
-          Delete
-        </button>
-        <button
-          class="text-button"
-          type="button"
-          aria-label="Close"
-          (click)="http.hideModal()"
-        >
-          Cancel
-        </button>
-      </div>
+      <div class="delete-content-area">
+        <p>Are you sure you want to delete this workspace?</p>
+          <div class="button-row form-group">
+            <button
+              class="delete-btn"
+              type="submit"
+              (click)="http.hideModal(); changeStatus(4)"
+            >
+              Delete
+            </button>
+            <button
+              class="text-button"
+              type="button"
+              aria-label="Close"
+              (click)="http.hideModal()"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
     </div>
   </div>
 </ng-template>

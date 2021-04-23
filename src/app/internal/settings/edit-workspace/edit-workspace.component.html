@@ -1,9 +1,24 @@
-<div class="contact-header">
+<!-- <div class="contact-header">
   <div class="Clients_list_heading">
     <img [src]="'/assets/images/back-arrow.svg'" (click)="http.goBack()" />
     <h3 class="page-title">Manage Workspace</h3>
   </div>
+</div> -->
+
+<div class="modal-header email_str_header">
+  <section class="text">
+      <h4>Manage Workspace</h4>
+  </section>
+  <section id="close" class="navigation">
+      <button class="icon-only" type="button" aria-label="Close" (click)="http.hideModal()">
+          <img [src]="'/assets/images/ic_close.svg'">
+      </button>
+  </section>
+
 </div>
+
+
+
 <div class="main-edit-work-space-form">
   <form [formGroup]="form" (ngSubmit)="finalSubmit()" autocomplete="off">
     <div class="first-row">
@@ -17,7 +32,7 @@
         </mat-error>
       </div>
     </div>
-    <div class="second-row">
+    <div class="second-row comman-rows">
       <label class="sub-heading">To Workspace</label>
       <ng-multiselect-dropdown
         formControlName="toWorkspaceIds"
@@ -81,7 +96,7 @@
         </mat-autocomplete>
       </mat-form-field>-->
     </div>
-    <div class="second-row third-row">
+    <div class="second-row third-row comman-rows">
       <label class="sub-heading">Contacts</label>
       <ng-multiselect-dropdown
         formControlName="contactIds"
@@ -104,7 +119,7 @@
         Please select atleast one contact.
       </mat-error>
     </div>
-    <div class="second-row third-row">
+    <div class="second-row third-row comman-rows">
       <label class="sub-heading">Contact group list</label>
       <ng-multiselect-dropdown
         formControlName="contactListIds"
@@ -119,7 +134,7 @@
         >
       </ng-multiselect-dropdown>
     </div>
-    <div class="second-row fourth-row">
+    <div class="second-row fourth-row comman-rows">
       <label class="sub-heading">Contacts by tag</label>
       <ng-multiselect-dropdown
         formControlName="tagIds"

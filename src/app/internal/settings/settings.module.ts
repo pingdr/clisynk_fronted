@@ -11,7 +11,7 @@ import { LeadFormsComponent } from './lead-forms/lead-forms.component';
 import { SmartFormsComponent } from './smart-forms/smart-forms.component';
 import { ManageWorkspaceComponent } from './manage-workspace/manage-workspace.component';
 import { MatTooltipModule, MatInputModule } from '@angular/material';
-import { EditWorkspaceComponent } from './edit-workspace/edit-workspace.component';
+// import { EditWorkspaceComponent } from './edit-workspace/edit-workspace.component';
 import {MatChipsModule} from '@angular/material/chips';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
@@ -58,12 +58,13 @@ const routes: Routes = [
                 component:ManageWorkspaceComponent,
                 data: {title: 'Manage-Workspace'},
                 canActivate: [AuthGuard]
-            },{
-                path: 'edit-workspace',
-                component:EditWorkspaceComponent,
-                data: {title: 'Edit-Workspace'},
-                canActivate: [AuthGuard]
-            }
+            },
+            // {
+            //     path: 'edit-workspace',
+            //     component:EditWorkspaceComponent,
+            //     data: {title: 'Edit-Workspace'},
+            //     canActivate: [AuthGuard]
+            // }
         ]
     }
 ];
@@ -78,7 +79,7 @@ const routes: Routes = [
         NgxSkeletonLoaderModule
     ],
     declarations: [
-        MyProfileComponent, SettingsComponent, BusinessProfileComponent, UsersComponent, ProductsComponent, LeadFormsComponent, SmartFormsComponent, ManageWorkspaceComponent, EditWorkspaceComponent
+        MyProfileComponent, SettingsComponent, BusinessProfileComponent, UsersComponent, ProductsComponent, LeadFormsComponent, SmartFormsComponent, ManageWorkspaceComponent, 
     ]
 })
 export class SettingsModule {

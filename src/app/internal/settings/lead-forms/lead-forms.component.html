@@ -1,5 +1,16 @@
+<div class="Clients_list_heading">  
+    <h3 class="inter-page-heading">Lead Form</h3>
+    <div class="btn-combobox">
+        <button class="back-btn" (click)="http.goBack()" >Back</button>
+        <button class="add-user-btn"   (click)="onPreview()" > Go to your form</button>
+    </div>
+</div>
 
-    <div class="header-for-lead-form-main">
+
+
+
+
+    <!-- <div class="header-for-lead-form-main">
         <div class="inner-left-head">
             <div class="Clients_list_heading">
                 <img [src]="'/assets/images/back-arrow.svg'" (click)="http.goBack()">
@@ -7,12 +18,6 @@
             </div>
         </div>
         <div class="right-col-three-btn">
-            <!-- <div class="comm-btn">
-                <button class="copy-btn" (click)="copyCode()">
-                    <img src="../../../../assets/images/copy-blue.svg" width="20">
-                    Copy code
-                </button>
-            </div> -->
             <div class="comm-btn">
                 <button class="copy-btn" (click)="copyLink()">
                     <img src="../../../../assets/images/copy-blue.svg" width="20">
@@ -26,19 +31,18 @@
                 </button>
             </div>
         </div>
-    </div>
+    </div> -->
 
-<div class="form-description-inner-main">
-    Customize your Lead form with your business name and logo
-    
-</div>
-<!-- <form [formGroup]="leadForm" (ngSubmit)="onSubmit()"> -->
+
 <div class="main-lead-forms">
     <div class="left-col-lead">
+        <div class="form-description-inner-main">
+            Customize your Lead form with your business name and logo            
+        </div> 
         <!-- ---------------first-strips----- -->
         <div class="first-alert-strips">
             <label class="alert-icon"></label>
-            <p>All users on this Clisynk account will be notified whenever a new lead is submitted. Updating your business name and logo here will update your account settings.</p>
+            <p>When any user submits the leadform that contact will be saved to clisynk contacts automatically. Updating your business name and logo here will update your account settings.</p>
         </div>
     <form [formGroup]="leadForm" (ngSubmit)="onSubmit()">
         <div class="input-field add-your-business-main">
@@ -51,37 +55,44 @@
             </mat-form-field>
         </div>
         <!-- logo-upload -->
-        <div class="label-name add-your-logo-heading">Add your logo (optional)</div>
+        <div class="label-name add-your-logo-heading margin-top-main">Add your logo (optional)</div>
         <div class="upload-logo-optional">
-            <input #fileInput (click)="fileInput.value = null" [writeFile]="true" type="file" formControlName="logo" class="upload-btn" (change)="onImageChanged($event)">
-            <img src="../../../../assets/images/upload-icon.png" width="70">
-            <h3 class="logo-heading">Upload logo</h3>
+           
+            <h3 class="logo-heading">Upload logo image</h3>
+            <img src="../../../../assets/images/New-ui-images/upload-icon-img.svg" width="30" style="margin: 20px 0px;">
             <p class="text-description">
-                <span class="blue-text">Drag & drop here or browse</span>
-                jpeg, png, tiff files are acceptable
+                file formate jpg, jpeg, png, tiff
+            </p>
+            <div class="browse-btn">
+                Browse
+                <input #fileInput (click)="fileInput.value = null" [writeFile]="true" type="file" formControlName="logo" class="upload-btn" (change)="onImageChanged($event)">
+            </div>
+            <p class="text-description">
+                Logo should be at least 300px x 300px
             </p>
 
         </div>
         <div class="preview-logo">
             <img src="{{logoUrl}}" width="150">
         </div>
-        <div class="info-about-logo">Logo should be at least 300px x 300px</div>
+        <!-- <div class="info-about-logo">Logo should be at least 300px x 300px</div> -->
         <div class="remove-btn-logo" *ngIf="logoUrl">
             <button class="rm-btn" style="cursor:pointer" (click)="removeLogo()">Remove logo</button>
         </div>
     </form>
-        <!-- edit-form-strips -->
-        <!-- <div class="Edit-your-form">
-            <label class="label-name">Edit your form</label>
-            <p>Adjust your intake information by adding or removing fields in the form builder.</p>
-        </div>
-
-        <button type="button" class="btn btn-outline-primary edit-form-btn" (click)="onEdit()">Edit form</button> -->
 
     </div>
     <!-- ---------------right-col---------------->
     <div class="right-col-lead">
-        <div class="lead-form-preview">Lead Form preview</div>
+        <div class="preview-main">
+            <div class="lead-form-preview">Preview</div>
+            <button class="copy-btn" (click)="copyLink()">
+                <img src="../../../../assets/images/copy-blue.svg" width="20">
+                Copy link
+            </button>
+        </div>
+
+
         <div class="right-edit-form-main" *ngIf="!loader">
             <div class="business-logo" *ngIf="logoUrl">
                 <img src="{{logoUrl}}" height="100px" alt="Image preview...">

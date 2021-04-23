@@ -101,7 +101,7 @@ export class ManageTagComponent implements OnInit, OnDestroy {
     }
 
     addTag() {
-        this.http.showModal(AddTagComponent, 'more-sm', {});
+        this.http.showModal(AddTagComponent, 'md', {});
     }
 
     contactList() {
