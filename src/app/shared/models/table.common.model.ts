@@ -1,7 +1,9 @@
 import {Subscription} from 'rxjs';
+import { PaginatedResponse } from 'src/app/models/paginated-response';
 
 export class TableModel {
     subscription: Subscription;
+    users: PaginatedResponse<User[]>;
     totalItems: number;
     limit = 1000;
     search = '';

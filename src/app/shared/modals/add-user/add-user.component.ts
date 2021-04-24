@@ -25,7 +25,7 @@ export class AddUserComponent implements OnInit {
         'disabled': true
     };
     sideBar = this.http.CONSTANT.sideBarAdmin;
-    moreUrl: any = ['contacts/manage-tag', '/settings', '/settings/my-profile', '/booking', '/contacts/tag-settings',
+    moreUrl: any = ['/contacts/manage-tag', '/settings', '/settings/my-profile', '/booking', '/contacts/tag-settings',
         '/booking', '/receipt'];
 
     constructor(public http: HttpService) {

@@ -91,7 +91,7 @@
 
         <!-- -------------------------------------------NEW CODE------------------------------- -->
         <div class="search-on-tables">
-            <input type="text" placeholder="Search User...">
+            <input type="text" [(ngModel)]="searchText" placeholder="Search User...">
 
         </div>
 
@@ -109,7 +109,7 @@
 
                     </thead>
                     <tbody>
-                        <ng-container  *ngIf="!isEmpty && !myModel?.users?.data?.length">
+                        <ng-container  *ngIf="!isLoading && !myModel?.users?.data?.length">
                             <tr *ngFor="let item of [1, 2, 3, 4, 5]" >
                                 <td class="first-col-new">
                                     <div class="shimmer-table shine"></div>
@@ -147,30 +147,34 @@
                             </tr>
                         </ng-container>
 
-                        <tr *ngFor="let data of myModel?.users?.data;let i = index">
+                        <tr *ngFor="let user of myModel?.users?.data| filter:searchText;let i = index">
                             <td class="first-col-new">{{i + 1}}</td>
-                            <td class="second-col-new"><div class="comman-text-field">{{data?.firstName || '-'}}</div></td>
-                            <td class="third-col-new">{{data?.phone1 || '-'}}</td>
-                            <td class="fourth-col-new"><div class="comman-text-field">{{data?.email || '-'}}</div></td>
+                            <td class="second-col-new"><div class="comman-text-field">{{user?.firstName || '-'}}</div></td>
+                            <td class="third-col-new">{{user?.phone1 || '-'}}</td>
+                            <td class="fourth-col-new"><div class="comman-text-field">{{user?.email || '-'}}</div></td>
                             <td class="fifth-col-new">
                                 <div class="role-icons">
-                                    <a href="#"><img src="../../../../assets/images/New-ui-images/background-people.svg"></a>
-                                    <a href="#"><img src="../../../../assets/images/New-ui-images/home-background.svg"></a>
-                                    <a href="#"><img src="../../../../assets/images/New-ui-images/pad-background.svg"></a>
-                                    <a href="#"><img src="../../../../assets/images/New-ui-images/cards-background.svg"></a>
-                                    <a href="#"><img src="../../../../assets/images/New-ui-images/card-money.svg"></a>
-                                    <a href="#"><img src="../../../../assets/images/New-ui-images/card-broadcast.svg"></a>
-                                    <a href="#"><img src="../../../../assets/images/New-ui-images/card-piplinne.svg"></a>
-                                    <a href="#"><img src="../../../../assets/images/New-ui-images/chats-card.svg"></a>
-                                    <a href="#"><img src="../../../../assets/images/New-ui-images/card-vijli.svg"></a>
-                                    <a href="#"><img src="../../../../assets/images/New-ui-images/card-document.svg"></a>
+                                    
+                                    <a [routerLink]="role.path" *ngFor="let role of user.displayedRoles">
+                                        <img src="/assets/images/{{role.file}}">
+                                    </a>
+                                    <!-- <a><img src="../../../../assets/images/New-ui-images/background-people.svg"></a>
+                                    <a><img src="../../../../assets/images/New-ui-images/home-background.svg"></a>
+                                    <a><img src="../../../../assets/images/New-ui-images/pad-background.svg"></a>
+                                    <a><img src="../../../../assets/images/New-ui-images/cards-background.svg"></a>
+                                    <a><img src="../../../../assets/images/New-ui-images/card-money.svg"></a>
+                                    <a><img src="../../../../assets/images/New-ui-images/card-broadcast.svg"></a>
+                                    <a><img src="../../../../assets/images/New-ui-images/card-piplinne.svg"></a>
+                                    <a><img src="../../../../assets/images/New-ui-images/chats-card.svg"></a>
+                                    <a><img src="../../../../assets/images/New-ui-images/card-vijli.svg"></a>
+                                    <a><img src="../../../../assets/images/New-ui-images/card-document.svg"></a> -->
 
                                 </div>
                             </td> 
                             <td class="sixth-col-new">
                                 <div class="action-btn">
-                                    <a   (click)="openAddUser(data)"> <img src="../../../../assets/images/New-ui-images/pencil.svg"> </a>
-                                    <a href="#"> <img src="../../../../assets/images/New-ui-images/delete.svg"> </a>
+                                    <a   (click)="openAddUser(user)"> <img src="../../../../assets/images/New-ui-images/pencil.svg"> </a>
+                                    <a > <img src="../../../../assets/images/New-ui-images/delete.svg"> </a>
                                 </div>           
                             </td>
                         </tr>
@@ -182,7 +186,7 @@
 
 
 
-        </div>
+        </div> 
 
 
 

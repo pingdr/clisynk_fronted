@@ -53,6 +53,18 @@ export class AclService {
         this.sideBar = tempArr;
     }
 
+    getSubUserRoles(subUser:User) {
+        const tempArr: any = [];
+        sideBarAdmin.forEach((val) => {
+            subUser.roles.forEach((val1) => {
+                if (val.path === val1) {
+                    tempArr.push(val);
+                }
+            });
+        });
+        return tempArr;
+    }
+
     validRoute(state, parent) {
         this.loginData = this.http.getLoginData();
         if (!this.loginData.superAdmin) {

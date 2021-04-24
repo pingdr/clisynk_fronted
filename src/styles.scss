@@ -8356,6 +8356,11 @@ form.bussines-profile-form {
 }
 .role-icons a {
   margin-right: 13px;
+  width: 35px;
+  height: 35px;
+  background: #f4f4f4;
+  border-radius: 100%;
+  padding: 7px;
 }
 .role-icons a:last-child,
 .action-btn a:last-child {
@@ -8363,7 +8368,8 @@ form.bussines-profile-form {
 }
 
 .role-icons a img {
-  width: 30px;
+  width: 20px;
+  height: 20px;
 }
 
 .action-btn {
