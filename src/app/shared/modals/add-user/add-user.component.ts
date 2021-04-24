@@ -98,20 +98,20 @@ export class AddUserComponent implements OnInit {
         });
     }
 
-    deleteFun() {
-        const obj: any = {
-            type: 11,
-            key: 'id',
-            message: 'Are you sure you want to delete this user?',
-            id: this.modalData._id
-        };
-        const modalRef = this.http.showModal(DeleteComponent, 'sm', obj);
-        modalRef.content.onClose = new Subject<boolean>();
-        modalRef.content.onClose.subscribe(() => {
-            this.http.hideModal();
-            this.http.openSnackBar('Deleted Successfully');
-            this.onClose.next(true);
-        });
-    }
+    // deleteFun() {
+    //     const obj: any = {
+    //         type: 11,
+    //         key: 'id',
+    //         message: 'Are you sure you want to delete this user?',
+    //         id: this.modalData._id
+    //     };
+    //     const modalRef = this.http.showModal(DeleteComponent, 'sm', obj);
+    //     modalRef.content.onClose = new Subject<boolean>();
+    //     modalRef.content.onClose.subscribe(() => {
+    //         this.http.hideModal();
+    //         this.http.openSnackBar('Deleted Successfully');
+    //         this.onClose.next(true);
+    //     });
+    // }
 
 }

@@ -25,8 +25,8 @@
                     <p>Update your profile information like name, address, and email signature.</p>
                 </div>
             </div>
-        <div class="comman-grid-area">
-            <div class="main-area-content" routerLink="/settings/business-profile" *ngIf="http.checkAcl('business-profile')">
+        <div class="comman-grid-area" *ngIf="http.checkAcl('business-profile')">
+            <div class="main-area-content" routerLink="/settings/business-profile" >
                 <div class="img-tag">
                     <img src="../../../assets/images/New-ui-images/business-profile.svg" alt="personal" title="personal">
                 </div> 
@@ -34,8 +34,8 @@
                 <p>Manage your business details, including your address and contact info, branding, time zone, and more.</p>
             </div>
         </div>
-        <div class="comman-grid-area">
-            <div class="main-area-content"  routerLink="/settings/users" *ngIf="http.checkAcl('users')">
+        <div class="comman-grid-area"  *ngIf="http.checkAcl('users')">
+            <div class="main-area-content"  routerLink="/settings/users">
                 <div class="img-tag">
                     <img src="../../../assets/images/New-ui-images/users.svg" alt="personal" title="personal">
                 </div> 
@@ -43,8 +43,8 @@
                 <p>Manage users, permissions, and roles for all the users in your Keap account.</p>
             </div>
         </div>
-        <div class="comman-grid-area">
-            <div class="main-area-content" routerLink="/settings/manage-workspace" *ngIf="http.checkAcl('users')">
+        <div class="comman-grid-area" *ngIf="http.checkAcl('users')">
+            <div class="main-area-content" routerLink="/settings/manage-workspace" >
                 <div class="img-tag">
                     <img src="../../../assets/images/New-ui-images/manage-workspaces.svg" alt="personal" title="personal">
                 </div> 
@@ -79,8 +79,8 @@
                 <p>Manage users, permissions, and roles for all the users in your Keap account.</p>
             </div>
         </div>
-        <div class="comman-grid-area"> 
-            <div class="main-area-content" routerLink="/settings/products" *ngIf="http.checkAcl('money')">
+        <div class="comman-grid-area" *ngIf="http.checkAcl('money')"> 
+            <div class="main-area-content" routerLink="/settings/products" >
                 <div class="img-tag">
                     <img src="../../../assets/images/New-ui-images/product-and-service.svg" alt="personal" title="personal">
                 </div> 

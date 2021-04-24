@@ -109,7 +109,7 @@
 
                     </thead>
                     <tbody>
-                        <ng-container  *ngIf="!isLoading && !myModel?.users?.data?.length">
+                        <ng-container  *ngIf="isLoading && !myModel?.users?.data?.length">
                             <tr *ngFor="let item of [1, 2, 3, 4, 5]" >
                                 <td class="first-col-new">
                                     <div class="shimmer-table shine"></div>
@@ -173,8 +173,8 @@
                             </td> 
                             <td class="sixth-col-new">
                                 <div class="action-btn">
-                                    <a   (click)="openAddUser(user)"> <img src="../../../../assets/images/New-ui-images/pencil.svg"> </a>
-                                    <a > <img src="../../../../assets/images/New-ui-images/delete.svg"> </a>
+                                    <a (click)="openAddUser(user)"> <img src="../../../../assets/images/New-ui-images/pencil.svg"> </a>
+                                    <a (click)="deleteFun(user)"> <img src="../../../../assets/images/New-ui-images/delete.svg"> </a>
                                 </div>           
                             </td>
                         </tr>
