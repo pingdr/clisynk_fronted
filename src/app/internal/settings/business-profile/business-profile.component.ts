@@ -3,6 +3,7 @@ import {FormGroup, Validators} from '@angular/forms';
 import {HttpService} from '../../../services/http.service';
 import {ApiUrl} from '../../../services/apiUrls';
 import {TableModel} from '../../../shared/models/table.common.model';
+import { finalize } from 'rxjs/operators';
 
 @Component({
     selector: 'app-business-profile',
@@ -20,6 +21,7 @@ export class BusinessProfileComponent implements OnInit {
     loading = false;
     color1 = '#897870';
     color2 = '#000';
+    isUpdating = false;
 
     constructor(public http: HttpService) {
         this.myModel = new TableModel();
@@ -58,7 +60,8 @@ export class BusinessProfileComponent implements OnInit {
             obj.addressId = this.modalData._id;
         }
         if (this.http.isFormValid(this.form)) {
-            this.http.postData(ApiUrl.ADD_ADDRESS, obj).subscribe(() => {
+            this.isUpdating = true;
+            this.http.postData(ApiUrl.ADD_ADDRESS, obj).pipe(finalize(()=> {this.isUpdating = false})).subscribe(() => {
                 this.http.openSnackBar('Profile Updated Successfully');
             }, () => {
             });
@@ -68,6 +71,8 @@ export class BusinessProfileComponent implements OnInit {
     businessTypesList() {
         this.http.getData(ApiUrl.BUSINESS_LIST_TYPE, {}).subscribe(res => {
             this.myModel.businessTypes = res.data;
+            console.log(this.myModel.businessTypes);
+            
         });
     }
 

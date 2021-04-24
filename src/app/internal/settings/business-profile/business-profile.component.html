@@ -252,7 +252,10 @@
                             </div>
 
                             <div class="button-row">
-                                <button type="submit" class="btn btn-outline-primary">Update business profile</button>
+                                <button type="submit" [disabled]="isUpdating" class="btn btn-outline-primary">
+                                    <i class="fa " [ngClass]="{'fa-spinner fa-spin': isUpdating}" aria-hidden="true"></i>
+                                    Update business profile
+                                </button>
                             </div>
                         </div>
                     </div>
