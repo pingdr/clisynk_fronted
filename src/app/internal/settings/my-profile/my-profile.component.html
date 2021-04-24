@@ -5,12 +5,16 @@
         <div class="Clients_list_heading">
             <h3 class="inter-page-heading">Personal Details</h3>
             <div class="btn-combobox">
-                <button class="back-btn" (click)="http.goBack()" >Back</button>
-                <button class="add-user-btn">Update</button>
+                <button class="back-btn" (click)="http.goBack()" [disabled]="isUpdating" >Back</button>
+                <button class="add-user-btn" (click)="finalSubmit()" [disabled]="isUpdating">
+                    <i class="fa " [ngClass]="{'fa-spinner fa-spin': isUpdating}" aria-hidden="true"></i>
+                    Update
+                </button>
             </div>
         </div>
 
-        <form [formGroup]="form" (ngSubmit)="finalSubmit()" autocomplete="off" class="my-prof">
+        <!-- <form [formGroup]="form" (ngSubmit)="finalSubmit()" autocomplete="off" class="my-prof"> -->
+        <form [formGroup]="form" autocomplete="off" class="my-prof">
             <div class="modal-body">
                 <div class="uploaded-img text-center" *ngIf="form.value.imageUrl">
                   <span class="clear-icon"
