@@ -6,6 +6,15 @@
 
 
     <div class="setting-grid-main">
+        <!-- <div class="comman-grid-area">
+            <div class="shimer-card">
+                <div class="img-shimmer shine"></div> 
+                <div class="heading-shimmer shine"></div>
+                <div class="paragraph-shimer-1 shine"></div>
+                <div class="paragraph-shimer-2 shine"></div>
+                <div class="paragraph-shimer-3 shine"></div>
+            </div>
+        </div> -->
 
         <div class="comman-grid-area">
                 <div class="main-area-content" routerLink="/settings/my-profile">
@@ -15,14 +24,7 @@
                     <div class="tag-heading">Personal Details</div>
                     <p>Update your profile information like name, address, and email signature.</p>
                 </div>
-                <div class="shimer-card">
-                    <div class="img-shimmer shine"></div> 
-                    <div class="heading-shimmer shine"></div>
-                    <div class="paragraph-shimer-1 shine"></div>
-                    <div class="paragraph-shimer-2 shine"></div>
-                    <div class="paragraph-shimer-3 shine"></div>
-                </div>
-        </div>
+            </div>
         <div class="comman-grid-area">
             <div class="main-area-content" routerLink="/settings/business-profile" *ngIf="http.checkAcl('business-profile')">
                 <div class="img-tag">
@@ -30,13 +32,6 @@
                 </div> 
                 <div class="tag-heading">Business Profile</div>
                 <p>Manage your business details, including your address and contact info, branding, time zone, and more.</p>
-            </div>
-            <div class="shimer-card">
-                <div class="img-shimmer shine"></div> 
-                <div class="heading-shimmer shine"></div>
-                <div class="paragraph-shimer-1 shine"></div>
-                <div class="paragraph-shimer-2 shine"></div>
-                <div class="paragraph-shimer-3 shine"></div>
             </div>
         </div>
         <div class="comman-grid-area">
@@ -47,13 +42,6 @@
                 <div class="tag-heading">Users</div>
                 <p>Manage users, permissions, and roles for all the users in your Keap account.</p>
             </div>
-            <div class="shimer-card">
-                <div class="img-shimmer shine"></div> 
-                <div class="heading-shimmer shine"></div>
-                <div class="paragraph-shimer-1  shine"></div>
-                <div class="paragraph-shimer-2 shine"></div>
-                <div class="paragraph-shimer-3 shine"></div>
-            </div>
         </div>
         <div class="comman-grid-area">
             <div class="main-area-content" routerLink="/settings/manage-workspace" *ngIf="http.checkAcl('users')">
@@ -62,13 +50,6 @@
                 </div> 
                 <div class="tag-heading">Manage Workspaces</div>
                 <p>Manage users, permissions, and roles for all the users in your Keap account.</p>
-            </div>
-            <div class="shimer-card">
-                <div class="img-shimmer shine"></div> 
-                <div class="heading-shimmer shine"></div>
-                <div class="paragraph-shimer-1 shine"></div>
-                <div class="paragraph-shimer-2 shine"></div>
-                <div class="paragraph-shimer-3 shine"></div>
             </div>
         </div>
         <div class="comman-grid-area">
@@ -79,13 +60,6 @@
                 <div class="tag-heading">Smart Form Builder</div>
                 <p>Manage users, permissions, and roles for all the users in your Keap account.</p>
             </div>
-            <div class="shimer-card">
-                <div class="img-shimmer shine"></div> 
-                <div class="heading-shimmer shine"></div>
-                <div class="paragraph-shimer-1 shine"></div>
-                <div class="paragraph-shimer-2 shine"></div>
-                <div class="paragraph-shimer-3 shine"></div>
-            </div>
         </div>
         <div class="comman-grid-area">
             <div class="main-area-content" routerLink="/settings/lead-forms">
@@ -94,13 +68,6 @@
                 </div> 
                 <div class="tag-heading">Lead Forms</div>
                 <p>Manage users, permissions, and roles for all the users in your Keap account.</p>
-            </div>
-            <div class="shimer-card">
-                <div class="img-shimmer shine"></div> 
-                <div class="heading-shimmer shine"></div>
-                <div class="paragraph-shimer-1 shine"></div>
-                <div class="paragraph-shimer-2 shine"></div>
-                <div class="paragraph-shimer-3 shine"></div>
             </div>
         </div>
         <div class="comman-grid-area">
@@ -111,13 +78,6 @@
                 <div class="tag-heading">Tags</div>
                 <p>Manage users, permissions, and roles for all the users in your Keap account.</p>
             </div>
-            <div class="shimer-card">
-                <div class="img-shimmer shine"></div> 
-                <div class="heading-shimmer shine"></div>
-                <div class="paragraph-shimer-1 shine"></div>
-                <div class="paragraph-shimer-2 shine"></div>
-                <div class="paragraph-shimer-3 shine"></div>
-            </div>
         </div>
         <div class="comman-grid-area"> 
             <div class="main-area-content" routerLink="/settings/products" *ngIf="http.checkAcl('money')">
@@ -127,13 +87,6 @@
                 <div class="tag-heading">Product And Service</div>
                 <p>Manage all your products and services for use in quotes, invoices, and checkout forms.</p>
             </div>
-            <div class="shimer-card">
-                <div class="img-shimmer shine"></div> 
-                <div class="heading-shimmer shine"></div>
-                <div class="paragraph-shimer-1 shine"></div>
-                <div class="paragraph-shimer-2 shine"></div>
-                <div class="paragraph-shimer-3 shine"></div>
-            </div>
         </div>
         <div class="comman-grid-area">
             <div class="main-area-content" (click)="http.openModal('changePassword')">
@@ -142,13 +95,6 @@
                 </div> 
                 <div class="tag-heading">Change Password</div>
                 <p>Setup your new password.</p>
-            </div>
-            <div class="shimer-card">
-                <div class="img-shimmer shine"></div> 
-                <div class="heading-shimmer shine"></div>
-                <div class="paragraph-shimer-1 shine"></div>
-                <div class="paragraph-shimer-2 shine"></div>
-                <div class="paragraph-shimer-3 shine"></div>
             </div>
         </div>
 
