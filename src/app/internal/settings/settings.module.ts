@@ -14,6 +14,7 @@ import { MatTooltipModule, MatInputModule } from '@angular/material';
 // import { EditWorkspaceComponent } from './edit-workspace/edit-workspace.component';
 import {MatChipsModule} from '@angular/material/chips';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 const routes: Routes = [
     {
@@ -53,10 +54,17 @@ const routes: Routes = [
                 component:SmartFormsComponent,
                 data: {title: 'Smart-Forms'},
                 canActivate: [AuthGuard]
-            },{
+            },
+            {
                 path: 'manage-workspace',
                 component:ManageWorkspaceComponent,
                 data: {title: 'Manage-Workspace'},
+                canActivate: [AuthGuard]
+            },
+            {
+                path: 'change-password',
+                component: ChangePasswordComponent,
+                data: {title: 'change-password'},
                 canActivate: [AuthGuard]
             },
             // {
@@ -79,7 +87,10 @@ const routes: Routes = [
         NgxSkeletonLoaderModule
     ],
     declarations: [
-        MyProfileComponent, SettingsComponent, BusinessProfileComponent, UsersComponent, ProductsComponent, LeadFormsComponent, SmartFormsComponent, ManageWorkspaceComponent, 
+        MyProfileComponent, SettingsComponent, BusinessProfileComponent, 
+        UsersComponent, ProductsComponent, LeadFormsComponent, 
+        SmartFormsComponent, ManageWorkspaceComponent,
+        ChangePasswordComponent 
     ]
 })
 export class SettingsModule {

@@ -15,7 +15,7 @@ import {
 } from '@angular/material';
 import {AddContactComponent} from '../modals/add-contact/add-contact.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {ChangePasswordComponent} from '../modals/change-password/change-password.component';
+// import {ChangePasswordComponent} from '../modals/change-password/change-password.component';
 import {ContactDetailsComponent} from '../modals/contact-details/contact-details.component';
 import {SendEmailComponent} from '../modals/send-email/send-email.component';
 import {CKEditorModule} from 'ng2-ckeditor';
@@ -124,7 +124,7 @@ import { EditWorkspaceComponent } from 'src/app/internal/settings/edit-workspace
 
 
 
-const entryList = [EmailFormatComponent, SendEmailComponent, ChangePasswordComponent, ContactDetailsComponent, AddNoteComponent,
+const entryList = [EmailFormatComponent, SendEmailComponent, ContactDetailsComponent, AddNoteComponent,
     ContactOptionsComponent, AddTaskComponent, LoaderComponent, ContactDetailComponent, ActivityListComponent, ContactFilterComponent,
     ImportContactComponent, ReviewPopupComponent, AddContactComponent, NoteListComponent, EditNoteComponent, DeleteComponent,
     EmailDetailComponent, ContactListsComponent, PlaceholdersComponent, LogoutComponent, CancelConfirmComponent,

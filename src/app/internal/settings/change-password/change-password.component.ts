@@ -1,11 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {FormGroup, Validators} from '@angular/forms';
-import {HttpService} from '../../../services/http.service';
-import {TableModel} from '../../models/table.common.model';
-import {ApiUrl} from '../../../services/apiUrls';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, Validators } from '@angular/forms';
+import { HttpService } from '../../../services/http.service';
+import { TableModel } from '../../../shared/models/table.common.model';
+import { ApiUrl } from '../../../services/apiUrls';
 
 @Component({
     selector: 'app-change-password',
+    styleUrls: ['./change-password.component.scss'],
     templateUrl: './change-password.component.html'
 })
 export class ChangePasswordComponent implements OnInit {
@@ -13,8 +14,8 @@ export class ChangePasswordComponent implements OnInit {
     form: FormGroup;
     allData;
     myModel: any;
-    hideCurrent : boolean = true;
-    hideConfirm : boolean = true;
+    hideCurrent: boolean = true;
+    hideConfirm: boolean = true;
 
     constructor(public http: HttpService) {
         this.myModel = new TableModel();
@@ -46,16 +47,15 @@ export class ChangePasswordComponent implements OnInit {
                 oldPassword: this.form.value.currentPassword,
                 newPassword: this.form.value.confirmPassword
             };
-            this.http.hideModal();
             this.http.postData(ApiUrl.CHANGE_PASSWORD, obj).subscribe(res => {
-                        if (res.statuscode === 400) {
-                            this.http.toastr.error(res.msg);
-                        } else {
-                            this.http.openSnackBar('Password Changed Successfully');
-                        }
-                    },
-                    () => {
-                    });
+                if (res.statuscode === 400) {
+                    this.http.toastr.error(res.msg);
+                } else {
+                    this.http.openSnackBar('Password Changed Successfully');
+                }
+                this.form.reset();
+            }
+            );
         }
     }
 }
