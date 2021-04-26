@@ -1,9 +1,12 @@
+import { BackendResponse } from './../../../models/backend-response';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {HttpService} from '../../../services/http.service';
 import {TableModel} from '../../../shared/models/table.common.model';
 import {ApiUrl} from '../../../services/apiUrls';
 import {DeleteComponent} from '../../../shared/modals/delete/delete.component';
 import {Subject} from 'rxjs';
+import { Product } from 'src/app/models/product';
+import { AddProductComponent } from 'src/app/shared/modals/add-product/add-product.component';
 
 @Component({
     selector: 'app-products',
@@ -12,8 +15,9 @@ import {Subject} from 'rxjs';
 
 export class ProductsComponent implements OnInit, OnDestroy {
 
-    myModel: any;
+    myModel: TableModel;
     loader = false;
+    searchText: string = '';
 
     constructor(public http: HttpService) {
         this.myModel = new TableModel();
@@ -34,7 +38,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
     getList() {
         this.loader = true;
-        this.http.getData(ApiUrl.PRODUCTS, {}).subscribe(res => {
+        this.myModel.products.splice(0,this.myModel.products.length);
+        this.http.getData(ApiUrl.PRODUCTS, {}).subscribe((res:BackendResponse<Product[]>) => {
                     this.myModel.products = res.data;
                     this.loader = false;
                 },
@@ -43,6 +48,14 @@ export class ProductsComponent implements OnInit, OnDestroy {
                 });
     }
 
+    addProduct(product?) {
+        const modalRef = this.http.showModal(AddProductComponent, 'md', product);
+        modalRef.content.onClose = new Subject<boolean>();
+        modalRef.content.onClose.subscribe(() => {
+            console.log("close")
+            this.getList();
+        })
+    }
     deletePro(data) {
         const obj: any = {
             type: 12, key: 'id', title: 'Delete Product',

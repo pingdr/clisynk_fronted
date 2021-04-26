@@ -2,6 +2,7 @@ export interface Product {
     _id: string;
     price: number;
     quantity: number;
+    description: string;
     isBlocked: boolean;
     isDeleted: boolean;
     name: string;

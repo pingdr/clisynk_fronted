@@ -1,5 +1,6 @@
 import {Subscription} from 'rxjs';
 import { PaginatedResponse } from 'src/app/models/paginated-response';
+import { Product } from 'src/app/models/product';
 
 export class TableModel {
     subscription: Subscription;
@@ -21,7 +22,7 @@ export class TableModel {
     tags: any = [];
     tasks: any = [];
     categories: any = [];
-    products: any = [];
+    products: Product[] = [];
     invoices: any = [];
     types: any = [];
     appointmentTypes: any = [];
