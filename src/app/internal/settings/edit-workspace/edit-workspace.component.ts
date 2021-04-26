@@ -53,7 +53,7 @@ export class EditWorkspaceComponent implements OnInit {
   totalContacts: number;
   contactsSelected = 0;
   contacts: any = [];
-  contactGroupLists: any = [];
+  contactGroupLists: any[] = [];
   tags: any = [];
   fromWorkspaceId: any;
   fromWorkspaceName: any;
@@ -126,6 +126,7 @@ export class EditWorkspaceComponent implements OnInit {
     };
     this.http.getData(ApiUrl.CONTACT_LISTS, obj).subscribe(res => {
         this.contactGroupLists = res.data;
+        this.contactGroupLists.forEach((x,i) => x._id = i);
     });
   }
 
