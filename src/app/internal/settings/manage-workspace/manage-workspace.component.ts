@@ -12,11 +12,12 @@ import { EditWorkspaceComponent } from '../edit-workspace/edit-workspace.compone
 })
 export class ManageWorkspaceComponent implements OnInit {
 
-  allData: any;
+  allData: any = [];
   workspaceId: any;
   loginData: any;
   loader = false;
   selectedWorkspace: any = {};
+  searchText: string = "";
 
   constructor(public http: HttpService, private router: Router) {
     this.http.work.subscribe((res) => {
@@ -34,6 +35,7 @@ export class ManageWorkspaceComponent implements OnInit {
   getAllWorkspaces(isDeleted?) {
     this.loader = true;
     const obj: any = {};
+    this.allData.splice(0, this.allData.length);
     this.http.getData(ApiUrl.WORKSPACE, obj).subscribe(res => {
       this.allData = res.data;
       res.data.map(wps => {
