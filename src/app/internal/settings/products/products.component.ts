@@ -48,7 +48,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
             type: 12, key: 'id', title: 'Delete Product',
             message: 'Are you sure you want to delete this product?', id: data._id
         };
-        const modalRef = this.http.showModal(DeleteComponent, 'xs', obj);
+        const modalRef = this.http.showModal(DeleteComponent, 'md', obj);
         modalRef.content.onClose = new Subject<boolean>();
         modalRef.content.onClose.subscribe(() => {
             this.http.openSnackBar('Product has been deleted');

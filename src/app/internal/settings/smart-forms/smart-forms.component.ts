@@ -74,7 +74,7 @@ export class SmartFormsComponent implements OnInit {
   }
 
   onDelete(data) {
-    const modalRef = this.http.showModal(SmartFormDeleteComponent, 'xs', data);
+    const modalRef = this.http.showModal(SmartFormDeleteComponent, 'md', data);
     modalRef.content.onClose = new Subject<boolean>();
     modalRef.content.onClose.subscribe(res => {
       if (res) {

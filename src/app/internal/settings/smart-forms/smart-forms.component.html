@@ -1,37 +1,29 @@
 <div class="profile-section">
 
-    <div class="contact-header">
-        <div class="Clients_list_heading">
-            <div class="left-col-heading-smrt">
-            <img [src]="'/assets/images/back-arrow.svg'" (click)="http.goBack()">
-            <h3 class="page-title">Smart Forms</h3>
-            </div>
-
-            <div class="right-col-heading-smrt">
-             <div class="search-bar-filed">
-                    <input  type="text" placeholder="Search Smart Form" [(ngModel)]="searchText"/>
-                    <button class="btn-search-form">
-                        <img src="../../../../assets/images/search.svg" >
-                    </button>
-
-             </div>   
-                
-            <button class="btn-outline-primary " (click)="onCreateForm()">Create form
-            </button>
-            </div>
+    <div class="Clients_list_heading">  
+        <h3 class="inter-page-heading">Smart Forms</h3>
+        <div class="btn-combobox">
+            <button class="back-btn" (click)="http.goBack()" >Back</button>
+            <button class="add-user-btn"   (click)="onCreateForm()"> Create Form</button>
         </div>
-
     </div>
 
+    <div class="search-on-tables">
+        <input type="text" [(ngModel)]="searchText" placeholder="Search Smart Forms....">
+      </div>
+
+    
 
     <!-- ---------------------table for form listing ---------------------------->
-    <div class="smart-form-listing-table">
+
+    <!-- --------------------------------------------OLD CODE COMMENTED HERE---------------------------------------------- -->
+    <!-- <div class="smart-form-listing-table">
         <table class="smart-table-list" matSort (matSortChange)="sortData($event)">
             <thead>
                 <tr>
                     <th class="form-name" mat-sort-header="name">Form Name</th>
                     <th class="description">Description</th>
-                    <th class="added-on" mat-sort-header="addedOn">Added On</th><!-- <button class="down-arrow"><img src="../../../../assets/images/down-blue-arrow.svg" width="20"></button> -->
+                    <th class="added-on" mat-sort-header="addedOn">Added On</th>
                     <th class="status" mat-sort-header="status">Status</th>
                     <th class="actions-table">Actions</th>
                 </tr>
@@ -70,5 +62,81 @@
                 </div>
             </div>
         </div>
-    </ng-container>
-</div>
+    </ng-container> -->
+
+    <!-- --------------------------------------------NEW CODE---------------------------------------------- -->
+    <div class="new-table-main smart-form-listing-table">
+        <table class="genral-table">
+            <thead>
+                <tr>
+                    <th class="second-col-new">Form Name</th>
+                    <th class="third-col-new">Created On</th>
+                    <th class="fourth-col-new">Published On</th>
+                    <th class="fifth-col-new">User Submitted</th>
+                    <th class="sixth-col-new">Status</th>
+                    <th class="seventh-col-new">Action</th>
+                </tr>
+    
+            </thead>
+            <tbody>
+                <ng-container *ngIf="loader">
+                    <tr *ngFor="let item of [1, 2, 3, 4, 5]" > 
+                        <td class="second-col-new">
+                            <div class="shimmer-table shine"></div>
+                        </td>
+                        <td class="third-col-new">
+                            <div class="shimmer-table shine"></div>
+                        </td>
+                        <td class="fourth-col-new">
+                            <div class="shimmer-table shine"></div>
+                        </td>
+                        <td class="fifth-col-new">
+                            <div class="role-icons">
+                                <div class="date-shimer shimmer-table shine"></div>
+                            </div>
+                        </td> 
+                        <td class="sixth-col-new">
+                                <div class="status-shimmer shine"></div>
+                        </td>
+                        <td class="seventh-col-new">
+                            <div class="action-btn">
+                                <div class="shimmer-table shine"></div>
+                                <div class="shimmer-table shine"></div>
+                            </div>           
+                        </td>
+    
+                    </tr>
+                </ng-container>
+    
+                <tr *ngFor="let f of sortedData| filter:searchText; let i=index">
+                    <td class="second-col-new"><div class="comman-text-field" (click)="onUpdate(f)" > {{ f.name }}</div></td>
+                    <td class="third-col-new" (click)="onUpdate(f)">{{ f.createdAt | date: 'dd/MM/y'}}</td>
+                    <td class="fourth-col-new"><div class="comman-text-field">- </div></td>
+                    <td class="fifth-col-new">
+                        <div class="role-icons">
+                            10
+                        </div>
+                    </td> 
+                    <td class="sixth-col-new" (click)="onUpdate(f)">
+                            <div *ngIf="f.status == 'DRAFT'" class="draf-btn comman-status">Draft</div>
+                            <div *ngIf="f.status == 'PUBLISHED'" class="published comman-status">Published</div>
+                        
+                    </td>
+                    <td class="seventh-col-new">
+                        <div class="action-btn">
+                            <a  matTooltip=" Copy" *ngIf="f.status == 'PUBLISHED'" (click)="copyLink(f._id)"  > <img src="../../../../assets/images/copy.svg"> </a>
+                            <a matTooltip="Delete" (click)="onDelete(f._id)"> <img src="../../../../assets/images/New-ui-images/delete.svg"> </a>
+                        </div>           
+                    </td>
+                </tr>
+    
+            </tbody>
+    
+    
+        </table>
+    
+    
+    
+    </div>
+
+</div> 

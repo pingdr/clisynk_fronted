@@ -244,4 +244,8 @@
   color: blue !important;
 }
 
-
+.Merge-btn {
+  text-align: center !important;
+  margin-bottom: 50px;
+  margin-top: 50px !important;
+}

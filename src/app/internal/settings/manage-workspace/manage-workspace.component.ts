@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { HttpService } from 'src/app/services/http.service';
 import { CreateWorkspaceComponent } from 'src/app/shared/modals/create-workspace/create-workspace.component';
 import { ApiUrl } from '../../../services/apiUrls';
+import { EditWorkspaceComponent } from '../edit-workspace/edit-workspace.component';
 
 @Component({
   selector: 'app-manage-workspace',
@@ -63,9 +64,13 @@ export class ManageWorkspaceComponent implements OnInit {
     this.http.showModal(CreateWorkspaceComponent, 'md', data);
   }
 
+  openEditManageWorkspace(data) {
+    this.http.showModal(EditWorkspaceComponent, 'md', data);
+  }
+
   deleteWorkspace(template, workspaceId) {
     this.workspaceId = workspaceId;
-    this.http.showModal(template, 'xs');
+    this.http.showModal(template, 'md');
   }
 
   changeStatus(status) {
