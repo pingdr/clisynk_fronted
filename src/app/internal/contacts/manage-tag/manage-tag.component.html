@@ -20,12 +20,12 @@
         </div>
         <section class="items" style="height: 500px;overflow-y: scroll;">
             <app-loader [showLoader]="loader" [length]="myModel?.tags?.length"></app-loader>
-            <div class="no-tag" *ngIf="!myModel?.tags?.length">
+            <div class="no-tag" *ngIf="!loader && !myModel?.tags?.length">
                 <h3>No Tag Available</h3>
             </div>
 
             <ng-container *ngFor="let data of myModel?.tags;let i = index">
-                <a class="tag-item" (click)="selected = data;contactList();selectedIndex = i;selectedContactCount = 0;
+                <a class="tag-item" [ngClass]="{ 'active': selected == data}" (click)="selected = data;contactList();selectedIndex = i;selectedContactCount = 0;
                         allSelect.patchValue('')">
                     <div class="tag-content">
                         <div class="chip">
@@ -39,8 +39,8 @@
                         <span class="category">{{data?.tagCategoryId?.name}}</span>
                     </div>
                     <div class="icon-actions">
-                            <a href="#"><img src="../../../../assets/images/New-ui-images/edit-icon.svg"> </a>
-                            <a href="#"><img src="../../../../assets/images/New-ui-images/delete-1.svg"> </a>
+                            <a (click)="selected = data; editTag()" ><img src="../../../../assets/images/New-ui-images/edit-icon.svg"> </a>
+                            <a (click)="selected = data; deleteTag(data)"><img src="../../../../assets/images/New-ui-images/delete-1.svg"> </a>
 
                     </div>
 
@@ -51,7 +51,7 @@
     <section class="tag-contact-area">
             <div class="main-tags-area">
                 <!-- <div class="input-field search-input  tag-input no-label">
-                    <input type="search" placeholder="Search Contact..." [formControl]="search" >
+                    <input type="search" placeholder="Search Contact..." (input)="contactList()" [formControl]="searchContact" >
                 </div> -->
 
                 <ng-container *ngIf="!selected">
@@ -114,8 +114,9 @@
                                         placeholder="Search contacts" (input)="contactList()">
                                 </div>
                                 
-                                <app-placeholders [flag]="9" *ngIf="myModel?.contacts?.length === 0"></app-placeholders>
-
+                                <app-placeholders [flag]="9" *ngIf="!loader && myModel?.contacts?.length === 0"></app-placeholders>
+                                <app-loader [showLoader]="loader" [length]="myModel?.contacts?.length">
+                                </app-loader>
                                 <div class="contact-list-items" *ngIf="myModel?.contacts?.length > 0">
                                     <div class="tab-content contact-v-tab-heading" id="pills-tabContent">
 
@@ -162,7 +163,7 @@
                                                                 <span>Added {{data?.createdAt |date:'MMM dd,yyyy'}}</span>
                                                             </p> -->
                                                             <div class="listing-main-tags">
-                                                                <div class="comman-row-main-tags" (click)="selectContact(data,i)">
+                                                                <div class="comman-row-main-tags" >
                                                                         <div class="icon-avt">{{data?.firstName?.substr(0, 1)}}{{data?.lastName?.substr(0, 1)}}</div>
                                                                         <div class="name-col">
                                                                             <div class="heading-tags">{{data?.firstName}} {{data?.lastName}}</div>
@@ -170,7 +171,7 @@
                                                                         </div>
                                                                         <div class="tag-name-main" *ngIf="data?.contactsType == 1">Lead</div>
                                                                         <div class="tag-name-main" *ngIf="data?.contactsType == 2">Client</div>
-                                                                        <div class="close-icon">
+                                                                        <div (click)="removeTagFromContact(data)" class="close-icon">
                                                                             <img src="../../../../assets/images/New-ui-images/close-icon.svg">
                                                                         </div>
                                                                 </div>
