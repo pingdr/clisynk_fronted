@@ -162,7 +162,7 @@
                                                                 <span>Added {{data?.createdAt |date:'MMM dd,yyyy'}}</span>
                                                             </p> -->
                                                             <div class="listing-main-tags">
-                                                                <div class="comman-row-main-tags">
+                                                                <div class="comman-row-main-tags" (click)="selectContact(data,i)">
                                                                         <div class="icon-avt">{{data?.firstName?.substr(0, 1)}}{{data?.lastName?.substr(0, 1)}}</div>
                                                                         <div class="name-col">
                                                                             <div class="heading-tags">{{data?.firstName}} {{data?.lastName}}</div>

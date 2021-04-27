@@ -9151,6 +9151,13 @@ label.mat-checkbox-layout {
   }
 }
 
+@media (max-width:1100px) {
+  .global-search .search-menu {
+    width: 65%;
+    margin-right: 10px;
+  }
+}
+
 @media (max-width:991px) {
   .navbar-header {
     max-width: 40% !important;

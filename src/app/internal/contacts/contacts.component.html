@@ -1,4 +1,4 @@
-<div class="main-contacts-wrappeing-pages" >
+<!-- <div class="main-contacts-wrappeing-pages" >
 
      <div class="contact-left-side-main">
         <div class="contact-heading-first-row">
@@ -13,7 +13,7 @@
             </div>
         </div>
 
-        <!-- -------------------Tabs-for-all-contacts--------------------- -->
+      
         <div class="contacts-tabs-main">
 
           <nav>
@@ -46,8 +46,7 @@
                   </div>
 
                 </div>
-                <!-- ---------------After-saved-contact-list----------------- -->
-                <!-- ----------First-date ------->
+             
                 <div class="comman-body-main">
                     <div class="date-text-main">Apr 14, 2021</div>
                     
@@ -129,12 +128,11 @@
      </div>
 
 
-     <!-- ----------------------------Right-side-main----------------------- -->
+    
 
      <div class="contact-right-side-main">
-       <!-- ----------DONT REMOVE THIS COMMENTED------------- IS IT REMAIN IMPLEMENTED---------- -->
-        <!-- ---------------first-time------------------- -->
-          <!-- <div class="lets-add-some-contacts">
+    
+          <div class="lets-add-some-contacts">
                 <img src="../../../assets/images/New-ui-images/let-add-contact.svg">
                 <h3 class="headdings-add">Let's add some contacts</h3>
                 <p>Bring your contacts together for complete organization.</p>
@@ -142,9 +140,9 @@
                     <button class="btns-add">Add Contact</button>
                     <button class="btns-imports">Import Contact </button>
                 </div>
-          </div> -->
+          </div>
           
-          <!-- -----------------------Details-Contacts--------------------------- -->
+        
           <div class="inner-contact-main">
           
             <div class="details-main">
@@ -161,8 +159,8 @@
                         <div class="tags-main other-tag">Other</div>
                     </div>
             </div>
-            <!-- ---------Details--shimer------- -->
-            <!-- <div class="details-main shimer-details-main">
+         
+            <div class="details-main shimer-details-main">
               <div class="main-avatar shine"></div>
               <div class="contact-name-shimer shine"></div>
               <div class="main-email-row">
@@ -175,10 +173,10 @@
                     <div class="tag-shimer shine"></div>
                     <div class="tag-shimer shine"></div>
               </div>
-            </div> -->
+            </div>
 
 
-            <!-- -------------------------8-Tabs-Navigations----------------------- -->
+    
             <div class="tabs-pills-main">
                 <div class="comman-grid">
                     <div class="img-icon">
@@ -266,13 +264,13 @@
 
             </div>
 
-            <!-- --------------------8-tabs-navigations--shimmer--------- -->
-            <!-- <div class="tabs-pills-main shimer-tabs-contacts">
+      
+            <div class="tabs-pills-main shimer-tabs-contacts">
                 <div class="comman-grid-shimmer" *ngFor="let item of [1, 2, 3, 4 , 5, 6, 7, 8]">
                       <div class="img-icon shine"></div>
                       <div class="tabs-name shine"></div>
                 </div>
-            </div> -->
+            </div>
                     
 
 
@@ -289,7 +287,7 @@
 
 
 </div>
-
+ -->
 
 
 
@@ -499,7 +497,8 @@
             id="v-pills-tab"
             aria-orientation="vertical"
           >
-            <div *ngIf="myModel?.contacts.length != 0" class="select-all">
+          <!-- -------------Old-code--------- -->
+            <!-- <div *ngIf="myModel?.contacts.length != 0" class="select-all">
               <label class="custom-checkbox"
                 >Select all
                 <input
@@ -509,7 +508,31 @@
                 />
                 <span class="checkmark"></span>
               </label>
-            </div>
+            </div> -->
+            <!-- -----------New-code-Select-code------------ -->
+              <div class="first-row-body-checkbox">
+                <div *ngIf="myModel?.contacts.length != 0"  class="custom-checkbox-bluecolor">
+                  <mat-checkbox  (change)="selectAllContact()"
+                  [formControl]="allSelect" class="example-margin">Select all</mat-checkbox>
+                </div>
+                <div class="custom-dropdown">
+                  <div class="btn-group" dropdown>
+                    <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+                            aria-controls="dropdown-basic">
+                            Select<span class="caret"></span>
+                    </button>
+                    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+                        role="menu" aria-labelledby="button-basic">
+                      <li role="menuitem"><a class="dropdown-item" href="#">Add or Remove Tag</a></li>
+                      <li role="menuitem"><a class="dropdown-item" href="#">Send a Brodcast</a></li>
+                      <li role="menuitem"><a class="dropdown-item" href="#">Exports</a></li>
+                      <li role="menuitem"><a class="dropdown-item" href="#">Delete</a>
+                      </li>
+                    </ul>
+                  </div>
+             </div>
+
+              </div>
             <cdk-virtual-scroll-viewport itemSize="50" class="full-port">
               <app-loader
                 [showLoader]="loader"
@@ -519,7 +542,8 @@
                 *cdkVirtualFor="let data of myModel?.contacts; let i = index"
               >
                 <a class="nav-link" [ngClass]="{ active: selectedIndex == i }">
-                  <span class="circle">
+                  <!-- -------------Old code-here -->
+                  <!-- <span class="circle">
                     <label class="custom-checkbox">
                       <input
                         type="checkbox"
@@ -569,7 +593,24 @@
                     <span
                       >Added {{ data?.createdAt | date: "MMM dd,yyyy" }}</span
                     >
-                  </p>
+                  </p> -->
+                  <!-- -------------New-code----------- -->
+                  <div class="comman-body-main">
+                    <div class="date-text-main"> {{ data?.createdAt | date: "MMM dd,yyyy" }}</div>
+                    
+                    <div class="comman-contact-row-main">
+                        <div class="first-col"> <mat-checkbox  (change)="getSelectedCount()"
+                          [(ngModel)]="data.isSelected" class="example-margin"></mat-checkbox></div>
+                        <div class="second-avtar"> {{ data?.firstName?.substr(0, 1)}}{{ data?.lastName?.substr(0, 1) }}</div>
+                        <div class="third-details-row" (click)="selectContact(data, i)">
+                            <div class="name-id">{{ data?.firstName }} {{ data?.lastName }}</div>
+                            <div class="email-id-main" (click)="selectContact(data, i)" >{{ data?.email }}</div>
+                        </div>
+                        <div class="comman-tag lead-tag" *ngIf="data?.contactsType == 1">Lead</div>
+                        <div class="comman-tag lead-tag" *ngIf="data?.contactsType == 2">Client</div>
+                        <div class="comman-tag lead-tag" *ngIf="data?.contactsType == 3">Other</div>
+                    </div>
+                  </div>
                 </a>
               </div>
             </cdk-virtual-scroll-viewport>

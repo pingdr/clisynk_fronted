@@ -11,7 +11,8 @@ import {tagFilters} from '../../../services/constants';
 
 @Component({
     selector: 'app-manage-tag',
-    templateUrl: './manage-tag.component.html'
+    templateUrl: './manage-tag.component.html',
+    styleUrls: ['./manage-tag.component.scss']
 })
 
 export class ManageTagComponent implements OnInit, OnDestroy {
