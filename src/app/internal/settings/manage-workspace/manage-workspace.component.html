@@ -185,7 +185,7 @@
               </a>
               <a 
               *ngIf="selectedWorkspace?._id === workspace?._id"
-              class="delete-icon" matTooltip="Manage Workspace" (click)="openEditManageWorkspace()"> <img
+              class="delete-icon" matTooltip="Manage Workspace" (click)="openEditManageWorkspace(workspace)"> <img
                   src="../../../../assets/images/New-ui-images/expert-icon.svg"> </a>
               <a matTooltip="Delete"  *ngIf="allData.length > 1" (click)="deleteWorkspace(deletePopup, workspace?._id)">
                  <img src="../../../../assets/images/New-ui-images/delete.svg"> 

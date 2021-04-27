@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Workspace } from 'src/app/models/workspace';
 import { HttpService } from 'src/app/services/http.service';
 import { CreateWorkspaceComponent } from 'src/app/shared/modals/create-workspace/create-workspace.component';
 import { ApiUrl } from '../../../services/apiUrls';
@@ -66,7 +67,13 @@ export class ManageWorkspaceComponent implements OnInit {
     this.http.showModal(CreateWorkspaceComponent, 'md', data);
   }
 
-  openEditManageWorkspace(data) {
+  openEditManageWorkspace(workspace: Workspace) {
+    let data = {
+      workspaceId: workspace._id,
+      workspaceName: workspace.name
+    }
+    console.log(data);
+    
     this.http.showModal(EditWorkspaceComponent, 'md', data);
   }
 
