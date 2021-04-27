@@ -12,7 +12,8 @@ import {AppointBookComponent} from '../../modals/appoint-book/appoint-book.compo
 
 @Component({
     selector: 'app-contact-detail',
-    templateUrl: './contact-detail.component.html'
+    templateUrl: './contact-detail.component.html',
+    styleUrls: ['./contact-detail.component.scss']
 })
 export class ContactDetailComponent implements OnChanges, OnDestroy {
 
