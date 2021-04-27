@@ -1,0 +1,20 @@
+.dropdown-menu {
+    background-color: #fff;
+    box-shadow: 0px 0px 1px #ccc;
+    min-width: 140px !important;
+    background: #FFFFFF;
+    border: 1px solid #DCDCDC;
+    box-sizing: border-box;
+    border-radius: 5px;
+    padding: 5px 0px;
+    li{
+        a{
+            padding: 10px 20px;
+            margin: 0;
+            font-size: 14px;
+            img{
+                display:none;
+            }
+        }
+    }
+}

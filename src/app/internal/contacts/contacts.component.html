@@ -1,6 +1,190 @@
-<div
-  class="wrapper border-bottom white-bg margin-none-custom custom-contact-list-main"
->
+<div class="main-contacts-wrappeing-pages" >
+
+     <div class="contact-left-side-main">
+        <div class="contact-heading-first-row">
+            <h3 class="page-head">Contacts</h3>
+            <div class="right-side-add">
+                <button class="add-contacts-main">
+                  <img src="../../../assets/images/New-ui-images/add-icon.svg" alt="add-contacts" title="add-contacts">
+                </button>
+                <button class="import-contacts">
+                  <img src="../../../assets/images/New-ui-images/Import.svg" alt="import-contacts" title="import-contacts">
+                </button>
+            </div>
+        </div>
+
+        <!-- -------------------Tabs-for-all-contacts--------------------- -->
+        <div class="contacts-tabs-main">
+
+          <nav>
+            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+              <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">All Contacts</a>
+              <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Groups</a>
+            </div>
+          </nav>
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <div class="first-row-body-checkbox">
+                  <div class="custom-checkbox-bluecolor">
+                    <mat-checkbox class="example-margin">Select all</mat-checkbox>
+                  </div>
+                  <div class="custom-dropdown">
+                    <div class="btn-group" dropdown>
+                      <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+                              aria-controls="dropdown-basic">
+                              Select<span class="caret"></span>
+                      </button>
+                      <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+                          role="menu" aria-labelledby="button-basic">
+                        <li role="menuitem"><a class="dropdown-item" href="#">Add or Remove Tag</a></li>
+                        <li role="menuitem"><a class="dropdown-item" href="#">Send a Brodcast</a></li>
+                        <li role="menuitem"><a class="dropdown-item" href="#">Exports</a></li>
+                        <li role="menuitem"><a class="dropdown-item" href="#">Delete</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                </div>
+                <!-- ---------------After-saved-contact-list----------------- -->
+                <!-- ----------First-date ------->
+                <div class="comman-body-main">
+                    <div class="date-text-main">Apr 14, 2021</div>
+                    
+                    <div class="comman-contact-row-main">
+                        <div class="first-col"> <mat-checkbox class="example-margin"></mat-checkbox></div>
+                        <div class="second-avtar">JD</div>
+                        <div class="third-details-row">
+                            <div class="name-id">John Doe</div>
+                            <div class="email-id-main">johndoe@gmail.com</div>
+                        </div>
+                        <div class="comman-tag lead-tag">Lead</div>
+                    </div>
+
+                    <div class="comman-contact-row-main">
+                      <div class="first-col"> <mat-checkbox class="example-margin"></mat-checkbox></div>
+                      <div class="second-avtar">JD</div>
+                      <div class="third-details-row">
+                          <div class="name-id">John Doe</div>
+                          <div class="email-id-main">johndoe@gmail.com</div>
+                      </div>
+                      <div class="comman-tag employee-tag">Employee</div>
+                    </div>
+
+                  <div class="comman-contact-row-main">
+                    <div class="first-col"> <mat-checkbox class="example-margin"></mat-checkbox></div>
+                    <div class="second-avtar">JD</div>
+                    <div class="third-details-row">
+                        <div class="name-id">John Doe</div>
+                        <div class="email-id-main">johndoe@gmail.com</div>
+                    </div>
+                    <div class="comman-tag client-tag">Client</div>
+                  </div>
+                  <div class="comman-contact-row-main">
+                    <div class="first-col"> <mat-checkbox class="example-margin"></mat-checkbox></div>
+                    <div class="second-avtar">JD</div>
+                    <div class="third-details-row">
+                        <div class="name-id">John Doe</div>
+                        <div class="email-id-main">johndoe@gmail.com</div>
+                    </div>
+                    <div class="comman-tag other-tag">Other</div>
+                  </div>
+
+                  <div class="shimmer-main contacts ">
+                      <div class="date-shimer shine"></div>
+                      <div class="comman-shimmer">
+                          <div class="avtart-shimmer shine"></div>
+                          <div class="rigt-shimmer">
+                              <div class="heading-shimmer shine"></div>
+                              <div class="email-shimmer shine"></div>
+                          </div>
+                      </div>
+                      <div class="comman-shimmer">
+                        <div class="avtart-shimmer shine"></div>
+                        <div class="rigt-shimmer">
+                            <div class="heading-shimmer shine"></div>
+                            <div class="email-shimmer shine"></div>
+                        </div>
+                      </div>
+                    <div class="comman-shimmer">
+                      <div class="avtart-shimmer shine"></div>
+                      <div class="rigt-shimmer">
+                          <div class="heading-shimmer shine"></div>
+                          <div class="email-shimmer shine"></div>
+                      </div>
+                    </div>
+
+                  </div>
+
+                </div>
+              
+            </div>
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+              Et et consectetur ipsum labore excepteur est proident excepteur ad velit occaecat qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur veniam sunt est aute sit dolor anim. Velit non irure adipisicing aliqua ullamco irure incididunt irure non esse consectetur nostrud minim non minim occaecat. Amet duis do nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui sit. Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit do dolore. Duis reprehenderit occaecat anim ullamco ad duis occaecat ex.
+            </div>
+          
+          </div>
+        </div>
+
+     </div>
+
+
+     <!-- ----------------------------Right-side-main----------------------- -->
+
+     <div class="contact-right-side-main">
+       <!-- ----------DONT REMOVE THIS COMMENTED------------- IS IT REMAIN IMPLEMENTED---------- -->
+        <!-- ---------------first-time------------------- -->
+          <!-- <div class="lets-add-some-contacts">
+                <img src="../../../assets/images/New-ui-images/let-add-contact.svg">
+                <h3 class="headdings-add">Let's add some contacts</h3>
+                <p>Bring your contacts together for complete organization.</p>
+                <div class="add-btns-rows">
+                    <button class="btns-add">Add Contact</button>
+                    <button class="btns-imports">Import Contact </button>
+                </div>
+          </div> -->
+          
+          <!-- -----------------------Details-Contacts--------------------------- -->
+          <div class="inner-contact-main">
+          
+            <div class="details-main">
+                    <div class="main-avatar">JD</div>
+                    <div class="name-id">John Doe</div>
+                    <div class="main-email-row">
+                        <div class="email-icon">johndoe@gmail.com</div>
+                        <div class="call-phone">+91 2220563256</div>
+                    </div>
+                    <div class="comman-tags-main">
+                        <div class="tags-main employee-tag">Employee</div>
+                        <div class="tags-main lead-tag">Lead</div>
+                        <div class="tags-main client-tag">Client</div>
+                        <div class="tags-main other-tag">Other</div>
+                    </div>
+            </div>
+          </div>
+
+
+
+     </div>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------OLD CODE COMMENED HERE---------------------------- -->
+<!-- <div class="wrapper border-bottom white-bg margin-none-custom custom-contact-list-main">
   <div class="contact">
     <div class="contact-header">
       <ng-container *ngIf="myModel?.savedFilter">
@@ -61,76 +245,74 @@
       </ng-container>
 
       <ng-container *ngIf="!myModel?.contactsType && !myModel?.savedFilter">
-        <h3 class="page-title">
-          <img
-            src="/assets/images/back-arrow.svg"
-            style="width: 30px"
-            *ngIf="myModel?.hideTabs"
-            (click)="clearFilterData()"
-          />
-          {{ http?.heading }}
-        </h3>
-        <div class="actions" *ngIf="tab == 'allContact'">
-          <!--<span class="filter-icon" (click)="openContactFilter(false)"><img
-                            src="/assets/images/filter.svg"></span>-->
-          <div class="btn-group add-btn" dropdown>
-            <button
-              id="add-contact4"
-              dropdownToggle
-              type="button"
-              class="btn dropdown-toggle"
-              aria-controls="dropdown-basic"
-            >
-              <span class="plus-icon"
-                ><img src="/assets/images/plus.svg" />
-              </span>
-            </button>
-            <ul
-              id="add-contact4"
-              *dropdownMenu
-              class="dropdown-menu"
-              role="menu"
-              aria-labelledby="button-basic"
-            >
-              <li role="menuitem">
-                <a class="dropdown-item" (click)="openAddContact()">
-                  Add Contact</a
+
+        <div class="all-contacts-tabs-main">
+          <h3 class="page-title">
+            <img
+              src="/assets/images/back-arrow.svg"
+              style="width: 30px"
+              *ngIf="myModel?.hideTabs"
+              (click)="clearFilterData()"
+            />
+            {{ http?.heading }}
+          </h3>
+          <div class="comman-dropdow-new">
+            <div class="actions" *ngIf="tab == 'allContact'">
+              <div class="btn-group add-btn" dropdown>
+                <button
+                  id="add-contact4"
+                  dropdownToggle
+                  type="button"
+                  class="btn dropdown-toggle"
+                  aria-controls="dropdown-basic"
                 >
+                  <span class="plus-icon"
+                    ><img src="../../../assets/images/New-ui-images/add-icon.svg" />
+                  </span>
+                </button>
+                <ul
+                  id="add-contact4"
+                  *dropdownMenu
+                  class="dropdown-menu"
+                  role="menu"
+                  aria-labelledby="button-basic"
+                >
+                  <li role="menuitem">
+                    <a class="dropdown-item" (click)="openAddContact()">
+                      Add Contact</a
+                    >
+                  </li>
+                  <li role="menuitem">
+                    <a class="dropdown-item" (click)="importContact()">
+                      Import Contact</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <ul class="nav nav-pills mb-3 contact-h-tab-heading">
+              <li
+                class="nav-item"
+                [ngClass]="{ 'tab-btn': tab == 'allContact' }"
+                *ngIf="!myModel?.hideTabs"
+                (click)="selected = ''; tab = 'allContact'; http.addQueryParams({})"
+              >
+                All Contacts
               </li>
-              <li role="menuitem">
-                <a class="dropdown-item" (click)="importContact()">
-                  Import Contact</a
-                >
+              <li
+                class="nav-item"
+                (click)="
+                  unselectAll(); selected = ''; tab = 'contactList'; this.listsFun()
+                "
+                *ngIf="!myModel?.hideTabs"
+                [ngClass]="{ 'tab-btn': tab == 'contactList' }"
+              >
+                Groups
               </li>
             </ul>
           </div>
         </div>
-
-        <ul class="nav nav-pills mb-3 contact-h-tab-heading">
-          <li
-            class="nav-item"
-            [ngClass]="{ 'tab-btn': tab == 'allContact' }"
-            *ngIf="!myModel?.hideTabs"
-            (click)="selected = ''; tab = 'allContact'; http.addQueryParams({})"
-          >
-            All Contacts
-          </li>
-          <!-- <li class="nav-item" (click)="unselectAll();selected='';tab='contactList';this.listsFun();"
-                        *ngIf="!myModel?.hideTabs"
-                        [ngClass]="{'tab-btn':tab == 'contactList'}">
-                        Contacts lists
-                    </li> -->
-          <li
-            class="nav-item"
-            (click)="
-              unselectAll(); selected = ''; tab = 'contactList'; this.listsFun()
-            "
-            *ngIf="!myModel?.hideTabs"
-            [ngClass]="{ 'tab-btn': tab == 'contactList' }"
-          >
-            Groups
-          </li>
-        </ul>
       </ng-container>
 
       <div class="actions" *ngIf="tab == 'contactList'">
@@ -143,7 +325,7 @@
             aria-controls="dropdown-basic"
           >
             <span class="plus-icon"
-              ><img src="/assets/images/plus.svg" />
+              ><img src="../../../assets/images/New-ui-images/add-icon.svg" />
             </span>
           </button>
           <ul
@@ -314,9 +496,7 @@
         [flag]="2"
         [data]="myModel?.contactsType || '3'"
       ></app-placeholders>
-      <!--            <app-placeholders *ngIf="myModel?.contactsType && tab === 'allContact'" [flag]="2"-->
-      <!--                              [data]="3"></app-placeholders>-->
-      <!---->
+
     </div>
   </div>
 </div>
@@ -352,4 +532,4 @@
       </button>
     </section>
   </div>
-</div>
+</div> -->
