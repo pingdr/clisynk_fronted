@@ -264,7 +264,7 @@
                         </div>
                         <div class="tab-name">Invoice</div>
                     </div>
-                    <div class="comman-grid"  [ngClass]="{'active':moreSection === 'tasks'}" (click)="activeIcon = 6;checkLink('tasks');">
+                    <div class="comman-grid"  [ngClass]="{'active':activeIcon===6 && moreSection === 'tasks'}" (click)="activeIcon = 6;checkLink('tasks');">
                         <div class="img-icon">
                             <svg width="21" height="27" viewBox="0 0 21 27" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -275,7 +275,7 @@
                         </div>
                         <div class="tab-name">Task</div>
                     </div>
-                    <div class="comman-grid"   [ngClass]="{'active':moreSection === 'notes'}" (click)="activeIcon = 6;moreSection ='notes'">
+                    <div class="comman-grid"   [ngClass]="{'active':activeIcon===6 && moreSection === 'notes'}" (click)="activeIcon = 6;moreSection ='notes'">
                         <div class="img-icon">
                             <svg width="27" height="25" viewBox="0 0 27 25" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
