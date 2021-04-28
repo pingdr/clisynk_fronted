@@ -262,6 +262,8 @@ export class ContactDetailComponent implements OnChanges, OnDestroy {
     }
 
     onTypeChange(val) {
+        this.contactsType.setValue(val);
+        console.log(val);
         const obj: any = {
             contactId: this.selected._id,
             contactsType: val

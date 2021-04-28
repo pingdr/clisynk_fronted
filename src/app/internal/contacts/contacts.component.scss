@@ -266,21 +266,24 @@
         width: 80px;
         text-align: center;
     }
-    .lead-tag {
-        color: #D78E2B;
-        background: #FFE7C7;
-    }
-    .employee-tag {
-        background: #E6ECFF;
-        color: #3C6EE7;
-    }
-    .client-tag {
-        background: #DFFDF3;
-        color: #447464;
-    }
     .other-tag {
-        background: #ECEBEC;
-        color: #4A4A4A;
+        color: #4A4A4A !important;
+        background: #F8F8F8 !important;
+    }
+      
+    .client-tag {
+        color: #447464 !important;
+        background: #DFFDF3 !important;
+    }
+      
+    .lead-tag {
+        color: #D78E2B !important;
+        background: #FFE7C7 !important;
+    }
+    
+    .employee-tag {
+        color: #3C6EE7 !important;
+        background: #E6ECFF !important;
     }
 }
 

@@ -96,9 +96,25 @@
             color: #979797 !important;
             padding: 4px 15px;
         }
-        .lead-tag{
+       
+        .other-tag {
+            color: #4A4A4A !important;
+            background: #F8F8F8 !important;
+        }
+          
+        .client-tag {
+            color: #447464 !important;
+            background: #DFFDF3 !important;
+        }
+          
+        .lead-tag {
             color: #D78E2B !important;
             background: #FFE7C7 !important;
+        }
+        
+        .employee-tag {
+            color: #3C6EE7 !important;
+            background: #E6ECFF !important;
         }
     }
 }
@@ -271,3 +287,4 @@ section.contact-details-section {
 .email-sections h5.email-title {
     margin-bottom: 0px !important;
 }
+

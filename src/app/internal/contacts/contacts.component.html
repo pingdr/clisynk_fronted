@@ -601,14 +601,15 @@
                     <div class="comman-contact-row-main">
                         <div class="first-col"> <mat-checkbox  (change)="getSelectedCount()"
                           [(ngModel)]="data.isSelected" class="example-margin"></mat-checkbox></div>
-                        <div class="second-avtar"> {{ data?.firstName?.substr(0, 1)}}{{ data?.lastName?.substr(0, 1) }}</div>
+                        <div class="second-avtar"> {{ data?.firstName?.substr(0, 1)|titlecase}}{{ data?.lastName?.substr(0, 1)|titlecase }}</div>
                         <div class="third-details-row" (click)="selectContact(data, i)">
                             <div class="name-id">{{ data?.firstName }} {{ data?.lastName }}</div>
                             <div class="email-id-main" (click)="selectContact(data, i)" >{{ data?.email }}</div>
                         </div>
-                        <div class="comman-tag lead-tag" *ngIf="data?.contactsType == 1">Lead</div>
-                        <div class="comman-tag lead-tag" *ngIf="data?.contactsType == 2">Client</div>
-                        <div class="comman-tag lead-tag" *ngIf="data?.contactsType == 3">Other</div>
+                        <div class="comman-tag" [ngClass]="{'lead-tag':data?.contactsType == 1}" *ngIf="data?.contactsType == 1">Lead</div>
+                        <div class="comman-tag" [ngClass]="{'client-tag':data?.contactsType == 2}" *ngIf="data?.contactsType == 2">Client</div>
+                        <div class="comman-tag" [ngClass]="{'other-tag':data?.contactsType == 3}" *ngIf="data?.contactsType == 3">Other</div>
+                        <div class="comman-tag" [ngClass]="{'employee-tag':data?.contactsType == 4}" *ngIf="data?.contactsType == 4">Employee</div>
                     </div>
                   </div>
                 </a>
