@@ -8923,6 +8923,7 @@ label.mat-checkbox-layout {
   letter-spacing: 0.02em !important;
   color: #979797 !important;
   margin-right: 5px !important;
+  font-weight: 400;
 }
 .activity-item li .title {
   font-size: 14px !important;
@@ -8931,6 +8932,77 @@ label.mat-checkbox-layout {
   color: #979797 !important;
 }
 
+.activity-item li .title .semibold {
+  font-weight: 500 !important;
+  color: #4776e6 !important;
+}
+.task-activity-item {
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  line-height: 22px !important; 
+  letter-spacing: 0.02em !important;
+  color: #263238 !important;
+}
+.activity-item li{
+  margin-bottom: 25px !important;
+  padding-left: 40px !important;
+  padding-left: 40px !important;
+}
+.yeallow-task-main {
+  width: 34px;
+  height: 34px;
+  position: absolute;
+  background: #FFEED8;
+  left: -5px;
+  border-radius: 100%;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.yeallow-task-main svg {
+  width: 17px !important;
+  height: 17px !important;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+.activity-item li:before {
+  content: "";
+  position: absolute;
+  left: 12px;
+  bottom: -30px;
+  width: 1px;
+  height: 61px;
+  background: #dcdcdc;
+}
+
+.new-close {
+  max-width: 100% !important;
+  width: 100% !important;
+  height: 100% !important;
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin: 0;
+}
+.new-close:before {
+  position: absolute;
+  content: '';
+  background: #000;
+  opacity: 0.6;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.new-close .modal-content {
+  width: 22%;
+  margin: auto;
+}
 
 
 // --------------------New-Responsive-------------//
@@ -8959,6 +9031,10 @@ label.mat-checkbox-layout {
   }
   .main-details-business-adding:before{
     left:-50px;
+  }
+  .new-close .modal-content {
+    width: 30%;
+    margin: auto;
   }
 }
 @media (max-width: 1500px) {
@@ -9006,6 +9082,7 @@ label.mat-checkbox-layout {
   .main-product-area-main-added .text-descriptions{
     width: 90%;
   }
+
 }
 @media (max-width:1400px) {
   .top-height .navbar-static-top .col-md-7{
@@ -9028,6 +9105,10 @@ label.mat-checkbox-layout {
   }
   .mat-checkbox-layout .mat-checkbox-label{
     font-size: 14px;
+  }
+  .new-close .modal-content {
+    width: 40%;
+    margin: auto;
   }
 }
 
@@ -9154,6 +9235,10 @@ label.mat-checkbox-layout {
   .tag-name-main{
     font-size: 10px;
     font-size: 10px;
+  }
+  .new-close .modal-content {
+    width: 50%;
+    margin: auto;
   }
 }
 

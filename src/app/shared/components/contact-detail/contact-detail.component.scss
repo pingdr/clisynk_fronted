@@ -194,3 +194,80 @@
 //     letter-spacing: 0.02em;
 //     color: #979797;
 // }
+
+
+.custom-class {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    h5.headings-main {
+        margin-bottom: 0 !important;
+    }
+    .right-btns-rows {
+        margin-bottom: 0 !important;
+    }
+}
+
+.field-grid{
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-row-gap: 30px;
+}
+
+section.contact-details-section {
+    padding: 30px 0px;
+}
+
+
+// .field-grid .view-field br {
+//     display: none;
+// }
+
+.field-grid .view-field small {
+    margin-bottom: 5px;
+    text-transform: capitalize;
+    font-size: 14px;
+    color: #898989;
+    font-weight: 400;
+}
+
+.field-grid .view-field span {
+    font-size: 16px;
+    line-height: 22px;
+    letter-spacing: 0.02em;
+    color: #2A2A2A;
+    font-weight: 400;
+}
+
+.Contact-Activity-inner h5{
+    margin-bottom: 36px;
+}
+
+.delet-btn {
+    margin-top: -10px;
+}
+
+.delet-btn button.btn {
+    border: 1px solid #FD1C37;
+    color: #fd1c37;
+    padding: 8px 30px !important;
+    border-radius: 5px !important;
+    font-size: 14px !important;
+    font-weight: 500;
+}
+
+.delet-btn button.btn:hover {
+    background: #fd1c37 !important;
+    color: #fff !important;
+}
+
+.email-sections {
+    border-bottom: 1px solid #ccc;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+}
+
+.email-sections h5.email-title {
+    margin-bottom: 0px !important;
+}

@@ -13,7 +13,8 @@ import {AppointmentService} from '../../../internal/appointments/appointment.ser
 
 @Component({
     selector: 'app-send-email',
-    templateUrl: './send-email.component.html'
+    templateUrl: './send-email.component.html',
+    styleUrls: ['./send-email.component.scss']
 })
 export class SendEmailComponent implements OnInit {
 
@@ -235,7 +236,7 @@ export class SendEmailComponent implements OnInit {
     }
 
     openConfirmModal() {
-        const modalRef = this.http.showModal(CancelConfirmComponent, 'xs');
+        const modalRef = this.http.showModal(CancelConfirmComponent, 'md new-close');
         modalRef.content.onClose = new Subject<boolean>();
         modalRef.content.onClose.subscribe(() => {
             this.http.hideModal();

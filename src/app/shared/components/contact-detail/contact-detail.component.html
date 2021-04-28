@@ -624,16 +624,29 @@
             <div class="detai_section Contact-Activity-inner" *ngIf="activeIcon === 2">
                 <ng-container *ngIf="isEdit">
                     <form [formGroup]="form" (ngSubmit)="editContact()" autocomplete="off">
-                        <div class="text-right" style="margin-bottom: 10px;">
-                            <button type="button" class="btn btn-link text-button" (click)="isEdit = false;this.getDetails();
-                                   multiPhoneNumber.clear() ">Cancel
-                            </button>
-                            <button type="submit" class="btn btn-outline-primary">Save</button>
+                        <div class="custom-class" style="margin-bottom: 10px;">
+                            <h5 class="headings-main">Personal Details</h5>
+                            <div class="right-btns-rows">
+                                <button type="button" class="btn btn-link text-button" (click)="isEdit = false;this.getDetails();
+                                    multiPhoneNumber.clear() ">Cancel
+                                </button>
+                                <button type="submit" class="btn btn-outline-primary">Save</button>
+                            </div>
                         </div>
                         <section class="contact-details-section">
                             <section>
-                                <h5 class="">General</h5>
+                                <h5 class="">General Information </h5>
                                 <div class="field-grid editing">
+                                    <div class="btn-group add-btn select-opt" dropdown>
+                                        <mat-form-field appearance="outline" class="select-height">
+                                            <mat-label>Title</mat-label>
+                                            <mat-select formControlName="title">
+                                                <mat-option *ngFor="let title of titles" [value]="title">
+                                                    {{title}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
                                     <div class="input-field">
                                         <mat-form-field class="full-width" appearance="outline" hintLabel="Max 26 characters">
                                             <mat-label class="required">First Name</mat-label>
@@ -646,13 +659,20 @@
                                         </mat-form-field>
                                     </div>
 
-                                    <div class="input-field" *ngIf="form?.controls?.middleName">
+                                    <div class="input-field">
                                         <mat-form-field class="full-width" appearance="outline">
                                             <mat-label>Middle Name</mat-label>
                                             <input matInput placeholder="Enter middle name" type="text"
                                                    formControlName="middleName">
                                         </mat-form-field>
                                     </div>
+                                    <!-- <div class="input-field" *ngIf="form?.controls?.middleName">
+                                        <mat-form-field class="full-width" appearance="outline">
+                                            <mat-label>Middle Name</mat-label>
+                                            <input matInput placeholder="Enter middle name" type="text"
+                                                   formControlName="middleName">
+                                        </mat-form-field>
+                                    </div> -->
                                     <div class="input-field">
                                         <mat-form-field class="full-width" appearance="outline"  hintLabel="Max 26 characters">
                                             <mat-label class="required">Last Name</mat-label>
@@ -663,27 +683,6 @@
                                             </mat-error>
                                             <mat-hint align="end">{{lname.value?.length || 0}}/26</mat-hint>
                                         </mat-form-field>
-                                    </div>
-
-                                    <div class="input-field" *ngIf="form?.controls?.title || form?.controls?.suffix">
-                                        <div class="btn-group add-btn select-opt" dropdown>
-                                            <mat-form-field appearance="outline" class="select-height">
-                                                <mat-label>Title</mat-label>
-                                                <mat-select formControlName="title">
-                                                    <mat-option *ngFor="let title of titles" [value]="title">
-                                                        {{title}}
-                                                    </mat-option>
-                                                </mat-select>
-                                            </mat-form-field>
-                                        </div>
-
-                                        <div class="" *ngIf="form?.controls?.suffix">
-                                            <mat-form-field class="full-width" appearance="outline">
-                                                <mat-label>Suffix</mat-label>
-                                                <input matInput placeholder="Suffix" type="text"
-                                                       formControlName="suffix">
-                                            </mat-form-field>
-                                        </div>
                                     </div>
                                     <div class="input-field">
                                         <mat-form-field class="full-width" appearance="outline">
@@ -700,7 +699,8 @@
                                         </mat-form-field>
                                     </div>
                                 </div>
-                                <div class="add_field">
+                                <!-- -------Old-code------------------- -->
+                                <!-- <div class="add_field">
                                     <div class="btn-group" dropdown>
                                         <a dropdownToggle class=" dropdown-toggle" aria-controls="dropdown-basic">
                                             + Add a field
@@ -713,7 +713,7 @@
                                             </li>
                                         </ul>
                                     </div>
-                                </div>
+                                </div> -->
                             </section>
                         </section>
 
@@ -896,11 +896,11 @@
                         <section class="contact-details-section">
                             <section>
                                 <h5>Advanced</h5>
-                                <div class="">
+                                <div class="delet-btn">
                                     <button class="btn btn-outline-danger" type="button" (click)="deleteFun()">
-                                        Delete Contact
+                                        Delete
                                     </button>
-                                    <label style="margin: 6px">Warning: This action can't be undone.</label>
+                                   
                                 </div>
                             </section>
                         </section>
@@ -909,21 +909,26 @@
                 </ng-container>
 
                 <ng-container *ngIf="!isEdit">
-
-                    <div class="text-right" style="margin-bottom: 10px;">
-                        <button type="button" class="btn text-button" (click)="fillValues();isEdit = true">Edit
-                        </button>
+                    <div class="custom-class">
+                        <h5 class="headings-main">Personal Details</h5>
+                        <div class="right-btns-rows" style="margin-bottom: 10px;">
+                            <button type="button" class="btn text-button" (click)="fillValues();isEdit = true">Edit
+                            </button>
+                        </div>
                     </div>
-
                     <section class="contact-details-section">
                         <section>
-                            <h5>General</h5>
+                            <h5>General Information</h5>
                             <div class="field-grid">
+                                <div class="view-field">
+                                    <small>Title</small>
+                                    <span>{{selected?.title}}</span>
+                                </div>
                                 <div class="view-field">
                                     <small>First name</small>
                                     <span>{{selected?.firstName}}</span>
                                 </div>
-                                <div class="view-field" *ngIf="selected?.middleName">
+                                <div class="view-field">
                                     <small>Middle name</small>
                                     <span>{{selected?.middleName}}</span>
                                 </div>
@@ -932,14 +937,10 @@
                                     <span>{{selected?.lastName}}</span>
                                 </div>
 
-                                <div class="view-field" *ngIf="selected?.title">
-                                    <small>Title</small>
-                                    <span>{{selected?.title}}</span>
-                                </div>
-                                <div class="view-field" *ngIf="selected?.suffix">
+                                <!-- <div class="view-field" *ngIf="selected?.suffix">
                                     <small>Suffix</small>
                                     <span>{{selected?.suffix}}</span>
-                                </div>
+                                </div> -->
 
                                 <div class="view-field" *ngIf="selected?.company">
                                     <small>Company name</small>
@@ -1019,7 +1020,7 @@
             <!--            email history-->
             <div class="email-section-tab Contact-Activity-inner animated slideInBottom email-section"
                  *ngIf="activeIcon === 3">
-                <div class="row">
+                <div class="row email-sections">
                     <div class="col-md-6">
                         <h5 class="email-title">Email History</h5>
                     </div>
