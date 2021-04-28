@@ -20,11 +20,11 @@ export class TableModel {
     timeSlots: any = [];
     notifications: any = [];
     templates: any = [];
-    contacts: ContactData[] = [];
-    tags: Tag[] = [];
+    contacts: any[] = [];
+    tags: any[] = [];
     tasks: any = [];
     categories: any = [];
-    products: Product[] = [];
+    products: any[] = [];
     invoices: any = [];
     types: any = [];
     appointmentTypes: any = [];
