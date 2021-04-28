@@ -170,22 +170,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- <mat-button-toggle-group #group="matButtonToggleGroup" class="full-width"
-                [formControl]="contactsType">
-<mat-button-toggle value="1" aria-label="Text align left" class="full-width"
-              (change)="onTypeChange($event.value)"
-              [ngClass]="{'lead-type':contactsType.value == 1}">
-Lead <i class="fas fa-circle"></i>
-</mat-button-toggle>
-<mat-button-toggle value="2" aria-label="Text align center" class="full-width"
-              (change)="onTypeChange($event.value)">
-Client <i class="fas fa-circle " [ngClass]="{'client-type':contactsType.value == 2}"></i>
-</mat-button-toggle>
-<mat-button-toggle value="3" aria-label="Text align right" class="full-width "
-              (change)="onTypeChange($event.value)">
-Other <i class="fas fa-circle" [ngClass]="{'other-type':contactsType.value == 3}"></i>
-</mat-button-toggle>
-</mat-button-toggle-group> -->
 
                 <div class="tabs-pills-main">
                     <div class="comman-grid" (click)="activeIcon = 1;getDetails()"
@@ -280,7 +264,7 @@ Other <i class="fas fa-circle" [ngClass]="{'other-type':contactsType.value == 3}
                         </div>
                         <div class="tab-name">Invoice</div>
                     </div>
-                    <div class="comman-grid">
+                    <div class="comman-grid"  [ngClass]="{'active':moreSection === 'tasks'}" (click)="activeIcon = 6;checkLink('tasks');">
                         <div class="img-icon">
                             <svg width="21" height="27" viewBox="0 0 21 27" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -291,7 +275,7 @@ Other <i class="fas fa-circle" [ngClass]="{'other-type':contactsType.value == 3}
                         </div>
                         <div class="tab-name">Task</div>
                     </div>
-                    <div class="comman-grid">
+                    <div class="comman-grid"   [ngClass]="{'active':moreSection === 'notes'}" (click)="activeIcon = 6;moreSection ='notes'">
                         <div class="img-icon">
                             <svg width="27" height="25" viewBox="0 0 27 25" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
