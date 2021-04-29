@@ -30,8 +30,8 @@ import {AppointBookComponent} from '../shared/modals/appoint-book/appoint-book.c
 import {DealNoteComponent} from '../shared/modals/deal-note/deal-note.component';
 import {AddTagComponent} from '../shared/modals/add-tag/add-tag.component';
 import {AppointSuccessComponent} from '../shared/modals/appoint-success/appoint-success.component';
-import {ChangePasswordComponent} from '../shared/modals/change-password/change-password.component';
-import { SubmitfeedbackComponent } from '../shared/modals/submitfeedback/submitfeedback.component';
+// import {ChangePasswordComponent} from './settings/change-password/change-password.component';
+// import { SubmitfeedbackComponent } from '../shared/modals/submitfeedback/submitfeedback.component';
 import { CreateWorkspaceComponent } from '../shared/modals/create-workspace/create-workspace.component';
 import { MergeContactsComponent } from '../shared/modals/merge-contacts/merge-contacts.component';
 
@@ -157,9 +157,9 @@ export class InternalComponent implements OnDestroy {
                 case 'appointSuccess':
                     this.http.showModal(AppointSuccessComponent, 'more-sm', data.data);
                     break;
-                case 'changePassword':
-                    this.http.showModal(ChangePasswordComponent, 'more-sm');
-                    break;
+                // case 'changePassword':
+                //     this.http.showModal(ChangePasswordComponent, 'more-sm');
+                //     break;
                 case 'createWorkspace':
                     this.http.showModal(CreateWorkspaceComponent, 'md');
                     break;

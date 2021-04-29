@@ -2,11 +2,11 @@ export interface Tag {
   _id: string;
   description: string;
   name: string;
-  tagCategoryId: TagCategoryId;
+  tagCategoryId: TagCategory;
   tagId: number;
 }
 
-interface TagCategoryId {
+export interface TagCategory {
   _id: string;
   name: string;
 }

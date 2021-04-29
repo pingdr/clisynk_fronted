@@ -12,7 +12,8 @@ import {AppointBookComponent} from '../../modals/appoint-book/appoint-book.compo
 
 @Component({
     selector: 'app-contact-detail',
-    templateUrl: './contact-detail.component.html'
+    templateUrl: './contact-detail.component.html',
+    styleUrls: ['./contact-detail.component.scss']
 })
 export class ContactDetailComponent implements OnChanges, OnDestroy {
 
@@ -261,6 +262,8 @@ export class ContactDetailComponent implements OnChanges, OnDestroy {
     }
 
     onTypeChange(val) {
+        this.contactsType.setValue(val);
+        console.log(val);
         const obj: any = {
             contactId: this.selected._id,
             contactsType: val

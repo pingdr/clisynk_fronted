@@ -5,6 +5,8 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { ApiUrl } from '../../../services/apiUrls';
 import { ActivatedRoute } from '@angular/router';
 import { MergeContactsComponent } from '../../../shared/modals/merge-contacts/merge-contacts.component';
+import { Subject } from 'rxjs';
+import { Workspace } from 'src/app/models/workspace';
 
 @Component({
   selector: 'app-edit-workspace',
@@ -53,19 +55,27 @@ export class EditWorkspaceComponent implements OnInit {
   totalContacts: number;
   contactsSelected = 0;
   contacts: any = [];
-  contactGroupLists: any = [];
+  contactGroupLists: any[] = [];
   tags: any = [];
   fromWorkspaceId: any;
   fromWorkspaceName: any;
 
+  modalData: any;
+  public onClose: Subject<boolean>;
+
   constructor(public http: HttpService, private route: ActivatedRoute) {
-      this.route.queryParams.subscribe(params => {
-        this.fromWorkspaceId = params['workspaceId'];
-        this.fromWorkspaceName = params['workspaceName'];
-    });
+    //   this.route.queryParams.subscribe(params => {
+    //     this.fromWorkspaceId = params['workspaceId'];
+    //     this.fromWorkspaceName = params['workspaceName'];
+    // });
    }
 
   ngOnInit() {
+    console.log(this.modalData);
+    if (this.modalData) {
+      this.fromWorkspaceId = this.modalData.workspaceId;
+      this.fromWorkspaceName = this.modalData.workspaceName;
+    }
     this.formInit();
     this.workspaceLists();
     this.contactList();
@@ -126,6 +136,7 @@ export class EditWorkspaceComponent implements OnInit {
     };
     this.http.getData(ApiUrl.CONTACT_LISTS, obj).subscribe(res => {
         this.contactGroupLists = res.data;
+        this.contactGroupLists = this.contactGroupLists.filter(x => !this.http.isNullOrEmpty(x._id));
     });
   }
 

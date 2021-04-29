@@ -14,6 +14,7 @@ import {AddRemoveTagComponent} from '../../shared/modals/add-remove-tag/add-remo
 
 @Component({
     selector: 'app-contacts',
+    styleUrls: ['./contacts.component.scss'],
     templateUrl: './contacts.component.html'
 })
 
