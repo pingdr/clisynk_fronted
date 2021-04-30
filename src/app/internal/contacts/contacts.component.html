@@ -336,8 +336,9 @@
               tab = 'contactList';
               http.addQueryParams({})
             " />
-          <h3 class="page-title" *ngIf="myModel.contactsType == 1">Leads</h3>
-          <h3 class="page-title" *ngIf="myModel.contactsType == 2">Clients</h3>
+          <h3 class="page-title" *ngIf="myModel.contactsType == ContactTypes.LEAD">Leads</h3>
+          <h3 class="page-title" *ngIf="myModel.contactsType == ContactTypes.CLIENTS">Clients</h3>
+          <h3 class="page-title" *ngIf="myModel.contactsType == ContactTypes.EMPLOYEE">Manager</h3>
         </div>
       </ng-container>
 

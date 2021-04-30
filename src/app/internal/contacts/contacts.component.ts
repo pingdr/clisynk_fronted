@@ -1,3 +1,4 @@
+import { ContactTypes } from './../../models/enums';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {HttpService} from '../../services/http.service';
 import {TableModel} from '../../shared/models/table.common.model';
@@ -40,6 +41,8 @@ export class ContactsComponent implements OnInit, OnDestroy {
     hiddenTabs: any;
     lists: any = [];
     contactListId: any = "";
+
+    ContactTypes = ContactTypes;
 
     constructor(public http: HttpService, public activatedRoute: ActivatedRoute) {
         this.loginData = JSON.parse(localStorage.getItem('loginData'));
@@ -142,9 +145,13 @@ export class ContactsComponent implements OnInit, OnDestroy {
             this.http.addQueryParams({contactListId: data._id, });
         } else {
             if (data.name === 'Leads') {
-                this.http.addQueryParams({type: 1});
+                this.http.addQueryParams({type: ContactTypes.LEAD});
+            } else if (data.name === 'Clients') {
+                this.http.addQueryParams({type: ContactTypes.CLIENTS});
+            } else if (data.name === 'Manager') {
+                this.http.addQueryParams({type: ContactTypes.EMPLOYEE});
             } else {
-                this.http.addQueryParams({type: 2});
+                this.http.addQueryParams({type: ContactTypes.OHTERS});
             }
         }
     }
