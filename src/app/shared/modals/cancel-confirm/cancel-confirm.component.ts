@@ -4,7 +4,8 @@ import {Subject} from 'rxjs';
 
 @Component({
     selector: 'app-cancel-confirm',
-    templateUrl: './cancel-confirm.component.html'
+    templateUrl: './cancel-confirm.component.html',
+    styleUrls: ['./cancel-confirm.component.scss']
 })
 export class CancelConfirmComponent {
 

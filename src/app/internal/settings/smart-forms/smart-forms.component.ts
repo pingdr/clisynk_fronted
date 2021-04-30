@@ -14,7 +14,7 @@ import { format } from 'date-fns'
 })
 export class SmartFormsComponent implements OnInit {
   formsList: any[];
-  sortedData: any;
+  sortedData: any = [];
   loader: any;
   searchText: string = "";
   
@@ -27,6 +27,7 @@ export class SmartFormsComponent implements OnInit {
   getSmartFormList() {
     // this.myModel = new TableModel();
     this.loader = true;
+    this.sortedData.splice(0, this.sortedData.length);
     this.http.getSmartForm().subscribe(res => {
         console.log(res.data);
         if(res){
@@ -74,7 +75,7 @@ export class SmartFormsComponent implements OnInit {
   }
 
   onDelete(data) {
-    const modalRef = this.http.showModal(SmartFormDeleteComponent, 'xs', data);
+    const modalRef = this.http.showModal(SmartFormDeleteComponent, 'md', data);
     modalRef.content.onClose = new Subject<boolean>();
     modalRef.content.onClose.subscribe(res => {
       if (res) {

@@ -3,7 +3,7 @@ import {FormGroup, Validators} from '@angular/forms';
 import {TableModel} from '../../../shared/models/table.common.model';
 import {HttpService} from '../../../services/http.service';
 import {ApiUrl} from '../../../services/apiUrls';
-
+import { finalize } from 'rxjs/operators';
 @Component({
     selector: 'app-my-profile',
     templateUrl: './my-profile.component.html'
@@ -14,6 +14,7 @@ export class MyProfileComponent implements OnInit {
     @ViewChild('address', {static: false}) address: ElementRef;
     myModel: any;
     loading: boolean;
+    isUpdating = false;
     form: FormGroup;
     loginData: any = {};
 
@@ -60,7 +61,8 @@ export class MyProfileComponent implements OnInit {
             this.form.patchValue(formValues);
             const obj: any = JSON.parse(JSON.stringify(this.form.value));
             obj.imageUrl = JSON.stringify(obj.imageUrl);
-            this.http.postData(ApiUrl.UPDATE_PROFILE, obj).subscribe(res => {
+            this.isUpdating = true;
+            this.http.postData(ApiUrl.UPDATE_PROFILE, obj).pipe(finalize(()=>{this.isUpdating = false;})).subscribe(res => {
                 this.http.openSnackBar('Updated Successfully');
                 this.http.setLoginData(res.data);
             });

@@ -1,18 +1,14 @@
 <div class="med-popup">
     <div class="modal-header email_str_header">
-        <section id="close" class="navigation">
-            <button class="icon-only" type="button" aria-label="Close" (click)="goBack()">
-                <img [src]="'/assets/images/back-arrow.svg'" alt="">
-            </button>
-        </section>
         <section class="text">
             <h4>Add new tag category</h4>
         </section>
-        <section class="buttn-row">
-            <button type="submit" class="btn btn-outline-primary" (click)="finalSubmit()">Save
-<!--                <i class="fa fa-spinner fa-spin" *ngIf="loader"></i>-->
+        <section id="close" class="navigation">
+            <button class="icon-only" type="button" aria-label="Close" (click)="http.hideModal()">
+                <img [src]="'/assets/images/ic_close.svg'">
             </button>
         </section>
+        
     </div>
     <form [formGroup]="form" (ngSubmit)="finalSubmit()" autocomplete="off">
         <div class="modal-body">
@@ -35,6 +31,11 @@
                     </mat-error>
                 </mat-form-field>
             </div>
+            <section class="buttn-row">
+                <button type="submit" class="btn btn-outline-primary" (click)="finalSubmit()">Save
+                </button>
+                <button type="submit" class="cancel-btn"  (click)="http.hideModal()">Cancel</button>
+            </section>
 
         </div>
     </form>

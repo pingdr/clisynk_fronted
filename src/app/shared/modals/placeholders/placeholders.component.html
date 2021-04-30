@@ -1,36 +1,15 @@
 <!--contacts placeholder-->
-<div class="empty-state" *ngIf="selectedFlag === 1">
-  <div class="empty-state-wrapper">
-    <div class="empty-state">
-      <div class="image-wrapper">
-        <img src="/assets/images/import-contacts.svg" />
-      </div>
-      <div class="details-wrapper">
-        <h3 class="empty-state-title">Let's add some contacts</h3>
-        <p>Bring your contacts together for complete organization.</p>
-      </div>
-      <div class="slot">
-        <div class="button-loading">
-          <button
-            (click)="http.openModal('addContact')"
-            class="border-btn"
-            type="button"
-          >
-            <span>Add a Contact</span>
-          </button>
-          <button
-            class="border-btn text-button"
-            type="button"
-            (click)="http.openModal('importContact')"
-          >
-            <span>Import Contacts</span>
-          </button>
-        </div>
-      </div>
-    </div>
+<div class="lets-add-some-contacts"  *ngIf="selectedFlag === 1">
+  <img src="../../../assets/images/New-ui-images/let-add-contact.svg">
+  <h3 class="headdings-add">Let's add some contacts</h3>
+  <p>Bring your contacts together for complete organization.</p>
+  <div class="add-btns-rows">
+      <button class="btns-add"  (click)="http.openModal('addContact')" >Add Contact</button>
+      <button class="btns-imports"  (click)="http.openModal('importContact')">Import Contact </button>
   </div>
 </div>
 <!--contacts placeholder ended-->
+          
 
 <!--contact lists-->
 <div class="empty-state" *ngIf="selectedFlag === 2">
@@ -106,11 +85,11 @@
 <!--no email -->
 <div class="meet-section-tab Contact-Activity-inner" *ngIf="selectedFlag === 3">
   <div class="content">
-    <div class="empty-state">
-      <div class="image-wrapper"><img src="/assets/images/ic_meet.svg" /></div>
+    <div class="empty-state mail-items-main">
+      <div class="image-wrapper"><img src="/assets/images/mail-placeholders.svg" /></div>
       <div class="details-wrapper">
         <h3 class="empty-state-title">There's no email history to show yet</h3>
-        <p>Start your email history with First.</p>
+        <p>Start sending mail by clicking on NEW MAIL.</p>
       </div>
       <div class="slot">
         <!--<div class="button-loading">-->
@@ -247,7 +226,7 @@
 <!--no contact in tag -->
 <div class="empty-state" *ngIf="selectedFlag === 9">
   <div class="image-wrapper">
-    <img src="/assets/images/ic_tags_placeholder.svg" />
+    <img src="assets/images/New-ui-images/tags-main.svg">
   </div>
   <div class="details-wrapper">
     <h3 class="empty-state-title">Use tags to segment your contacts</h3>
@@ -260,3 +239,16 @@
   </div>
 </div>
 <!--no contact in tag ended-->
+
+
+<!-- <div class="empty-state-wrapper">
+  <div class="empty-state">
+      <div class="image-wrapper">
+          <img src="../../../../assets/images/New-ui-images/tags-main.svg">
+      </div>
+      <div class="details-wrapper">
+          <h3 class="empty-state-title comman-heading">Use tags to segment your contacts</h3>
+          <p>With tags you can segment your contacts into very specific lists for more targeted marketing. You can apply tags manually. However, in most cases tags will be automatically created based on a trigger or activity in a campaign workflow.</p>
+      </div>
+  </div>
+</div> -->

@@ -1,16 +1,15 @@
 <div class="row top-height">
   <div class="col-md-12">
     <nav class="navbar navbar-static-top" role="navigation" style="padding: 0">
-      <div class="col-6 col-md-2 navbar-header">
+      <div class="col-4 col-md-2 navbar-header">
         <div class="row">
-          <a class="minimalize-styl-2 cursor" (click)="toggleNavigation()">
-            <img [src]="'assets/images/ic_menu.svg'" />
-          </a>
           <i class="fas fa-times visible-md visible-xs side-close-btn d-none d-sm-block d-md-none"
             (click)="toggleNavigation()">
           </i>
-          <img [src]="'/assets/images/text1280x1024.jpg'" class="top-width" />
-
+          <img src="../../../assets/images/New-ui-images/clisynk-logo.svg" class="top-width" />
+          <a class="minimalize-styl-2 cursor" (click)="toggleNavigation()">
+            <img [src]="'assets/images/ic_menu.svg'" />
+          </a>
           <!--                    <button (click)="testPush()" class="btn btn-outline-primary">test</button>-->
         </div>
       </div>
@@ -70,7 +69,7 @@
               <div class="btn-group add-btn" dropdown>
                 <button id="button-basic1" dropdownToggle type="button" class="btn dropdown-toggle"
                   aria-controls="dropdown-basic">
-                  New <i class="fas fa-angle-down"></i>
+                  <i class="fas fa-plus"></i>New
                 </button>
                 <ul id="dropdown-basic1" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
                   <li role="menuitem" *ngIf="http.checkAcl('contacts')">
@@ -149,7 +148,7 @@
 
         <ul>
           <li>
-            <button class="btn notifications" type="button" (click)="openNav()">
+            <button class="btn notifications ripple" type="button" (click)="openNav()">
               <i class="far fa-bell"></i>
               <span class="badge" *ngIf="unreadCount">{{unreadCount}}</span>
             </button>
@@ -232,28 +231,6 @@
         </ul>
       </div>
     </section>
-
-    <!--        <div class="button-dropdown">-->
-    <!--            <div class="view-email" dropdown>-->
-    <!--                <button dropdownToggle type="button" class="btn dropdown-toggle"-->
-    <!--                        aria-controls="dropdown-basic">-->
-    <!--                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"-->
-    <!--                         id="more-horizontal">-->
-    <!--                        <circle cx="5" cy="12" r="2"></circle>-->
-    <!--                        <circle cx="12" cy="12" r="2"></circle>-->
-    <!--                        <circle cx="19" cy="12" r="2"></circle>-->
-    <!--                    </svg>-->
-    <!--                </button>-->
-    <!--                <ul *dropdownMenu class="dropdown-menu" role="menu"-->
-    <!--                    aria-labelledby="button-basic">-->
-    <!--                    <li role="menuitem">-->
-    <!--                        <a class="dropdown-item">-->
-    <!--                            Mark as read-->
-    <!--                        </a>-->
-    <!--                    </li>-->
-    <!--                </ul>-->
-    <!--            </div>-->
-    <!--        </div>-->
   </header>
   <app-notifications [allData]="notifications"></app-notifications>
 </section>

@@ -46,6 +46,7 @@ export class MergeContactsComponent implements OnInit {
     this.http.postWorkspaceMerge(ApiUrl.WORKSPACE_MERGE , this.postData).subscribe(() => {
         this.loader = false;
         this.http.hideModal();
+        this.http.hideModal();
         this.http.openSnackBar(`Merge request successfully submitted, You will get update over mail once it's executed.`);
         this.router.navigate(['/settings/manage-workspace']);
       }, () => {

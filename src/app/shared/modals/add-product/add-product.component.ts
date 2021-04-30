@@ -14,7 +14,8 @@ export class AddProductComponent implements OnInit {
     form: FormGroup;
     myModel: any;
     modalData: any;
-    onClose: Subject<boolean>;
+    public onClose: Subject<boolean>;
+
 
     constructor(public http: HttpService) {
         this.myModel = new TableModel();
@@ -68,11 +69,11 @@ export class AddProductComponent implements OnInit {
                 }
                 this.http.postData(ApiUrl.ADD_PRODUCT, obj).subscribe(res => {
                     console.log(res.data, 'data');
-                    this.http.hideModal();
                     this.myModel.loader = false;
                     this.onClose.next(true);
                     this.http.openSnackBar(`Product ${this.modalData ? 'Updated' : 'Added'} Successfully`);
                     this.http.eventSubject.next({eventType: 'addProduct', data: res.data});
+                    this.http.hideModal();
                 }, () => {
                     this.myModel.loader = false;
                 });

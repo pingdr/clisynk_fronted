@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Workspace } from 'src/app/models/workspace';
 import { HttpService } from 'src/app/services/http.service';
 import { CreateWorkspaceComponent } from 'src/app/shared/modals/create-workspace/create-workspace.component';
 import { ApiUrl } from '../../../services/apiUrls';
+import { EditWorkspaceComponent } from '../edit-workspace/edit-workspace.component';
 
 @Component({
   selector: 'app-manage-workspace',
@@ -11,11 +13,12 @@ import { ApiUrl } from '../../../services/apiUrls';
 })
 export class ManageWorkspaceComponent implements OnInit {
 
-  allData: any;
+  allData: any = [];
   workspaceId: any;
   loginData: any;
   loader = false;
   selectedWorkspace: any = {};
+  searchText: string = "";
 
   constructor(public http: HttpService, private router: Router) {
     this.http.work.subscribe((res) => {
@@ -33,6 +36,7 @@ export class ManageWorkspaceComponent implements OnInit {
   getAllWorkspaces(isDeleted?) {
     this.loader = true;
     const obj: any = {};
+    this.allData.splice(0, this.allData.length);
     this.http.getData(ApiUrl.WORKSPACE, obj).subscribe(res => {
       this.allData = res.data;
       res.data.map(wps => {
@@ -63,9 +67,19 @@ export class ManageWorkspaceComponent implements OnInit {
     this.http.showModal(CreateWorkspaceComponent, 'md', data);
   }
 
+  openEditManageWorkspace(workspace: Workspace) {
+    let data = {
+      workspaceId: workspace._id,
+      workspaceName: workspace.name
+    }
+    console.log(data);
+    
+    this.http.showModal(EditWorkspaceComponent, 'md', data);
+  }
+
   deleteWorkspace(template, workspaceId) {
     this.workspaceId = workspaceId;
-    this.http.showModal(template, 'xs');
+    this.http.showModal(template, 'md');
   }
 
   changeStatus(status) {

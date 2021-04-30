@@ -8,7 +8,8 @@ import {Subject} from 'rxjs';
 
 @Component({
     selector: 'app-placeholders',
-    templateUrl: './placeholders.component.html'
+    templateUrl: './placeholders.component.html',
+    styleUrls: ['./placeholders.component.scss']
 })
 export class PlaceholdersComponent implements OnChanges {
 

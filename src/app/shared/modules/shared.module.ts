@@ -15,7 +15,7 @@ import {
 } from '@angular/material';
 import {AddContactComponent} from '../modals/add-contact/add-contact.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {ChangePasswordComponent} from '../modals/change-password/change-password.component';
+// import {ChangePasswordComponent} from '../modals/change-password/change-password.component';
 import {ContactDetailsComponent} from '../modals/contact-details/contact-details.component';
 import {SendEmailComponent} from '../modals/send-email/send-email.component';
 import {CKEditorModule} from 'ng2-ckeditor';
@@ -120,10 +120,11 @@ import { NavigateToTagsComponent } from '../modals/navigate-to-tags/navigate-to-
 import { RenameAutomationComponent } from 'src/app/shared/modals/rename-automation/rename-automation.component';
 import { LeadFormDeletedComponent } from 'src/app/shared/modals/lead-form-deleted/lead-form-deleted.component';
 import { DeleteAutomationComponent } from 'src/app/shared/modals/delete-automation/delete-automation.component';
+import { EditWorkspaceComponent } from 'src/app/internal/settings/edit-workspace/edit-workspace.component';
 
 
 
-const entryList = [EmailFormatComponent, SendEmailComponent, ChangePasswordComponent, ContactDetailsComponent, AddNoteComponent,
+const entryList = [EmailFormatComponent, SendEmailComponent, ContactDetailsComponent, AddNoteComponent,
     ContactOptionsComponent, AddTaskComponent, LoaderComponent, ContactDetailComponent, ActivityListComponent, ContactFilterComponent,
     ImportContactComponent, ReviewPopupComponent, AddContactComponent, NoteListComponent, EditNoteComponent, DeleteComponent,
     EmailDetailComponent, ContactListsComponent, PlaceholdersComponent, LogoutComponent, CancelConfirmComponent,
@@ -138,7 +139,8 @@ const entryList = [EmailFormatComponent, SendEmailComponent, ChangePasswordCompo
     SmartFormCreateComponent, CreateWorkspaceComponent, MergeContactsComponent, SmartFormDeleteComponent, LeadFormCreateComponent,
     CreateFolderComponent, AddPageComponent, CreateDocumentComponent, DeleteDocComponent, MoveComponent, EmailDocumentFormatComponent,
     DeleteAutomationComponent, LeadFormDeletedComponent, NavigateToLeadFormsComponent, NavigateToAppointmentComponent, NavigateToTagsComponent,
-    NavigateToProductsComponent, RenameAutomationComponent
+    NavigateToProductsComponent, RenameAutomationComponent, EditWorkspaceComponent
+
 ];
 
 const importExportList = [MatStepperModule, MatTabsModule, MatSliderModule, MatInputModule, MatSelectModule,

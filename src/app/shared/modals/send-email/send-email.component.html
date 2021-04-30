@@ -1,5 +1,7 @@
 <div class="modal-header email_str_header">
-
+    <section class="text">
+        <h4>{{modalData?.topTitle ? modalData?.topTitle : 'Send an email'}}</h4>
+    </section>
     <section id="close" class="navigation">
         <!--        <button class="icon-only" type="button" aria-label="Close" (click)="http.hideModal()" *ngIf="!modalData?.email">-->
         <!--            <img src="/assets/images/ic_close.svg">-->
@@ -14,9 +16,6 @@
         <!--        </button>-->
     </section>
 
-    <section class="text">
-        <h4>{{modalData?.topTitle ? modalData?.topTitle : 'Send an email'}}</h4>
-    </section>
 </div>
 <form [formGroup]="form" (ngSubmit)="finalSubmit()" autocomplete="off">
 
@@ -198,7 +197,7 @@
 </form>
 
 <ng-template #cancelPopup>
-    <div class="delete-comp xs">
+    <div class="delete-comp md">
         <div class="delete-comp-inner">
             <h4>Confirm close</h4>
             <p>Are you sure you want to close? Any unsaved progress will be lost.</p>

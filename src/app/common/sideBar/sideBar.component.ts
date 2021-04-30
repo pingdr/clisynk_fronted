@@ -30,6 +30,7 @@ export class SideBarComponent implements OnInit, AfterViewInit {
     ngOnInit(): void {
         this.acl.setSideBar();
         this.sideBar = this.acl.sideBar;
+        console.log(this.sideBar);
     }
 
     ngAfterViewInit() {

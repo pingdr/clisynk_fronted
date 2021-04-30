@@ -17,6 +17,7 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
     selector: 'app-top-nav-bar',
+    styleUrls: ['./topNavBar.component.scss'],
     templateUrl: 'topNavBar.html'
 })
 export class TopNavBarComponent implements OnInit {

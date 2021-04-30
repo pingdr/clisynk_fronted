@@ -1,7 +1,12 @@
 import {Subscription} from 'rxjs';
+import { ContactData } from 'src/app/models/contact';
+import { PaginatedResponse } from 'src/app/models/paginated-response';
+import { Product } from 'src/app/models/product';
+import { Tag } from 'src/app/models/tag';
 
 export class TableModel {
     subscription: Subscription;
+    users: PaginatedResponse<User[]>;
     totalItems: number;
     limit = 1000;
     search = '';
@@ -15,11 +20,11 @@ export class TableModel {
     timeSlots: any = [];
     notifications: any = [];
     templates: any = [];
-    contacts: any = [];
-    tags: any = [];
+    contacts: any[] = [];
+    tags: any[] = [];
     tasks: any = [];
     categories: any = [];
-    products: any = [];
+    products: any[] = [];
     invoices: any = [];
     types: any = [];
     appointmentTypes: any = [];
