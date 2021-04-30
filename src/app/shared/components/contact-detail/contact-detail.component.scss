@@ -132,7 +132,7 @@
         cursor: pointer;
         
         &:hover{
-            .img-icon{
+            .img-icon, .btn-group.more-btn{
                 background: #4776E6;
                 transition: 0.4s all ease;
                 border: 1px solid #4776E6 !important;
@@ -145,8 +145,9 @@
                     }
                 }
             }
+            
         }
-        .img-icon {
+        .img-icon, .btn-group.more-btn {
             border: 1px solid #BBBBBB;
             width: 40px;
             height: 40px;
@@ -167,6 +168,11 @@
                 letter-spacing: 0.02em;
                 color: #263238;
                 font-weight: 400;
+            }
+        }
+        .btn-group.more-btn {
+            svg{
+                margin-left: 9px !important;
             }
         }
     }
