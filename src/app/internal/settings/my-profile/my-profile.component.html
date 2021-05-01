@@ -70,7 +70,8 @@
                         <div class="input-field">
                             <mat-form-field class="full-width" appearance="outline"  hintLabel="Max 26 characters">
                                 <mat-label class="required">First Name</mat-label>
-                                <input matInput type="text" maxlength="26" #fname
+                                <input matInput type="text" maxlength="26" #fname 
+                                       appInputRestriction="noSpecialChars"
                                        formControlName="firstName">
                                 <mat-error *ngIf="form.controls['firstName'].hasError('required')">
                                     Please enter first name.
@@ -86,6 +87,7 @@
                     <mat-form-field class="full-width" appearance="outline" hintLabel="Max 26 characters">
                         <mat-label>Last Name</mat-label>
                         <input matInput type="text" maxlength="26" #lname
+                               appInputRestriction="noSpecialChars"
                                formControlName="lastName">
                         <mat-error *ngIf="form.controls['lastName'].hasError('required')">
                             Please enter last name.
@@ -240,11 +242,11 @@
                     <p>{{form.controls['email'].value}}</p>
                     <p>{{form.controls['phone1'].value}}</p>
                 </div>
-                <div class="shimmer-main-preview email-box">
+                <!-- <div class="shimmer-main-preview email-box">
                         <div class="shimmer-heading shine"></div>
                         <div class="email-id-shimmer shine"></div>
                         <div class="mobile-num-shimmer shine"></div>
-                </div>
+                </div> -->
                 <!-- <div class="button-row">
                     <button type="submit" class="btn btn-outline-primary">Update</button>
                 </div> -->
