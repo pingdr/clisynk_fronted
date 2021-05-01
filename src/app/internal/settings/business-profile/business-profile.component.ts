@@ -4,6 +4,7 @@ import {HttpService} from '../../../services/http.service';
 import {ApiUrl} from '../../../services/apiUrls';
 import {TableModel} from '../../../shared/models/table.common.model';
 import { finalize } from 'rxjs/operators';
+import { FileType, MB } from 'src/app/services/constants';
 
 @Component({
     selector: 'app-business-profile',
@@ -48,13 +49,20 @@ export class BusinessProfileComponent implements OnInit {
             email: ['', Validators.compose([Validators.required, Validators.pattern(this.http.CONSTANT.EMAIL_REGEX)])],
             website: ['', Validators.compose([Validators.pattern(this.http.CONSTANT.URL_REGEX)])],
             imageOriginal: [''],
-            imageThumbnail: [''],
+            imageThumbnail: ['', Validators.required],
             lat: [''],
             long: ['']
         });
     }
 
     finalSubmit() {
+        if (this.form.invalid) {
+            console.log(this.form);
+            this.http.markFormGroupTouched(this.form);
+            let arr = this.http.findInvalidControlsRecursive(this.form);
+            this.http.handleError('Please check all required fields');
+            return;
+        }
         const obj: any = JSON.parse(JSON.stringify(this.form.value));
         if (this.isEdit) {
             obj.addressId = this.modalData._id;
@@ -140,6 +148,7 @@ export class BusinessProfileComponent implements OnInit {
     }
 
     uploadImage(file) {
+        if (!this.isValidateFileTypeAndSize(file)) return;
         this.loading = true;
         this.http.uploadImage(ApiUrl.UPLOAD_IMAGE, file, false).subscribe(res => {
             this.loading = false;
@@ -178,4 +187,23 @@ export class BusinessProfileComponent implements OnInit {
         document.getElementById('myId').click();
     }
 
+    isValidateFileTypeAndSize(file) {
+        if (
+          file.type == FileType.JPEG ||
+          file.type == FileType.PNG ||
+          file.type == FileType.JPG
+        ) {
+    
+        } else {
+          this.http.handleError('Please upload valid file type.!!');
+          return false;
+        }
+    
+        if (file.size >= MB * 5) {
+          this.http.handleError('File size should be less thatn 5 MB');
+          return false;
+        }
+        return true;
+        
+      }
 }
