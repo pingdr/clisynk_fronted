@@ -696,5 +696,37 @@ export class HttpService {
           form.get(key).updateValueAndValidity();
         }
     }
+    isValidateFileTypeAndSize(file: File, fileType: 'video' | 'image', size: number) {
+        
+        if (fileType == 'image') {
+            if (
+                file.type == constant.FileType.JPEG ||
+                file.type == constant.FileType.PNG ||
+                file.type == constant.FileType.JPG
+              ) {
+          
+              } else {
+                this.handleError('Please upload valid file type.!!');
+                return false;
+              }
+        } else if (fileType == 'video') {
+            if (
+                file.type == constant.FileType.MP4
+              ) {
+          
+              } else {
+                this.handleError('Please upload valid file type.!!');
+                return false;
+              }
+        }
+       
+    
+        if (file.size >= constant.MB * size) {
+          this.handleError(`File size should be less thatn 5 MB`);
+          return false;
+        }
+        return true;
+        
+      }
 }
 

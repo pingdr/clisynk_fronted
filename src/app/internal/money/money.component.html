@@ -351,6 +351,9 @@
                                     </div>
                                 </td>
                             </tr>
+                            <tr *ngIf="myModel?.allData?.data.length == 0">
+                                <td class="no-record text-center" colspan="6">No {{selectedTab === 1 ? 'Invoices' : 'Quotes'}} Found</td>
+                            </tr>
                         </tbody>
                     </table>
                     <div style="width: 100%;" *ngIf="myModel.loader">

@@ -94,7 +94,7 @@ export class MyProfileComponent implements OnInit {
     }
 
     uploadImage(file) {
-        if (!this.isValidateFileTypeAndSize(file)) return;
+        if (!this.http.isValidateFileTypeAndSize(file,'image', 5)) return;
         
         this.loading = true;
         this.http.uploadImage(ApiUrl.UPLOAD_IMAGE, file, false).subscribe(res => {
@@ -109,24 +109,5 @@ export class MyProfileComponent implements OnInit {
     }
 
     
-  isValidateFileTypeAndSize(file) {
-    if (
-      file.type == FileType.JPEG ||
-      file.type == FileType.PNG ||
-      file.type == FileType.JPG
-    ) {
-
-    } else {
-      this.http.handleError('Please upload valid file type.!!');
-      return false;
-    }
-
-    if (file.size >= MB * 5) {
-      this.http.handleError('File size should be less thatn 5 MB');
-      return false;
-    }
-    return true;
-    
-  }
 
 }
