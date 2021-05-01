@@ -8,7 +8,9 @@
 
             <mat-form-field class="full-width" appearance="outline" hintLabel="Max 40 characters">
                 <mat-label class="required">Name</mat-label >
-                <input matInput placeholder="Enter name" type="text"
+                <input matInput 
+                appInputRestriction="noSpecialChars"
+                placeholder="Enter name" type="text"
                        formControlName="name" (blur)="checkUnique(form.value.name)" maxlength="40" #input>
                 <mat-error *ngIf="form.controls['name'].hasError('required')">
                     Please enter name.
