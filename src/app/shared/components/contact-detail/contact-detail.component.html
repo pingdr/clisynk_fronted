@@ -394,18 +394,19 @@
                     <div class="content">
                         <!--                        <app-placeholders [flag]="6"  [data]="selected" *ngIf="myModel?.appointments?.length === 0"></app-placeholders>-->
                         <div class="empty-state" *ngIf="myModel?.appointments?.length === 0">
-                            <div class="image-wrapper"><img src="/assets/images/ic_meet.svg"></div>
+                            <div class="image-wrapper new-meet-img"><img src="/assets/images/meet-icon.svg"></div>
                             <div class="details-wrapper">
                                 <h3 class="empty-state-title">Don't miss an opportunity to meet
                                     with {{myData?.firstName}}</h3>
                                 <p>Inviting your client to meet is simple. Let's get the ball rolling.</p>
                             </div>
-                            <div class="slot">
+                            <!--------------------OLD-CODE---------------------------->
+                            <!-- <div class="slot">
                                 <div class="button-loading">
                                     <button class="btn btn-outline-primary" type="button" (click)="openBook()">
                                         <span> Book an appointment</span></button>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
 
                         <app-appoint-list [allData]="myModel?.appointments"></app-appoint-list>
