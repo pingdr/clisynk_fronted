@@ -1,10 +1,10 @@
 <div class="profile-section">
 
-    <div class="Clients_list_heading">  
+    <div class="Clients_list_heading">
         <h3 class="inter-page-heading">Products and Services</h3>
         <div class="btn-combobox">
-            <button class="back-btn" (click)="http.goBack()" >Back</button>
-            <button class="add-user-btn"   (click)="addProduct()"> Add a Product or Service</button>
+            <button class="back-btn" (click)="http.goBack()">Back</button>
+            <button class="add-user-btn" (click)="addProduct()"> Add a Product or Service</button>
         </div>
     </div>
     <div class="contact-header">
@@ -13,16 +13,16 @@
             <!-- <p>Listed below are all the products and services that are used in invoicing, quotes and online order forms.
                 Any changes made here will only affect new invoices, quotes and order forms.</p> -->
 
-            <div *ngIf="!loader && !myModel?.products?.length" class="no-prod">   
+            <div *ngIf="!loader && !myModel?.products?.length" class="no-prod">
                 <img src="../../../../assets/images/New-ui-images/Product-placeholder.svg" alt="placeholder">
-                
+
                 <h3>No product or service found.</h3>
             </div>
 
             <!-- <app-loader [showLoader]="loader" [length]="myModel?.products?.length"></app-loader> -->
 
 
-                <!-- -----------------------------------OLD-CODE-COMMENTED------------------------------------------------------------------- -->
+            <!-- -----------------------------------OLD-CODE-COMMENTED------------------------------------------------------------------- -->
 
             <!-- <div class="bussnies-txt" *ngFor="let data of myModel.products">
                 <h3>{{data?.name}}</h3>
@@ -38,70 +38,80 @@
                     </div>
                 </div>
             </div> -->
-            <div class="main-product-area-main-added"  >
-                <div class="text-descriptions">Listed below are all the products and services that are used in invoicing, quotes and online order forms. Any changes made here will only affect new invoices forms.</div>
+            <div class="main-product-area-main-added">
+                <div class="text-descriptions">Listed below are all the products and services that are used in
+                    invoicing, quotes and online order forms. Any changes made here will only affect new invoices forms.
+                </div>
                 <div class="search-on-tables">
                     <input type="text" [(ngModel)]="searchText" placeholder="Search Products...">
                 </div>
 
                 <div class="product-tabal-main">
-                        <table class="product-table-main-inner">
+                    <table class="product-table-main-inner">
 
-                            <thead>
-                                <tr>
-                                    <th class="first-col">Product/ Service Name</th>
-                                    <th class="second-col-des">Description</th>    
-                                    <th class="third-col-price">$ Price</th>
-                                    <th class="last-col">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let data of myModel.products|filter: searchText; index as i">
-                                    <td class="first-col">{{data.name}}</td>
-                                    <td class="second-col-des">
-                                        <div class="text-elipse">
-                                            {{data?.description}} </div>
-                                    </td>
-                                    <td class="third-col-price">
-                                        {{ data?.price}}
-                                    </td>
-                                    <td class="last-col">
-                                            <div class="actions-main">
-                                                <a class="edit" (click)="addProduct(data);" >
-                                                <!-- <a class="edit" (click)="http.openModal('addProduct', data);" > -->
-                                                    <img src="../../../../assets/images/New-ui-images/pencil.svg">
-                                                </a>
-                                                <a class="delete" (click)="deletePro(data)">
-                                                    <img src="../../../../assets/images/trash-icon.svg">
-                                                </a>
-                                            </div>
-                                    </td>
-                                </tr>
-
-                                <ng-container *ngIf="loader"> 
-                                <tr   *ngFor="let item of [1,2,3]">
-                                        
-                                        <td class="first-col">
-                                            <div class="shimmer-comman shine"></div>
-                                        </td>
-                                        <td class="second-col-des">
-                                            <div class="shimmer-comman shine"></div>
-                                        </td>
-                                        <td class="third-col-price">
-                                            <div class="shimmer-comman shine"></div>
-                                        </td>
-                                        <td class="last-col">
-                                                <div class="actions-main">
-                                                    <div class="shimmer-box shine"></div>
-                                                    <div class="shimmer-box shine"></div>
-                                                </div>
-                                        </td>
-                                    
+                        <thead>
+                            <tr>
+                                <th class="first-col">Product/ Service Name</th>
+                                <th class="second-col-des">Description</th>
+                                <th class="third-col-price">$ Price</th>
+                                <th class="last-col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of myModel.products|filter: searchText; index as i">
+                                <td class="first-col">{{data.name}}</td>
+                                <td class="second-col-des">
+                                    <div class="text-elipse">
+                                        {{data?.description}} </div>
+                                </td>
+                                <td class="third-col-price">
+                                    {{ data?.price}}
+                                </td>
+                                <td class="last-col">
+                                    <div class="actions-main">
+                                        <a class="edit" (click)="addProduct(data);">
+                                            <!-- <a class="edit" (click)="http.openModal('addProduct', data);" > -->
+                                            <img src="../../../../assets/images/New-ui-images/pencil.svg">
+                                        </a>
+                                        <a class="delete" (click)="deletePro(data)">
+                                            <img src="../../../../assets/images/trash-icon.svg">
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr *ngIf="myModel.products?.length === 0 && !loader">
+                                <td class="no-record" colspan="4">No Product/Service Found</td>
+                            </tr>
+                            <ng-container *ngIf="(myModel.products| filter:searchText) as data">
+                                <tr *ngIf="data.length == 0 && myModel.products?.length !== 0">
+                                    <td class="no-record" colspan="4">No Product/Service Found</td>
                                 </tr>
                             </ng-container>
-                            </tbody>
 
-                        </table>
+                            <ng-container *ngIf="loader">
+                                <tr *ngFor="let item of [1,2,3]">
+
+                                    <td class="first-col">
+                                        <div class="shimmer-comman shine"></div>
+                                    </td>
+                                    <td class="second-col-des">
+                                        <div class="shimmer-comman shine"></div>
+                                    </td>
+                                    <td class="third-col-price">
+                                        <div class="shimmer-comman shine"></div>
+                                    </td>
+                                    <td class="last-col">
+                                        <div class="actions-main">
+                                            <div class="shimmer-box shine"></div>
+                                            <div class="shimmer-box shine"></div>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                            </ng-container>
+                        </tbody>
+
+                    </table>
 
                 </div>
 
@@ -113,6 +123,3 @@
 
     </div>
 </div>
-
-
-

@@ -150,7 +150,7 @@
           </tr>
         </ng-container>
 
-        <tr *ngFor="let workspace of allData| filter:searchText; let i = index"
+        <tr *ngFor="let workspace of (allData| filter:searchText); let i = index"
         [ngClass]="{ disabled: selectedWorkspace?._id !== workspace?._id }">
           <td class="second-col-new">
             <!-- <div class="comman-text-field">Hello Face</div> -->
@@ -196,6 +196,12 @@
         <tr *ngIf="allData?.length === 0 && !loader">
           <td class="no-record" colspan="5">No Workspace Found</td>
         </tr>
+        <ng-container  *ngIf="(allData| filter:searchText) as data">
+          <tr *ngIf="data.length == 0 && allData?.length !== 0">
+            <td class="no-record" colspan="5">No Workspace Found</td>
+          </tr>
+        </ng-container>
+        
 
       </tbody>
     </table>
