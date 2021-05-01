@@ -7149,11 +7149,11 @@ video {
 }
 
 // -------------_New-login-page---------------//
-.login-card-main .login-form-field-main .form-group {
+.login-form-field-main .form-group {
   margin-bottom: 12px;
 }
 
-.login-card-main
+
   .login-form-field-main
   .form-group
   .mat-form-field
@@ -7163,7 +7163,7 @@ video {
   border-radius: 5px;
 }
 
-.login-card-main
+
   .login-form-field-main
   .form-group
   .mat-form-field
@@ -7174,8 +7174,7 @@ video {
   display: none !important;
 }
 
-.login-card-main
-  .login-form-field-main
+.login-form-field-main
   .form-group
   .mat-form-field
   .mat-form-field-flex
@@ -7185,8 +7184,8 @@ video {
   // font-family: 'Sul Sans' !important;
 }
 
-.login-card-main
-  .login-form-field-main
+
+.login-form-field-main
   .form-group
   .mat-form-field
   .mat-form-field-flex
@@ -7195,8 +7194,7 @@ video {
   margin-top: 0 !important;
 }
 
-.login-card-main
-  .login-form-field-main
+.login-form-field-main
   .form-group
   .mat-form-field
   .mat-form-field-flex
@@ -7205,8 +7203,8 @@ video {
   font-size: 15px;
 }
 
-.login-card-main
-  .login-form-field-main
+
+.login-form-field-main
   .form-group
   .mat-form-field
   .mat-form-field-flex
@@ -7214,8 +7212,8 @@ video {
   top: 6px !important;
 }
 
-.login-card-main
-  .login-form-field-main
+
+.login-form-field-main
   .form-group
   .mat-form-field
   .mat-form-field-flex
@@ -7441,7 +7439,6 @@ input:-webkit-autofill:active {
 }
 
 @media (max-width: 1300px) {
-  .login-card-main
     .login-form-field-main
     .form-group
     .mat-form-field
@@ -7450,8 +7447,7 @@ input:-webkit-autofill:active {
     padding-top: 12px !important;
     padding-bottom: 12px !important;
   }
-  .login-card-main
-    .login-form-field-main
+  .login-form-field-main
     .form-group
     .mat-form-field
     .mat-form-field-flex
@@ -7547,7 +7543,6 @@ input:-webkit-autofill:active {
 }
 
 @media (max-width: 567px) {
-  .login-card-main
     .login-form-field-main
     .form-group
     .mat-form-field
@@ -7559,7 +7554,6 @@ input:-webkit-autofill:active {
 }
 
 @media (max-width: 380px) {
-  .login-card-main
     .login-form-field-main
     .form-group
     .mat-form-field
@@ -9004,6 +8998,15 @@ label.mat-checkbox-layout {
   margin: auto;
 }
 
+.activity-item li i {
+    width: 20px;
+    position: absolute;
+    left: 4px;
+    top: 8px;
+    font-size: 16px;
+    bottom: 0;
+    margin: auto;
+}
 
 // --------------------New-Responsive-------------//
 @media (max-width: 1660px) {
