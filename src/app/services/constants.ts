@@ -119,3 +119,15 @@ export const threeDotOptions = [
 ];
 
 
+export const HEIGHT = 1200;
+export const WIDTH = 800;
+export const KB = 1000;
+export const MB = KB * 1000;
+export const GB = MB * 1000;
+export const FileType = {
+    JPG: 'image/jpg',
+    JPEG: 'image/jpeg',
+    PNG: 'image/png',
+    PDF: 'application/pdf',
+    MP4: 'video/mp4'
+}

@@ -4,6 +4,7 @@ import {TableModel} from '../../../shared/models/table.common.model';
 import {HttpService} from '../../../services/http.service';
 import {ApiUrl} from '../../../services/apiUrls';
 import { finalize } from 'rxjs/operators';
+import { FileType, MB } from 'src/app/services/constants';
 @Component({
     selector: 'app-my-profile',
     templateUrl: './my-profile.component.html'
@@ -93,6 +94,8 @@ export class MyProfileComponent implements OnInit {
     }
 
     uploadImage(file) {
+        if (!this.isValidateFileTypeAndSize(file)) return;
+        
         this.loading = true;
         this.http.uploadImage(ApiUrl.UPLOAD_IMAGE, file, false).subscribe(res => {
             this.loading = false;
@@ -104,5 +107,26 @@ export class MyProfileComponent implements OnInit {
             this.loading = false;
         });
     }
+
+    
+  isValidateFileTypeAndSize(file) {
+    if (
+      file.type == FileType.JPEG ||
+      file.type == FileType.PNG ||
+      file.type == FileType.JPG
+    ) {
+
+    } else {
+      this.http.handleError('Please upload valid file type.!!');
+      return false;
+    }
+
+    if (file.size >= MB * 5) {
+      this.http.handleError('File size should be less thatn 5 MB');
+      return false;
+    }
+    return true;
+    
+  }
 
 }

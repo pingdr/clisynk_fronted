@@ -41,7 +41,9 @@
                                         <div class="input-field">
                                             <mat-form-field class="full-width" appearance="outline" hintLabel="Max 26 characters">
                                                 <mat-label class="required">Business Name</mat-label>
-                                                <input matInput type="text" formControlName="name" maxlength="26" #input1>
+                                                <input 
+                                                    appInputRestriction="noSpecialChars"
+                                                    matInput type="text" formControlName="name" maxlength="26" #input1>
                                                 <mat-error *ngIf="form.controls['name'].hasError('required')">
                                                     Please enter business name.
                                                 </mat-error>
