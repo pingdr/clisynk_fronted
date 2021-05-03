@@ -136,6 +136,7 @@ export class AddAddressComponent implements OnInit {
     }
 
     uploadImage(file) {
+        if (!this.http.isValidateFileTypeAndSize(file, 'image', 5)) return;
         this.loading = true;
         this.http.uploadImage(ApiUrl.UPLOAD_IMAGE, file, false).subscribe(res => {
             this.loading = false;

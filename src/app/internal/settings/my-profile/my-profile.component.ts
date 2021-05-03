@@ -4,6 +4,7 @@ import {TableModel} from '../../../shared/models/table.common.model';
 import {HttpService} from '../../../services/http.service';
 import {ApiUrl} from '../../../services/apiUrls';
 import { finalize } from 'rxjs/operators';
+import { FileType, MB } from 'src/app/services/constants';
 @Component({
     selector: 'app-my-profile',
     templateUrl: './my-profile.component.html'
@@ -30,11 +31,13 @@ export class MyProfileComponent implements OnInit {
         this.form = this.http.fb.group({
             title: [data.title || 'Mr.'],
             firstName: [data.firstName || data.name, Validators.required],
+            middleName: [data.middleName || ''],
             lastName: [data.lastName],
             imageUrl: [''],
             businessType: [''],
             address1: [data.address1, Validators.required],
             city: [data.city, Validators.required],
+            country: [data.country || '', Validators.required],
             postalCode: [data.postalCode, Validators.required],
             state: [data.state, Validators.required],
             phone1: [data.phone1, Validators.required],
@@ -93,6 +96,8 @@ export class MyProfileComponent implements OnInit {
     }
 
     uploadImage(file) {
+        if (!this.http.isValidateFileTypeAndSize(file,'image', 5)) return;
+        
         this.loading = true;
         this.http.uploadImage(ApiUrl.UPLOAD_IMAGE, file, false).subscribe(res => {
             this.loading = false;
@@ -104,5 +109,7 @@ export class MyProfileComponent implements OnInit {
             this.loading = false;
         });
     }
+
+    
 
 }

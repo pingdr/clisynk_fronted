@@ -48,7 +48,7 @@
             <div class="col-md-6 input-field">
                 <mat-form-field class="full-width my-form-field" appearance="outline" hintLabel="Max 26 characters">
                     <mat-label class="required">First Name</mat-label>
-                    <input matInput placeholder="Enter first name" pattern="(^[a-zA-Z](.)*)$" type="text" maxlength="26" #input
+                    <input matInput  appInputRestriction="noSpecialChars" placeholder="Enter first name" pattern="(^[a-zA-Z](.)*)$" type="text" maxlength="26" #input
                            formControlName="firstName">
                     <!-- <mat-error *ngIf="form.controls['firstName'].hasError('required')">
                         Please enter first name.
@@ -64,7 +64,7 @@
             <div class="col-md-6 input-field">
                 <mat-form-field class="full-width" appearance="outline"  hintLabel="Max 26 characters">
                     <mat-label class="required">Last Name</mat-label>
-                    <input matInput placeholder="Enter first name" type="text" pattern="(^[a-zA-Z](.)*)$"
+                    <input matInput  appInputRestriction="noSpecialChars" placeholder="Enter first name" type="text" pattern="(^[a-zA-Z](.)*)$"
                            formControlName="lastName" maxlength="26" #input1>
                     <mat-error *ngIf="form.controls['lastName'].hasError('required')">
                         Please enter last name.

@@ -122,7 +122,7 @@
         </tr>
 
       </thead>
-      <tbody *ngIf="selectedWorkspace?._id">
+      <tbody >
         <ng-container *ngIf="loader">
           <tr *ngFor="let item of [1, 2, 3, 4, 5]">
             <td class="second-col-new">
@@ -149,53 +149,62 @@
 
           </tr>
         </ng-container>
-
-        <tr *ngFor="let workspace of allData| filter:searchText; let i = index"
-        [ngClass]="{ disabled: selectedWorkspace?._id !== workspace?._id }">
-          <td class="second-col-new">
-            <!-- <div class="comman-text-field">Hello Face</div> -->
-            <div class="first-col-inner-main">
-              <div class="first-later-name" [ngStyle]="{
-                  'background-color': workspace.backgroundColor
-                }">
-                {{ workspace?.name.toUpperCase().charAt(0) }}
+        <ng-container *ngIf="selectedWorkspace?._id">
+          
+          <tr *ngFor="let workspace of (allData| filter:searchText); let i = index"
+          [ngClass]="{ disabled: selectedWorkspace?._id !== workspace?._id }">
+            <td class="second-col-new">
+              <!-- <div class="comman-text-field">Hello Face</div> -->
+              <div class="first-col-inner-main">
+                <div class="first-later-name" [ngStyle]="{
+                    'background-color': workspace.backgroundColor
+                  }">
+                  {{ workspace?.name.toUpperCase().charAt(0) }}
+                </div>
+                <div class="worked-name">
+                  {{ workspace?.name }}
+                </div>
               </div>
-              <div class="worked-name">
-                {{ workspace?.name }}
+            </td>
+            <td class="third-col-new">
+              {{ workspace?.contacts }}
+            </td>
+            <td class="fourth-col-new" matTooltip="Description">
+              <div class="comman-text-field">
+                {{ workspace.description ? workspace.description : "-" }}
               </div>
-            </div>
-          </td>
-          <td class="third-col-new">
-            {{ workspace?.contacts }}
-          </td>
-          <td class="fourth-col-new" matTooltip="Description">
-            <div class="comman-text-field">
-              {{ workspace.description ? workspace.description : "-" }}
-            </div>
-          </td>
-          <td class="fifth-col-new">
-            <div class="role-icons">
-              {{ workspace?.createdAt | date: "dd/MM/yy" }}
-            </div>
-          </td>
-          <td class="sixth-col-new">
-            <div class="action-btn">
-              <a matTooltip=" Edit" matTooltip="Edit" (click)="openEditWorkspace(workspace)"> 
-                <img src="../../../../assets/images/New-ui-images/pencil.svg"> 
-              </a>
-              <a 
-              *ngIf="selectedWorkspace?._id === workspace?._id"
-              class="delete-icon" matTooltip="Manage Workspace" (click)="openEditManageWorkspace(workspace)"> <img
-                  src="../../../../assets/images/New-ui-images/expert-icon.svg"> </a>
-              <a matTooltip="Delete"  *ngIf="allData.length > 1" (click)="deleteWorkspace(deletePopup, workspace?._id)">
-                 <img src="../../../../assets/images/New-ui-images/delete.svg"> 
-              </a>
-            </div>
-          </td>
-        </tr>
+            </td>
+            <td class="fifth-col-new">
+              <div class="role-icons">
+                {{ workspace?.createdAt | date: "dd/MM/yy" }}
+              </div>
+            </td>
+            <td class="sixth-col-new">
+              <div class="action-btn">
+                <a matTooltip=" Edit" matTooltip="Edit" (click)="openEditWorkspace(workspace)"> 
+                  <img src="../../../../assets/images/New-ui-images/pencil.svg"> 
+                </a>
+                <a 
+                *ngIf="selectedWorkspace?._id === workspace?._id"
+                class="delete-icon" matTooltip="Manage Workspace" (click)="openEditManageWorkspace(workspace)"> <img
+                    src="../../../../assets/images/New-ui-images/expert-icon.svg"> </a>
+                <a matTooltip="Delete"  *ngIf="allData.length > 1" (click)="deleteWorkspace(deletePopup, workspace?._id)">
+                   <img src="../../../../assets/images/New-ui-images/delete.svg"> 
+                </a>
+              </div>
+            </td>
+          </tr>
+        </ng-container>
+        
         <tr *ngIf="allData?.length === 0 && !loader">
           <td class="no-record" colspan="5">No Workspace Found</td>
         </tr>
+        <ng-container  *ngIf="(allData| filter:searchText) as data">
+          <tr *ngIf="data.length == 0 && allData?.length !== 0">
+            <td class="no-record" colspan="5">No Workspace Found</td>
+          </tr>
+        </ng-container>
+        
 
       </tbody>
     </table>

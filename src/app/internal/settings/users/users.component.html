@@ -178,6 +178,14 @@
                                 </div>           
                             </td>
                         </tr>
+                        <tr *ngIf="myModel?.users?.data?.length === 0 && !isLoading">
+                            <td class="no-record" colspan="6">No Users Found</td>
+                        </tr>
+                        <ng-container  *ngIf="(myModel?.users?.data| filter:searchText) as data">
+                            <tr *ngIf="data.length == 0 && myModel?.users?.data?.length !== 0">
+                              <td class="no-record" colspan="6">No Users Found</td>
+                            </tr>
+                        </ng-container>
 
                     </tbody>
 

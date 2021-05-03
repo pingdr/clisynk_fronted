@@ -35,7 +35,7 @@
          <div class="workspace-input">
             <mat-form-field class="full-width" appearance="outline">
                 <mat-label class="required">Form Name</mat-label>
-                <input matInput maxlength="40" type="text" formControlName="formName" #input>
+                <input appInputRestriction="noSpecialChars" matInput maxlength="40" type="text" formControlName="formName" #input>
                 <mat-hint align="end">{{input.value?.length || 0}}/40</mat-hint>
             </mat-form-field>
           </div>

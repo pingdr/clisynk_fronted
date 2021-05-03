@@ -220,7 +220,9 @@ export class LeadFormsComponent implements OnInit {
 
   onImageChanged(event) {
         console.log(event.target.files);
+        
         this.file = <File>event.target.files[0];
+        if (!this.http.isValidateFileTypeAndSize(this.file,'image', 5)) return;
         if (event.target.files === 0){
             return;
         }

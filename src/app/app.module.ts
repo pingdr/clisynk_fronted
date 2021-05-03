@@ -53,6 +53,7 @@ import {
   NgxUiLoaderRouterModule,
   NgxUiLoaderHttpModule
 } from 'ngx-ui-loader';
+import { CreateAccountsComponent } from './external/create-accounts/create-accounts.component';
 
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
@@ -67,7 +68,8 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
         ReceiptComponent, BookingComponent, TodoComponent, 
         // BuildAutomationComponent, AddBuildautomationComponent, BuildThenautomationsComponent,
          PreviewLeadformComponent, PreviewSmartformComponent,
-        ForgotPasswordComponent
+        ForgotPasswordComponent,
+        CreateAccountsComponent
         
     ],
     imports: [

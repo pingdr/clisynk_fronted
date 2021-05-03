@@ -33,7 +33,7 @@ export class AddProductComponent implements OnInit {
             name: ['', Validators.required],
             description: [''],
             price: [undefined, Validators.required],
-            quantity: [1, Validators.required]
+            // quantity: [1, Validators.required]
         });
     }
 
@@ -42,7 +42,7 @@ export class AddProductComponent implements OnInit {
             name: data.name,
             description: data.description,
             price: data.price,
-            quantity: data.quantity
+            // quantity: data.quantity
         });
     }
 
