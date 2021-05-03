@@ -48,7 +48,7 @@
                 <input accept="image/x-png,image/gif,image/jpeg" multiple="" type="file"
                     (change)="uploadImage($event.target.files[0])">
                 <mat-error
-                    *ngIf="form.controls['imageThumbnail'].hasError('required') && form.controls.imageThumbnail.touched">
+                    *ngIf="!loading && form.controls['imageThumbnail'].hasError('required') && form.controls.imageThumbnail.touched">
                     Please upload image.
                 </mat-error>
             </div>

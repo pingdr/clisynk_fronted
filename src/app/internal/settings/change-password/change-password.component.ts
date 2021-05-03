@@ -1,3 +1,4 @@
+import { finalize } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
 import { HttpService } from '../../../services/http.service';
@@ -16,6 +17,7 @@ export class ChangePasswordComponent implements OnInit {
     myModel: any;
     hideCurrent: boolean = true;
     hideConfirm: boolean = true;
+    isLoading = false;
 
     constructor(public http: HttpService) {
         this.myModel = new TableModel();
@@ -47,7 +49,8 @@ export class ChangePasswordComponent implements OnInit {
                 oldPassword: this.form.value.currentPassword,
                 newPassword: this.form.value.confirmPassword
             };
-            this.http.postData(ApiUrl.CHANGE_PASSWORD, obj).subscribe(res => {
+            this.isLoading = true;
+            this.http.postData(ApiUrl.CHANGE_PASSWORD, obj).pipe(finalize(() => { this.isLoading = false; })).subscribe(res => {
                 if (res.statuscode === 400) {
                     this.http.toastr.error(res.msg);
                 } else {

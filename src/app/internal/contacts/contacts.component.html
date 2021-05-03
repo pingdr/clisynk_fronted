@@ -303,35 +303,21 @@
     <div class="contact-header">
       <ng-container *ngIf="myModel?.savedFilter">
         <div class="Clients_list_heading">
-          <img
-            src="/assets/images/back-arrow.svg"
-            (click)="
+          <img src="/assets/images/back-arrow.svg" (click)="
               myModel.contactsType = null;
               tab = 'contactList';
               http.addQueryParams({})
-            "
-          />
+            " />
           <h3 class="page-title">{{ myModel?.savedFilter?.name }}</h3>
         </div>
 
         <div class="actions">
           <div class="btn-group add-btn" dropdown>
-            <button
-              dropdownToggle
-              type="button"
-              class="btn dropdown-toggle"
-              aria-controls="dropdown-basic"
-            >
-              <span class="plus-icon"
-                ><img src="/assets/images/dots.svg" />
+            <button dropdownToggle type="button" class="btn dropdown-toggle" aria-controls="dropdown-basic">
+              <span class="plus-icon"><img src="/assets/images/dots.svg" />
               </span>
             </button>
-            <ul
-              *dropdownMenu
-              class="dropdown-menu"
-              role="menu"
-              aria-labelledby="button-basic"
-            >
+            <ul *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
               <li role="menuitem">
                 <a class="dropdown-item" (click)="deleteFilter()">Delete</a>
               </li>
@@ -345,16 +331,14 @@
 
       <ng-container *ngIf="myModel?.contactsType">
         <div class="Clients_list_heading custom-color-code">
-          <img
-            [src]="'/assets/images/back-arrow.svg'"
-            (click)="
+          <img [src]="'/assets/images/back-arrow.svg'" (click)="
               myModel.contactsType = null;
               tab = 'contactList';
               http.addQueryParams({})
-            "
-          />
-          <h3 class="page-title" *ngIf="myModel.contactsType == 1">Leads</h3>
-          <h3 class="page-title" *ngIf="myModel.contactsType == 2">Clients</h3>
+            " />
+          <h3 class="page-title" *ngIf="myModel.contactsType == ContactTypes.LEAD">Leads</h3>
+          <h3 class="page-title" *ngIf="myModel.contactsType == ContactTypes.CLIENTS">Clients</h3>
+          <h3 class="page-title" *ngIf="myModel.contactsType == ContactTypes.EMPLOYEE">Manager</h3>
         </div>
       </ng-container>
 
@@ -362,66 +346,39 @@
 
         <div class="all-contacts-tabs-main">
           <h3 class="page-title">
-            <img
-              src="/assets/images/back-arrow.svg"
-              style="width: 30px"
-              *ngIf="myModel?.hideTabs"
-              (click)="clearFilterData()"
-            />
+            <img src="/assets/images/back-arrow.svg" style="width: 30px" *ngIf="myModel?.hideTabs"
+              (click)="clearFilterData()" />
             {{ http?.heading }}
           </h3>
           <div class="comman-dropdow-new">
             <div class="actions" *ngIf="tab == 'allContact'">
               <div class="btn-group add-btn" dropdown>
-                <button
-                  id="add-contact4"
-                  dropdownToggle
-                  type="button"
-                  class="btn dropdown-toggle"
-                  aria-controls="dropdown-basic"
-                >
-                  <span class="plus-icon"
-                    ><img src="../../../assets/images/New-ui-images/add-icon.svg" />
+                <button id="add-contact4" dropdownToggle type="button" class="btn dropdown-toggle"
+                  aria-controls="dropdown-basic">
+                  <span class="plus-icon"><img src="../../../assets/images/New-ui-images/add-icon.svg" />
                   </span>
                 </button>
-                <ul
-                  id="add-contact4"
-                  *dropdownMenu
-                  class="dropdown-menu"
-                  role="menu"
-                  aria-labelledby="button-basic"
-                >
+                <ul id="add-contact4" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
                   <li role="menuitem">
                     <a class="dropdown-item" (click)="openAddContact()">
-                      Add Contact</a
-                    >
+                      Add Contact</a>
                   </li>
                   <li role="menuitem">
                     <a class="dropdown-item" (click)="importContact()">
-                      Import Contact</a
-                    >
+                      Import Contact</a>
                   </li>
                 </ul>
               </div>
             </div>
 
             <ul class="nav nav-pills mb-3 contact-h-tab-heading">
-              <li
-                class="nav-item"
-                [ngClass]="{ 'tab-btn': tab == 'allContact' }"
-                *ngIf="!myModel?.hideTabs"
-                (click)="selected = ''; tab = 'allContact'; http.addQueryParams({})"
-              >
+              <li class="nav-item" [ngClass]="{ 'tab-btn': tab == 'allContact' }" *ngIf="!myModel?.hideTabs"
+                (click)="selected = ''; tab = 'allContact'; http.addQueryParams({})">
                 All Contacts
               </li>
-              <li
-                class="nav-item"
-                (click)="
+              <li class="nav-item" (click)="
                   unselectAll(); selected = ''; tab = 'contactList'; this.listsFun()
-                "
-                *ngIf="!myModel?.hideTabs"
-                [ngClass]="{ 'tab-btn': tab == 'contactList' }"
-              >
+                " *ngIf="!myModel?.hideTabs" [ngClass]="{ 'tab-btn': tab == 'contactList' }">
                 Groups
               </li>
             </ul>
@@ -431,45 +388,23 @@
 
       <div class="actions" *ngIf="tab == 'contactList'">
         <div class="btn-group add-btn" dropdown>
-          <button
-            id="add-contact"
-            dropdownToggle
-            type="button"
-            class="btn dropdown-toggle"
-            aria-controls="dropdown-basic"
-          >
-            <span class="plus-icon"
-              ><img src="../../../assets/images/New-ui-images/add-icon.svg" />
+          <button id="add-contact" dropdownToggle type="button" class="btn dropdown-toggle"
+            aria-controls="dropdown-basic">
+            <span class="plus-icon"><img src="../../../assets/images/New-ui-images/add-icon.svg" />
             </span>
           </button>
-          <ul
-            id="add-contact"
-            *dropdownMenu
-            class="dropdown-menu"
-            role="menu"
-            aria-labelledby="button-basic"
-          >
+          <ul id="add-contact" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
             <li role="menuitem">
               <a class="dropdown-item" (click)="openContactFilter()">
-                Create a group</a
-              >
+                Create a group</a>
             </li>
           </ul>
         </div>
       </div>
-      <div
-        class="tab-pane"
-        id="pills-profile"
-        *ngIf="tab == 'contactList'"
-        style="min-height: 500px"
-      >
+      <div class="tab-pane" id="pills-profile" *ngIf="tab == 'contactList'" style="min-height: 500px">
         <div class="contact-saved-lists">
           <ng-container *ngFor="let data of lists">
-            <a
-              class="contact-list-card"
-              (click)="tab = 'allContact'; goToFilter(data)"
-              *ngIf="!data?.isHide"
-            >
+            <a class="contact-list-card" (click)="tab = 'allContact'; goToFilter(data)" *ngIf="!data?.isHide">
               <div class="top">
                 <h4 title="Clients" class="name">{{ data?.name }}</h4>
                 <div class="number">{{ data?.count || 0 }}</div>
@@ -477,27 +412,16 @@
             </a>
           </ng-container>
 
-          <a
-            class="view-all contact-list-card"
-            (click)="openContact(myModel?.allData)"
-          >
+          <a class="view-all contact-list-card" (click)="openContact(myModel?.allData)">
             View all contact groups
           </a>
         </div>
       </div>
 
-      <div
-        class="tab-content contact-v-tab-heading"
-        id="pills-tabContent"
-        *ngIf="tab == 'allContact'"
-      >
+      <div class="tab-content contact-v-tab-heading" id="pills-tabContent" *ngIf="tab == 'allContact'">
         <div class="tab-pane1" id="pills-home">
-          <div
-            class="nav flex-column nav-pills"
-            id="v-pills-tab"
-            aria-orientation="vertical"
-          >
-          <!-- -------------Old-code--------- -->
+          <div class="nav flex-column nav-pills" id="v-pills-tab" aria-orientation="vertical">
+            <!-- -------------Old-code--------- -->
             <!-- <div *ngIf="myModel?.contacts.length != 0" class="select-all">
               <label class="custom-checkbox"
                 >Select all
@@ -510,37 +434,32 @@
               </label>
             </div> -->
             <!-- -----------New-code-Select-code------------ -->
-              <div class="first-row-body-checkbox">
-                <div *ngIf="myModel?.contacts.length != 0"  class="custom-checkbox-bluecolor">
-                  <mat-checkbox  (change)="selectAllContact()"
-                  [formControl]="allSelect" class="example-margin">Select all</mat-checkbox>
-                </div>
-                <div class="custom-dropdown">
-                  <div class="btn-group" dropdown>
-                    <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
-                            aria-controls="dropdown-basic">
-                            Select<span class="caret"></span>
-                    </button>
-                    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
-                        role="menu" aria-labelledby="button-basic">
-                      <li role="menuitem"><a class="dropdown-item" href="#">Add or Remove Tag</a></li>
-                      <li role="menuitem"><a class="dropdown-item" href="#">Send a Brodcast</a></li>
-                      <li role="menuitem"><a class="dropdown-item" href="#">Exports</a></li>
-                      <li role="menuitem"><a class="dropdown-item" href="#">Delete</a>
-                      </li>
-                    </ul>
-                  </div>
-             </div>
-
+            <div class="first-row-body-checkbox">
+              <div *ngIf="myModel?.contacts.length != 0" class="custom-checkbox-bluecolor">
+                <mat-checkbox (change)="selectAllContact()" [formControl]="allSelect" class="example-margin">Select all
+                </mat-checkbox>
               </div>
+              <div class="custom-dropdown">
+                <div class="btn-group" dropdown>
+                  <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+                    aria-controls="dropdown-basic">
+                    Select<span class="caret"></span>
+                  </button>
+                  <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu"
+                    aria-labelledby="button-basic">
+                    <li role="menuitem"><a class="dropdown-item">Add or Remove Tag</a></li>
+                    <li role="menuitem"><a class="dropdown-item">Send a Brodcast</a></li>
+                    <li role="menuitem"><a class="dropdown-item">Exports</a></li>
+                    <li role="menuitem"><a class="dropdown-item">Delete</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+            </div>
             <cdk-virtual-scroll-viewport itemSize="50" class="full-port">
-              <app-loader
-                [showLoader]="loader"
-                [length]="myModel?.contacts?.length"
-              ></app-loader>
-              <div
-                *cdkVirtualFor="let data of myModel?.contacts; let i = index"
-              >
+              <app-loader [showLoader]="loader" [length]="myModel?.contacts?.length"></app-loader>
+              <div *cdkVirtualFor="let data of myModel?.contacts; let i = index">
                 <a class="nav-link" [ngClass]="{ active: selectedIndex == i }">
                   <!-- -------------Old code-here -->
                   <!-- <span class="circle">
@@ -597,19 +516,26 @@
                   <!-- -------------New-code----------- -->
                   <div class="comman-body-main">
                     <div class="date-text-main"> {{ data?.createdAt | date: "MMM dd,yyyy" }}</div>
-                    
+
                     <div class="comman-contact-row-main">
-                        <div class="first-col"> <mat-checkbox  (change)="getSelectedCount()"
-                          [(ngModel)]="data.isSelected" class="example-margin"></mat-checkbox></div>
-                        <div class="second-avtar"> {{ data?.firstName?.substr(0, 1)|titlecase}}{{ data?.lastName?.substr(0, 1)|titlecase }}</div>
-                        <div class="third-details-row" (click)="selectContact(data, i)">
-                            <div class="name-id">{{ data?.firstName }} {{ data?.lastName }}</div>
-                            <div class="email-id-main" (click)="selectContact(data, i)" >{{ data?.email }}</div>
-                        </div>
-                        <div class="comman-tag" [ngClass]="{'lead-tag':data?.contactsType == 1}" *ngIf="data?.contactsType == 1">Lead</div>
-                        <div class="comman-tag" [ngClass]="{'client-tag':data?.contactsType == 2}" *ngIf="data?.contactsType == 2">Client</div>
-                        <div class="comman-tag" [ngClass]="{'other-tag':data?.contactsType == 3}" *ngIf="data?.contactsType == 3">Other</div>
-                        <div class="comman-tag" [ngClass]="{'employee-tag':data?.contactsType == 4}" *ngIf="data?.contactsType == 4">Employee</div>
+                      <div class="first-col">
+                        <mat-checkbox (change)="getSelectedCount()" [(ngModel)]="data.isSelected"
+                          class="example-margin"></mat-checkbox>
+                      </div>
+                      <div class="second-avtar"> {{ data?.firstName?.substr(0, 1)|titlecase}}{{
+                        data?.lastName?.substr(0, 1)|titlecase }}</div>
+                      <div class="third-details-row" (click)="selectContact(data, i)">
+                        <div class="name-id">{{ data?.firstName }} {{ data?.lastName }}</div>
+                        <div class="email-id-main" (click)="selectContact(data, i)">{{ data?.email }}</div>
+                      </div>
+                      <div class="comman-tag" [ngClass]="{'lead-tag':data?.contactsType == 1}"
+                        *ngIf="data?.contactsType == 1">Lead</div>
+                      <div class="comman-tag" [ngClass]="{'client-tag':data?.contactsType == 2}"
+                        *ngIf="data?.contactsType == 2">Client</div>
+                      <div class="comman-tag" [ngClass]="{'other-tag':data?.contactsType == 3}"
+                        *ngIf="data?.contactsType == 3">Other</div>
+                      <div class="comman-tag" [ngClass]="{'employee-tag':data?.contactsType == 4}"
+                        *ngIf="data?.contactsType == 4">Employee</div>
                     </div>
                   </div>
                 </a>
@@ -621,39 +547,24 @@
     </div>
   </div>
   <div class="contact-rght contact-right-cust">
-    <app-contact-detail
-      (closeBtn)="closedFun()"
-      [myData]="selected"
-      *ngIf="selected?.firstName"
-    >
+    <app-contact-detail (closeBtn)="closedFun()" [myData]="selected" *ngIf="selected?.firstName">
     </app-contact-detail>
 
     <div class="empty-state-wrapper">
-      <app-placeholders
-        *ngIf="
+      <app-placeholders *ngIf="
           !myModel?.savedFilter &&
           !myModel?.contactsType &&
           !selected?.firstName &&
           tab === 'allContact'
-        "
-        [flag]="1"
-      ></app-placeholders>
-      <app-placeholders
-        *ngIf="
+        " [flag]="1"></app-placeholders>
+      <app-placeholders *ngIf="
           !myModel?.savedFilter && !selected?.firstName && tab === 'contactList'
-        "
-        [flag]="2"
-        [data]="topTitle"
-      ></app-placeholders>
-      <app-placeholders
-        *ngIf="
+        " [flag]="2" [data]="topTitle"></app-placeholders>
+      <app-placeholders *ngIf="
           (myModel?.contactsType || myModel?.savedFilter) &&
           !selected?.firstName &&
           tab === 'allContact'
-        "
-        [flag]="2"
-        [data]="myModel?.contactsType || '3'"
-      ></app-placeholders>
+        " [flag]="2" [data]="myModel?.contactsType || '3'"></app-placeholders>
 
     </div>
   </div>
@@ -666,26 +577,13 @@
       <button type="button" class="outline-btn" (click)="openAddRemoveTag()">
         Add or remove tags
       </button>
-      <button
-        type="button"
-        class="outline-btn"
-        routerLink="/broadcast/add-broadcast"
-        [state]="{ hello: 'world' }"
-      >
+      <button type="button" class="outline-btn" routerLink="/broadcast/add-broadcast" [state]="{ hello: 'world' }">
         Send a broadcast
       </button>
-      <button
-        type="button"
-        class="outline-btn"
-        (click)="exportContacts(); selectedContactCount = 0"
-      >
+      <button type="button" class="outline-btn" (click)="exportContacts(); selectedContactCount = 0">
         Exports
       </button>
-      <button
-        type="button"
-        class="outline-btn delet-btn"
-        (click)="deleteContact()"
-      >
+      <button type="button" class="outline-btn delet-btn" (click)="deleteContact()">
         Delete
       </button>
     </section>

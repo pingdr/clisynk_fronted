@@ -6,9 +6,9 @@
             <h3 class="inter-page-heading">Business Profile</h3>
             <div class="btn-combobox">
                 <button class="back-btn" (click)="http.goBack()" >Back</button>
-                <button type="button" class="add-user-btn"
+                <!-- <button type="button" class="add-user-btn"
                             (click)="http.navigate('money')"> Manage Multiple Business profile
-                </button>
+                </button> -->
             </div>
         </div>
 
@@ -41,7 +41,9 @@
                                         <div class="input-field">
                                             <mat-form-field class="full-width" appearance="outline" hintLabel="Max 26 characters">
                                                 <mat-label class="required">Business Name</mat-label>
-                                                <input matInput type="text" formControlName="name" maxlength="26" #input1>
+                                                <input 
+                                                    appInputRestriction="noSpecialChars"
+                                                    matInput type="text" formControlName="name" maxlength="26" #input1>
                                                 <mat-error *ngIf="form.controls['name'].hasError('required')">
                                                     Please enter business name.
                                                 </mat-error>

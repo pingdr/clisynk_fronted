@@ -13,7 +13,7 @@ import { EditWorkspaceComponent } from '../edit-workspace/edit-workspace.compone
 })
 export class ManageWorkspaceComponent implements OnInit {
 
-  allData: any = [];
+  allData: any[] = [];
   workspaceId: any;
   loginData: any;
   loader = false;

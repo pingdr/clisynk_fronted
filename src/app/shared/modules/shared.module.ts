@@ -121,6 +121,7 @@ import { RenameAutomationComponent } from 'src/app/shared/modals/rename-automati
 import { LeadFormDeletedComponent } from 'src/app/shared/modals/lead-form-deleted/lead-form-deleted.component';
 import { DeleteAutomationComponent } from 'src/app/shared/modals/delete-automation/delete-automation.component';
 import { EditWorkspaceComponent } from 'src/app/internal/settings/edit-workspace/edit-workspace.component';
+import { InputRestrictionDirective } from '../directives/InputRestrictionDirective.directive';
 
 
 
@@ -160,13 +161,13 @@ const importExportList = [MatStepperModule, MatTabsModule, MatSliderModule, MatI
         
         ...importExportList
     ],
-    declarations: [FirstCharacterPipe, CopyClipboardDirective, GoogleplaceDirective, TimeAgoPipe, NumberOnlyDirective,
+    declarations: [FirstCharacterPipe, CopyClipboardDirective, GoogleplaceDirective, TimeAgoPipe, NumberOnlyDirective, InputRestrictionDirective,
         SharedComponent, ChangeTimePipe,chatGroupUsernamePipe, ...entryList],
     exports: [
         CopyClipboardDirective, SharedComponent, TimepickerModule, BsDatepickerModule, GoogleplaceDirective,
         PaginationModule, BsDropdownModule, TabsModule, ModalModule, CollapseModule, AccordionModule, TimeAgoPipe,
         CommonModule, ...importExportList, ...entryList, NgMultiSelectDropDownModule, FirstCharacterPipe,
-        ChangeTimePipe, NumberOnlyDirective, chatGroupUsernamePipe
+        ChangeTimePipe, NumberOnlyDirective, chatGroupUsernamePipe, InputRestrictionDirective
     ],
     entryComponents: [...entryList]
 })

@@ -49,7 +49,7 @@
             <label class="label-name">Add your business name</label>
             <mat-form-field class="full-width" appearance="outline">
                 <mat-label class="required">Business Name</mat-label>
-                <input matInput #input maxlength="40" type="text" 
+                <input appInputRestriction="noSpecialChars"  matInput #input maxlength="40" type="text" 
                 (change)="onInputChange($event)" formControlName="businessName">
                 <mat-hint align="end">{{ input.value?.length || 0 }}/40</mat-hint>
             </mat-form-field>
