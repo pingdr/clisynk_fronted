@@ -54,6 +54,7 @@ import {
   NgxUiLoaderHttpModule
 } from 'ngx-ui-loader';
 import { CreateAccountsComponent } from './external/create-accounts/create-accounts.component';
+import { ValidationMessageComponent } from './shared/components/validation-message/validation-message.component';
 
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
@@ -69,7 +70,8 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
         // BuildAutomationComponent, AddBuildautomationComponent, BuildThenautomationsComponent,
          PreviewLeadformComponent, PreviewSmartformComponent,
         ForgotPasswordComponent,
-        CreateAccountsComponent
+        CreateAccountsComponent,
+        ValidationMessageComponent
         
     ],
     imports: [
