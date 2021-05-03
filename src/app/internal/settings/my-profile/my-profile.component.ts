@@ -32,7 +32,7 @@ export class MyProfileComponent implements OnInit {
             title: [data.title || 'Mr.'],
             firstName: [data.firstName || data.name, Validators.required],
             middleName: [data.middleName || ''],
-            lastName: [data.lastName],
+            lastName: [data.lastName, Validators.required],
             imageUrl: [''],
             businessType: [''],
             address1: [data.address1, Validators.required],
