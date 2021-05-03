@@ -15,7 +15,7 @@
             <div class="input-field">
                 <mat-form-field class="full-width" appearance="outline" hintLabel="Max 40 characters">
                     <mat-label class="required">Tag category name</mat-label>
-                    <input matInput maxlength="40" formControlName="name" #input>
+                    <input matInput maxlength="40" appInputRestriction="noSpecialChars" formControlName="name" #input>
                     <mat-hint align="end">{{input.value?.length || 0}}/40</mat-hint>
                     <mat-error *ngIf="form.controls['name'].hasError('required')">
                         Please enter tag description name.
@@ -32,9 +32,11 @@
                 </mat-form-field>
             </div>
             <section class="buttn-row">
-                <button type="submit" class="btn btn-outline-primary" (click)="finalSubmit()">Save
+                <button type="submit" class="btn btn-outline-primary" [disabled]="loader">
+                    <i [ngClass]="{'fa fa-spinner fa-spin': loader}"></i>
+                    Save
                 </button>
-                <button type="submit" class="cancel-btn"  (click)="http.hideModal()">Cancel</button>
+                <button type="submit" class="cancel-btn"  [disabled]="loader" (click)="http.hideModal()">Cancel</button>
             </section>
 
         </div>
