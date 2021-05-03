@@ -31,11 +31,13 @@ export class MyProfileComponent implements OnInit {
         this.form = this.http.fb.group({
             title: [data.title || 'Mr.'],
             firstName: [data.firstName || data.name, Validators.required],
+            middleName: [data.middleName || ''],
             lastName: [data.lastName],
             imageUrl: [''],
             businessType: [''],
             address1: [data.address1, Validators.required],
             city: [data.city, Validators.required],
+            country: [data.country || '', Validators.required],
             postalCode: [data.postalCode, Validators.required],
             state: [data.state, Validators.required],
             phone1: [data.phone1, Validators.required],

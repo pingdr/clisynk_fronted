@@ -51,9 +51,9 @@ export class CreateWorkspaceComponent implements OnInit {
   }
 
   finalSubmit() {
-    this.loader = true;
     const obj: any = this.removeEmptyObject(JSON.parse(JSON.stringify(this.form.value)));
     if (this.http.isFormValid(this.form)) {
+      this.loader = true;
         this.http.postWorkspaceForm(this.isEdit ? ApiUrl.WORKSPACE + `/${this.modalData._id}` : ApiUrl.WORKSPACE, obj).subscribe(() => {
             this.loader = false;
             this.isEdit ? this.http.openSnackBar('Workspace Updated Successfully') : this.http.openSnackBar('Workspace Added Successfully');
