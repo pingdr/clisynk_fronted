@@ -4,7 +4,7 @@
     <h3 class="inter-page-heading">Create Form</h3>
     <div class="btn-combobox">
         <button class="back-btn" aria-label="Close" (click)="http.hideModal(); onDraft();" >Back</button>
-        <button type="submit" class="btn-save btn-outline-primary"    (click)="http.hideModal();" [disabled]="!formInfo.valid"> Create Form</button>
+        <button type="submit" class="btn-save btn-outline-primary"    (click)="http.hideModal();" [disabled]="!formInfo.valid">Save and Publish</button>
     </div>
 </div>
 
@@ -38,6 +38,7 @@
                 <input appInputRestriction="noSpecialChars" matInput maxlength="40" type="text" formControlName="formName" #input>
                 <mat-hint align="end">{{input.value?.length || 0}}/40</mat-hint>
             </mat-form-field>
+            <span class="max-length-labal">Max 26 charachters</span>
           </div>
           <div class="text-area-for-that">  
           <mat-form-field class="full-width" appearance="outline">
