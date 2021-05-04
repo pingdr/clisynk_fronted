@@ -7,27 +7,22 @@
     <section class="text">
         <h4>Add a contact</h4>
     </section>
-    <section class="action">
-        <button type="submit" class="btn save-btn" (click)="finalSubmit()"
-                [ngClass]="{'btn-primary':form.valid == true}">Save
-        </button>
-    </section>
-
 </div>
 <form [formGroup]="form" autocomplete="off">
     <div class="modal-body">
         <div class="row">
             <div class="avatar-wrapper col-md-12 text-center">
                 <div class="avatar avatar default show-avatar">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="user" fill="#fff">
-                        <path d="M19 14a2 2 0 0 1 2 2v4a1 1 0 1 1-2 0v-4H5v4a1 1 0 1 1-2 0v-4a2 2 0 0 1 2-2zM12 2a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"
-                              fill-rule="evenodd"></path>
-                    </svg>
+                    <svg width="27" height="29" viewBox="0 0 27 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13.4498 16.2591C4.77661 16.2591 0 20.3622 0 27.8126C0 28.3945 0.471612 28.8661 1.0535 28.8661H25.8461C26.428 28.8661 26.8996 28.3945 26.8996 27.8126C26.8996 20.3626 22.123 16.2591 13.4498 16.2591ZM2.14534 26.7591C2.55973 21.1885 6.3576 18.3662 13.4498 18.3662C20.542 18.3662 24.34 21.1885 24.7547 26.7591H2.14534Z" fill="#4776E6"/>
+                        <path d="M13.4497 0C9.46565 0 6.46143 3.06466 6.46143 7.12841C6.46143 11.3112 9.59633 14.7137 13.4497 14.7137C17.303 14.7137 20.4379 11.3112 20.4379 7.12875C20.4379 3.06466 17.4337 0 13.4497 0ZM13.4497 12.607C10.758 12.607 8.56843 10.1495 8.56843 7.12875C8.56843 4.21896 10.6214 2.107 13.4497 2.107C16.2327 2.107 18.3309 4.26565 18.3309 7.12875C18.3309 10.1495 16.1414 12.607 13.4497 12.607Z" fill="#4776E6"/>
+                        </svg>
                 </div>
             </div>
 
             <div class="col-md-12 toggle-btn-group">
-                <mat-button-toggle-group #group="matButtonToggleGroup" class="full-width"
+                <!-- -----------------------------Old Code-commneted---------------------------------------- -->
+                <!-- <mat-button-toggle-group #group="matButtonToggleGroup" class="full-width"
                                          formControlName="contactsType">
                     <mat-button-toggle value=1 aria-label="Text align left" class="full-width">
                         Lead <i class="fas fa-circle"
@@ -42,17 +37,22 @@
                         Other <i class="fas fa-circle"
                                  [ngClass]="{'black-option':form.value.contactsType == 3}"></i>
                     </mat-button-toggle>
-                </mat-button-toggle-group>
+                </mat-button-toggle-group> -->
+                <div class="new-tags-grid-mains-area">
+                        <div class="comman-grid-tags employee">Employee</div>
+                        <div class="comman-grid-tags Lead">Lead</div>
+                        <div class="comman-grid-tags Client">Client</div>
+                        <div class="comman-grid-tags Other">Other</div>
+                </div>
+
+
             </div>
 
             <div class="col-md-6 input-field">
                 <mat-form-field class="full-width my-form-field" appearance="outline" hintLabel="Max 26 characters">
-                    <mat-label class="required">First Name</mat-label>
+                    <mat-label class="required">First Name<span class="red-req">*</span> </mat-label>
                     <input matInput  appInputRestriction="noSpecialChars" placeholder="Enter first name" pattern="(^[a-zA-Z](.)*)$" type="text" maxlength="26" #input
                            formControlName="firstName">
-                    <!-- <mat-error *ngIf="form.controls['firstName'].hasError('required')">
-                        Please enter first name.
-                    </mat-error> -->
                     <mat-error *ngIf="!form.get('firstName').valid">
                         Please enter valid first name.
                     </mat-error>
@@ -63,7 +63,7 @@
 
             <div class="col-md-6 input-field">
                 <mat-form-field class="full-width" appearance="outline"  hintLabel="Max 26 characters">
-                    <mat-label class="required">Last Name</mat-label>
+                    <mat-label class="required">Last Name<span class="red-req">*</span></mat-label>
                     <input matInput  appInputRestriction="noSpecialChars" placeholder="Enter first name" type="text" pattern="(^[a-zA-Z](.)*)$"
                            formControlName="lastName" maxlength="26" #input1>
                     <mat-error *ngIf="form.controls['lastName'].hasError('required')">
@@ -78,8 +78,20 @@
             </div>
 
             <div class="col-md-12 input-field">
+                <mat-form-field class="full-width select-height" appearance="outline">
+                    <mat-label class="required">Type<span class="red-req">*</span></mat-label>
+                    <mat-select formControlName="type">
+                        <mat-option value="work" default>Work</mat-option>
+                        <mat-option value="home">Home</mat-option>
+                        <mat-option value="mobile">Mobile</mat-option>
+                        <mat-option value="other">Other</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-md-7 input-field">
+
                 <mat-form-field class="full-width" appearance="outline">
-                    <mat-label class="required">E-mail</mat-label>
+                    <mat-label class="required">E-mail<span class="red-req">*</span></mat-label>
                     <input matInput type="text" formControlName="email"
                            placeholder="Email">
                     <mat-error *ngIf="form.controls['email'].hasError('required')">
@@ -90,38 +102,20 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-            <div class="col-md-7 input-field">
+
+            <div class="col-md-5 btn-group add-btn select-opt">
                 <mat-form-field class="full-width" appearance="outline">
-                    <mat-label class="required">Phone Number</mat-label>
+                    <mat-label class="required">Phone Number<span class="red-req">*</span></mat-label>
                     <input matInput placeholder="Enter phone number" type="tel"
                            appNumberOnly  maxlength="10"
                            formControlName="phoneNumber">
                     <mat-error *ngIf="form.controls['phoneNumber'].hasError('required')">
                         Please enter phone number.
                     </mat-error>
-                
-                    <!-- <mat-error *ngIf="form.controls['phoneNumber'].hasError('minlength')">
-                        Your phone must be at least 10 characters long.
-                    </mat-error>
-                    <mat-error *ngIf="form.controls['phoneNumber'].hasError('maxlength')">
-                        Your phone cannot exceed 15 characters.
-                    </mat-error> -->
                     <mat-error *ngIf="form.controls['phoneNumber'].hasError('allZeroError') || form.controls['phoneNumber'].hasError('maxlength') || form.controls['phoneNumber'].hasError('minlength')">
                         Please add valid phone number
                     </mat-error>
                   
-                </mat-form-field>
-            </div>
-
-            <div class="col-md-5 btn-group add-btn select-opt">
-                <mat-form-field class="full-width select-height" appearance="outline">
-                    <mat-label class="required">Type</mat-label>
-                    <mat-select formControlName="type">
-                        <mat-option value="work" default>Work</mat-option>
-                        <mat-option value="home">Home</mat-option>
-                        <mat-option value="mobile">Mobile</mat-option>
-                        <mat-option value="other">Other</mat-option>
-                    </mat-select>
                 </mat-form-field>
             </div>
             <div class="col-md-12 input-field">
@@ -131,11 +125,11 @@
                               rows="5"> </textarea>
                 </mat-form-field>
             </div>
-
-            <!--            <div class="col-md-12 text-center ">-->
-            <!--                <p class="m-0">Need to enter specific data about your contacts? <a href="#">Create a Smart Form</a></p>-->
-            <!--            </div>-->
-
+            <section class="action">
+                    <button type="submit" class="btn save-btn" (click)="finalSubmit()"
+                            [ngClass]="{'btn-primary':form.valid == true}">Save
+                    </button>
+             </section>
         </div>
 
     </div>

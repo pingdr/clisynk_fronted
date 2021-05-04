@@ -386,12 +386,26 @@
                     <!--                        </ul>-->
                     <!--                    </div>-->
 
-                    <div class="contact-book-btn" *ngIf="myModel?.appointments?.length">
+                    <!-- <div class="contact-book-btn" *ngIf="myModel?.appointments?.length">
                         <button type="button" class="btn-outline-primary" (click)="openBook()">
                             Book Appointment
                         </button>
-                    </div>
+                    </div> -->
                     <div class="content">
+
+                        <!-- ------------------Heading-row------------------- -->
+                        <div class="heading-row-meetsections">
+                                <div class="headings-main-meet">
+                                    Appointment History
+                                </div>
+                                <div class="contact-book-btn">
+                                    <button type="button" class="btn-outline-primary" (click)="openBook()">
+                                        Book Appointment
+                                    </button>
+                                </div>
+
+                        </div>
+
                         <!--                        <app-placeholders [flag]="6"  [data]="selected" *ngIf="myModel?.appointments?.length === 0"></app-placeholders>-->
                         <div class="empty-state" *ngIf="myModel?.appointments?.length === 0">
                             <div class="image-wrapper new-meet-img"><img src="/assets/images/meet-icon.svg"></div>
@@ -416,7 +430,7 @@
 
             <ng-container *ngIf="activeIcon === 5">
                 <div class="money-section-tab Contact-Activity-inner">
-                    <section class="payment-row-section">
+                    <!-- <section class="payment-row-section">
                         <div class="button-header">
                             <h2 class="block">Payments</h2>
                             <button type="button" class="btn-outline-primary"
@@ -444,10 +458,10 @@
                                 payment
                                 from {{selected?.firstName}} </a>
                         </div>
-                    </section>
+                    </section> -->
 
                     <section>
-                        <div class="button-header">
+                        <div class="button-header invoice-header-main">
                             <h2 class="block">Invoices</h2>
                             <button type="button" class="btn-outline-primary" (click)="http.openModal('addInvoice')">
                                 Create an invoice
@@ -459,15 +473,44 @@
                             </div>
                         </div>
                         <div class="money-content" *ngIf="myModel?.invoices?.length === 0">
+                            <img  src="../../../../assets/images/create-invoice-no-vector.svg" />
                             <h3>Create and send an invoice</h3>
                             <p>Set up your invoicing once and it'll be quick and easy in the future. Create, edit, and
                                 track all invoice activity.</p>
-                            <a class="money-btn" (click)="http.openModal('addInvoice')"> Create an invoice
-                                for {{selected?.firstName}}</a>
                         </div>
                     </section>
+                    <!-- ----------------------After -add invoice-New-Ui--------------------------------------------- -->
+                    <section class="invoices-mains">
+                            <div class="comman-grid drafts">
+                                <div class="dollar">$1,202.36</div>
+                                <div class="names-main">John Doe</div>
+                                <div class="dates-main">Apr 21, 2021</div>
+                                <div class="draft-btn comman-btn">Draft</div>
+                            </div>
+                            <div class="comman-grid Sent">
+                                <div class="dollar">$1,202.36</div>
+                                <div class="names-main">John Doe</div>
+                                <div class="dates-main">Apr 21, 2021</div>
+                                <div class="Sent-btn comman-btn">Sent</div>
+                            </div>
+                            <div class="comman-grid Sent">
+                                <div class="dollar">$1,202.36</div>
+                                <div class="names-main">John Doe</div>
+                                <div class="dates-main">Apr 21, 2021</div>
+                                <div class="Sent-btn comman-btn">Sent</div>
+                            </div>
+                            <div class="comman-grid drafts">
+                                <div class="dollar">$1,202.36</div>
+                                <div class="names-main">John Doe</div>
+                                <div class="dates-main">Apr 21, 2021</div>
+                                <div class="draft-btn comman-btn">Draft</div>
+                            </div>
+                    </section>
 
-                    <section>
+
+
+                    <!-- -------------------------End-after-add-invoice-new-ui------------------------------------- -->
+                    <!-- <section>
                         <div class="button-header">
                             <h2 class="block">Quotes</h2>
                             <button type="button" class="btn-outline-primary" (click)="http.openModal('addQuote')">
@@ -488,7 +531,7 @@
                                 for {{selected?.firstName}} </a>
                         </div>
 
-                    </section>
+                    </section> -->
                 </div>
             </ng-container>
 
@@ -639,21 +682,28 @@
                 <ng-container *ngIf="moreSection === 'tasks'">
                     <div class=" contact-tasks Contact-Activity-inner">
                         <div class="content">
-                            <div class="text-right button-row contact-button-row">
-                                <button type="submit" class="btn btn-outline-primary"
-                                    (click)="http.openModal('addTask',{contactId:selected})">Add Task
-                                </button>
-                                <!--                                <button type="button" class="btn btn-link text-button" (click)="isEdit = false"> Show-->
-                                <!--                                    completed-->
-                                <!--                                </button>-->
-                                <button type="button" class="text-button" *ngIf="this.myModel.status ===1"
-                                    (click)="this.myModel.status = 2;taskList()"> Show completed
-                                </button>
-                                <button type="button" class="text-button" *ngIf="this.myModel.status ===2"
-                                    (click)="this.myModel.status = 1;taskList()"> Hide completed
-                                </button>
+                            
+                            <div class="text-header-task-history">
+                                <div class="headings">Task History</div>
+
+                                <div class="text-right button-row contact-button-row">
+                                    <button type="submit" class="btn btn-outline-primary"
+                                        (click)="http.openModal('addTask',{contactId:selected})">Add Task
+                                    </button>
+                        
+                                    <!-- <button type="button" class="text-button" *ngIf="this.myModel.status ===1"
+                                        (click)="this.myModel.status = 2;taskList()"> Show completed
+                                    </button>
+                                    <button type="button" class="text-button" *ngIf="this.myModel.status ===2"
+                                        (click)="this.myModel.status = 1;taskList()"> Hide completed
+                                    </button> -->
+    
+                                </div>
 
                             </div>
+
+
+                    
 
                             <app-placeholders [flag]="4" *ngIf="myModel?.tasks?.length === 0 && !activityLoader">
                             </app-placeholders>
@@ -926,20 +976,7 @@
                         <section class="contact-details-section">
                             <section>
                                 <h5>Addresses</h5>
-
-                                <div class="input-field btn-group add-btn select-opt">
-                                    <mat-form-field class="full-width select-height" appearance="outline">
-                                        <mat-label>Select Country</mat-label>
-                                        <mat-select (selectionChange)="countryList(billingAddress.country)"
-                                            [(ngModel)]="billingAddress.country" [ngModelOptions]="{standalone: true}">
-                                            <mat-option *ngFor="let val of myModel?.countries"
-                                                [value]="val.country_name">
-                                                {{val?.country_name}}</mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
-
-                                <div class="input-field">
+                                <div class="input-field width-address">
                                     <mat-form-field class="full-width" appearance="outline">
                                         <mat-label>Address</mat-label>
                                         <input matInput type="text" [(ngModel)]="billingAddress.address"
@@ -949,20 +986,33 @@
                                     </mat-form-field>
                                 </div>
 
-                                <div class="input-field">
+                                <!-- <div class="input-field">
                                     <mat-form-field class="full-width" appearance="outline">
                                         <mat-label>Apt/Suite/Other</mat-label>
                                         <input matInput type="text" [(ngModel)]="billingAddress.other"
                                             [ngModelOptions]="{standalone: true}">
                                     </mat-form-field>
-                                </div>
+                                </div> -->
+                                <div class="field-grid editing">
+                                    <div class="input-field btn-group add-btn select-opt">
+                                        <mat-form-field class="full-width select-height" appearance="outline">
+                                            <mat-label>Select Country</mat-label>
+                                            <mat-select (selectionChange)="countryList(billingAddress.country)"
+                                                [(ngModel)]="billingAddress.country" [ngModelOptions]="{standalone: true}">
+                                                <mat-option *ngFor="let val of myModel?.countries"
+                                                    [value]="val.country_name">
+                                                    {{val?.country_name}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
 
-                                <div class="input-field">
-                                    <mat-form-field class="full-width" appearance="outline">
-                                        <mat-label>City</mat-label>
-                                        <input matInput type="text" [(ngModel)]="billingAddress.city"
-                                            [ngModelOptions]="{standalone: true}">
-                                    </mat-form-field>
+                                    <div class="input-field">
+                                        <mat-form-field class="full-width" appearance="outline">
+                                            <mat-label>City</mat-label>
+                                            <input matInput type="text" [(ngModel)]="billingAddress.city"
+                                                [ngModelOptions]="{standalone: true}">
+                                        </mat-form-field>
+                                    </div>
                                 </div>
                                 <div class="field-grid editing">
                                     <div class="input-field btn-group add-btn select-opt">

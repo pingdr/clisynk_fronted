@@ -303,3 +303,173 @@ section.contact-details-section {
     width: 310px;
     margin-bottom: 30px;
 }
+
+.width-address {
+    width: 66%;
+} 
+
+.heading-row-meetsections {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    margin-top: -10px;
+    .headings-main-meet {
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 25px;
+        letter-spacing: 0.02em;
+        color: #2A2A2A;
+    }
+    .contact-book-btn {
+        margin-bottom: 0;
+    }
+}
+
+.invoice-header-main {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 20px;
+    h2.block {
+        margin-bottom: 0px;
+        font-weight: 500 !important;
+        font-size: 20px;
+        line-height: 25px;
+        letter-spacing: 0.02em;
+        color: #2A2A2A;
+    }
+    button.btn-outline-primary {
+        margin-bottom: 0px !important;
+    }
+}
+
+
+
+.money-section-tab .money-content img {
+    margin-bottom: 40px;
+}
+
+
+section.invoices-mains {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-column-gap: 20px;
+    grid-row-gap: 20px;
+
+    .comman-grid {
+        background: #FAFAFA;
+        border-radius: 10px 10px 0px 10px;
+        padding: 30px 20px;
+        position: relative;
+        &:before {
+            position: absolute;
+            content: '';
+            background: #fff;
+            right: 0;
+            bottom: 0;
+            width: 0;
+            height: 0;
+            border-top: 20px solid #DCDCDC;
+            border-right: 20px solid transparent;
+        }
+        .dollar {
+            font-weight: 500;
+            font-size: 20px;
+            line-height: 25px;
+            letter-spacing: 0.02em;
+            color: #2A2A2A;
+            margin-bottom: 30px;
+        }
+        .names-main {
+            font-size: 17px;
+            line-height: 21px;
+            letter-spacing: 0.02em;
+            color: #2A2A2A;
+            margin-bottom: 10px;
+        }
+        .dates-main {
+            font-size: 18px;
+            line-height: 25px;
+            letter-spacing: 0.02em;
+            color: #2A2A2A;
+            font-weight: 400;
+            margin-bottom: 30px;
+        }
+        .comman-btn {
+            display: inline-block;
+            border-radius: 100px;
+            padding: 4px 23px;
+            color: #4A4A4A;
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .draft-btn{
+            background: #DCECEC;
+        }
+        .Sent-btn{
+            background: #FADDAC;
+        }
+    }
+}
+
+.drafts {
+    border-top: 10px solid #DCECEC;
+}
+
+.Sent {
+    border-top: 10px solid #FADDAC;
+}
+.invoices.set-width-800{
+    display:none;
+}
+
+.text-header-task-history {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.text-header-task-history .headings {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 25px;
+    letter-spacing: 0.02em;
+    color: #2A2A2A;
+}
+.text-header-task-history {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 20px;
+}
+
+
+@media (max-width:1600px){
+    section.invoices-mains{
+        grid-template-columns: repeat(4, 1fr);
+    }
+    section.invoices-mains .comman-grid{
+        padding: 20px 20px;
+    }
+    section.invoices-mains .comman-grid .dollar{
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+    section.invoices-mains .comman-grid .names-main{
+        font-size: 15px;
+    }
+    section.invoices-mains .comman-grid .dates-main{
+        font-size: 15px;
+    }
+}
+
+
+@media (max-width:1300px) {
+    section.invoices-mains{
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

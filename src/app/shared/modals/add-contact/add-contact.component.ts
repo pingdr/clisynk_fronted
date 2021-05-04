@@ -7,7 +7,8 @@ import {ContactOptionsComponent} from '../contact-options/contact-options.compon
 
 @Component({
     selector: 'app-add-contact',
-    templateUrl: './add-contact.component.html'
+    templateUrl: './add-contact.component.html',
+    styleUrls: ['./add-contact.component.scss']
 })
 export class AddContactComponent implements OnInit {
 

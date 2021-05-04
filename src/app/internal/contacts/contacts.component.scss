@@ -711,3 +711,20 @@
 .wrapper.border-bottom.white-bg .contact .contact-h-tab-heading{
     margin-bottom: 0px !important;
 }
+
+.new-add-contacts-main{
+    .btn-group{
+        .dropdown-menu {
+            box-shadow: 0px 2px 3px #ccc !important;
+            border: 1px solid #ccc !important;
+            border-radius: 8px;
+            li{
+                a{
+                    padding: 13px 20px;
+                    margin: 0;
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+}
