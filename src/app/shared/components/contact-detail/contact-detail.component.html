@@ -305,7 +305,7 @@
                         <div class="tab-name">Notes</div>
                     </div>
                     <div class="comman-grid">
-                        <div class="btn-group more-btn" (click)="activeIcon = 6;getDetails()"
+                        <div class="btn-group more-btn" (click)="getDetails()"
                         [ngClass]="{'active':activeIcon === 6}" dropdown>
                             <button  dropdownToggle type="button" class="btn dropdown-toggle">
                                 <svg width="6" height="24" viewBox="0 0 6 24" fill="none"
@@ -324,7 +324,7 @@
                             </button>
                             <ul *dropdownMenu class="dropdown-menu" role="menu">
                                 <li role="menuitem">
-                                    <a class="dropdown-item" (click)="moreSection ='files'">
+                                    <a class="dropdown-item" (click)="activeIcon = 6; moreSection ='files'">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                              id="save">
                                             <path
@@ -336,7 +336,7 @@
                                 </li>
 
                                 <li role="menuitem">
-                                    <a class="dropdown-item" (click)="moreSection ='tags'">
+                                    <a class="dropdown-item" (click)="activeIcon = 6;moreSection ='tags'">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                              id="tag">
                                             <path
