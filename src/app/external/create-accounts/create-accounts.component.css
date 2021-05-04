@@ -142,7 +142,7 @@
 
 .buttons-registers-main {
     margin-top: 50px;
-    margin-bottom: 80px;
+    /* margin-bottom: 80px; */
     text-align: center;
 }
 
@@ -247,4 +247,9 @@ p {
     .right-cards-main{
         padding: 15px 15px;
     }
+}
+
+ul.categories {
+    overflow: auto;
+    height: 200px;
 }

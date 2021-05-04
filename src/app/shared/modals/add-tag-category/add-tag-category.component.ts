@@ -38,9 +38,10 @@ export class AddTagCategoryComponent {
                 this.http.openSnackBar('Tag Category Added Successfully');
                 this.modalData.newTagCategoryAdded = true;
                 this.http.openModal('addTag', this.modalData);
-                this.loader = true;
+                
+                this.loader = false;
             }, () => {
-                this.loader = true;
+                this.loader = false;
             });
         }
     }

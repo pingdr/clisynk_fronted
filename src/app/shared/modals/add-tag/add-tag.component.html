@@ -16,7 +16,7 @@
             <div class="input-field" style="margin-bottom: 10px;">
                 <mat-form-field class="full-width input-set" appearance="outline" hintLabel="Max 40 characters">
                     <mat-label class="required">Tag Name</mat-label>
-                    <input matInput formControlName="name" maxlength="40" #input>
+                    <input appInputRestriction="noSpecialChars" matInput formControlName="name" maxlength="40" #input>
                     <mat-hint align="end">{{input.value?.length || 0}}/40</mat-hint>
                     <mat-error *ngIf="form.controls['name'].hasError('required')">
                         Please enter tag name.

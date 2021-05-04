@@ -435,11 +435,11 @@
             </div> -->
             <!-- -----------New-code-Select-code------------ -->
             <div class="first-row-body-checkbox">
-              <div *ngIf="myModel?.contacts.length != 0" class="custom-checkbox-bluecolor">
+              <div  *ngIf="myModel?.contacts.length != 0" class="custom-checkbox-bluecolor">
                 <mat-checkbox (change)="selectAllContact()" [formControl]="allSelect" class="example-margin">Select all
                 </mat-checkbox>
               </div>
-              <div class="custom-dropdown">
+              <div  *ngIf="selectedContactCount > 0" class="custom-dropdown">
                 <div class="btn-group" dropdown>
                   <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
                     aria-controls="dropdown-basic">
@@ -447,10 +447,10 @@
                   </button>
                   <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu"
                     aria-labelledby="button-basic">
-                    <li role="menuitem"><a class="dropdown-item">Add or Remove Tag</a></li>
-                    <li role="menuitem"><a class="dropdown-item">Send a Brodcast</a></li>
-                    <li role="menuitem"><a class="dropdown-item">Exports</a></li>
-                    <li role="menuitem"><a class="dropdown-item">Delete</a>
+                    <li role="menuitem"><a class="dropdown-item" (click)="openAddRemoveTag()">Add or Remove Tag</a></li>
+                    <li role="menuitem"><a class="dropdown-item" [state]="{ hello: 'world' }" routerLink="/broadcast/add-broadcast">Send a Brodcast</a></li>
+                    <li role="menuitem"><a class="dropdown-item" (click)="exportContacts(); selectedContactCount = 0">Exports</a></li>
+                    <li role="menuitem"><a class="dropdown-item"  (click)="deleteContact()">Delete</a>
                     </li>
                   </ul>
                 </div>
@@ -518,7 +518,11 @@
                     <div class="date-text-main"> {{ data?.createdAt | date: "MMM dd,yyyy" }}</div>
 
                     <div class="comman-contact-row-main">
-                      <div class="first-col">
+                      <div class="first-col" *ngIf="!data.isSelected" >
+                        <mat-checkbox (change)="getSelectedCount()" [(ngModel)]="data.isSelected"
+                          class="example-margin"></mat-checkbox>
+                      </div>
+                      <div class="selected-contact" *ngIf="data.isSelected" >
                         <mat-checkbox (change)="getSelectedCount()" [(ngModel)]="data.isSelected"
                           class="example-margin"></mat-checkbox>
                       </div>
@@ -570,7 +574,7 @@
   </div>
 </div>
 
-<div class="bottom-fix-bar" *ngIf="selectedContactCount > 0">
+<!-- <div class="bottom-fix-bar" *ngIf="selectedContactCount > 0">
   <div class="container">
     <div class="item-count">{{ selectedContactCount }} Selected</div>
     <section>
@@ -588,4 +592,4 @@
       </button>
     </section>
   </div>
-</div>
+</div> -->

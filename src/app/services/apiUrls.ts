@@ -1,5 +1,6 @@
 export const ApiUrl = {
     LOGIN: 'admin/login',
+    REGISTER: 'admin/register',
     CONTACTS: 'contact/getContacts',
     ADD_FILTER: 'contact/addEditFilterList',
     ADD_CONTACT: 'contact/addEditContacts',
