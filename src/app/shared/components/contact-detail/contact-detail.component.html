@@ -480,14 +480,20 @@
                         </div>
                     </section>
                     <!-- ----------------------After -add invoice-New-Ui--------------------------------------------- -->
-                    <section class="invoices-mains">
-                            <div class="comman-grid drafts">
-                                <div class="dollar">$1,202.36</div>
-                                <div class="names-main">John Doe</div>
-                                <div class="dates-main">Apr 21, 2021</div>
-                                <div class="draft-btn comman-btn">Draft</div>
+                    <section class="invoices-mains" *ngIf="myModel?.invoices">
+                        <ng-container *ngFor="let data of myModel?.invoices">
+                            
+                            <div class="comman-grid drafts" 
+                                [ngClass]="{  'drafts' : data.status == 'Draft', 'Sent': data.status == 'Sent'}">
+                                <div class="dollar">{{data?.total |currency}}</div>
+                                <div class="names-main">{{data?.contactId?.firstName}} {{data?.contactId?.lastName}}</div>
+                                <div class="dates-main">{{data?.dueBy |date:'EEE, MMM dd,yyyy'}}</div>
+                                <div class="comman-btn" 
+                                [ngClass]="{  'draft-btn' : data.status == 'Draft', 'Sent-btn': data.status == 'Sent'}">{{data?.status}}</div>
                             </div>
-                            <div class="comman-grid Sent">
+                        </ng-container>
+                        
+                            <!-- <div class="comman-grid Sent">
                                 <div class="dollar">$1,202.36</div>
                                 <div class="names-main">John Doe</div>
                                 <div class="dates-main">Apr 21, 2021</div>
@@ -504,7 +510,7 @@
                                 <div class="names-main">John Doe</div>
                                 <div class="dates-main">Apr 21, 2021</div>
                                 <div class="draft-btn comman-btn">Draft</div>
-                            </div>
+                            </div> -->
                     </section>
 
 

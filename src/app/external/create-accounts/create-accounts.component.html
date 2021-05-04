@@ -10,10 +10,10 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <mat-form-field class="full-width" appearance="outline">
-                                        <input appInputRestriction="noSpecialChars" matInput type="text" formControlName="firstName" placeholder="First Name">
+                                        <input maxlength="50" appInputRestriction="noSpecialChars" matInput type="text" formControlName="firstName" placeholder="First Name">
                                         <mat-error
                                             *ngIf="form.controls['firstName'].hasError('required') && form.controls.firstName.touched">
-                                            Please enter firstName.
+                                            Please enter first name.
                                         </mat-error>
                                     </mat-form-field>
                                 </div>
@@ -21,10 +21,10 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <mat-form-field class="full-width" appearance="outline">
-                                        <input appInputRestriction="noSpecialChars" matInput type="text" formControlName="lastName" placeholder="Last Name">
+                                        <input maxlength="50" appInputRestriction="noSpecialChars" matInput type="text" formControlName="lastName" placeholder="Last Name">
                                         <mat-error
                                         *ngIf="form.controls['lastName'].hasError('required') && form.controls.lastName.touched">
-                                        Please enter lastName.
+                                        Please enter last name.
                                     </mat-error>
                                     </mat-form-field>
                                 </div>
@@ -52,13 +52,17 @@
                                         *ngIf="form.controls['phoneNumber'].hasError('required') && form.controls.phoneNumber.touched">
                                         Please enter phone number.
                                     </mat-error>
+                                    <mat-error
+                                    *ngIf="(form.controls['phoneNumber'].hasError('minlength')||form.controls['phoneNumber'].hasError('maxlength')) && form.controls.phoneNumber.touched">
+                                    Please enter valid phone number.
+                                </mat-error>
                                     </mat-form-field>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
                                     <mat-form-field class="full-width" appearance="outline">
-                                        <input appInputRestriction="noSpecialChars" matInput type="text" formControlName="businessName" placeholder="Business Name">
+                                        <input maxlength="50" appInputRestriction="noSpecialChars" matInput type="text" formControlName="businessName" placeholder="Business Name">
                                         <mat-error
                                         *ngIf="form.controls['businessName'].hasError('required') && form.controls.businessName.touched">
                                         Please enter business name.
