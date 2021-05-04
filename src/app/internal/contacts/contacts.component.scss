@@ -168,7 +168,18 @@
         display: none;
     }
 }
-
+.comman-contact-row-main.active {
+    background: rgba(215, 227, 255, 0.13);
+    &::before{
+        position: absolute;
+        content: '';
+        background:#4776E6;
+        top:0px;
+        bottom:0px;
+        width: 2px;
+        left:0px;
+    }
+}
 
 .comman-contact-row-main {
     display: flex;
@@ -197,6 +208,7 @@
             visibility: visible;
         }
     }
+
 
     .first-col {
         position: absolute;
@@ -678,9 +690,9 @@
     background: none !important;
 }
 
-.contact .contact-header .page-title{
-    background: #fff;
-}
+// .contact .contact-header .page-title{
+//     // background: #fff;
+// }
 
 .contact .contact-header .actions {
     top: 34px !important;

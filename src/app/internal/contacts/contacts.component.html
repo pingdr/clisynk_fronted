@@ -517,7 +517,7 @@
                   <div class="comman-body-main">
                     <div class="date-text-main"> {{ data?.createdAt | date: "MMM dd,yyyy" }}</div>
 
-                    <div class="comman-contact-row-main">
+                    <div class="comman-contact-row-main" [ngClass]="{ 'active': selectedIndex == i }">
                       <div class="first-col" *ngIf="!data.isSelected" >
                         <mat-checkbox (change)="getSelectedCount()" [(ngModel)]="data.isSelected"
                           class="example-margin"></mat-checkbox>
