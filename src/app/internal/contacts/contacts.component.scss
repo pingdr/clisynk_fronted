@@ -205,6 +205,10 @@
         transition: 0.3s all ease;
         visibility: hidden;
     }
+    .selected-contact {
+        position: absolute;
+        left: 11px;
+    }
     .second-avtar {
         border: 1px solid #979797;
         width: 48px;
