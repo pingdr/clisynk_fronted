@@ -1,7 +1,7 @@
 import { HttpService } from './../../services/http.service';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { finalize } from 'rxjs/operators';
+import { finalize, map, tap } from 'rxjs/operators';
 import { ApiUrl } from 'src/app/services/apiUrls';
 
 @Component({
@@ -15,6 +15,7 @@ export class CreateAccountsComponent implements OnInit {
   public loader = false;
   public terms = new FormControl(null);
   messageList: any;
+  businessCategories: {key: string, value: number}[] = [];
 
   get f() : {  
     [key: string]: AbstractControl;
@@ -35,7 +36,7 @@ export class CreateAccountsComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.businessTypesList();
+    this.businessTypesList();
     this.getCustomValidationMessage();
   }
   getCustomValidationMessage() {
@@ -64,11 +65,11 @@ export class CreateAccountsComponent implements OnInit {
   }
     if (this.http.isFormValid(this.form)) {
         let formValues = {};
-        for (let _o in this.form.controls) {
-            if (_o !== "imageUrl") {
-                formValues[_o] = this.form.controls[_o].value.trim();
-            }
-        }
+        // for (let _o in this.form.controls) {
+        //     if (_o !== "imageUrl") {
+        //         formValues[_o] = this.form.controls[_o].value.trim();
+        //     }
+        // }
         this.form.patchValue(formValues);
         const obj: any = JSON.parse(JSON.stringify(this.form.value));
         this.loader = true;
@@ -80,9 +81,18 @@ export class CreateAccountsComponent implements OnInit {
   }
 
   businessTypesList() {
-    this.http.getData(ApiUrl.BUSINESS_LIST_TYPE, {}).subscribe(res => {
+    this.http.getData(ApiUrl.BUSINESS_LIST_TYPE, {})
+    .pipe(
+      map(x => x.data),
+      tap((res) => { this.businessCategories = res})
+    )
+    .subscribe(res => {
       console.log("business types => ", res);
-              
     });
-}
+  }
+
+  get businessCategory() {
+    let val = this.form.controls['businessCategory'].value;
+    return val ? this.businessCategories.filter(x => x.value == val)[0].key : '';
+  }
 }

@@ -67,6 +67,7 @@
                                 </div>
                             </div>
                             <div class="col-6 dropdown-customs">
+                                
                                 <div class="btn-group" dropdown>
                                     <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
                                             aria-controls="dropdown-basic">
@@ -79,23 +80,39 @@
                                         <li role="menuitem"><a class="dropdown-item" (click)="f.businessSize.setValue('large')">Large</a></li>
                                     </ul>
                                 </div>
+                                <mat-error
+                                *ngIf="form.controls['businessSize'].hasError('required') && form.controls.businessSize.touched">
+                                Please select business size.
+                                </mat-error>
+
                             </div>
                             <div class="col-6 dropdown-customs">
+                                <!-- <mat-form-field  appearance="fill">
+                                    <mat-label>Business Category</mat-label>
+                                    <mat-select formControlName="businessCategory">
+                                      <mat-option *ngFor="let businessCategory of businessCategories" [value]="businessCategory.value">
+                                        {{businessCategory.key}}
+                                      </mat-option>
+                                    </mat-select>
+                                  </mat-form-field> -->
                                 <div class="btn-group" dropdown>
                                     <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
                                             aria-controls="dropdown-basic">
-                                            Business Cateogry <span class="caret"></span>
+                                            
+                                            {{ businessCategory ? businessCategory : 'Business Cateogry '}}
+                                            <span class="caret"></span>
                                     </button>
-                                    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+                                    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu categories"
                                         role="menu" aria-labelledby="button-basic">
-                                      <li role="menuitem"><a class="dropdown-item">Action</a></li>
-                                      <li role="menuitem"><a class="dropdown-item">Another action</a></li>
-                                      <li role="menuitem"><a class="dropdown-item">Something else here</a></li>
-                                      <li class="divider dropdown-divider"></li>
-                                      <li role="menuitem"><a class="dropdown-item">Separated link</a>
+                                      <li *ngFor="let businessCategory of businessCategories" role="menuitem">
+                                          <a class="dropdown-item" (click)="f.businessCategory.setValue(businessCategory.value)" >{{businessCategory.key}}</a>
                                       </li>
                                     </ul>
                                 </div>
+                                <mat-error
+                                *ngIf="form.controls['businessCategory'].hasError('required') && form.controls.businessCategory.touched">
+                                Please select business category.
+                                </mat-error>
                             </div>
                             <div class="col-6"></div>
 
@@ -108,10 +125,14 @@
                     </div>
                     <mat-checkbox [formControl]="terms" class="example-margin">By registering, I agree to Clisynk <a href="#">terms</a> & <a href="#">privacypolicy</a></mat-checkbox>
                     <div class="buttons-registers-main">
-                        <button type="submit" class="btns-register" (click)="finalSubmit()"> Register</button>
+                        <button type="submit" class="btns-register"  (click)="finalSubmit()">
+                            <i [ngClass]="{ 'fa fa-spinner fa-spin': loader}"></i>
+                            Register</button>
                     </div>
 
+                    <div class="mt-4 mb-5 text-center">Already have an account? <a class="pull-right d-inline" routerLink="/login"> Login</a></div>
             </div>
+
 
 
     </div>       
