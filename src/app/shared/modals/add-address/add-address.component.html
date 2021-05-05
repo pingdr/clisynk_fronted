@@ -134,7 +134,7 @@
                     <div class="input-field">
                         <mat-form-field class="full-width" appearance="outline">
                             <mat-label class="required">Country</mat-label>
-                            <input matInput type="text" appNumberOnly pattern="^[a-zA-Z\s]+$" formControlName="country">
+                            <input matInput type="text"  pattern="^[a-zA-Z\s]+$" formControlName="country">
                             <mat-error *ngIf="!form.get('country').valid && form.get('country').touched">
                                 Please enter valid country.
                             </mat-error>
@@ -145,7 +145,7 @@
                     <div class="input-field">
                         <mat-form-field class="full-width" appearance="outline">
                             <mat-label class="required">State</mat-label>
-                            <input matInput type="text" appNumberOnly pattern="^[a-zA-Z\s]+$" formControlName="state">
+                            <input matInput type="text"  pattern="^[a-zA-Z\s]+$" formControlName="state">
                             <mat-error *ngIf="!form.get('state').valid && form.get('state').touched">
                                 Please enter valid state.
                             </mat-error>
