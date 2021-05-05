@@ -11,8 +11,8 @@
       </button>
     </section>
     <section class="text">
-      <h4 *ngIf="!modalData">Add a new task</h4>
-      <h4 *ngIf="modalData">Task details</h4>
+      <h4 *ngIf="!modalData">Edit Task</h4>
+      <h4 *ngIf="modalData">Add New Task</h4>
     </section>
     <a
       class="text-button"
@@ -24,17 +24,22 @@
   </div>
   <form [formGroup]="form" (ngSubmit)="finalSubmit()" autocomplete="off">
     <div class="modal-body">
-      <div class="input-field">
+      <div class="input-field task-name">
         <mat-form-field class="full-width" appearance="outline">
-          <mat-label class="required">Task title</mat-label>
-          <input matInput type="text" formControlName="title" />
+          <mat-label class="required">Task Name<span class="red">*</span> </mat-label>
+          <input matInput type="text" #input maxlength="40"  formControlName="title" />
+          <mat-hint align="end">{{ input.value?.length || 0 }}/40</mat-hint>
           <mat-error *ngIf="form.controls['title'].hasError('required')">
             Please enter title.
           </mat-error>
         </mat-form-field>
+        <div class="max-character">Max 40 charachters</div>
       </div>
 
-      <div class="date-fields">
+      
+
+      <!-- --------------Old-code-commented------------------ -->
+      <!-- <div class="date-fields">
         <div class="input-field">
           <mat-form-field appearance="outline">
             <mat-label>Due Date</mat-label>
@@ -68,9 +73,80 @@
             </mat-form-field>
           </div>
         </div>
+      </div> -->
+
+      <!-- ---------------New-code-here---------------- -->
+      <div class="dates-field-main">
+        <div class="input-field">
+          <mat-form-field appearance="outline">
+            <mat-label>Start Date<span class="red">*</span></mat-label>
+            <input
+              matInput
+              type="text"
+              readonly
+              [minDate]="today"
+              bsDatepicker
+              #dp="bsDatepicker"
+            />
+          </mat-form-field>
+        </div>
+        <div class="input-field">
+          <mat-form-field appearance="outline">
+            <mat-label>Due Date<span class="red">*</span></mat-label>
+            <input
+              matInput
+              type="text"
+              readonly
+              [minDate]="today"
+              bsDatepicker
+              #dp="bsDatepicker"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="text-nots-main">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Task Description</mat-label>
+          <textarea matInput formControlName="note" rows="4"> </textarea>
+        </mat-form-field>
       </div>
 
-      <div class="">
+      <!-- ------New-dropdown-added------------- -->
+      <div class="assign-to-contact-main">
+          <div class="comman-dropdown">
+            <mat-form-field class="full-width select-height" appearance="outline">
+              <mat-label>Assigne to contact<span class="red">*</span></mat-label>
+              <mat-select>
+                <mat-option value="">None</mat-option>
+                <mat-option>Lorem ipsum</mat-option>
+                <mat-option>Lorem ipsum</mat-option>
+                <mat-option>Lorem ipsum</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="comman-dropdown">
+            <mat-form-field class="full-width select-height" appearance="outline">
+              <mat-label>Priority</mat-label>
+              <mat-select>
+                <mat-option value="">None</mat-option>
+                <mat-option>Lorem ipsum</mat-option>
+                <mat-option>Lorem ipsum</mat-option>
+                <mat-option>Lorem ipsum</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+      </div>
+
+
+
+<!-- --------------Upload-add-into------------- -->
+      <div class="upload-main-btn">
+        <div class="upload-main">
+            <div class="upload-title">Upload File</div>
+            <button class="browse-btn btn">Browse</button>
+            <div class="upload-title">File size 20KB </div>
+        </div>
+
         <div class="input-field btn-group add-btn select-opt">
           <mat-form-field class="full-width select-height" appearance="outline">
             <mat-label>Remainder</mat-label>
@@ -86,35 +162,6 @@
           </mat-form-field>
         </div>
       </div>
-
-      <div class="">
-        <mat-form-field class="full-width" appearance="outline">
-          <mat-label>Note</mat-label>
-          <textarea matInput formControlName="note" rows="4"> </textarea>
-        </mat-form-field>
-      </div>
-
-      <!--            <div class="">-->
-      <!--                <div class="input-group btn-group add-btn select-opt">-->
-      <!--                    <mat-form-field class="select-height full-width" appearance="outline">-->
-      <!--                        <mat-label class="required">Associated Contact</mat-label>-->
-      <!--                        <input matInput class="form-control py-2" type="search" value=""-->
-      <!--                               placeholder="Search contacts"-->
-      <!--                               [formControl]="myControl" [matAutocomplete]="auto"-->
-      <!--                               (click)="myControl.patchValue('')">-->
-      <!--                        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"-->
-      <!--                                          (optionSelected)="finalSelected()">-->
-      <!--                            <mat-option *ngFor="let val of contacts | filter:myControl.value" [value]="val" multiple>-->
-      <!--                                {{val?.firstName}} {{val?.lastName}}-->
-      <!--                            </mat-option>-->
-      <!--                        </mat-autocomplete>-->
-      <!--                        <mat-icon matSuffix>keyboard_arrow_down</mat-icon>-->
-      <!--                        <mat-error *ngIf="myControl.hasError('required')">-->
-      <!--                            Please select contact.-->
-      <!--                        </mat-error>-->
-      <!--                    </mat-form-field>-->
-      <!--                </div>-->
-      <!--            </div>-->
 
       <div class="form-group Associated-Contact" *ngIf="!modalData?.contactId">
         <mat-label class="required">Associated Contact</mat-label>
@@ -136,7 +183,6 @@
       </div>
 
       <div class="button-row">
-        <!--                disabled="disabled"-->
         <button type="submit" class="btn btn-outline-primary">
           <i class="fa fa-spinner fa-spin" *ngIf="myModel.loader"></i>
           Save
@@ -148,15 +194,6 @@
         >
           Cancel
         </button>
-<!-- 
-        <button
-          type="button"
-          *ngIf="isEdit"
-          class="btn btn-outline-danger"
-          (click)="deleteTask(deletePopup)"
-        >
-          Delete
-        </button> -->
       </div>
     </div>
   </form>
