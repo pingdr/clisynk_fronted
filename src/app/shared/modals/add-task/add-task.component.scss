@@ -43,6 +43,12 @@
     padding: 30px 10px;
     border-radius: 10px;
     text-align: center;
+    .task-image{
+        height: 120px;
+        width: 200px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
 }
 
 .upload-title {

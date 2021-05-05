@@ -967,7 +967,7 @@
                             <section>
                                 <h5 class="">General Information </h5>
                                 <div class="field-grid editing">
-                                    <div class="btn-group add-btn select-opt" dropdown>
+                                    <div  *ngIf="form?.controls?.title || form?.controls?.suffix" class="btn-group add-btn select-opt" dropdown>
                                         <mat-form-field appearance="outline" class="select-height">
                                             <mat-label>Title</mat-label>
                                             <mat-select formControlName="title">
@@ -990,7 +990,7 @@
                                         </mat-form-field>
                                     </div>
 
-                                    <div class="input-field">
+                                    <div  *ngIf="form?.controls?.title || form?.controls?.suffix" class="input-field">
                                         <mat-form-field class="full-width" appearance="outline">
                                             <mat-label>Middle Name</mat-label>
                                             <input matInput placeholder="Enter middle name" type="text"
