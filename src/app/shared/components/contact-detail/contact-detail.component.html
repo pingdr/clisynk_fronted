@@ -545,21 +545,58 @@
                 <ng-container *ngIf="moreSection === 'tags'">
 
                     <div class="tags-section-tab Contact-Activity-inner">
-                        <div class="input-field">
-                            <mat-form-field class="full-width input-set" appearance="outline">
-                                <mat-label>Search tags applied</mat-label>
-                                <input matInput [formControl]="tagsSearch" (input)="contactTagList(false)">
-                            </mat-form-field>
+                        <!-- -------------------New-Code-Added------------------------- -->
+                            <div class="tags-header-main">
+                                <div class="left-col-tag">Tags</div>
+                                <button class="btn tags-btn" (click)="http.navigate('contacts/manage-tag', selected._id)">Manage tags</button>
+                            </div>
+                        <!-- -------------------------End-Code-New-Added--------------------- -->
+                        <div class="new-tags-main-area">
+                            <tag-input class="add_new_tags" [(ngModel)]="item" [onlyFromAutocomplete]="true"
+                                [separatorKeyCodes]="[32]">
+                                <tag-input-dropdown [dynamicUpdate]="false" [showDropdownIfEmpty]="true"
+                                    style="max-width: 100px" [focusFirstElement]="true" [displayBy]="'name'"
+                                    [identifyBy]="'_id'" [autocompleteItems]="myModel.tags">
+                                    <ng-template let-item="item" let-index="index">
+                                        {{ item.name}}
+                                    </ng-template>
+                                </tag-input-dropdown>
+                            </tag-input>
+
+                            <section class="apply-tags">
+                                <div class="tag-actions">
+                                    <div class="button-container">
+                                        <br>
+                                        <button *ngIf="!item?.length" disabled="disabled" type="button"
+                                            class="btn-outline-primary" (click)="applyTagToContact()">
+                                            Apply tag
+                                            to {{selected?.firstName}} {{selected?.lastName}}
+                                        </button>
+
+                                        <button *ngIf="item?.length > 0" type="button" class="btn-outline-primary"
+                                            (click)="applyTagToContact()">
+                                            Apply tag
+                                            to {{selected?.firstName}} {{selected?.lastName}}
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </section>
                         </div>
 
-                        <p class="total-tags">
-                            <span class="number small">{{myModel?.contactTags?.count}}</span>
-                            Tag applied to {{selected?.firstName}}
-                        </p>
-
+                        <div class="search-field-main">
+                                <div class="input-search-main">
+                                    <input type="text"  [formControl]="tagsSearch" (input)="contactTagList(false)" placeholder="Search Tags Applied">
+                                </div>
+                                <div class="manage-tags-total">
+                                    <span class="number small">{{myModel?.contactTags?.count}}</span>
+                                    Tag applied to {{selected?.firstName}}
+                                </div>
+                        </div>
                         <app-loader [showLoader]="activityLoader" [length]="myModel?.contactTags?.length"></app-loader>
 
-                        <ng-container *ngFor="let data of myModel?.contactTags?.data;let i =index">
+                        <!-- ------------Old-code-Added---------------------- -->
+                        <!-- <ng-container *ngFor="let data of myModel?.contactTags?.data;let i =index">
                             <div class="tag">
                                 <div class="info">
                                     <span class="semibold">{{data?.name}}</span>
@@ -592,42 +629,10 @@
                                     </div>
                                 </div>
                             </div>
-                        </ng-container>
+                        </ng-container> -->
 
 
-                        <tag-input class="add_new_tags" [(ngModel)]="item" [onlyFromAutocomplete]="true"
-                            [separatorKeyCodes]="[32]">
-                            <tag-input-dropdown [dynamicUpdate]="false" [showDropdownIfEmpty]="true"
-                                style="max-width: 100px" [focusFirstElement]="true" [displayBy]="'name'"
-                                [identifyBy]="'_id'" [autocompleteItems]="myModel.tags">
-                                <ng-template let-item="item" let-index="index">
-                                    {{ item.name}}
-                                </ng-template>
-                            </tag-input-dropdown>
-                        </tag-input>
-
-                        <section class="apply-tags">
-                            <div class=""></div>
-                            <div class="tag-actions">
-                                <div class="button-container">
-                                    <br>
-                                    <button *ngIf="!item?.length" disabled="disabled" type="button"
-                                        class="btn-outline-primary" (click)="applyTagToContact()">
-                                        Apply tag
-                                        to {{selected?.firstName}} {{selected?.lastName}}
-                                    </button>
-
-                                    <button *ngIf="item?.length > 0" type="button" class="btn-outline-primary"
-                                        (click)="applyTagToContact()">
-                                        Apply tag
-                                        to {{selected?.firstName}} {{selected?.lastName}}
-                                    </button>
-
-                                </div>
-                                <a (click)="http.navigate('contacts/manage-tag', selected._id)" class="">
-                                    Manage all tags </a>
-                            </div>
-                        </section>
+                        
 
                         <app-placeholders [flag]="9" *ngIf="myModel?.contactTags?.count === 0"></app-placeholders>
 
@@ -678,12 +683,18 @@
                                 <input type="text" placeholder="Search Files">
                             </div> 
 
-                            <div class="list-item-info">
+                            <div class="upload-informations-mains">
                                 <div class="item-text">
-                                    <div class="title one-line"> {{val?.name}}</div>
-                                    <div class="description">{{val?.createdAt | date:'MMM dd, yyyy, hh:mm a'}}
-                                        , {{val?.size}}
+                                    <div class="icons-related-to-files">
+                                        <img src="../../../../assets/images/pdf-main.svg">
                                     </div>
+                                    <div class="title one-line"> {{val?.name}}</div>
+                                    <div class="sizes-file">({{val?.size}})</div>
+                                    
+                                </div>
+                                <div class="description">
+                                     {{val?.createdAt | date:'MMM dd, yyyy, hh:mm a'}}
+    
                                 </div>
                                 <div class="trailing-slot">
                                     <div class="file-actions">
