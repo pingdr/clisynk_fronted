@@ -89,3 +89,11 @@ span.all-changes-saved::before{
     letter-spacing: 0.02em;
     color: #2A2A2A;
 }
+span.max-length-labal {
+    display: block;
+    font-size: 12px;
+    margin-top: -18px;
+    padding-left: 10px;
+    letter-spacing: 0.02em;
+    color: #979797;
+}

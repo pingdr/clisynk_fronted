@@ -7,7 +7,8 @@ import { finalize } from 'rxjs/operators';
 import { FileType, MB } from 'src/app/services/constants';
 @Component({
     selector: 'app-my-profile',
-    templateUrl: './my-profile.component.html'
+    templateUrl: './my-profile.component.html',
+    styleUrls: ['./my-profile.component.scss'],
 })
 
 export class MyProfileComponent implements OnInit {

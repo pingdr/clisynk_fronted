@@ -77,9 +77,11 @@ export class TopNavBarComponent implements OnInit {
         this.getAllWorkspaces();
 
         const secondsCounter = interval(30000);
-        secondsCounter.subscribe(n => {
-            this.notificationList();
-        });
+        this.allSubscribers.push(
+            secondsCounter.subscribe(n => {
+                this.notificationList();
+            })
+        )
         const obj = { skip: 0, limit: 30 };
         this.http.getData(ApiUrl.TEMPLATE_LIST, obj).subscribe(res => {
             this.mailTemplates = res.data.data;

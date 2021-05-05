@@ -12,7 +12,8 @@ import * as _ from 'lodash';
 
 @Component({
     selector: 'app-appoint-book',
-    templateUrl: './appoint-book.component.html'
+    templateUrl: './appoint-book.component.html',
+    styleUrls:['./appoint-book.component.scss']
 })
 export class AppointBookComponent implements OnInit {
 
