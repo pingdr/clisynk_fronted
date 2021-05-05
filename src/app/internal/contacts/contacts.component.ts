@@ -131,6 +131,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
 
     closedFun() {
         this.selected = {};
+        this.selectedIndex = null;
 }
 
     selectContact(data, index) {

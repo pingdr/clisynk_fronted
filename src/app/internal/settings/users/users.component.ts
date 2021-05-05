@@ -11,7 +11,8 @@ import { finalize } from 'rxjs/operators';
 import { DeleteComponent } from 'src/app/shared/modals/delete/delete.component';
 @Component({
     selector: 'app-users',
-    templateUrl: './users.component.html'
+    templateUrl: './users.component.html',
+    styleUrls: ['./users.component.scss']
 })
 
 export class UsersComponent implements OnInit {

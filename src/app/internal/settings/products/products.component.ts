@@ -10,7 +10,8 @@ import { AddProductComponent } from 'src/app/shared/modals/add-product/add-produ
 
 @Component({
     selector: 'app-products',
-    templateUrl: './products.component.html'
+    templateUrl: './products.component.html',
+    styleUrls: ['./products.componet.scss'],
 })
 
 export class ProductsComponent implements OnInit, OnDestroy {
