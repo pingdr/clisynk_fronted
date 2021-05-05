@@ -29,6 +29,7 @@ export class AddNoteComponent implements OnInit {
 
     ngOnInit(): void {
         this.formInit();
+        this.getList();
     }
 
     finalSelected() {
