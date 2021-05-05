@@ -695,6 +695,67 @@ section.invoices-mains {
     border-bottom: 1px solid #ccc;
 }
 
+.more-grid-btn .btn-group ul.dropdown-menu {
+    box-shadow: 1px 1px 3px #ccc;
+    border: 1px solid #ccc;
+    width: 100px !important;
+    min-width: 160px !important;
+    border-radius: 5px !important;
+}
+.more-grid-btn .btn-group ul.dropdown-menu li a.dropdown-item {
+    padding: 10px 10px;
+    font-size: 14px;
+}
+.more-grid-btn .btn-group ul.dropdown-menu li a.dropdown-item svg path {
+    fill: #000 !important;
+}
+.more-grid-btn .btn-group ul.dropdown-menu li a.dropdown-item svg {
+    fill: #000 !important;
+    margin-left: 0px !important;
+    margin-right: 10px;
+}
+.header-for-files {
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+}
+.header-for-files .headinds-files-main {
+    font-size: 20px;
+    line-height: 25px;
+    letter-spacing: 0.02em;
+    color: #2A2A2A;
+    font-weight: 500;
+}
+.header-for-files button.btn.upload-btn-main {
+    color: #fff;
+    background: #4776E6;
+    padding: 11px 20px;
+    font-size: 13px;
+    font-weight: 500;
+}
+.new-list-files-main {
+    padding-top: 0px !important;
+}
+.new-list-files-main .search-filed-main {
+    margin-bottom: 30px;
+    width: 30%;
+    position:relative;
+}
+
+
+
+.new-list-files-main .search-filed-main input[type="text"] {
+    width: 100%;
+    padding: 10px 20px;
+    padding-left: 40px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+
 @media (max-width:1600px){
     .comman-rows-name .comman-label{
         width:20%;

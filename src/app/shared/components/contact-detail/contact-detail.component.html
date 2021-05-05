@@ -304,7 +304,7 @@
                         </div>
                         <div class="tab-name">Notes</div>
                     </div>
-                    <div class="comman-grid">
+                    <div class="comman-grid more-grid-btn">
                         <div class="btn-group more-btn" (click)="getDetails()"
                         [ngClass]="{'active':activeIcon === 6}" dropdown>
                             <button  dropdownToggle type="button" class="btn dropdown-toggle">
@@ -325,24 +325,23 @@
                             <ul *dropdownMenu class="dropdown-menu" role="menu">
                                 <li role="menuitem">
                                     <a class="dropdown-item" (click)="activeIcon = 6; moreSection ='files'">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                             id="save">
-                                            <path
-                                                    d="M5 2h10a1 1 0 0 1 .608.206l.1.087 6 6a1 1 0 0 1 .283.576L22 9v10a3 3 0 0 1-2.802 2.993L19 22H5a3 3 0 0 1-2.993-2.802L2 19V5a3 3 0 0 1 2.802-2.993L5 2h10zm3 2H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h1v-6a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6h1a1 1 0 0 0 1-1V9.414L14.586 4H10v4h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1zm8 11H8v5h8z"
-                                                    fill-rule="evenodd"></path>
+                                        
+                                    <svg width="19" height="14" viewBox="0 0 19 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M16.5537 4.17286V2.0375H8.81989L7.40352 0H0V14H16.4782L19 4.17286H16.5537ZM0.647727 0.671751H7.06886L8.48523 2.70925H15.9017V4.17286H2.42466L0.647727 11.0772V0.671751ZM15.9773 13.3282H0.749205L2.92557 4.84461H18.1536L15.9773 13.3282Z" fill="#2A2A2A"/>
                                         </svg>
+    
                                         Files
                                     </a>
                                 </li>
 
                                 <li role="menuitem">
                                     <a class="dropdown-item" (click)="activeIcon = 6;moreSection ='tags'">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                             id="tag">
-                                            <path
-                                                    d="M11.586 2A2 2 0 0 1 13 2.586l9 9a2 2 0 0 1 0 2.828L14.414 22a2 2 0 0 1-2.828 0l-9-9A2 2 0 0 1 2 11.586V3a1 1 0 0 1 1-1zm0 2H4v7.586l9 9L20.586 13zM7 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"
-                                                    fill-rule="evenodd"></path>
+                                        
+                                    <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M4.78467 2.6582C3.62229 2.6582 2.69238 3.60598 2.69238 4.75048C2.69238 5.91286 3.64017 6.84277 4.78467 6.84277C5.94705 6.84277 6.87696 5.89498 6.87696 4.75048C6.87696 3.60598 5.92917 2.6582 4.78467 2.6582ZM4.78467 5.82345C4.19454 5.82345 3.7117 5.34061 3.7117 4.75048C3.7117 4.16035 4.19454 3.67751 4.78467 3.67751C5.3748 3.67751 5.85764 4.16035 5.85764 4.75048C5.83975 5.35849 5.3748 5.82345 4.78467 5.82345Z" fill="#2A2A2A"/>
+                                        <path d="M16.5882 8.75604L8.59457 0.762437C8.05809 0.20807 7.28913 -0.0601734 6.52017 0.0113577L1.7097 0.42267C1.01227 0.476319 0.475789 1.03068 0.422141 1.71022L0.0108394 6.52069C-0.0606917 7.28965 0.225435 8.04073 0.761918 8.59509L8.75552 16.5887C9.02376 16.857 9.3993 17 9.75695 17C10.1146 17 10.4723 16.857 10.7584 16.5887L16.5703 10.7768C16.8385 10.5086 16.9816 10.1509 16.9816 9.77536C16.9995 9.38194 16.8564 9.02428 16.5882 8.75604ZM15.855 10.0257L10.0431 15.8376C9.90001 15.9807 9.64965 15.9807 9.50659 15.8376L1.513 7.84402C1.19111 7.52213 1.01227 7.05718 1.04804 6.59223L1.45934 1.78176C1.47722 1.60293 1.62029 1.44198 1.79912 1.44198L6.60959 1.03068C6.66324 1.03068 6.699 1.03068 6.75265 1.03068C7.16395 1.03068 7.57526 1.19163 7.86138 1.49564L15.855 9.48923C15.998 9.63229 15.998 9.88265 15.855 10.0257Z" fill="#2A2A2A"/>
                                         </svg>
+    
                                         Tags
                                     </a>
                                 </li>
@@ -639,22 +638,31 @@
                 <ng-container *ngIf="moreSection === 'files'">
 
                     <div class="file-section-tab Contact-Activity-inner">
+                        <!----------------------------- New-Design-------------------------------------------- -->
+                        <div class="header-for-files">
+                                <div class="headinds-files-main">Files</div>
+                                <button class="btn upload-btn-main">Upload a file</button>
+
+                        </div>
+
+                        <!-- ------------End of code--------------------------------------------------- -->
                         <div class="row">
-                            <div class="col-md-8 search-field-div">
+
+                            <!-- ---------------old Code-design----------------------- -->
+                            <!-- <div class="col-md-8 search-field-div">
                                 <mat-form-field class="full-width search-field-input" appearance="outline">
                                     <mat-label>Search files</mat-label>
                                     <input matInput placeholder="Search files" type="text" [formControl]="fileSearch">
                                 </mat-form-field>
                                 <label style="margin-top: 10px">File size limit is 10 MB
                                 </label>
-                            </div>
+                            </div> -->
 
-                            <div class="col-md-4 file-upload">
-                                <!-- <span *ngIf="!isLoader">Upload a file</span> -->
+                            <!-- <div class="col-md-4 file-upload">
                                 <span *ngIf="isLoader">Uploading...</span>
                                 <input style="height: 40px !important;" [disabled]="isLoader" type="file"
                                     value="Upload a file" (change)="uploadImage($event.target.files[0])">
-                            </div>
+                            </div> -->
                         </div>
 
                         <app-placeholders (returnAction)="getDetails()" [flag]="8"
@@ -663,8 +671,13 @@
                     </div>
 
                     <div>
-                        <div class="list-item border-partial"
+                        <div class="list-item border-partial new-list-files-main"
                             *ngFor="let val of myModel?.files?.data | filter:fileSearch.value">
+                            <!-- --------------New Search Filed added--------------------- -->
+                            <div class="search-filed-main">
+                                <input type="text" placeholder="Search Files">
+                            </div> 
+
                             <div class="list-item-info">
                                 <div class="item-text">
                                     <div class="title one-line"> {{val?.name}}</div>
@@ -710,9 +723,9 @@
                             <!-- --------------------New-UI-added--------------------------- -->
                             <div class="new-task-history-mains">
 
-                                    <div class="days-and-calender-main"><span class="days-main">Thu, Apr 23 2021</span></div>
+                                <div class="days-and-calender-main"><span class="days-main">Thu, Apr 23 2021</span></div>
                                     
-                                    <div class="task-managet-main">
+                                <div class="task-managet-main">
                                         <div class="left-col-img">
                                             <img src="../../../../assets/images/task-activity.svg" alt="task-activity">
                                         </div>
@@ -756,9 +769,9 @@
 
                                                 </div>
                                         </div>
-                                    </div>
+                                </div>
 
-                                    <div class="task-managet-main">
+                                <div class="task-managet-main">
                                         <div class="left-col-img">
                                             <img src="../../../../assets/images/task-activity.svg" alt="task-activity">
                                         </div>
@@ -802,9 +815,9 @@
 
                                                 </div>
                                         </div>
-                                    </div>
+                                </div>
 
-                                    <div class="task-managet-main">
+                                <div class="task-managet-main">
                                         <div class="left-col-img">
                                             <img src="../../../../assets/images/task-activity.svg" alt="task-activity">
                                         </div>
@@ -848,11 +861,7 @@
 
                                                 </div>
                                         </div>
-                                    </div>
-                                    
-
-
-
+                                </div>
 
                             </div>
 
