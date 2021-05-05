@@ -447,6 +447,29 @@ section.invoices-mains {
     padding-bottom: 20px;
 }
 
+.days-and-calender-main {
+    background: #ccc;
+    height: 1px;
+    position: relative;
+    margin-bottom: 40px;
+}
+.days-and-calender-main span.days-main {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -11px;
+    display: inline-block;
+    margin: auto;
+    width: 150px;
+    background: #fff;
+    text-align: center;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.02em;
+    color: #979797;
+}
+
+
 
 @media (max-width:1600px){
     section.invoices-mains{
@@ -471,5 +494,236 @@ section.invoices-mains {
 @media (max-width:1300px) {
     section.invoices-mains{
         grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+
+
+// --------------New-task-added--------------///
+.task-managet-main {
+    display: flex;
+    position: relative;
+}
+
+.task-managet-main .left-col-img {
+    width: 40px;
+    height: 40px;
+    margin-right: 20px;
+    background: #FFEED8;
+    border-radius: 100%;
+    padding: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.task-managet-main:before {
+    position: absolute;
+    content: '';
+    background: #ccc;
+    width: 1px;
+    top: 0;
+    bottom: 0;
+    left: 18px;
+    right: 0;
+}
+
+.task-managet-main .left-col-img img {
+    width: 14px;
+}
+
+.first-row-main-task {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.first-row-main-task .first-left-task span {
+    font-size: 14px;
+}
+
+.graytitle {
+    line-height: 20px;
+    letter-spacing: 0.02em;
+    color: #979797;
+    font-weight: 400;
+    margin-right: 9px;
+}
+.specified-name {
+    color: #4776E6;
+    font-weight: 500;
+}
+.first-right-time-during {
+    color: #979797;
+    font-weight: 400;
+    line-height: 20px;
+    font-size: 14px;
+}
+
+.comman-rows-name {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.comman-rows-name .comman-label {
+    width: 12%;
+    margin-right: 10px;
+}
+
+.comman-rows-name .comman-value {
+    width: 50%;
+    font-size: 13px;
+    color: #2A2A2A;
+    font-weight: 400;
+}
+
+.comman-label {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    color: #2A2A2A;
+}
+
+.assignee-main {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 50px;
+    margin-top: 30px;
+}
+
+.assignee-main .assigne-left {
+    display: flex;
+    align-items: center;
+}
+.assignee-main .assigne-left .comman-label {
+    width: 22%;
+    margin-right: 20px;
+}
+
+.assignee-main .assigne-left .grid-name-plate {
+    width: 50%;
+    display: flex;
+    grid-column-gap: 10px;
+}
+
+.assignee-main .assigne-left .grid-name-plate .comman-circle-main {
+    position: relative;
+    border: 1px solid #979797;
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    letter-spacing: 0.02em;
+    color: #0040DC;
+}
+
+.assignee-main .assigne-left .grid-name-plate .comman-circle-main:before {
+    position: absolute;
+    content: '';
+    background: #D8D8D8;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    opacity: 0.08;
+}
+
+.assignee-main .assigne-right {
+    display: flex;
+    align-items: center;
+}
+
+.assignee-main .assigne-right .comman-label {
+    margin-right: 20px;
+}
+
+.assignee-main .assigne-right .comman-status {
+    padding: 7px 20px;
+    border-radius: 100px;
+    color: #4A4A4A;
+    font-size: 14px;
+    font-weight: 500;
+}
+.high{
+    background: #FC9CA4;
+}
+.medium{
+    background: #FADDAC;
+}
+.low{
+    background:#DCECEC;
+}
+
+.assigne-attachments {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.assigne-attachments .comman-label {
+    width: 12%;
+}
+
+.assigne-attachments .comman-pdf-main {
+    display: flex;
+    align-items: center;
+}
+
+.assigne-attachments .comman-pdf-main img {
+    margin-right: 10px;
+    width: 22px;
+}
+.assigne-attachments .comman-pdf-main span.file-name {
+    margin-right: 7px;
+    color: #4776E6;
+    font-weight: 400;
+}
+
+.assigne-attachments .comman-pdf-main span.file-size {
+    color: #979797;
+    font-weight: 500;
+}
+
+.task-managet-main .right-co-all-tast {
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #ccc;
+}
+
+@media (max-width:1600px){
+    .comman-rows-name .comman-label{
+        width:20%;
+    }
+    .assignee-main .assigne-left .comman-label{
+        width: 40%;
+    }
+    .assigne-attachments .comman-label {
+        width: 22%;
+    }
+    .task-managet-main  .left-col-img{
+        width: 60px;
+    }
+}
+
+@media (max-width: 1300px){
+    .task-managet-main .left-col-img{
+        width:68px;
+    }
+    .comman-label{
+        font-size: 12px;
+    }
+    .assignee-main{
+        grid-column-gap: 20px;
+    }
+    .comman-rows-name .comman-value{
+        width: 70%;
+        font-size: 12px;
+        color: #2A2A2A;
+        font-weight: 400;
     }
 }
