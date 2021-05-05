@@ -739,12 +739,12 @@ section.invoices-mains {
 .new-list-files-main {
     padding-top: 0px !important;
 }
-.new-list-files-main .search-filed-main {
+.search-filed-main {
     margin-bottom: 30px;
     width: 30%;
     position:relative;
 }
-.new-list-files-main .search-filed-main::before{
+.search-filed-main::before{
     position: absolute;
     content: '';
     background: url(../../../../assets/images/New-ui-images/search-icons-main.svg)no-repeat;
@@ -758,7 +758,7 @@ section.invoices-mains {
 }
 
 
-.new-list-files-main .search-filed-main input[type="text"] {
+.search-filed-main input[type="text"] {
     width: 100%;
     padding: 10px 20px;
     padding-left: 40px;
@@ -766,8 +766,15 @@ section.invoices-mains {
     border: 1px solid #ccc;
 }
 
-.new-list-files-main .search-filed-main input:hover, .new-list-files-main .search-filed-main input:focus {
-    border: 1px solid #4776e6 !important;
+.search-filed-main {
+    &:hover{
+        border: 1px solid #4776e6 !important;
+        border-radius: 5px;
+    }
+    &:focus {
+        border: 1px solid #4776e6 !important;
+        border-radius: 5px;
+    }
 }
 
 .upload-informations-mains {

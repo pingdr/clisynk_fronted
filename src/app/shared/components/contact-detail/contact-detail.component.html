@@ -646,7 +646,10 @@
                         <!----------------------------- New-Design-------------------------------------------- -->
                         <div class="header-for-files">
                                 <div class="headinds-files-main">Files</div>
-                                <button class="btn upload-btn-main">Upload a file</button>
+                                <button class="btn upload-btn-main" (click)="file.click()" [disabled]="isLoader">
+                                    <i [ngClass]=" {'fa fa-spinner fa-spin' : isLoader}" aria-hidden="true"></i>
+                                    {{isLoader ? 'Uploading...' :'Upload a file'}}</button>
+                                <input hidden #file  accept=".png, .jpg, .jpeg" (change)="uploadImage($event.target.files[0])" onclick="this.value=null;"  type="file" name="file" id="file">
 
                         </div>
 
@@ -661,9 +664,9 @@
                                 </mat-form-field>
                                 <label style="margin-top: 10px">File size limit is 10 MB
                                 </label>
-                            </div> -->
+                            </div>
 
-                            <!-- <div class="col-md-4 file-upload">
+                            <div class="col-md-4 file-upload">
                                 <span *ngIf="isLoader">Uploading...</span>
                                 <input style="height: 40px !important;" [disabled]="isLoader" type="file"
                                     value="Upload a file" (change)="uploadImage($event.target.files[0])">
@@ -675,13 +678,13 @@
                         </app-placeholders>
                     </div>
 
+                    <div  *ngIf="!(myModel?.files?.data?.length === 0)" class="search-filed-main">
+                        <input type="text" [formControl]="fileSearch" placeholder="Search Files">
+                    </div> 
                     <div>
                         <div class="list-item border-partial new-list-files-main"
                             *ngFor="let val of myModel?.files?.data | filter:fileSearch.value">
                             <!-- --------------New Search Filed added--------------------- -->
-                            <div class="search-filed-main">
-                                <input type="text" placeholder="Search Files">
-                            </div> 
 
                             <div class="upload-informations-mains">
                                 <div class="item-text">

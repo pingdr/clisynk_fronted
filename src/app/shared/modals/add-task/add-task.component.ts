@@ -162,8 +162,6 @@ export class AddTaskComponent implements OnInit {
     }
 
     uploadImage(file) {
-        let temp = this.http.formatBytes(file.size, 1);
-        console.log(temp);
         if (!this.http.isValidateFileTypeAndSize(file,'image', 20 * KB)) return;
         
         this.loading = true;
