@@ -21,13 +21,19 @@ export class AddNoteComponent implements OnInit {
     contacts: any = [];
     isSelected = false;
 
+    contactId: string;
+
     constructor(
         private fb: FormBuilder, public http: HttpService
     ) {
         this.myModel = new TableModel();
+        
     }
 
     ngOnInit(): void {
+        if (this.modalData) {
+            this.contactId = this.modalData.contactId;
+        }
         this.formInit();
         this.getList();
     }
@@ -68,6 +74,9 @@ export class AddNoteComponent implements OnInit {
             contactId: ['', Validators.required],
             text: ['', Validators.required]
         });
+        if (this.contactId) {
+            this.form.get('contactId').patchValue(this.contactId);
+        }
     }
 
     finalSubmit() {

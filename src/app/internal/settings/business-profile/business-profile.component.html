@@ -9,14 +9,14 @@
                 <!-- <button type="button" class="add-user-btn"
                             (click)="http.navigate('money')"> Manage Multiple Business profile
                 </button> -->
-                <button type="submit" [disabled]="isUpdating" class="btn btn-outline-primary">
+                <button (click)="finalSubmit()" type="button"  [disabled]="isUpdating" class="btn btn-outline-primary">
                     <i class="fa " [ngClass]="{'fa-spinner fa-spin': isUpdating}" aria-hidden="true"></i>
                     Update business profile
                 </button>
             </div>
         </div>
 
-        <form [formGroup]="form" (ngSubmit)="finalSubmit()" autocomplete="off" class="bussines-profile-form">
+        <form [formGroup]="form"  autocomplete="off" class="bussines-profile-form">
 
 
             <div class="main-details-business-adding">

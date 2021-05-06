@@ -421,9 +421,11 @@ section.invoices-mains {
 .Sent {
     border-top: 10px solid #FADDAC;
 }
-.invoices.set-width-800{
-    display:none;
-}
+// .invoices.set-width-800{
+//     display:none;
+// }
+
+
 
 .text-header-task-history {
     display: flex;
@@ -469,6 +471,11 @@ section.invoices-mains {
     color: #979797;
 }
 
+.contact-invoices {
+    width: 100% !important;
+    display: block !important;
+}
+
 
 
 @media (max-width:1600px){
@@ -487,6 +494,9 @@ section.invoices-mains {
     }
     section.invoices-mains .comman-grid .dates-main{
         font-size: 15px;
+    }
+    .contact-invoices .order-card-holder {
+        grid-template-columns: repeat(4, 1fr) !important;
     }
 }
 
@@ -892,7 +902,52 @@ section.invoices-mains {
     color: #979797;
 }
 
+.new-tags-main {
+    background: rgba(215, 227, 255, 0.1);
+    margin-bottom: 10px;
+    padding: 20px 30px;
+    justify-content: space-between;
+}
+.new-tags-main .info {
+    flex-direction: column;
+    align-items: inherit;
+    flex: inherit;
+}
+.new-tags-main .info .category {
+    display: inline-block;
+    margin-bottom: 10px;
+    text-align: center;
+    background: #ececec;
+    border-radius: 100px;
+    padding: 5px 16px;
+    font-size: 12px;
+    font-weight: 500;
+}
+.new-tags-main .info .category img {
+    width: 14px;
+    margin-right: 8px;
+}
+.new-tags-main .info .semibold {
+    font-size: 14px;
+    font-weight: 500;
+    color: #767676;
+}
 
+.new-tags-main .actions span.date {
+    margin-right: 40px;
+    font-size: 13px;
+    line-height: 16px;
+    text-align: right;
+    letter-spacing: 0.02em;
+    color: #2A2A2A;
+    font-weight: 500;
+}
+
+.trash-bin svg {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
 
 @media (max-width:1600px){
     .comman-rows-name .comman-label{
@@ -906,6 +961,16 @@ section.invoices-mains {
     }
     .task-managet-main  .left-col-img{
         width: 60px;
+    }
+    .new-tags-main-area{
+        width:60%;
+    }
+}
+
+@media (max-width:1500px){
+    .more-grid-btn .btn-group ul.dropdown-menu{
+        left: -120px !important;
+        top: 50px !important;
     }
 }
 
@@ -924,5 +989,20 @@ section.invoices-mains {
         font-size: 12px;
         color: #2A2A2A;
         font-weight: 400;
+    }
+    .new-tags-main-area{
+        width:60%;
+    }
+    .search-field-main .input-search-main{
+        width: 50%;
+        position: relative;
+    }
+}
+
+
+@media (max-width:1100px) {
+    .contact-h-tab-heading li.nav-item{
+        padding: 6px 13px;
+        font-size: 12px;
     }
 }

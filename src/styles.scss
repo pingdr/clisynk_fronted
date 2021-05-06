@@ -9053,7 +9053,11 @@ tag-input.add_new_tags {
     width: 30%;
     margin: auto;
   }
+  .contact-invoices .order-card-holder {
+    grid-template-columns: repeat(4, 1fr) !important;
+  }
 }
+
 @media (max-width: 1500px) {
   .email-box{
     width:80%;
@@ -9126,6 +9130,9 @@ tag-input.add_new_tags {
   .new-close .modal-content {
     width: 40%;
     margin: auto;
+  }
+  .contact-invoices .order-card-holder {
+    grid-template-columns: repeat(3, 1fr) !important;
   }
 }
 
@@ -9264,6 +9271,54 @@ tag-input.add_new_tags {
     width: 65%;
     margin-right: 10px;
   }
+  .body-small .navbar-static-side {
+    display: block;
+    z-index: 2001;
+    position: fixed;
+    overflow: scroll;
+    transform: translate(-100%, 0px);
+    top: 67px;
+    bottom: 0;
+  }
+  #page-wrapper {
+    margin: 0 0 0 0px;
+  }
+  body.body-small.mini-navbar:before {
+    position: absolute;
+    content: "";
+    background: #000;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 9;
+    opacity: 0.6;
+    transition: 0.4s all ease;
+  }
+  body.mini-navbar .navbar-static-side {
+    width: 200px;
+    transform: translate(0px, 0px);
+    top: 67px;
+    bottom: 0;
+    z-index: 9999;
+    box-shadow: 0px 0px 0px #545454;
+    border-top: 1px solid #ccc;
+    height: calc(100% - 60px);
+    overflow-y: auto;
+  }
+  .mini-navbar nav.navbar-default.navbar-static-side {
+    transition: 0.4s all ease;
+  }
+  body.mini-navbar .navbar-default .nav > li > a {
+    font-size: 14px;
+    font-weight: 400;
+  }
+  body.mini-navbar .navbar-static-side .navbar-nav span.nav-label {
+    transition: 0.1s all ease;
+    transform: translate(0%, 0px) !important;
+    font-size: 12px;
+    opacity: 1;
+  }
 }
 
 @media (max-width:991px) {
@@ -9274,5 +9329,11 @@ tag-input.add_new_tags {
 
   .top-height{
     padding: 2px 0px;
+  }
+  body.mini-navbar .navbar-static-side{
+    top: 58px;
+  }
+  .body-small .navbar-static-side{
+    top: 58px;
   }
 }

@@ -52,7 +52,8 @@ export class NoteListComponent implements OnChanges {
     }
 
     addNotemain(){
-        const modalRef = this.http.showModal(AddNoteComponent, 'md');
+        let data = {contactId: this.contactId}
+        const modalRef = this.http.showModal(AddNoteComponent, 'md',data );
         modalRef.content.onClose = new Subject<boolean>();
         modalRef.content.onClose.subscribe(res => {
             this.finalSubmit.emit();
