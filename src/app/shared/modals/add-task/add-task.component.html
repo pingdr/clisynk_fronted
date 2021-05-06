@@ -6,8 +6,11 @@
       </button>
     </section>
     <section class="text">
-      <h4 *ngIf="modalData">Edit Task</h4>
-      <h4 *ngIf="!modalData">Add New Task</h4>
+      <!-- <h4 *ngIf="modalData">Edit Task</h4> -->
+      <h4 >
+        {{ modalData ? modalData?.contactId ? 'Add New Task': 'Edit Task' : 'Add New Task'}}
+        
+      </h4>
     </section>
     <a class="text-button" style="min-width: 170px" *ngIf="modalData?.status && modalData?.status != 2"
       (click)="changeStatus(2)">Mark as complete</a>
@@ -76,7 +79,7 @@
         <div class="input-field">
           <mat-form-field appearance="outline">
             <mat-label>Due Date<span class="red">*</span></mat-label>
-            <input matInput type="text" readonly [minDate]="today" formControlName="dueDateTime" bsDatepicker #dp="bsDatepicker" />
+            <input matInput type="text" readonly [minDate]="this.form.get('startDateTime').value" formControlName="dueDateTime" bsDatepicker #dp="bsDatepicker" />
           </mat-form-field>
         </div>
       </div>
@@ -108,7 +111,7 @@
       <!-- --------------Upload-add-into------------- -->
       <div class="upload-main-btn">
         <div  class="upload-main">
-          <ng-container *ngIf="!form?.controls.imageUrl.value"> 
+          <ng-container *ngIf="!imageObj"> 
             <div class="upload-title" *ngIf="!loading">Upload File</div>
             <button type="button" (click)="file.click()" class="browse-btn btn">
               <i [ngClass]=" {'fa fa-spinner fa-spin' : loading}" aria-hidden="true"></i>
@@ -117,7 +120,7 @@
             <div class="upload-title">File size 20KB </div>
             
           </ng-container>
-          <img (click)="file.click()" class="task-image" *ngIf="form?.controls.imageUrl.value" [src]="form?.controls.imageUrl.value" alt="" srcset="">
+          <img (click)="file.click()" class="task-image" *ngIf="imageObj?.original" [src]="imageObj?.original" alt="" srcset="">
           <input hidden #file  accept=".png, .jpg, .jpeg" (change)="uploadImage($event.target.files[0])" onclick="this.value=null;"  type="file" name="file" id="file">
         </div>
         

@@ -45,13 +45,10 @@
             <div class="col-md-6 input-field">
                 <mat-form-field class="full-width" appearance="outline"  hintLabel="Max 26 characters">
                     <mat-label class="required">Last Name<span class="red-req">*</span></mat-label>
-                    <input matInput  appInputRestriction="noSpecialChars" placeholder="Enter first name" type="text" pattern="(^[a-zA-Z](.)*)$"
+                    <input matInput  appInputRestriction="noSpecialChars" placeholder="Enter last name" type="text" pattern="(^[a-zA-Z](.)*)$"
                            formControlName="lastName" maxlength="26" #input1>
-                    <mat-error *ngIf="form.controls['lastName'].hasError('required')">
-                        Please enter last name.
-                    </mat-error>
                     <mat-error *ngIf="!form.get('lastName').valid">
-                        Please enter valid second name.
+                        Please enter valid last name.
                     </mat-error>
                     <mat-hint align="end">{{input1.value?.length || 0}}/26</mat-hint>
 

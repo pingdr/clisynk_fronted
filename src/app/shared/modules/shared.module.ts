@@ -122,7 +122,9 @@ import { LeadFormDeletedComponent } from 'src/app/shared/modals/lead-form-delete
 import { DeleteAutomationComponent } from 'src/app/shared/modals/delete-automation/delete-automation.component';
 import { EditWorkspaceComponent } from 'src/app/internal/settings/edit-workspace/edit-workspace.component';
 import { InputRestrictionDirective } from '../directives/InputRestrictionDirective.directive';
+import { StringToObjPipe } from '../pipes/stringToObj.pipe';
 
+import { AvatarModule } from 'ngx-avatar';
 
 
 const entryList = [EmailFormatComponent, SendEmailComponent, ContactDetailsComponent, AddNoteComponent,
@@ -148,7 +150,7 @@ const importExportList = [MatStepperModule, MatTabsModule, MatSliderModule, MatI
     MatTableModule, MatPaginatorModule, MatAutocompleteModule, MatIconModule, MatButtonToggleModule, CKEditorModule,
     ReactiveFormsModule, FormsModule, MatCheckboxModule, NgxSkeletonLoaderModule, MatSnackBarModule, ScrollingModule,
     Ng2SearchPipeModule, MatDatepickerModule, MatNativeDateModule, ClickOutsideModule, TagInputModule, DragDropModule,
-    FullCalendarModule, ColorPickerModule, FormioModule, RxReactiveFormsModule, MatTooltipModule, MatSortModule,PDFExportModule
+    FullCalendarModule, ColorPickerModule, FormioModule, RxReactiveFormsModule, MatTooltipModule, MatSortModule,PDFExportModule, AvatarModule
 
 ];
 
@@ -162,12 +164,12 @@ const importExportList = [MatStepperModule, MatTabsModule, MatSliderModule, MatI
         ...importExportList
     ],
     declarations: [FirstCharacterPipe, CopyClipboardDirective, GoogleplaceDirective, TimeAgoPipe, NumberOnlyDirective, InputRestrictionDirective,
-        SharedComponent, ChangeTimePipe,chatGroupUsernamePipe, ...entryList],
+        SharedComponent, ChangeTimePipe,StringToObjPipe, chatGroupUsernamePipe, ...entryList],
     exports: [
         CopyClipboardDirective, SharedComponent, TimepickerModule, BsDatepickerModule, GoogleplaceDirective,
         PaginationModule, BsDropdownModule, TabsModule, ModalModule, CollapseModule, AccordionModule, TimeAgoPipe,
         CommonModule, ...importExportList, ...entryList, NgMultiSelectDropDownModule, FirstCharacterPipe,
-        ChangeTimePipe, NumberOnlyDirective, chatGroupUsernamePipe, InputRestrictionDirective
+        ChangeTimePipe, StringToObjPipe ,NumberOnlyDirective, chatGroupUsernamePipe, InputRestrictionDirective
     ],
     entryComponents: [...entryList]
 })

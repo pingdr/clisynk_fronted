@@ -1,12 +1,13 @@
 import { MB, KB } from './../../../services/constants';
-import { finalize } from 'rxjs/operators';
+import { finalize, takeUntil } from 'rxjs/operators';
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, Validators} from '@angular/forms';
 import {HttpService} from '../../../services/http.service';
 import {TableModel} from '../../models/table.common.model';
 import {ApiUrl} from '../../../services/apiUrls';
-import {Subject} from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 import * as moment from 'moment';
+import { UploadedFile } from '../../models/image-upload';
 
 @Component({
     selector: 'app-add-task',
@@ -25,6 +26,13 @@ export class AddTaskComponent implements OnInit {
     isEdit = false;
     today = new Date();
     loading = false;
+    imageObj: UploadedFile = null;
+    unsubAll = new BehaviorSubject<boolean>(false);
+
+    // get fromStartDate() {
+
+    //     return new Date(obj.startDateTime).setHours(hh, mm)
+    // }
     constructor(public http: HttpService) {
         this.myModel = new TableModel();
     }
@@ -35,8 +43,15 @@ export class AddTaskComponent implements OnInit {
             this.isEdit = true;
             this.fillValues();
         }
-        this.createSlots();
+        // this.createSlots();
         this.contactList();
+    }
+
+    ngOnDestroy(): void {
+        //Called once, before the instance is destroyed.
+        //Add 'implements OnDestroy' to the class.
+        this.unsubAll.next(true);
+        this.unsubAll.complete();
     }
 
     deleteTask(template) {
@@ -122,13 +137,17 @@ export class AddTaskComponent implements OnInit {
             title: ['', Validators.required],
             dueDateTime: [new Date(), Validators.required],
             reminderType: [''],
-            selectedSlot: ['', Validators.required],
+            // selectedSlot: ['', Validators.required], REMOVED.
             
             /** New Added */
             startDateTime: [new Date(), Validators.required],
-            imageUrl: [''],
+            image: [''],
             priority: ['']
+            
         });
+        this.form.get('startDateTime').valueChanges.pipe(takeUntil(this.unsubAll)).subscribe(val => {
+            this.form.get('dueDateTime').setValue(val);
+        })
     }
 
     fillValues() {
@@ -142,6 +161,13 @@ export class AddTaskComponent implements OnInit {
         }
         if (this.modalData.startDateTime) {
             this.form.controls.startDateTime.patchValue(new Date(this.modalData.startDateTime));
+        }
+        if (this.modalData.priority) {
+            this.form.controls.priority.patchValue(this.modalData.priority);
+        }
+        if (this.modalData.image) {
+            this.imageObj = JSON.parse(this.modalData.image);
+            this.form.controls.image.patchValue(this.modalData.image);
         }
     }
 
@@ -166,7 +192,8 @@ export class AddTaskComponent implements OnInit {
         
         this.loading = true;
         this.http.uploadImage(ApiUrl.UPLOAD_IMAGE, file, false).pipe(finalize(()=>{this.loading=false;})).subscribe(res => {
-            this.form.controls.imageUrl.patchValue(res.data.original);
+            this.imageObj = res.data;
+            this.form.controls.image.patchValue(JSON.stringify(this.imageObj));
         });
     }
 

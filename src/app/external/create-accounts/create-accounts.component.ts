@@ -75,6 +75,7 @@ export class CreateAccountsComponent implements OnInit {
         this.loader = true;
         this.http.postData(ApiUrl.REGISTER, obj).pipe(finalize(()=>{this.loader = false;})).subscribe(res => {
             this.http.openSnackBar('Registerd Successfully');
+            this.http.navigate("thankspage");
             // this.http.setLoginData(res.data);
         });
     }
