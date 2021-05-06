@@ -3,7 +3,8 @@ import {HttpService} from '../../../services/http.service';
 
 @Component({
     selector: 'app-invoive-tabs',
-    templateUrl: './invoice-tabs.component.html'
+    templateUrl: './invoice-tabs.component.html',
+    styleUrls: ['./invoice-tabs.component.scss']
 })
 export class InvoiceTabsComponent implements OnChanges {
 
@@ -22,6 +23,7 @@ export class InvoiceTabsComponent implements OnChanges {
 
     ngOnChanges(): void {
         this.myData = this.data;
+        console.log(this.myData)
     }
 
 

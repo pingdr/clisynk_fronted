@@ -421,9 +421,11 @@ section.invoices-mains {
 .Sent {
     border-top: 10px solid #FADDAC;
 }
-.invoices.set-width-800{
-    display:none;
-}
+// .invoices.set-width-800{
+//     display:none;
+// }
+
+
 
 .text-header-task-history {
     display: flex;
@@ -469,6 +471,11 @@ section.invoices-mains {
     color: #979797;
 }
 
+.contact-invoices {
+    width: 100% !important;
+    display: block !important;
+}
+
 
 
 @media (max-width:1600px){
@@ -487,6 +494,9 @@ section.invoices-mains {
     }
     section.invoices-mains .comman-grid .dates-main{
         font-size: 15px;
+    }
+    .contact-invoices .order-card-holder {
+        grid-template-columns: repeat(4, 1fr) !important;
     }
 }
 
@@ -986,5 +996,13 @@ section.invoices-mains {
     .search-field-main .input-search-main{
         width: 50%;
         position: relative;
+    }
+}
+
+
+@media (max-width:1100px) {
+    .contact-h-tab-heading li.nav-item{
+        padding: 6px 13px;
+        font-size: 12px;
     }
 }
