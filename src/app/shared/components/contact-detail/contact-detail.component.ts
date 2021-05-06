@@ -1,3 +1,4 @@
+import { MB } from './../../../services/constants';
 import {Component, Input, OnChanges, Output, EventEmitter, OnDestroy} from '@angular/core';
 import {HttpService} from '../../../services/http.service';
 import {ApiUrl} from '../../../services/apiUrls';
@@ -76,6 +77,8 @@ export class ContactDetailComponent implements OnChanges, OnDestroy {
     }
 
     uploadImage(file) {
+        if (!this.http.isValidateFileTypeAndSize(file,'image', 10 * MB)) return;
+
         if (file) {
             this.isLoader = true;
             this.http.uploadImage(ApiUrl.UPLOAD_IMAGE, file, false).subscribe(res => {

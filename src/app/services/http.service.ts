@@ -721,12 +721,12 @@ export class HttpService {
         }
        
     
-        if (file.size >= constant.MB * size) {
-          this.handleError(`File size should be less thatn 5 MB`);
+        if (file.size >= size) {
+          this.handleError(`File size should be less than ${this.formatBytes(size,0)}`);
           return false;
         }
         return true;
         
-      }
+    }
 }
 

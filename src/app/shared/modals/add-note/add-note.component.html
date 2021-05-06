@@ -1,13 +1,13 @@
 <div class="med-popup">
 
     <div class="modal-header email_str_header">
+        <section class="text">
+            <h4>Add Notes</h4>
+        </section>
         <section id="close" class="navigation">
             <button class="icon-only" type="button" aria-label="Close" (click)="http.hideModal()">
                 <img src="/assets/images/ic_close.svg">
             </button>
-        </section>
-        <section class="text">
-            <h4>New Note</h4>
         </section>
     </div>
     <form [formGroup]="form" (ngSubmit)="finalSubmit()" autocomplete="off">
@@ -30,7 +30,7 @@
                         </mat-autocomplete>
                         <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
                         <mat-error *ngIf="myControl.hasError('required')">
-                            Please enter note.
+                            Please select contact.
                         </mat-error>
                     </mat-form-field>
                 </div>

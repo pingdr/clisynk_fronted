@@ -1,3 +1,4 @@
+import { MB } from './../../../services/constants';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -222,7 +223,7 @@ export class LeadFormsComponent implements OnInit {
         console.log(event.target.files);
         
         this.file = <File>event.target.files[0];
-        if (!this.http.isValidateFileTypeAndSize(this.file,'image', 5)) return;
+        if (!this.http.isValidateFileTypeAndSize(this.file,'image', 5 * MB)) return;
         if (event.target.files === 0){
             return;
         }

@@ -304,7 +304,7 @@
                         </div>
                         <div class="tab-name">Notes</div>
                     </div>
-                    <div class="comman-grid">
+                    <div class="comman-grid more-grid-btn">
                         <div class="btn-group more-btn" (click)="getDetails()"
                         [ngClass]="{'active':activeIcon === 6}" dropdown>
                             <button  dropdownToggle type="button" class="btn dropdown-toggle">
@@ -325,24 +325,23 @@
                             <ul *dropdownMenu class="dropdown-menu" role="menu">
                                 <li role="menuitem">
                                     <a class="dropdown-item" (click)="activeIcon = 6; moreSection ='files'">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                             id="save">
-                                            <path
-                                                    d="M5 2h10a1 1 0 0 1 .608.206l.1.087 6 6a1 1 0 0 1 .283.576L22 9v10a3 3 0 0 1-2.802 2.993L19 22H5a3 3 0 0 1-2.993-2.802L2 19V5a3 3 0 0 1 2.802-2.993L5 2h10zm3 2H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h1v-6a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6h1a1 1 0 0 0 1-1V9.414L14.586 4H10v4h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1zm8 11H8v5h8z"
-                                                    fill-rule="evenodd"></path>
+                                        
+                                    <svg width="19" height="14" viewBox="0 0 19 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M16.5537 4.17286V2.0375H8.81989L7.40352 0H0V14H16.4782L19 4.17286H16.5537ZM0.647727 0.671751H7.06886L8.48523 2.70925H15.9017V4.17286H2.42466L0.647727 11.0772V0.671751ZM15.9773 13.3282H0.749205L2.92557 4.84461H18.1536L15.9773 13.3282Z" fill="#2A2A2A"/>
                                         </svg>
+    
                                         Files
                                     </a>
                                 </li>
 
                                 <li role="menuitem">
                                     <a class="dropdown-item" (click)="activeIcon = 6;moreSection ='tags'">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                             id="tag">
-                                            <path
-                                                    d="M11.586 2A2 2 0 0 1 13 2.586l9 9a2 2 0 0 1 0 2.828L14.414 22a2 2 0 0 1-2.828 0l-9-9A2 2 0 0 1 2 11.586V3a1 1 0 0 1 1-1zm0 2H4v7.586l9 9L20.586 13zM7 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"
-                                                    fill-rule="evenodd"></path>
+                                        
+                                    <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M4.78467 2.6582C3.62229 2.6582 2.69238 3.60598 2.69238 4.75048C2.69238 5.91286 3.64017 6.84277 4.78467 6.84277C5.94705 6.84277 6.87696 5.89498 6.87696 4.75048C6.87696 3.60598 5.92917 2.6582 4.78467 2.6582ZM4.78467 5.82345C4.19454 5.82345 3.7117 5.34061 3.7117 4.75048C3.7117 4.16035 4.19454 3.67751 4.78467 3.67751C5.3748 3.67751 5.85764 4.16035 5.85764 4.75048C5.83975 5.35849 5.3748 5.82345 4.78467 5.82345Z" fill="#2A2A2A"/>
+                                        <path d="M16.5882 8.75604L8.59457 0.762437C8.05809 0.20807 7.28913 -0.0601734 6.52017 0.0113577L1.7097 0.42267C1.01227 0.476319 0.475789 1.03068 0.422141 1.71022L0.0108394 6.52069C-0.0606917 7.28965 0.225435 8.04073 0.761918 8.59509L8.75552 16.5887C9.02376 16.857 9.3993 17 9.75695 17C10.1146 17 10.4723 16.857 10.7584 16.5887L16.5703 10.7768C16.8385 10.5086 16.9816 10.1509 16.9816 9.77536C16.9995 9.38194 16.8564 9.02428 16.5882 8.75604ZM15.855 10.0257L10.0431 15.8376C9.90001 15.9807 9.64965 15.9807 9.50659 15.8376L1.513 7.84402C1.19111 7.52213 1.01227 7.05718 1.04804 6.59223L1.45934 1.78176C1.47722 1.60293 1.62029 1.44198 1.79912 1.44198L6.60959 1.03068C6.66324 1.03068 6.699 1.03068 6.75265 1.03068C7.16395 1.03068 7.57526 1.19163 7.86138 1.49564L15.855 9.48923C15.998 9.63229 15.998 9.88265 15.855 10.0257Z" fill="#2A2A2A"/>
                                         </svg>
+    
                                         Tags
                                     </a>
                                 </li>
@@ -546,21 +545,58 @@
                 <ng-container *ngIf="moreSection === 'tags'">
 
                     <div class="tags-section-tab Contact-Activity-inner">
-                        <div class="input-field">
-                            <mat-form-field class="full-width input-set" appearance="outline">
-                                <mat-label>Search tags applied</mat-label>
-                                <input matInput [formControl]="tagsSearch" (input)="contactTagList(false)">
-                            </mat-form-field>
+                        <!-- -------------------New-Code-Added------------------------- -->
+                            <div class="tags-header-main">
+                                <div class="left-col-tag">Tags</div>
+                                <button class="btn tags-btn" (click)="http.navigate('contacts/manage-tag', selected._id)">Manage tags</button>
+                            </div>
+                        <!-- -------------------------End-Code-New-Added--------------------- -->
+                        <div class="new-tags-main-area">
+                            <tag-input class="add_new_tags" [(ngModel)]="item" [onlyFromAutocomplete]="true"
+                                [separatorKeyCodes]="[32]">
+                                <tag-input-dropdown [dynamicUpdate]="false" [showDropdownIfEmpty]="true"
+                                    style="max-width: 100px" [focusFirstElement]="true" [displayBy]="'name'"
+                                    [identifyBy]="'_id'" [autocompleteItems]="myModel.tags">
+                                    <ng-template let-item="item" let-index="index">
+                                        {{ item.name}}
+                                    </ng-template>
+                                </tag-input-dropdown>
+                            </tag-input>
+
+                            <section class="apply-tags">
+                                <div class="tag-actions">
+                                    <div class="button-container">
+                                        <br>
+                                        <button *ngIf="!item?.length" disabled="disabled" type="button"
+                                            class="btn-outline-primary" (click)="applyTagToContact()">
+                                            Apply tag
+                                            to {{selected?.firstName}} {{selected?.lastName}}
+                                        </button>
+
+                                        <button *ngIf="item?.length > 0" type="button" class="btn-outline-primary"
+                                            (click)="applyTagToContact()">
+                                            Apply tag
+                                            to {{selected?.firstName}} {{selected?.lastName}}
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </section>
                         </div>
 
-                        <p class="total-tags">
-                            <span class="number small">{{myModel?.contactTags?.count}}</span>
-                            Tag applied to {{selected?.firstName}}
-                        </p>
-
+                        <div class="search-field-main">
+                                <div class="input-search-main">
+                                    <input type="text"  [formControl]="tagsSearch" (input)="contactTagList(false)" placeholder="Search Tags Applied">
+                                </div>
+                                <div class="manage-tags-total">
+                                    <span class="number small">{{myModel?.contactTags?.count}}</span>
+                                    Tag applied to {{selected?.firstName}}
+                                </div>
+                        </div>
                         <app-loader [showLoader]="activityLoader" [length]="myModel?.contactTags?.length"></app-loader>
 
-                        <ng-container *ngFor="let data of myModel?.contactTags?.data;let i =index">
+                        <!-- ------------Old-code-Added---------------------- -->
+                        <!-- <ng-container *ngFor="let data of myModel?.contactTags?.data;let i =index">
                             <div class="tag">
                                 <div class="info">
                                     <span class="semibold">{{data?.name}}</span>
@@ -593,42 +629,10 @@
                                     </div>
                                 </div>
                             </div>
-                        </ng-container>
+                        </ng-container> -->
 
 
-                        <tag-input class="add_new_tags" [(ngModel)]="item" [onlyFromAutocomplete]="true"
-                            [separatorKeyCodes]="[32]">
-                            <tag-input-dropdown [dynamicUpdate]="false" [showDropdownIfEmpty]="true"
-                                style="max-width: 100px" [focusFirstElement]="true" [displayBy]="'name'"
-                                [identifyBy]="'_id'" [autocompleteItems]="myModel.tags">
-                                <ng-template let-item="item" let-index="index">
-                                    {{ item.name}}
-                                </ng-template>
-                            </tag-input-dropdown>
-                        </tag-input>
-
-                        <section class="apply-tags">
-                            <div class=""></div>
-                            <div class="tag-actions">
-                                <div class="button-container">
-                                    <br>
-                                    <button *ngIf="!item?.length" disabled="disabled" type="button"
-                                        class="btn-outline-primary" (click)="applyTagToContact()">
-                                        Apply tag
-                                        to {{selected?.firstName}} {{selected?.lastName}}
-                                    </button>
-
-                                    <button *ngIf="item?.length > 0" type="button" class="btn-outline-primary"
-                                        (click)="applyTagToContact()">
-                                        Apply tag
-                                        to {{selected?.firstName}} {{selected?.lastName}}
-                                    </button>
-
-                                </div>
-                                <a (click)="http.navigate('contacts/manage-tag', selected._id)" class="">
-                                    Manage all tags </a>
-                            </div>
-                        </section>
+                        
 
                         <app-placeholders [flag]="9" *ngIf="myModel?.contactTags?.count === 0"></app-placeholders>
 
@@ -639,8 +643,21 @@
                 <ng-container *ngIf="moreSection === 'files'">
 
                     <div class="file-section-tab Contact-Activity-inner">
+                        <!----------------------------- New-Design-------------------------------------------- -->
+                        <div class="header-for-files">
+                                <div class="headinds-files-main">Files</div>
+                                <button class="btn upload-btn-main" (click)="file.click()" [disabled]="isLoader">
+                                    <i [ngClass]=" {'fa fa-spinner fa-spin' : isLoader}" aria-hidden="true"></i>
+                                    {{isLoader ? 'Uploading...' :'Upload a file'}}</button>
+                                <input hidden #file  accept=".png, .jpg, .jpeg" (change)="uploadImage($event.target.files[0])" onclick="this.value=null;"  type="file" name="file" id="file">
+
+                        </div>
+
+                        <!-- ------------End of code--------------------------------------------------- -->
                         <div class="row">
-                            <div class="col-md-8 search-field-div">
+
+                            <!-- ---------------old Code-design----------------------- -->
+                            <!-- <div class="col-md-8 search-field-div">
                                 <mat-form-field class="full-width search-field-input" appearance="outline">
                                     <mat-label>Search files</mat-label>
                                     <input matInput placeholder="Search files" type="text" [formControl]="fileSearch">
@@ -650,11 +667,10 @@
                             </div>
 
                             <div class="col-md-4 file-upload">
-                                <!-- <span *ngIf="!isLoader">Upload a file</span> -->
                                 <span *ngIf="isLoader">Uploading...</span>
                                 <input style="height: 40px !important;" [disabled]="isLoader" type="file"
                                     value="Upload a file" (change)="uploadImage($event.target.files[0])">
-                            </div>
+                            </div> -->
                         </div>
 
                         <app-placeholders (returnAction)="getDetails()" [flag]="8"
@@ -662,15 +678,26 @@
                         </app-placeholders>
                     </div>
 
+                    <div  *ngIf="!(myModel?.files?.data?.length === 0)" class="search-filed-main">
+                        <input type="text" [formControl]="fileSearch" placeholder="Search Files">
+                    </div> 
                     <div>
-                        <div class="list-item border-partial"
+                        <div class="list-item border-partial new-list-files-main"
                             *ngFor="let val of myModel?.files?.data | filter:fileSearch.value">
-                            <div class="list-item-info">
+                            <!-- --------------New Search Filed added--------------------- -->
+
+                            <div class="upload-informations-mains">
                                 <div class="item-text">
-                                    <div class="title one-line"> {{val?.name}}</div>
-                                    <div class="description">{{val?.createdAt | date:'MMM dd, yyyy, hh:mm a'}}
-                                        , {{val?.size}}
+                                    <div class="icons-related-to-files">
+                                        <img src="../../../../assets/images/pdf-main.svg">
                                     </div>
+                                    <div class="title one-line"> {{val?.name}}</div>
+                                    <div class="sizes-file">({{val?.size}})</div>
+                                    
+                                </div>
+                                <div class="description">
+                                     {{val?.createdAt | date:'MMM dd, yyyy, hh:mm a'}}
+    
                                 </div>
                                 <div class="trailing-slot">
                                     <div class="file-actions">
@@ -704,6 +731,150 @@
                                         (click)="this.myModel.status = 1;taskList()"> Hide completed
                                     </button> -->
     
+                                </div>
+
+                            </div>
+                            <!-- --------------------New-UI-added--------------------------- -->
+                            <div class="new-task-history-mains">
+
+                                <div class="days-and-calender-main"><span class="days-main">Thu, Apr 23 2021</span></div>
+                                    
+                                <div class="task-managet-main">
+                                        <div class="left-col-img">
+                                            <img src="../../../../assets/images/task-activity.svg" alt="task-activity">
+                                        </div>
+                                        <div class="right-co-all-tast">
+                                                <div class="first-row-main-task">
+                                                    <div class="first-left-task">
+                                                        <span class="graytitle">Task - Created by</span>
+                                                        <span class="specified-name">Joh Doe</span>
+                                                    </div>
+                                                    <div class="first-right-time-during">23/04/2021 - 23/06/2021</div>
+                                                </div> 
+                                                <div class="comman-rows-name">
+                                                    <div class="comman-label">Task Name:</div>
+                                                    <div class="comman-value">Test Task</div>
+                                                </div>
+                                                <div class="comman-rows-name">
+                                                    <div class="comman-label">Task Description:</div>
+                                                    <div class="comman-value">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries</div>
+                                                </div>
+                                                <div class="assignee-main">
+                                                    <div class="assigne-left">
+                                                        <div class="comman-label">Assignee:</div>
+                                                        <div class="grid-name-plate">
+                                                                <div class="comman-circle-main">JD</div>
+                                                                <div class="comman-circle-main">J</div>
+                                                                <div class="comman-circle-main">+5</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="assigne-right">
+                                                        <div class="comman-label">Assignee:</div>
+                                                        <div class="comman-status high">High</div>
+                                                    </div>
+                                                </div>
+                                                <div class="assigne-attachments">
+                                                    <div class="comman-label">Attachment :</div>
+                                                    <div class="comman-pdf-main">
+                                                        <img src="../../../../assets/images/pdf-main.svg" alt="pdf">
+                                                        <span class="file-name">QR code file.pdf</span>
+                                                        <span class="file-size">(120K)</span>
+                                                    </div>
+
+                                                </div>
+                                        </div>
+                                </div>
+
+                                <div class="task-managet-main">
+                                        <div class="left-col-img">
+                                            <img src="../../../../assets/images/task-activity.svg" alt="task-activity">
+                                        </div>
+                                        <div class="right-co-all-tast">
+                                                <div class="first-row-main-task">
+                                                    <div class="first-left-task">
+                                                        <span class="graytitle">Task - Created by</span>
+                                                        <span class="specified-name">Joh Doe</span>
+                                                    </div>
+                                                    <div class="first-right-time-during">23/04/2021 - 23/06/2021</div>
+                                                </div> 
+                                                <div class="comman-rows-name">
+                                                    <div class="comman-label">Task Name:</div>
+                                                    <div class="comman-value">Test Task</div>
+                                                </div>
+                                                <div class="comman-rows-name">
+                                                    <div class="comman-label">Task Description:</div>
+                                                    <div class="comman-value">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries</div>
+                                                </div>
+                                                <div class="assignee-main">
+                                                    <div class="assigne-left">
+                                                        <div class="comman-label">Assignee:</div>
+                                                        <div class="grid-name-plate">
+                                                                <div class="comman-circle-main">JD</div>
+                                                                <div class="comman-circle-main">J</div>
+                                                                <div class="comman-circle-main">+5</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="assigne-right">
+                                                        <div class="comman-label">Priority:</div>
+                                                        <div class="comman-status medium">Medium</div>
+                                                    </div>
+                                                </div>
+                                                <div class="assigne-attachments">
+                                                    <div class="comman-label">Attachment :</div>
+                                                    <div class="comman-pdf-main">
+                                                        <img src="../../../../assets/images/pdf-main.svg" alt="pdf">
+                                                        <span class="file-name">QR code file.pdf</span>
+                                                        <span class="file-size">(120K)</span>
+                                                    </div>
+
+                                                </div>
+                                        </div>
+                                </div>
+
+                                <div class="task-managet-main">
+                                        <div class="left-col-img">
+                                            <img src="../../../../assets/images/task-activity.svg" alt="task-activity">
+                                        </div>
+                                        <div class="right-co-all-tast">
+                                                <div class="first-row-main-task">
+                                                    <div class="first-left-task">
+                                                        <span class="graytitle">Task - Created by</span>
+                                                        <span class="specified-name">Joh Doe</span>
+                                                    </div>
+                                                    <div class="first-right-time-during">23/04/2021 - 23/06/2021</div>
+                                                </div> 
+                                                <div class="comman-rows-name">
+                                                    <div class="comman-label">Task Name:</div>
+                                                    <div class="comman-value">Test Task</div>
+                                                </div>
+                                                <div class="comman-rows-name">
+                                                    <div class="comman-label">Task Description:</div>
+                                                    <div class="comman-value">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries</div>
+                                                </div>
+                                                <div class="assignee-main">
+                                                    <div class="assigne-left">
+                                                        <div class="comman-label">Assignee:</div>
+                                                        <div class="grid-name-plate">
+                                                                <div class="comman-circle-main">JD</div>
+                                                                <div class="comman-circle-main">J</div>
+                                                                <div class="comman-circle-main">+5</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="assigne-right">
+                                                        <div class="comman-label">Priority:</div>
+                                                        <div class="comman-status low">Low</div>
+                                                    </div>
+                                                </div>
+                                                <div class="assigne-attachments">
+                                                    <div class="comman-label">Attachment :</div>
+                                                    <div class="comman-pdf-main">
+                                                        <img src="../../../../assets/images/pdf-main.svg" alt="pdf">
+                                                        <span class="file-name">QR code file.pdf</span>
+                                                        <span class="file-size">(120K)</span>
+                                                    </div>
+
+                                                </div>
+                                        </div>
                                 </div>
 
                             </div>
@@ -799,7 +970,7 @@
                             <section>
                                 <h5 class="">General Information </h5>
                                 <div class="field-grid editing">
-                                    <div class="btn-group add-btn select-opt" dropdown>
+                                    <div  *ngIf="form?.controls?.title || form?.controls?.suffix" class="btn-group add-btn select-opt" dropdown>
                                         <mat-form-field appearance="outline" class="select-height">
                                             <mat-label>Title</mat-label>
                                             <mat-select formControlName="title">
@@ -822,7 +993,7 @@
                                         </mat-form-field>
                                     </div>
 
-                                    <div class="input-field">
+                                    <div  *ngIf="form?.controls?.title || form?.controls?.suffix" class="input-field">
                                         <mat-form-field class="full-width" appearance="outline">
                                             <mat-label>Middle Name</mat-label>
                                             <input matInput placeholder="Enter middle name" type="text"

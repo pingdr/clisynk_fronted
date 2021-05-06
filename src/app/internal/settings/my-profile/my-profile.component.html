@@ -244,6 +244,9 @@
                                 <input matInput type="text"
                                         formControlName="state">
                             </mat-form-field>
+                            <mat-error *ngIf="form.controls['state'].hasError('required')">
+                                Please enter state.
+                            </mat-error>
                         </div>
                     </div>
 

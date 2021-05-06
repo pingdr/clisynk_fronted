@@ -121,11 +121,13 @@
     box-shadow: 0px 1px 3px #989898;
     border-radius: 5px;
     padding: 5px 0px;
+    min-width: 100% !important;
 }
 
 .dropdown-menu li a {
-    padding: 9px 15px;
-    font-size: 14px;
+    padding: 7px 15px;
+    font-size: 11px;
+    text-decoration: none;
 }
 
 .notes-area-main-content {
@@ -203,6 +205,48 @@ p {
     margin-bottom: 0;
     font-size: 13px;
 }
+.dropdown-customs {
+    position: relative;
+}
+.dropdown-customs .mat-error {
+    position: absolute;
+    font-size: 11px;
+    background: #ff0101;
+    margin-top: 14px !important;
+    padding: 0;
+    padding-left: 8px;
+    padding-top: 0px;
+    padding-bottom: 2px;
+    width: auto;
+    padding-right: 10px;
+    left: 27px !important;
+    box-shadow: 0px 2px 6px #bbb;
+    border-radius: 2px;
+    top: 30px;
+    color: #fff;
+    font-weight: 500;
+}
+.dropdown-customs .mat-error:before{
+    position: absolute;
+    content: "";
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid red;
+    top: auto;
+    bottom: 19px;
+    left: 11px;
+}
+.dots-imgs {
+    position: absolute;
+    bottom: -60px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 50%;
+    text-align: center;
+}
 
 @media (max-width:1600px) {
     .main-images-area .img-area{
@@ -248,8 +292,25 @@ p {
         padding: 15px 15px;
     }
 }
+@media (max-width:1100px){
+    .create-account-form-main{
+        width: 95%;
+    }
+    .create-accounts-main-area .left-col-main{
+        width: 60%;
+    }
+    .create-text {
+        font-size: 25px;
+        margin-bottom: 10px;
+    }
+}
+
 
 ul.categories {
     overflow: auto;
     height: 200px;
+}
+
+a{
+    text-decoration: underline;
 }

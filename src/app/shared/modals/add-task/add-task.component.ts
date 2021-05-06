@@ -1,3 +1,5 @@
+import { MB, KB } from './../../../services/constants';
+import { finalize } from 'rxjs/operators';
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, Validators} from '@angular/forms';
 import {HttpService} from '../../../services/http.service';
@@ -22,6 +24,7 @@ export class AddTaskComponent implements OnInit {
     isSelected = false;
     isEdit = false;
     today = new Date();
+    loading = false;
     constructor(public http: HttpService) {
         this.myModel = new TableModel();
     }
@@ -63,6 +66,7 @@ export class AddTaskComponent implements OnInit {
         const hh: any = moment(this.form.value.selectedSlot).format('HH');
         const mm: any = moment(this.form.value.selectedSlot).format('mm');
         obj.dueDateTime = new Date(obj.dueDateTime).setHours(hh, mm);
+        obj.startDateTime = new Date(obj.startDateTime).setHours(hh, mm);
         delete obj.selectedSlot;
 
         if (this.form.value.contactId.length) {
@@ -118,7 +122,12 @@ export class AddTaskComponent implements OnInit {
             title: ['', Validators.required],
             dueDateTime: [new Date(), Validators.required],
             reminderType: [''],
-            selectedSlot: ['', Validators.required]
+            selectedSlot: ['', Validators.required],
+            
+            /** New Added */
+            startDateTime: [new Date(), Validators.required],
+            imageUrl: [''],
+            priority: ['']
         });
     }
 
@@ -130,6 +139,9 @@ export class AddTaskComponent implements OnInit {
         });
         if (this.modalData.dueDateTime) {
             this.form.controls.dueDateTime.patchValue(new Date(this.modalData.dueDateTime));
+        }
+        if (this.modalData.startDateTime) {
+            this.form.controls.startDateTime.patchValue(new Date(this.modalData.startDateTime));
         }
     }
 
@@ -148,5 +160,16 @@ export class AddTaskComponent implements OnInit {
             this.http.eventSubject.next({eventType: 'addTask'});
         });
     }
+
+    uploadImage(file) {
+        if (!this.http.isValidateFileTypeAndSize(file,'image', 20 * KB)) return;
+        
+        this.loading = true;
+        this.http.uploadImage(ApiUrl.UPLOAD_IMAGE, file, false).pipe(finalize(()=>{this.loading=false;})).subscribe(res => {
+            this.form.controls.imageUrl.patchValue(res.data.original);
+        });
+    }
+
+    
 
 }
