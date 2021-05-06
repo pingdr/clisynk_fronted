@@ -7,7 +7,8 @@ import {Subject} from 'rxjs';
 
 @Component({
     selector: 'app-add-note',
-    templateUrl: './add-note.component.html'
+    templateUrl: './add-note.component.html',
+    styleUrls: ['./add-note.component.scss']
 })
 export class AddNoteComponent implements OnInit {
 
@@ -28,6 +29,7 @@ export class AddNoteComponent implements OnInit {
 
     ngOnInit(): void {
         this.formInit();
+        this.getList();
     }
 
     finalSelected() {

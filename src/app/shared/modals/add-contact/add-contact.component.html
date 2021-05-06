@@ -21,31 +21,12 @@
             </div>
 
             <div class="col-md-12 toggle-btn-group">
-                <!-- -----------------------------Old Code-commneted---------------------------------------- -->
-                <!-- <mat-button-toggle-group #group="matButtonToggleGroup" class="full-width"
-                                         formControlName="contactsType">
-                    <mat-button-toggle value=1 aria-label="Text align left" class="full-width">
-                        Lead <i class="fas fa-circle"
-                                [ngClass]="{'orange-option':form.value.contactsType == 1}">
-                    </i>
-                    </mat-button-toggle>
-                    <mat-button-toggle value=2 aria-label="Text align center" class="full-width">
-                        Client <i class="fas fa-circle"
-                                  [ngClass]="{'blue-option':form.value.contactsType == 2}"></i>
-                    </mat-button-toggle>
-                    <mat-button-toggle value=3 aria-label="Text align right" class="full-width">
-                        Other <i class="fas fa-circle"
-                                 [ngClass]="{'black-option':form.value.contactsType == 3}"></i>
-                    </mat-button-toggle>
-                </mat-button-toggle-group> -->
                 <div class="new-tags-grid-mains-area">
-                        <div class="comman-grid-tags employee">Employee</div>
-                        <div class="comman-grid-tags Lead">Lead</div>
-                        <div class="comman-grid-tags Client">Client</div>
-                        <div class="comman-grid-tags Other">Other</div>
+                        <div (click)="form.get('contactsType').setValue(4)" [ngClass]="{'employee-tag' : form.get('contactsType').value == 4}" class="comman-grid-tags ">Employee</div>
+                        <div (click)="form.get('contactsType').setValue(1)" [ngClass]="{'lead-tag' : form.get('contactsType').value == 1}" class="comman-grid-tags ">Lead</div>
+                        <div (click)="form.get('contactsType').setValue(2)" [ngClass]="{'client-tag' : form.get('contactsType').value == 2}" class="comman-grid-tags ">Client</div>
+                        <div (click)="form.get('contactsType').setValue(3)" [ngClass]="{'other-tag' : form.get('contactsType').value == 3}" class="comman-grid-tags ">Other</div>
                 </div>
-
-
             </div>
 
             <div class="col-md-6 input-field">

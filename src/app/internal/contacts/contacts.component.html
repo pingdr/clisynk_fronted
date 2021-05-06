@@ -401,7 +401,7 @@
           </ul>
         </div>
       </div>
-      <div class="tab-pane" id="pills-profile" *ngIf="tab == 'contactList'" style="min-height: 500px">
+      <div class="tab-pane mt-3" id="pills-profile" *ngIf="tab == 'contactList'" style="min-height: 500px">
         <div class="contact-saved-lists">
           <ng-container *ngFor="let data of lists">
             <a class="contact-list-card" (click)="tab = 'allContact'; goToFilter(data)" *ngIf="!data?.isHide">
@@ -514,7 +514,7 @@
                     >
                   </p> -->
                   <!-- -------------New-code----------- -->
-                  <div class="comman-body-main">
+                  <div class="comman-body-main" (click)="selectContact(data, i)">
                     <div class="date-text-main"> {{ data?.createdAt | date: "MMM dd,yyyy" }}</div>
 
                     <div class="comman-contact-row-main" [ngClass]="{ 'active': selectedIndex == i }">
@@ -528,9 +528,9 @@
                       </div>
                       <div class="second-avtar"> {{ data?.firstName?.substr(0, 1)|titlecase}}{{
                         data?.lastName?.substr(0, 1)|titlecase }}</div>
-                      <div class="third-details-row" (click)="selectContact(data, i)">
+                      <div class="third-details-row" >
                         <div class="name-id">{{ data?.firstName }} {{ data?.lastName }}</div>
-                        <div class="email-id-main" (click)="selectContact(data, i)">{{ data?.email }}</div>
+                        <div class="email-id-main">{{ data?.email }}</div>
                       </div>
                       <div class="comman-tag" [ngClass]="{'lead-tag':data?.contactsType == 1}"
                         *ngIf="data?.contactsType == 1">Lead</div>

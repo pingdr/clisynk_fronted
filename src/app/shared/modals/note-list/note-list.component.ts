@@ -5,10 +5,13 @@ import {FormControl} from '@angular/forms';
 import {ApiUrl} from '../../../services/apiUrls';
 import {EditNoteComponent} from '../edit-note/edit-note.component';
 import {Subject} from 'rxjs';
+import { AddTaskComponent } from '../add-task/add-task.component';
+import { AddNoteComponent } from '../add-note/add-note.component';
 
 @Component({
     selector: 'app-note-list',
-    templateUrl: './note-list.component.html'
+    templateUrl: './note-list.component.html',
+    styleUrls: ['./note-list.component.scss']
 })
 export class NoteListComponent implements OnChanges {
 
@@ -42,6 +45,14 @@ export class NoteListComponent implements OnChanges {
 
     openEditNote(data) {
         const modalRef = this.http.showModal(EditNoteComponent, 'md', data);
+        modalRef.content.onClose = new Subject<boolean>();
+        modalRef.content.onClose.subscribe(res => {
+            this.finalSubmit.emit();
+        });
+    }
+
+    addNotemain(){
+        const modalRef = this.http.showModal(AddNoteComponent, 'md');
         modalRef.content.onClose = new Subject<boolean>();
         modalRef.content.onClose.subscribe(res => {
             this.finalSubmit.emit();

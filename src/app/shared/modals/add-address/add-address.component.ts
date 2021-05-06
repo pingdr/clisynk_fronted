@@ -1,3 +1,4 @@
+import { MB } from './../../../services/constants';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
 import { HttpService } from '../../../services/http.service';
@@ -136,7 +137,7 @@ export class AddAddressComponent implements OnInit {
     }
 
     uploadImage(file) {
-        if (!this.http.isValidateFileTypeAndSize(file, 'image', 5)) return;
+        if (!this.http.isValidateFileTypeAndSize(file, 'image', 5 * MB)) return;
         this.loading = true;
         this.http.uploadImage(ApiUrl.UPLOAD_IMAGE, file, false).subscribe(res => {
             this.loading = false;
