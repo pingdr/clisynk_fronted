@@ -55,6 +55,7 @@ import {
 } from 'ngx-ui-loader';
 import { CreateAccountsComponent } from './external/create-accounts/create-accounts.component';
 import { ValidationMessageComponent } from './shared/components/validation-message/validation-message.component';
+import { ThanksPageComponent } from './external/thanks-page/thanks-page.component';
 
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
@@ -71,7 +72,8 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
          PreviewLeadformComponent, PreviewSmartformComponent,
         ForgotPasswordComponent,
         CreateAccountsComponent,
-        ValidationMessageComponent
+        ValidationMessageComponent,
+        ThanksPageComponent
         
     ],
     imports: [

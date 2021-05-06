@@ -13,6 +13,7 @@ import { PreviewLeadformComponent } from './internal/settings/preview-leadform/p
 import { PreviewSmartformComponent } from './internal/settings/preview-smartform/preview-smartform.component';
 import { ForgotPasswordComponent } from './external/forgot-password/forgot-password.component';
 import { CreateAccountsComponent } from './external/create-accounts/create-accounts.component';
+import { ThanksPageComponent } from './external/thanks-page/thanks-page.component';
 
 
 const routes: Routes = [
@@ -20,6 +21,7 @@ const routes: Routes = [
     {path: 'login', component: LoginComponent, canActivate: [ExternalAuthguardService]},
     {path: 'forgotpassword', component: ForgotPasswordComponent},
     {path: 'createaccount', component: CreateAccountsComponent},
+    {path: 'thankspage', component:ThanksPageComponent},
     {path: 'privacy', component: PrivacyComponent},
     {path: 'receipt', component: ReceiptComponent},
     {path: 'ngrx', component: TodoComponent},

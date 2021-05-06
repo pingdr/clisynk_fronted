@@ -13,7 +13,7 @@
     <form [formGroup]="form" (ngSubmit)="finalSubmit()" autocomplete="off">
         <div class="modal-body">
 
-            <div class="row">
+            <div class="row" *ngIf="!this.contactId">
 
                 <div class="col-md-12 input-group btn-group add-btn select-opt">
                     <mat-form-field class="select-height full-width" appearance="outline">

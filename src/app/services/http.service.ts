@@ -159,7 +159,7 @@ export class HttpService {
 
     openInvoice(name, data?): void {
         const money = document.getElementById('money_container');
-        money.style.display = 'none';
+        money ? money.style.display = 'none' : '';
         const obj: any = {
             name: name,
             data: data
