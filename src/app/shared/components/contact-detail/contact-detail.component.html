@@ -567,13 +567,8 @@
                                 <div class="tag-actions">
                                     <div class="button-container">
                                         <br>
-                                        <button *ngIf="!item?.length" disabled="disabled" type="button"
-                                            class="btn-outline-primary" (click)="applyTagToContact()">
-                                            Apply tag
-                                            to {{selected?.firstName}} {{selected?.lastName}}
-                                        </button>
 
-                                        <button *ngIf="item?.length > 0" type="button" class="btn-outline-primary"
+                                        <button [disabled]="item?.length > 0 ? false: true" type="button" class="btn-outline-primary"
                                             (click)="applyTagToContact()">
                                             Apply tag
                                             to {{selected?.firstName}} {{selected?.lastName}}
@@ -584,9 +579,10 @@
                             </section>
                         </div>
 
-                        <div class="search-field-main">
+                        <div class="search-field-main mb-3">
                                 <div class="input-search-main">
-                                    <input type="text"  [formControl]="tagsSearch" (input)="contactTagList(false)" placeholder="Search Tags Applied">
+                                    <!-- <input type="text"  [formControl]="tagsSearch" (input)="contactTagList(false)" placeholder="Search Tags Applied"> -->
+                                    <input type="text"  [formControl]="tagsSearch" placeholder="Search Tags Applied">
                                 </div>
                                 <div class="manage-tags-total">
                                     <span class="number small">{{myModel?.contactTags?.count}}</span>
@@ -596,7 +592,7 @@
                         <app-loader [showLoader]="activityLoader" [length]="myModel?.contactTags?.length"></app-loader>
 
                         <!-- ------------Old-code-Added---------------------- -->
-                        <!-- <ng-container *ngFor="let data of myModel?.contactTags?.data;let i =index">
+                        <ng-container *ngFor="let data of (myModel?.contactTags?.data|filter:tagsSearch.value);let i =index">
                             <div class="tag">
                                 <div class="info">
                                     <span class="semibold">{{data?.name}}</span>
@@ -629,7 +625,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </ng-container> -->
+                        </ng-container>
 
 
                         
