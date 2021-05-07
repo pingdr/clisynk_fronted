@@ -14,9 +14,22 @@
     <form [formGroup]="form" (ngSubmit)="firstSubmit()" autocomplete="off">
         <div class="modal-body new_appoitment_popup_inner">
 
+            <div class="form-group Associated-Contact" >
+                <mat-label class="required">Search for a contact to meet with us <span class="red">*</span></mat-label>
+                <ng-multiselect-dropdown formControlName="contactId" 
+                [placeholder]="'Select Contact'" [data]="contacts"
+                  [settings]="myModel.contactSettings">
+                </ng-multiselect-dropdown>
+                <mat-error *ngIf="
+                    form.controls['contactId'].hasError('required') &&
+                    form.controls.contactId.touched
+                  ">
+                  Please select contact.
+                </mat-error>
+              </div>
             <div class="row">
                 <div class="col-md-12 input-group btn-group add-btn select-opt">
-                    <mat-form-field class="select-height full-width max-height-drop" appearance="outline">
+                    <!-- <mat-form-field class="select-height full-width max-height-drop" appearance="outline">
                         <mat-label class="required">Search for a contact to meet with us</mat-label>
                         <input matInput class="form-control py-2" type="search" value="" placeholder="Search contacts"
                                [formControl]="myControl" [matAutocomplete]="auto"
@@ -32,7 +45,8 @@
                         <mat-error *ngIf="myControl.hasError('required')">
                             Please select contact.
                         </mat-error>
-                    </mat-form-field>
+                    </mat-form-field> -->
+
                 </div>
             </div>
 
@@ -207,7 +221,10 @@
                                     
                             </div>
                             <div class="confirm-btn" *ngIf="selectedSlot">
-                                <button (click)="finalSubmit(selectedSlot)" >Confirm</button>
+                                <button (click)="finalSubmit(selectedSlot)" [disabled]="isLoading">
+                                    <i [ngClass]="{'fa fa-spinner fa-spin' : isLoading}" aria-hidden="true"></i>
+                                    Confirm
+                                </button>
                             </div>
 
 
