@@ -991,6 +991,9 @@
                                             <mat-label>Middle Name</mat-label>
                                             <input matInput placeholder="Enter middle name" type="text"
                                                 formControlName="middleName">
+                                            <mat-error *ngIf="form.controls['middleName'].hasError('required')">
+                                                Please enter first name.
+                                            </mat-error>
                                         </mat-form-field>
                                     </div>
                                     <!-- <div class="input-field" *ngIf="form?.controls?.middleName">
