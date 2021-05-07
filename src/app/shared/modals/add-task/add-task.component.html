@@ -135,14 +135,14 @@
             </mat-select>
           </mat-form-field>
 
-          <div class="comman-dropdown">
+          <div class="comman-dropdown priority-drop">
             <mat-form-field class="full-width select-height" appearance="outline">
               <mat-label>Priority</mat-label>
               <mat-select formControlName="priority">
                 <mat-option value="">None</mat-option>
-                <mat-option [value]="'High'" >High</mat-option>
-                <mat-option [value]="'Medium'" >Medium</mat-option>
-                <mat-option [value]="'Low'" >Low</mat-option>
+                <mat-option [value]="'High'" class="prio-items" ><div class="high"></div>High</mat-option>
+                <mat-option [value]="'Medium'" class="prio-items"><div class="medium"></div> Medium</mat-option>
+                <mat-option [value]="'Low'"  class="prio-items"><div class="low"></div> Low</mat-option>
               </mat-select>
             </mat-form-field>
           </div>

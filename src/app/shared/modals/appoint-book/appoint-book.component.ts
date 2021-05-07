@@ -139,7 +139,11 @@ export class AppointBookComponent implements OnInit {
             });
         }
     }
-
+    
+    selectedSlot;
+    onSelectSlot(slot) {
+        this.selectedSlot = slot;
+    }
     changeAppoint() {
         const type = this.form.value.appointmentId.location ? this.form.value.appointmentId.location.radioSelected :
                 this.modalData.location.type;
@@ -158,6 +162,7 @@ export class AppointBookComponent implements OnInit {
             {title: '.', date: new Date(arg.dateStr)}
         ];
         this.todayDate.patchValue(new Date(arg.dateStr));
+        this.selectedSlot = null;
     }
 
     next(flag) {

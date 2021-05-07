@@ -1006,3 +1006,26 @@ section.invoices-mains {
         font-size: 12px;
     }
 }
+
+@media (max-width:991px){
+    .tabs-pills-main{
+        grid-template-columns: repeat(4, 1fr);
+        margin-bottom: 20px;
+        width: 80%;
+        margin: auto;
+        margin-top: 30px;
+        grid-row-gap: 20px;
+    }
+    .details-main{
+        width: 90%;
+    }
+
+    .details-main .main-avatar{
+        width: 65px;
+        height: 65px;
+        font-size: 18px;
+    }
+    .details-main .name-id{
+        font-size: 17px
+    }
+}

@@ -104,7 +104,7 @@
         <div class="row">
             <div class="col-md-12">
                 <header class="appt-picker-header">
-                    <button type="button" class="button icon-only">
+                    <!-- <button type="button" class="button icon-only">
                         <svg class="icon">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="calendar">
                                 <path
@@ -112,19 +112,22 @@
                                         fill-rule="evenodd"></path>
                             </svg>
                         </svg>
-                    </button>
+                    </button> -->
                     <div class="header">
-                        <p class="title"> Select a time </p>
-                        <p>{{allData?.name}} With {{http.loginData.name}}</p>
+                        <p class="title"> Select Date & Time </p>
+                        <!-- <p>{{allData?.name}} With {{http.loginData.name}}</p> -->
                     </div>
+                    <button class="icon-only" type="button" aria-label="Close" (click)="http.hideModal()">
+                        <img src="/assets/images/ic_close.svg">
+                    </button>
                 </header>
             </div>
         </div>
 
         <div class="select-appointment-container">
-            <div class="row">
+            <div class="row second-row-custom select-times-appointment">
                 <div class="col-md-6">
-
+                    <div class="comman-title">Select Date</div>
                     <div class="calendar" style="display: flex;flex-direction: column;">
                         <full-calendar style="width: 400px;height: 400px;" #calendar defaultView="dayGridMonth"
                                        id="full-calendar" deepChangeDetection="true" [events]="calendarEvents"
@@ -134,8 +137,9 @@
                 </div>
 
                 <div class="col-md-6">
+                    <div class="comman-title">Select Time Slot</div>
                     <div class="time-picker-wrapper">
-                        <div class="day-picker">
+                        <!-- <div class="day-picker">
                             <h5>{{todayDate.value | date}}</h5>
                             <div class="button-group">
                                 <button class="" (click)="next(1)">
@@ -157,11 +161,11 @@
                                     </svg>
                                 </button>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="row">
                             <div class="date-slots">
-                                <ul class="slots-ul">
+                                <!-- <ul class="slots-ul">
                                     <app-loader [showLoader]="myModel.loader"></app-loader>
                                     <label *ngIf="myModel?.slots?.length === 0 && !myModel.loader" class="no-slot">
                                         No Slots Available</label>
@@ -176,13 +180,36 @@
                                         </span>
                                     </li>
 
-                                    <!--                                    <li *ngFor="let data of myModel?.slots" >-->
-                                    <!--                                        {{data?.start |time}} - {{data?.end | time}}-->
-                                    <!--                                        <span>Book now</span>-->
-                                    <!--                                    </li>-->
+                                </ul> -->
+                                
+                                <ng-container *ngIf="myModel?.slots?.length === 0 && !myModel.loader; else showSlots" >
+                                    <div class="no-slots-here-main">
+                                            <img src="../../../../assets/images/no-slot-time.svg">
+                                            <div class="no-title">No time slot available!</div>
 
-                                </ul>
+                                    </div>
+                                </ng-container>
+
+                                <ng-template #showSlots>
+                                    <div class="main-grid-area">
+                                        <ng-container *ngFor="let data of myModel?.slots;let i =index" >
+                                            <div class="comman-grids-area" (click)="onSelectSlot(data)" [ngClass]="{'selected' : data == selectedSlot}">
+                                                {{data?.start |time}} - {{data?.end | time}}
+                                            </div>
+                                            <!-- <div class="comman-grids-area">09:00 AM - 9:30 AM</div>
+                                            <div class="comman-grids-area">09:00 AM - 9:30 AM</div>
+                                            <div class="comman-grids-area">09:00 AM - 9:30 AM</div> -->
+                                        </ng-container>
+                                    </div>
+                                </ng-template>
+
+
+                                    
                             </div>
+                            <div class="confirm-btn" *ngIf="selectedSlot">
+                                <button (click)="finalSubmit(selectedSlot)" >Confirm</button>
+                            </div>
+
 
                         </div>
                     </div>
