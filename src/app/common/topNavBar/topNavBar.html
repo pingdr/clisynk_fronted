@@ -118,14 +118,11 @@
       </div>
 
       <div class="col-5 btn-group header-links col-md-3 new-header-group-main">
-        <div class="dropdown global-add-button ping-dr-notification">
+        <div class="dropdown global-add-button ping-dr-notification manage-workspace-dropdown">
           <div class="btn-group add-btn workspace-drop-main" dropdown>
             <div class="first-letter-div-main">{{ selectedWorkspace?.name?.toUpperCase().charAt(0)}}</div>
             <button id="button-basic1" *ngIf="workspaces?.length != 0" dropdownToggle type="button"
-              class="btn dropdown-toggle" style="color: #0040db !important;white-space: nowrap;
-            max-width: 180px;
-            overflow: hidden;
-            text-overflow: ellipsis;" aria-controls="dropdown-basic">
+              class="btn dropdown-toggle" style="color: #0040db !important;white-space: nowrap;  max-width: 180px; overflow: hidden; text-overflow: ellipsis;" aria-controls="dropdown-basic">
               {{selectedWorkspace?.name}}
             </button>
             <span *ngIf="workspaces?.length != 0"> <i class="fas fa-angle-down" style="margin: 0 0 0 5px !important;"></i></span>
@@ -138,21 +135,31 @@
               <li role="menuitem" *ngFor="let workspace of workspaces" class="workspace-list"
                 (click)="activeWorkspace(workspace)">
                 <div class="main-workspace-notification">
-                  <div class="left-col" style="background: #5a6079;">
+                  <!-- <div class="left-col" style="background: #5a6079;">
                     {{ workspace?.name.toUpperCase().charAt(0) }}
                     <span class="badge-red">1</span>
-                  </div>
+                  </div> -->
                   <div class="right-col">
-                    <span class="workspace-name" style="color: #0040db !important;white-space: nowrap;
+                    <span class="workspace-name" style="color: #2A2A2A !important;white-space: nowrap;
                     max-width: 200px;
                     overflow: hidden;
                     text-overflow: ellipsis;">{{workspace?.name}}</span>
-                    <span class="second-row">
+                    <!-- <span class="second-row">
                       <img src="../../../assets/images/users-bunch.svg" width="15" />
                       {{workspace?.contacts}}
-                    </span>
+                    </span> -->
                   </div>
                 </div>
+              </li>
+              <li role="menuitem" class="new-add-workspace">
+                  <a href="#" title="New Space">
+                    
+                  <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16.3359 7.83594H9.16406V0.664062C9.16406 0.297301 8.86676 0 8.5 0C8.13324 0 7.83594 0.297301 7.83594 0.664062V7.83594H0.664062C0.297301 7.83594 0 8.13324 0 8.5C0 8.86676 0.297301 9.16406 0.664062 9.16406H7.83594V16.3359C7.83594 16.7027 8.13324 17 8.5 17C8.86676 17 9.16406 16.7027 9.16406 16.3359V9.16406H16.3359C16.7027 9.16406 17 8.86676 17 8.5C17 8.13324 16.7027 7.83594 16.3359 7.83594Z" fill="#4776E6"/>
+                    </svg>
+                    New Space
+                  </a>
+
               </li>
             </ul>
           </div>
