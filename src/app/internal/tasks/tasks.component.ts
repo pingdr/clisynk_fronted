@@ -7,7 +7,8 @@ import {ApiUrl} from '../../services/apiUrls';
 
 @Component({
     selector: 'app-tasks',
-    templateUrl: './tasks.component.html'
+    templateUrl: './tasks.component.html',
+    styleUrls: ['./task.component.scss']
 })
 
 export class TasksComponent implements OnInit, OnDestroy {

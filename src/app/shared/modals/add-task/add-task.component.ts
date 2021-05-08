@@ -27,7 +27,7 @@ export class AddTaskComponent implements OnInit {
     today = new Date();
     loading = false;
     imageObj: UploadedFile = null;
-    unsubAll = new BehaviorSubject<boolean>(false);
+    unsubAll = new Subject<boolean>();
 
     // get fromStartDate() {
 
@@ -145,7 +145,7 @@ export class AddTaskComponent implements OnInit {
             priority: ['']
             
         });
-        this.form.get('startDateTime').valueChanges.pipe(takeUntil(this.unsubAll)).subscribe(val => {
+        this.form.get('startDateTime').valueChanges.subscribe(val => {
             this.form.get('dueDateTime').setValue(val);
         })
     }

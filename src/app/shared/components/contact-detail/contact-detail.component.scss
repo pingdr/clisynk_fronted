@@ -949,6 +949,49 @@ section.invoices-mains {
     cursor: pointer;
 }
 
+.custom-class .text-button {
+    text-decoration: underline;
+}
+
+.email-sent-title-main {
+    text-align: center;
+    height: 1px;
+    margin-bottom: 40px;
+    margin-top: 50px;
+    background: #ccc;
+}
+.email-sent-title-main .email-title {
+    display: inline-block;
+    position: relative;
+    top: -10px;
+    background: #ffff;
+    padding: 0px 30px;
+    font-size: 13px !important;
+    color: #979797 !important;
+    font-weight: 300 !important;
+}
+.email-activity-news li {
+    padding-left: 50px !important;
+}
+
+.email-activity-news li .icon-div {
+    width: 32px;
+    height: 32px;
+    background: #FFEED8;
+    position: absolute;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    border-radius: 100%;
+}
+.email-activity-news li .icon-div svg {
+    position: relative;
+    width: 16px;
+}
+
+
 @media (max-width:1600px){
     .comman-rows-name .comman-label{
         width:20%;
@@ -1004,5 +1047,28 @@ section.invoices-mains {
     .contact-h-tab-heading li.nav-item{
         padding: 6px 13px;
         font-size: 12px;
+    }
+}
+
+@media (max-width:991px){
+    .tabs-pills-main{
+        grid-template-columns: repeat(4, 1fr);
+        margin-bottom: 20px;
+        width: 80%;
+        margin: auto;
+        margin-top: 30px;
+        grid-row-gap: 20px;
+    }
+    .details-main{
+        width: 90%;
+    }
+
+    .details-main .main-avatar{
+        width: 65px;
+        height: 65px;
+        font-size: 18px;
+    }
+    .details-main .name-id{
+        font-size: 17px
     }
 }
