@@ -110,3 +110,23 @@
         transform: translateX(50%);
     }
 }
+
+
+/* .nav li a {
+    padding: 0px 10px 0px 12px;
+    line-height: 48px;
+    margin: 0px 20px 0px 20px;
+    margin-top: 8px;
+}
+
+.router-active {
+    background-color: #c3ecf3;
+    background: rgba(76, 128, 255, 0.1);
+    border-radius: 10px !important;
+}
+
+.side-icon {
+    width: 24px;
+    height: 24px;
+    object-fit: scale-down;
+} */
