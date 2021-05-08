@@ -139,6 +139,8 @@ export class ContactDetailComponent implements OnChanges, OnDestroy {
     }
 
     fillValues() {
+        this.form = null;
+        this.formInit();
         this.form.reset({});
         const selected = JSON.parse(JSON.stringify(this.selected));
         this.form.patchValue({
@@ -177,15 +179,15 @@ export class ContactDetailComponent implements OnChanges, OnDestroy {
         if (selected.otherEmail) {
             this.addFields(this.emailOptions, 'otherEmail', selected.otherEmail);
         }
-        if (selected.middleName) {
+        // if (selected.middleName) {
             this.addFields(this.detailsOptions, 'middleName', selected.middleName);
-        }
-        if (selected.suffix) {
+        // }
+        // if (selected.suffix) {
             this.addFields(this.detailsOptions, 'suffix', selected.suffix);
-        }
-        if (selected.title) {
+        // }
+        // if (selected.title) {
             this.addFields(this.detailsOptions, 'title', selected.title);
-        }
+        // }
 
     }
 

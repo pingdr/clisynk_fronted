@@ -9022,6 +9022,68 @@ tag-input.add_new_tags {
 }
 
 
+.prio-items span.mat-option-text {
+  display: flex;
+  align-items: center;
+}
+.prio-items span.mat-option-text .high {
+  width: 10px;
+  height: 10px;
+  background: #FC9CA4;
+  border-radius: 100%;
+  margin-right: 10px;
+}
+
+.prio-items span.mat-option-text .medium {
+  width: 10px;
+  height: 10px;
+  margin-right: 10px;
+  background: #DCECEC;
+  border-radius: 100%;
+}
+.prio-items span.mat-option-text .low {
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  background: #FADDAC;
+  margin-right: 10px;
+}
+.second-row-custom.select-times-appointment .calendar {
+  margin-bottom: 0px !important;
+  height: auto;
+  border: 1px solid #EBEBEB !important;
+  box-sizing: border-box;
+  // box-shadow: 0px 4px 32px rgba(170 170 170 / 3%);
+  border-radius: 12px;
+}
+.select-appointment-container {
+  padding: 20px 40px;
+}
+
+.select-times-appointment .time-picker-wrapper .row {
+  margin: 0 !important;
+  display: block !important;
+}
+.task-name .mat-form-field-invalid + .max-character {
+  display: none;
+}
+.task-name .mat-error {
+  font-size: 13px !important;
+  font-family: 'Sul Sans' !important;
+  font-weight: 300 !important;
+}
+.task-name .mat-form-field-subscript-wrapper {
+  padding-left: 2px !important;
+  margin-top: 3px;
+}
+
+
+
+
+
+
+
+
 // --------------------New-Responsive-------------//
 @media (max-width: 1660px) {
   .setting-grid-main .comman-grid-area .main-area-content p{
@@ -9335,5 +9397,9 @@ tag-input.add_new_tags {
   }
   .body-small .navbar-static-side{
     top: 58px;
+  }
+  .contact-invoices .order-card-holder {
+    grid-template-columns: repeat(2, 1fr) !important;
+    grid-row-gap: 20px !important;
   }
 }

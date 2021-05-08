@@ -1,3 +1,4 @@
+import { finalize } from 'rxjs/operators';
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {HttpService} from '../../../services/http.service';
@@ -36,6 +37,7 @@ export class AppointBookComponent implements OnInit {
     public onChange: Subject<boolean>;
     validRange: any = {};
     selectedtIndex = undefined;
+    isLoading = false;
 
     constructor(public http: HttpService) {
         this.myModel = new TableModel();
@@ -82,8 +84,13 @@ export class AppointBookComponent implements OnInit {
             search: val ? val : ''
         };
         this.http.getData(ApiUrl.CONTACTS, obj).subscribe(res => {
+            res.data.data.forEach((val) => {
+                this.http.checkLastName(val);
+                if (val.email) {
+                    val.showName = val.showName + ` (${val.email})`;
+                }
+            });
             this.contacts = res.data.data;
-
             if (this.modalData && this.modalData.contactsType) {
                 this.myControl.patchValue(this.modalData);
                 this.finalSelected();
@@ -125,8 +132,12 @@ export class AppointBookComponent implements OnInit {
             obj.date = new Date(this.todayDate.value).getTime();
             obj.startTime = data.start;
             obj.endTime = data.end;
+            if (this.form.value.contactId.length) {
+                obj.contactId = JSON.stringify(this.http.getIdsOnly(this.form.value.contactId));
+            }
 
-            this.http.postData(ApiUrl.APPOINT_BOOK_NOW, obj).subscribe(() => {
+            this.isLoading = true;
+            this.http.postData(ApiUrl.APPOINT_BOOK_NOW, obj).pipe(finalize(() => {this.isLoading=false;})).subscribe(() => {
                 this.http.hideModal();
                 this.http.eventSubject.next({eventType: 'addAppoint', obj});
                 const sendData: any = {
@@ -139,7 +150,11 @@ export class AppointBookComponent implements OnInit {
             });
         }
     }
-
+    
+    selectedSlot;
+    onSelectSlot(slot) {
+        this.selectedSlot = slot;
+    }
     changeAppoint() {
         const type = this.form.value.appointmentId.location ? this.form.value.appointmentId.location.radioSelected :
                 this.modalData.location.type;
@@ -158,6 +173,7 @@ export class AppointBookComponent implements OnInit {
             {title: '.', date: new Date(arg.dateStr)}
         ];
         this.todayDate.patchValue(new Date(arg.dateStr));
+        this.selectedSlot = null;
     }
 
     next(flag) {

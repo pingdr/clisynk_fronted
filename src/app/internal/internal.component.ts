@@ -1,3 +1,4 @@
+import { CreateDocumentComponent } from './../shared/modals/create-document/create-document.component';
 import {Component, OnDestroy} from '@angular/core';
 import {Router} from '@angular/router';
 import 'rxjs-compat/add/operator/filter';
@@ -65,6 +66,9 @@ export class InternalComponent implements OnDestroy {
             switch (data.name) {
                 case 'addContact':
                     this.http.showModal(AddContactComponent, 'md');
+                    break;
+                case 'addDocument':
+                    this.http.showModal(CreateDocumentComponent, 'md');
                     break;
                 case 'addTask':
                     this.http.showModal(AddTaskComponent, 'md', data.data);
