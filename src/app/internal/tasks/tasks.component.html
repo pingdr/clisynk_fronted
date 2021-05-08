@@ -22,9 +22,9 @@
                     </button>
                     <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
                         role="menu" aria-labelledby="button-basic">
-                      <li role="menuitem"><a class="dropdown-item" href="#">Incomplete tasks</a></li>
-                      <li role="menuitem"><a class="dropdown-item" href="#">Completed tasks</a></li>
-                      <li role="menuitem"><a class="dropdown-item" href="#">All tasks</a>
+                      <li role="menuitem"><a class="dropdown-item">Incomplete tasks</a></li>
+                      <li role="menuitem"><a class="dropdown-item">Completed tasks</a></li>
+                      <li role="menuitem"><a class="dropdown-item">All tasks</a>
                       </li>
                     </ul>
                   </div>
@@ -39,9 +39,9 @@
                     </button>
                     <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
                         role="menu" aria-labelledby="button-basic">
-                      <li role="menuitem"><a class="dropdown-item" href="#"><div class="high-dot comman-dot"></div>  High</a></li>
-                      <li role="menuitem"><a class="dropdown-item" href="#"><div class="low-dot comman-dot"></div>  Low</a></li>
-                      <li role="menuitem"><a class="dropdown-item" href="#"><div class="med-dot comman-dot"></div>  Medium</a></li>
+                      <li role="menuitem"><a class="dropdown-item" ><div class="high-dot comman-dot"></div>  High</a></li>
+                      <li role="menuitem"><a class="dropdown-item" ><div class="low-dot comman-dot"></div>  Low</a></li>
+                      <li role="menuitem"><a class="dropdown-item" ><div class="med-dot comman-dot"></div>  Medium</a></li>
                     </ul>
                   </div>
             </div>
@@ -80,15 +80,15 @@
 
                         </thead>
                         <tbody>
-                            <tr *ngFor="let item of [1, 2, 3, 4, 5]" >
+                            <tr *ngFor="let task of tasks" >
                                 <td class="task-name">
                                     <div class="task-name-in-wrap">
                                         <div class="checkbox"> <mat-checkbox class="example-margin"></mat-checkbox></div>
-                                        <div class="task-name">Test task 1</div>
+                                        <div class="task-name">{{task?.title}}</div>
                                     </div>
                                 </td>
                                 <td class="task-description">
-                                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+                                    {{task?.note}}
                                 </td>
                                 <td class="assignee">
                                         <div class="grid-names">
@@ -102,17 +102,19 @@
                                         </div>
 
                                 </td>
-                                <td class="start-date">23/04/2021</td>
-                                <td class="due-date">23/04/2021</td>
+                                <!-- <td class="start-date">23/04/2021</td> -->
+                                <!-- <td class="due-date">23/04/2021</td> -->
+                                <td class="start-date">{{task?.startDateTime|date: 'dd/MM/yyyy'}}</td>
+                                <td class="due-date">{{task?.dueDateTime|date: 'dd/MM/yyyy'}}</td>
                                 <td class="priority">
-                                    <div class="high-dot prio-comman-tag">High</div>
+                                    <div class="high-dot prio-comman-tag">{{task?.priority}}</div>
                                 </td>
                                 <td class="action">
                                         <div class="actions-main-button">
-                                            <a href="#">
-                                                <img src="../../../assets/images/edit-icons.svg">
+                                            <a>
+                                                <img src="../../../assets/images/edit-icons.svg" (click)="openEditTask(task)">
                                             </a>
-                                            <a href="#">
+                                            <a>
                                                 <img src="../../../assets/images/trash-icon.svg">
                                             </a>
                                         </div>
@@ -128,7 +130,11 @@
             </div>
         </div>
         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-            Et et consectetur ipsum labore excepteur est proident excepteur ad velit occaecat qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur veniam sunt est aute sit dolor anim. Velit non irure adipisicing aliqua ullamco irure incididunt irure non esse consectetur nostrud minim non minim occaecat. Amet duis do nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui sit. Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit do dolore. Duis reprehenderit occaecat anim ullamco ad duis occaecat ex.
+            <full-calendar style="width: 400px;height: 400px;" #calendarEl defaultView="timeGridWeek"
+            id="full-calendar" deepChangeDetection="true" [events]="calendarEvents"
+            [header]
+            [plugins]="timeLinePlugins" [validRange]="validRange"
+            (dateClick)="handleDateClick($event)"></full-calendar>       
         </div>
         <div class="tab-pane fade caldeder-main-tasks" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
             <full-calendar style="width: 400px;height: 400px;" #calendar defaultView="dayGridMonth"

@@ -23,7 +23,7 @@ export class AddTaskComponent implements OnInit {
     public onClose: Subject<boolean>;
     contacts: any = [];
     isSelected = false;
-    isEdit = false;
+    isEditMode = false;
     today = new Date();
     loading = false;
     imageObj: UploadedFile = null;
@@ -40,9 +40,12 @@ export class AddTaskComponent implements OnInit {
     ngOnInit(): void {
         this.formInit();
         if (this.modalData) {
-            this.isEdit = true;
+            if (this.modalData._id) {
+                this.isEditMode = true;
+            }
             this.fillValues();
         }
+        console.log(this.modalData)
         // this.createSlots();
         this.contactList();
     }
@@ -59,12 +62,12 @@ export class AddTaskComponent implements OnInit {
     }
 
     createSlots() {
-        let slotTime = moment(this.isEdit ? new Date(new Date(this.modalData.dueDateTime).setDate(new Date().getDate())) : new Date(), 'HH:mm a');
+        let slotTime = moment(this.isEditMode ? new Date(new Date(this.modalData.dueDateTime).setDate(new Date().getDate())) : new Date(), 'HH:mm a');
         const endTime = moment('24:00 pm', 'HH:mm a');
         let selectedIndex = 0;
         while (slotTime < endTime) {
             this.myModel.timeSlots.push(moment(slotTime));
-            if (this.isEdit) {
+            if (this.isEditMode) {
                 if (moment(slotTime).format('hh:mm a') === moment(this.modalData.dueDateTime).format('hh:mm a')) {
                     this.form.controls.selectedSlot.patchValue(this.myModel.timeSlots[selectedIndex]);
                 }
@@ -88,7 +91,7 @@ export class AddTaskComponent implements OnInit {
             obj.contactId = JSON.stringify(this.http.getIdsOnly(this.form.value.contactId));
         }
 
-        if (this.isEdit) {
+        if (this.isEditMode) {
             obj.taskId = this.modalData._id;
         }
         obj.timeZone = this.http.getTimeZone();
@@ -97,7 +100,7 @@ export class AddTaskComponent implements OnInit {
             this.http.postData(ApiUrl.ADD_TASK, obj).subscribe(() => {
                 this.http.hideModal();
                 this.myModel.loader = false;
-                this.isEdit ? this.http.openSnackBar('Task Updated Successfully') : this.http.openSnackBar('Task Added Successfully');
+                this.isEditMode ? this.http.openSnackBar('Task Updated Successfully') : this.http.openSnackBar('Task Added Successfully');
                 this.http.eventSubject.next({eventType: 'addTask'});
             }, () => {
                 this.myModel.loader = false;
@@ -118,7 +121,7 @@ export class AddTaskComponent implements OnInit {
                         if (val.email) {
                             val.showName = val.showName + ` (${val.email})`;
                         }
-                        if (this.isEdit) {
+                        if (this.isEditMode) {
                             if (this.modalData.contactId && this.modalData.contactId._id === val._id) {
                                 this.form.controls.contactId.patchValue([val]);
                             }
