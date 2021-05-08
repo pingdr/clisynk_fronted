@@ -4,7 +4,9 @@ import {TableModel} from '../../shared/models/table.common.model';
 import {HttpService} from '../../services/http.service';
 import {Subscription} from 'rxjs';
 import {ApiUrl} from '../../services/apiUrls';
-
+import { CalendarOptions } from '@fullcalendar/angular'; 
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
 @Component({
     selector: 'app-tasks',
     templateUrl: './tasks.component.html',
@@ -13,6 +15,11 @@ import {ApiUrl} from '../../services/apiUrls';
 
 export class TasksComponent implements OnInit, OnDestroy {
 
+    calendarPlugins = [dayGridPlugin, interactionPlugin];
+    validRange: any = {};
+    calendarEvents = [
+        {title: '', date: new Date()}
+    ];
     myModel: any;
     search = new FormControl();
     subscription: Subscription;
@@ -34,7 +41,12 @@ export class TasksComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         this.subscription.unsubscribe();
     }
-
+    handleDateClick(arg) {
+        this.calendarEvents = [
+            {title: '.', date: new Date(arg.dateStr)}
+        ];
+      console.log(arg);
+    }
     taskList() {
         const obj: any = {
             skip: 0,
