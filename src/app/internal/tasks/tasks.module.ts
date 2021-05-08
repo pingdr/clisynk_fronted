@@ -3,6 +3,7 @@ import {SharedModule} from '../../shared/modules/shared.module';
 import {TasksComponent} from './tasks.component';
 import {RouterModule, Routes} from '@angular/router';
 import {AuthGuardService as AuthGuard} from '../../services/authguard.service';
+import {FullCalendarModule} from '@fullcalendar/angular';
 
 const routes: Routes = [
     {
@@ -20,7 +21,8 @@ const routes: Routes = [
 @NgModule({
     imports: [
         SharedModule,
-        RouterModule.forChild(routes)
+        RouterModule.forChild(routes),
+        FullCalendarModule
     ],
     declarations: [
         TasksComponent

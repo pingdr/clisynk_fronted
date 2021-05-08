@@ -711,6 +711,7 @@ section.invoices-mains {
     width: 100px !important;
     min-width: 160px !important;
     border-radius: 5px !important;
+    z-index: 1;
 }
 .more-grid-btn .btn-group ul.dropdown-menu li a.dropdown-item {
     padding: 10px 10px;
