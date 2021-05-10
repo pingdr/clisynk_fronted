@@ -5,11 +5,15 @@ import {TableModel} from '../../shared/models/table.common.model';
 import {HttpService} from '../../services/http.service';
 import {Subscription} from 'rxjs';
 import {ApiUrl} from '../../services/apiUrls';
+<<<<<<< Updated upstream
 
 
 import { Calendar } from '@fullcalendar/core';
 import {FullCalendarComponent} from '@fullcalendar/angular';
 
+=======
+// import { CalendarOptions } from '@fullcalendar/angular'; 
+>>>>>>> Stashed changes
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';

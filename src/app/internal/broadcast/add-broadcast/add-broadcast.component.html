@@ -1,3 +1,11 @@
+
+<div class="select-a-starting-main">
+    <div class="heading-file">Select a starting point for your templates</div>
+
+</div>
+
+
+<!-- --------------------Old-code------------------------------------- -->
 <div class="med-popup">
     <div class="broadcast-wizard-page">
         <div class="modal-header email_str_header">
@@ -74,10 +82,6 @@
                             <button type="button" class="btn-outline-primary" (click)="openTab = 2"> Next: Define your
                                 audience
                             </button>
-                            <!--                            <button type="button" class="btn-outline-primary" (click)="openTab = 2"> Next: Define your-->
-                            <!--                                Manage Template-->
-                            <!--                            </button>-->
-
                             <div class="popover-container tooltip-container tooltip-hover"
                                  style="display: inline-block">
                                 <div class="tooltip-reference">
@@ -95,7 +99,6 @@
                                                     <li role="menuitem" style="display: block"
                                                         (click)="selectTemplate(data)">
                                                         <a class="dropdown-item">
-                                                            <!--                                                <img src="assets/images/ic_attch2.svg">-->
                                                             <div class="item-text">
                                                                 <h6>{{data?.name}}</h6>
                                                                 <p>{{data?.subject || '(no subject)'}}</p>
@@ -140,21 +143,8 @@
                                     *ngIf="form.controls['contactId'].hasError('required') && form.controls.contactId.touched">
                                 Please enter contact.
                             </mat-error>
-                            <!-- <mat-error
-                                *ngIf="form.controls['contactId'].hasError('required') && form.controls.contactId.touched">
-                                Please select contact.
-                            </mat-error> -->
                         </div>
-                        <!--                    <tag-input class="add_new_tags" formControlName="contactId" [onlyFromAutocomplete]="true"-->
-                        <!--                               [separatorKeyCodes]="[32]">-->
-                        <!--                        <tag-input-dropdown [dynamicUpdate]="true" [showDropdownIfEmpty]="true" [autocompleteObservable]='requestAutocompleteItems'-->
-                        <!--                                            style="max-width: 100px" [focusFirstElement]="true" [displayBy]="'email'"-->
-                        <!--                                            [identifyBy]="'_id'" [autocompleteItems]="myModel?.contacts">-->
-                        <!--                            <ng-template let-item="item" let-index="index">-->
-                        <!--                                {{item.email}}-->
-                        <!--                            </ng-template>-->
-                        <!--                        </tag-input-dropdown>-->
-                        <!--                    </tag-input>-->
+                
 
                         <div class="button-row">
                             <button type="button" class="text-button" (click)="openTab = 1"> Previous</button>

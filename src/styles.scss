@@ -9060,6 +9060,27 @@ tag-input.add_new_tags {
 }
 
 
+.calander-views-task td.fc-event-container {
+  position: inherit !important;
+  border-radius: 0 !important;
+  width: auto !important;
+  height: auto !important;
+}
+.calander-views-task td.fc-event-container a .fc-content {
+  display: block !important;
+}
+
+.calander-views-task td.fc-event-container a {
+  position: unset !important;
+  width: auto !important;
+  height: auto !important;
+  border-radius: 5px !important;
+  background: #4776E6 !important;
+  border-color: #4776E6 !important;
+}
+.calander-views-task .fc-row .fc-content-skeleton {
+  min-height: 140px ;
+}
 
 
  
