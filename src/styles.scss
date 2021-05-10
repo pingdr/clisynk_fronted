@@ -6497,28 +6497,6 @@ section.appt-list {
 .no-noti {
 }
 
-.fc-event,
-.fc-agenda .fc-event-time,
-.fc-event a {
-  width: 23px;
-  background-color: transparent;
-  border-color: #0040db;
-  color: transparent;
-  border-radius: 100%;
-  height: 25px;
-  position: absolute;
-  top: -5px;
-  right: 14px;
-  left: 7px;
-}
-
-.fc-unthemed td.fc-today {
-  background: transparent !important;
-}
-
-.fc-event .fc-content {
-  display: none !important;
-}
 
 .delete-product {
   float: right;
