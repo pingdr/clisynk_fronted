@@ -3,7 +3,8 @@ import {HttpService} from '../../../services/http.service';
 
 @Component({
     selector: 'app-email-detail',
-    templateUrl: './email-detail.component.html'
+    templateUrl: './email-detail.component.html',
+    styleUrls: ['./email-detail.component.scss']
 })
 export class EmailDetailComponent {
 

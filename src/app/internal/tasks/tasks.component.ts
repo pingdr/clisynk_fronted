@@ -17,7 +17,7 @@ import { AddTaskComponent } from 'src/app/shared/modals/add-task/add-task.compon
 import * as _ from 'lodash'
 // import resourceTimeGridPlugin from '@fullcalendar/resource-timegrid';
 @Component({
-    selector: 'app-tasks',
+    selector: 'app-tasks', 
     templateUrl: './tasks.component.html',
     styleUrls: ['./task.component.scss']
 })

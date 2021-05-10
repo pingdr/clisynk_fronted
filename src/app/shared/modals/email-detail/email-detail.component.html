@@ -1,21 +1,15 @@
 <div class="modal-header email_str_header">
+    <section class="text">
+        <h4>{{modalData?.subject}}</h4>
+    </section>
     <section id="close" class="navigation">
         <button class="icon-only" type="button" aria-label="Close" (click)="http.hideModal()">
             <img src="/assets/images/ic_close.svg">
         </button>
     </section>
-    <section class="text">
-        <h4>{{modalData?.subject}}</h4>
-    </section>
 </div>
 <div class="modal-body">
     <div class="html-preview">
-        <div class="desktop-mobile-view">
-            <a [ngClass]="{'active':fullview == true}"><img src="/assets/images/ic_desktop.svg"
-                                                            (click)="fullview = true"></a>
-            <a [ngClass]="{'active':fullview == false}"> <img src="/assets/images/ic_mobile.svg"
-                                                              (click)="fullview = false"></a>
-        </div>
         <div class="iframe-wrapper desktop" *ngIf="fullview">
             <p [innerHTML]="modalData?.content"></p>
         </div>
@@ -23,6 +17,12 @@
             <div class="mobile-view">
                 <p [innerHTML]="modalData?.content"></p>
             </div>
+        </div>
+        <div class="desktop-mobile-view">
+            <a [ngClass]="{'active':fullview == true}"><img src="/assets/images/ic_desktop.svg"
+                                                            (click)="fullview = true"></a>
+            <a [ngClass]="{'active':fullview == false}"> <img src="/assets/images/ic_mobile.svg"
+                                                              (click)="fullview = false"></a>
         </div>
     </div>
 </div>
