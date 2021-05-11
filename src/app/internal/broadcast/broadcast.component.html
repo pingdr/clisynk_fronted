@@ -1,4 +1,145 @@
-<div class="broadcasts-page">
+<div class="broad-cast-header-main">
+    <div class="broad-cast-heading">Broadcasts</div>
+    <button type="button"  routerLink="/broadcast/add-broadcast" class="btn add-broadcast">Add Broadcasts </button>
+</div>
+
+
+<div class="tables-for-broadcast-list">
+
+    <div class="header-search-main">
+            <div class="left-search-main">
+                <input type="text" placeholder="Search">
+            </div>
+
+            <div class="right-buttons">
+                    <div class="date-pickermain">
+                        <input type="text"
+                        placeholder="DD/MM/YYYY"
+                        class="form-control"
+                        bsDatepicker
+                        [bsConfig]="{ adaptivePosition: true }">
+                    </div>
+
+                    <div class="filter-button">
+                        <div class="btn-group" dropdown>
+                            <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"aria-controls="dropdown-basic">
+                                <img src="../../../assets/images/filter-vector.svg" alt="Filter" title="Filter">   
+                                Filter
+                            </button>
+                            <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+                                role="menu" aria-labelledby="button-basic">
+                              <li role="menuitem"><a class="dropdown-item" href="#">All</a></li>
+                              <li role="menuitem"><a class="dropdown-item" href="#">Sent</a></li>
+                              <li role="menuitem"><a class="dropdown-item" href="#">Scheduled</a></li>
+                              <li role="menuitem"><a class="dropdown-item" href="#">Draft</a>
+                              </li>
+                            </ul>
+                          </div>
+                    </div>
+            </div>
+    </div>
+
+    <!-- --------------------Table----------------------------------- -->
+    <div class="broadcast-table-main">
+        <table>
+                <thead>
+                        <tr>
+                            <th class="hash-col">#</th>
+                            <th class="name-col">Name</th>
+                            <th class="date-col">Date</th>
+                            <th class="contacts-col">Contacts</th>
+                            <th class="view-content-col">View Content</th>
+                            <th class="status-col">Status</th>
+                            <th class="action-col">Action</th>
+                        </tr>
+                </thead>
+                <tbody>
+
+                        <tr>
+                            <td class="hash-col">1</td>
+                            <td class="name-col">Pillow Talk.</td>
+                            <td class="date-col">04/04/2021, 04:45 PM</td>
+                            <td class="contacts-col">5</td>
+                            <td class="view-content-col">
+                                <div class="views-cont">
+                                    <div class="comman-grid">
+                                        <img src="../../../assets/images/mac-icon.svg">
+                                    </div>
+                                    <div class="comman-grid">
+                                        <img src="../../../assets/images/iphone-vector.svg">
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="status-col">
+                                <div class="comman-status draft">Draft</div>
+                            </td>
+                            <td class="action-col">
+                                <div class="actions-column">
+                                    <div class="comman-grid">
+                                        <img src="../../../assets/images/copy-vector.svg">
+                                    </div>
+                                    <div class="comman-grid">
+                                        <img src="../../../assets/images/New-ui-images/pencil.svg">
+                                    </div>
+                                    <div class="comman-grid">
+                                        <img src="../../../assets/images/trash-icon.svg">
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- -------------Shimmer-shine---------------------- -->
+                        <tr>
+                            <td class="hash-col">
+                                <div class="number-shine shine"></div>
+                            </td>
+                            <td class="name-col">
+                                <div class="name-shine shine"></div>
+                            </td>
+                            <td class="date-col">
+                                <div class="date-shine shine"></div>
+                            </td>
+                            <td class="contacts-col">
+                                <div class="contact-shine shine"></div>
+                            </td>
+                            <td class="view-conent-col">
+                                <div class="views-cont">
+                                    <div class="view-shine shine"></div>
+                                    <div class="view-shine shine"></div>
+                                </div>
+                            </td>
+                            <td class="status-col">
+                                <div class="staus-shine shine"></div>
+                            </td>
+                            <td class="action-col">
+                                <div class="actions-btn">
+                                    <div class="comman-shine shine"></div>
+                                    <div class="comman-shine shine"></div>
+                                    <div class="comman-shine shine"></div>
+                                </div>
+                            </td>
+                        </tr>
+
+                </tbody>
+
+
+        </table>
+
+
+    </div>
+
+
+
+</div>
+
+
+
+
+
+
+<!-- -------------Old Code---------------------------- -->
+
+<!-- <div class="broadcasts-page">
     <section class="broadcast-table">
         <header class="page-header">
             <div class="title">
@@ -77,7 +218,7 @@
                     <span class="stat-subject"> ({{data?.subject || 'no subject'}})
                     </span>
                         <div class="stat-message">
-                            <!--                            May 14th at 9:18 pm-->
+            
                             <span>Edited at {{data?.updatedAt |date:'MMM dd, hh:mm a'}} </span>
                         </div>
                         <div class="stat-status">
@@ -157,4 +298,4 @@
             </ng-container>
         </div>
     </section>
-</div>
+</div> -->

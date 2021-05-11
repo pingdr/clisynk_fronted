@@ -130,17 +130,13 @@
             </div>
         </div>
         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-            <full-calendar style="width: 400px;height: 400px;" #calendarEl defaultView="timeGridWeek"
-            id="full-calendar" deepChangeDetection="true" [events]="calendarEvents"
-            [header]
-            [plugins]="timeLinePlugins" [validRange]="validRange"
-            (dateClick)="handleDateClick($event)"></full-calendar>       
+       
+            <app-timeline-view></app-timeline-view>
+        
         </div>
         <div class="tab-pane fade caldeder-main-tasks" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-            <full-calendar style="width: 400px;height: 400px;" #calendar defaultView="dayGridMonth"
-            id="full-calendar" deepChangeDetection="true" [events]="calendarEvents"
-            [plugins]="calendarPlugins" [validRange]="validRange"
-            (dateClick)="handleDateClick($event)"></full-calendar>
+            <app-calender-view [_tasks]="tasks"></app-calender-view>
+          
         </div>
         <div class="tab-pane fade" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
             <div class="search-task-tabs-inner-search">
