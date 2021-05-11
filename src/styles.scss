@@ -9135,7 +9135,23 @@ tag-input.add_new_tags {
   font-weight: 400;
 }
 
-
+.multiselect-dropdown .dropdown-btn .dropdown-down {
+  display: inline-block;
+  top: 0px !important;
+  border-top: 5px solid #757575 !important;
+  border-left: 5px solid transparent !important;
+  border-right: 5px solid transparent !important;
+  position: relative;
+  right: 7px;
+}
+.multiselect-dropdown .dropdown-btn .selected-item{
+  margin-bottom: 5px;
+}
+.multiselect-dropdown  .dropdown-btn  .dropdown-up{
+    border-bottom: 5px solid #757575 !important;
+    border-left: 5px solid transparent !important;
+    border-right: 5px solid transparent !important;
+}
 
 
 
