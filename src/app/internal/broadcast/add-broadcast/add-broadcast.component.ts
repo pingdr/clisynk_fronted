@@ -12,7 +12,8 @@ import { ContactsModule } from '../../contacts/contacts.module';
 
 @Component({
     selector: 'app-add-broadcast',
-    templateUrl: './add-broadcast.component.html'
+    templateUrl: './add-broadcast.component.html',
+    styleUrls: ['./add-broadcast.component.scss']
 })
 export class AddBroadcastComponent implements OnInit {
 
