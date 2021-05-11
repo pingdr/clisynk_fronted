@@ -9060,17 +9060,20 @@ tag-input.add_new_tags {
 }
 
 
-.calander-views-task td.fc-event-container {
+.calander-views-task td.fc-event-container,
+.time-line-main-task td.fc-event-container {
   position: inherit !important;
   border-radius: 0 !important;
   width: auto !important;
   height: auto !important;
 }
-.calander-views-task td.fc-event-container a .fc-content {
+.calander-views-task td.fc-event-container a .fc-content,
+.time-line-main-task td.fc-event-container a .fc-content  {
   display: block !important;
 }
 
-.calander-views-task td.fc-event-container a {
+.calander-views-task td.fc-event-container a,
+.time-line-main-task td.fc-event-container a {
   position: unset !important;
   width: auto !important;
   height: auto !important;
@@ -9080,10 +9083,62 @@ tag-input.add_new_tags {
 }
 .calander-views-task .fc-row .fc-content-skeleton {
   min-height: 140px ;
+  margin-top: 0px;
+}
+
+.calander-views-task .fc-unthemed td.fc-today,
+.time-line-main-task .fc-unthemed td.fc-today {
+  background: #fcf8e3 !important;
 }
 
 
+
+.calander-views-task .fc-event,
+.calander-views-task .fc-agenda .fc-event-time,
+.calander-views-task .fc-event {
+  border-radius: 5px !important;
+}
  
+
+.time-line-main-task .fc-event, .time-line-main-task .fc-agenda .fc-event-time, .time-line-main-task .fc-event {
+  border-radius: 5px !important;
+  background: #4776E6 !important;
+  border-color: #4776E6 !important;
+  width: auto !important;
+  height: auto !important;
+}
+ 
+.time-line-main-task .fc-toolbar {
+  display: none;
+}
+.time-line-main-task .fc-content-skeleton {
+  min-height: auto !important;
+  margin-top: 0px !important;
+}
+.time-line-main-task .fc-event-container {
+  max-width: 100% !important;
+  width: 100% !important;
+  top: 0 !important;
+}
+.time-line-main-task .fc-event .fc-content {
+  display: block !important;
+}
+.time-line-main-task .fc-content .fc-time {
+  display: block;
+}
+.time-line-main-task .fc-content .fc-time span {
+  font-size: 11px;
+  font-weight: 400;
+}
+.time-line-main-task .fc-event .fc-content .fc-title {
+  font-size: 11px;
+  font-weight: 400;
+}
+
+
+
+
+
 
 
 // --------------------New-Responsive-------------//

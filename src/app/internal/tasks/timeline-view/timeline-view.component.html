@@ -1,18 +1,23 @@
-<full-calendar  #calendarEl defaultView="timeGridWeek"
-id="full-calendar" deepChangeDetection="true" 
-[height]="'auto'"
-[editable]="true"
-[weekends]="calendarWeekends"
-[events]="calendarEvents"
-[plugins]="calendarPlugins" [validRange]="validRange"
-(eventDragStart)="onEventDragStart($event)"
-(eventDragStop)="onEventDragStop($event)"
-(datesRender)="dateRender($event)"
-(dateClick)="handleDateClick($event)"
-(eventClick)="onEventClick($event)" 
-(eventRender)="onEventRender($event)"
->
-</full-calendar>   
+<div class="time-line-main-task">
+    <full-calendar  #calendarEl defaultView="timeGridWeek"
+        id="full-calendar" deepChangeDetection="true" 
+        [height]="'auto'"
+        [editable]="true"
+        [weekends]="calendarWeekends"
+        [events]="calendarEvents"
+        [plugins]="calendarPlugins" [validRange]="validRange"
+        (eventDragStart)="onEventDragStart($event)"
+        (eventDragStop)="onEventDragStop($event)"
+        (datesRender)="dateRender($event)"
+        (dateClick)="handleDateClick($event)"
+        (eventClick)="onEventClick($event)" 
+        (eventRender)="onEventRender($event)"
+        >   
+    </full-calendar>   
+
+</div>
+
+
 <!-- [header]="{
     left: 'prev,next today',
     center: 'title',
