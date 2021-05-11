@@ -125,6 +125,7 @@ import { InputRestrictionDirective } from '../directives/InputRestrictionDirecti
 import { StringToObjPipe } from '../pipes/stringToObj.pipe';
 
 import { AvatarModule } from 'ngx-avatar';
+import { NewEditTaskComponent } from '../modals/new-edit-task/new-edit-task.component';
 
 
 const entryList = [EmailFormatComponent, SendEmailComponent, ContactDetailsComponent, AddNoteComponent,
@@ -142,7 +143,7 @@ const entryList = [EmailFormatComponent, SendEmailComponent, ContactDetailsCompo
     SmartFormCreateComponent, CreateWorkspaceComponent, MergeContactsComponent, SmartFormDeleteComponent, LeadFormCreateComponent,
     CreateFolderComponent, AddPageComponent, CreateDocumentComponent, DeleteDocComponent, MoveComponent, EmailDocumentFormatComponent,
     DeleteAutomationComponent, LeadFormDeletedComponent, NavigateToLeadFormsComponent, NavigateToAppointmentComponent, NavigateToTagsComponent,
-    NavigateToProductsComponent, RenameAutomationComponent, EditWorkspaceComponent
+    NavigateToProductsComponent, RenameAutomationComponent, EditWorkspaceComponent, NewEditTaskComponent
 
 ];
 

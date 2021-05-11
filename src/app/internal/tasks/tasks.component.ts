@@ -7,6 +7,7 @@ import {Subscription} from 'rxjs';
 import {ApiUrl} from '../../services/apiUrls';
 import { AddTaskComponent } from 'src/app/shared/modals/add-task/add-task.component';
 import * as _ from 'lodash'
+import { NewEditTaskComponent } from '../../shared/modals/new-edit-task/new-edit-task.component';
 @Component({
     selector: 'app-tasks', 
     templateUrl: './tasks.component.html',
@@ -78,6 +79,11 @@ export class TasksComponent implements OnInit, OnDestroy {
 
     openEditTask(data) {
         this.http.showModal(AddTaskComponent, 'md', data);
+    }
+    
+    openNewAddTask() {
+        this.http.showModal(NewEditTaskComponent, 'md');
+
     }
 
 }
