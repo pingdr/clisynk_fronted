@@ -1,12 +1,7 @@
-<full-calendar style="width: 400px;height: 400px;" #calendarEl defaultView="timeGridWeek"
+<full-calendar  #calendarEl defaultView="timeGridWeek"
 id="full-calendar" deepChangeDetection="true" 
 [height]="'auto'"
 [editable]="true"
-[header]="{
-    left: 'prev,next today',
-    center: 'title',
-    right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-}"
 [weekends]="calendarWeekends"
 [events]="calendarEvents"
 [plugins]="calendarPlugins" [validRange]="validRange"
@@ -18,3 +13,8 @@ id="full-calendar" deepChangeDetection="true"
 (eventRender)="onEventRender($event)"
 >
 </full-calendar>   
+<!-- [header]="{
+    left: 'prev,next today',
+    center: 'title',
+    right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+}" -->

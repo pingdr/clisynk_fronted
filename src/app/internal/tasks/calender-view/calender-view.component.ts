@@ -1,77 +1,141 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Calendar, EventInput } from '@fullcalendar/core';
+import { HttpService } from './../../../services/http.service';
+import { Component, Input, OnInit, SimpleChange, ViewChild } from '@angular/core';
+import { Calendar, EventApi, EventInput } from '@fullcalendar/core';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 
-import dayGridPlugin from '@fullcalendar/daygrid';
+import dayGridPlugin, { DayGridView } from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import * as _ from 'lodash'
-import Tooltip from 'tooltip.js'; 
+import Tooltip from 'tooltip.js';
+import { EventClickInfo } from '../event-click-info';
+import { Task } from 'src/app/models/task';
+import { AddTaskComponent } from 'src/app/shared/modals/add-task/add-task.component';
 
 @Component({
-  selector: 'app-calender-view',
-  templateUrl: './calender-view.component.html',
-  styleUrls: ['./calender-view.component.css']
+    selector: 'app-calender-view',
+    templateUrl: './calender-view.component.html',
+    styleUrls: ['./calender-view.component.css']
 })
 export class CalenderViewComponent implements OnInit {
 
-  constructor() { }
+    @Input() _tasks: Task[];
+    set tasks(value) {
+        if (value) {
+            this._tasks = value;
+            this.convertTasksToEvents();
+        }
+    }
 
-  ngOnInit() {
-  }
-  @ViewChild('calendar', { static: false }) calendarComponent: FullCalendarComponent;
+    @ViewChild('calendar', { static: false }) calendarComponent: FullCalendarComponent;
 
-  calendarPlugins = [dayGridPlugin, timeGridPlugin, interactionPlugin];
-  calendarWeekends = true;
+    calendarPlugins = [dayGridPlugin, timeGridPlugin, interactionPlugin];
+    calendarWeekends = true;
 
-  @ViewChild('calenderEl', { static: true })
-  calenderEl: FullCalendarComponent;
+    @ViewChild('calenderEl', { static: true })
+    calenderEl: FullCalendarComponent;
 
-  validRange: any = {};
-  calendarEvents: EventInput[] = [
-      { title: 'My event', start: new Date(), date: new Date() },
-      { title: 'My event2', start: new Date(), date: new Date() },
-      { title: 'My event3', start: new Date(), date: new Date() }
-  ];
+    validRange: any = {};
+    calendarEvents: EventInput[] = [
+        { title: 'My event', start: new Date(), date: new Date(), color: 'green' },
+        { title: 'My event2', start: new Date(), date: new Date() },
+        { title: 'My event3', start: new Date(), date: new Date() }
+    ];
 
-  dateRender($event: any) {
-      console.log("dateRender....");
-      console.log(this.calenderEl)
-      console.log($event);
-      $event.el.addEventListener('dblclick', () => {
-          // alert('double click!');
-          this.calendarEvents.push( { title: 'My event ' + (Math.random() * 10).toFixed(0), start: new Date(), date: new Date() })
-          console.log(this.calendarEvents)
-      });
-  }
+    ngOnChanges(changes: { [propertyName: string]: SimpleChange }) {
+        console.log(changes);
+        if ('_tasks' in changes) {
+            this.convertTasksToEvents();
+        }
 
-  onEventClick(clickedEvent: any) {
-      console.log(clickedEvent);
-  }
+    }
+    constructor(public http: HttpService) { }
 
-  onEventRender(info: any) {
-      console.log('onEventRender', info.el);
-      const tooltip = new Tooltip(info.el, {
-          title: info.event.title,
-          placement: 'top-end',
-          trigger: 'hover',
-          container: 'body'
-      });
-  }
+    ngOnInit() {
+    }
 
-  onEventDragStart(event) {
-      console.log("start=>",event);
-      
-  }
-  
-  onEventDragStop(event) {
-      console.log("stop=>",event);
+    convertTasksToEvents() {
+        console.log("convert tasks to events");
+        let events: EventInput[] = [];
+        this._tasks.forEach(x => {
+            events.push({
+                title: x.title, 
+                start: new Date(x.startDateTime),
+                date: new Date(x.date), 
+                end: new Date(x.dueDateTime), 
+                color: 'green',
+                data: x
+            });
+        })
+        this.calendarEvents = events;
+    }
 
-  }
-  handleDateClick(arg) {
-    // this.calendarEvents = [
-    //     { title: '.', start: new Date(arg.dateStr), date: new Date(arg.dateStr) }
-    // ];
-    console.log(arg);
-  }
+
+
+    onEventClick(clickedEvent: EventClickInfo) {
+        console.log(clickedEvent);
+        const task = clickedEvent.event.extendedProps.data;
+        
+        this.openEditTask(task);
+    }
+
+    
+    handleDateClick(arg) {
+        console.log(arg);
+        this.openEditTask();
+    }
+
+    openEditTask(data?) {
+        this.http.showModal(AddTaskComponent, 'md', data);
+    }
+
+    // onEventRender(info: EventClickInfo) {
+    //     //   console.log('onEventRender', info.el);
+    //     const tooltip = new Tooltip(info.el, {
+    //         title: info.event.title,
+    //         placement: 'top-end',
+    //         trigger: 'hover',
+    //         container: 'body'
+    //     });
+
+    //     info.el.onclick = (event) => {
+    //         console.log("onEventClick", info.event);
+    //         // open task in edit mode from sidebar.
+    //     }
+    //     // info.el.oncontextmenu = (event) => {
+    //     //     console.log("onEventRightClick", info.event.title);
+    //     // }
+    //     // info.el.ondblclick = (event) => {
+    //     //     console.log("onEventDoubleClick", info.event.title);
+    //     // }
+
+    // }
+
+    // dateRender(info: EventClickInfo) {
+    //     console.log("dateRender....");
+    //     console.log(this.calenderEl)
+    //     console.log(info);
+    //     // info.el.oncontextmenu = (event) => {
+    //     //     console.log("onDateRightClick", info.event.title);
+    //     // }
+    //     // info.el.onclick = (event) => {
+    //     //     console.log("onDateClick", info.event.title);
+    //     // }
+    //     info.el.ondblclick = (event) => {
+    //         console.log("onDateDoubleClick", info.event.title);
+    //         // open side bar then add new task (evnet); 
+    //     }
+
+
+    // }
+
+
+
+    // onEventDragStart(event) {
+    //     console.log("start=>", event);
+    // }
+
+    // onEventDragStop(event) {
+    //     console.log("stop=>", event);
+    // }
 }

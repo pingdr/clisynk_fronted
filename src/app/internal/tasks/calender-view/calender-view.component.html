@@ -4,20 +4,20 @@
 id="full-calendar" deepChangeDetection="true" 
 [height]="'auto'"
 [editable]="true"
-[header]="{
-    left: 'prev,next today',
-    center: 'title',
-    right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-}"
 [weekends]="calendarWeekends"
 [events]="calendarEvents"
 [plugins]="calendarPlugins" [validRange]="validRange"
-(eventDragStart)="onEventDragStart($event)"
-(eventDragStop)="onEventDragStop($event)"
-(datesRender)="dateRender($event)"
 (dateClick)="handleDateClick($event)"
 (eventClick)="onEventClick($event)" 
-(eventRender)="onEventRender($event)"
 >
 </full-calendar>   
 </div>
+<!-- (eventRender)="onEventRender($event)"
+(datesRender)="dateRender($event)" -->
+<!-- (eventDragStart)="onEventDragStart($event)"
+(eventDragStop)="onEventDragStop($event)" -->
+<!-- [header]="{
+    left: 'prev,next today',
+    center: 'title',
+    right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+}" -->
