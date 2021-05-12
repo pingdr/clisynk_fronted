@@ -9,7 +9,8 @@ import {AppointStep2Component} from '../appoint-step-2/appoint-step-2.component'
 
 @Component({
     selector: 'app-add-appointment',
-    templateUrl: './add-appointment.component.html'
+    templateUrl: './add-appointment.component.html',
+    styleUrls: ['./add-appointment.component.scss']
 })
 export class AddAppointmentComponent {
 
