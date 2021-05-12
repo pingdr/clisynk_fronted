@@ -30,7 +30,7 @@ const routes: Routes = [
         TasksComponent,
         TimelineViewComponent,
         CalenderViewComponent,
-    ]
+    ],
 })
 export class TasksModule {
 }

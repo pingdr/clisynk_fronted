@@ -1,11 +1,45 @@
 .select-a-starting-main .heading-file {
     font-weight: 500;
     font-size: 22px;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.01em;
     color: #2A2A2A;
 }
 
 .select-a-starting-main {
     padding: 30px 40px;
     border-bottom: 1px solid #ccc;
+}
+
+.tabs-add-broadcast nav {
+    border-bottom: 1px solid #ccc;
+    padding: 20px;
+}
+
+.tabs-add-broadcast nav .nav-tabs {
+    border: none !important;
+    margin-left: 20px;
+}
+
+.tabs-add-broadcast nav .nav-tabs a {
+    border: none !important;
+    margin: 0;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0.02em;
+    color: #2A2A2A;
+    font-weight: 500;
+    flex: inherit !important;
+    margin-right: 40px;
+    padding: 0px;
+    position: relative;
+}
+
+.tabs-add-broadcast nav .nav-tabs .active:before {
+    position: absolute;
+    content: '';
+    background: #4776E6;
+    left: 0;    
+    right: 0;
+    height: 3px;
+    bottom: -21px;
 }
