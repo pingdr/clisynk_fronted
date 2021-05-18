@@ -4,6 +4,9 @@ import {RouterModule, Routes} from '@angular/router';
 import {AuthGuardService as AuthGuard} from '../../services/authguard.service';
 import {BroadcastComponent} from './broadcast.component';
 import {AddBroadcastComponent} from './add-broadcast/add-broadcast.component';
+import { CustomMailComponent } from './add-broadcast/custom-mail/custom-mail.component';
+import { CodeYourOwnComponent } from './add-broadcast/code-your-own/code-your-own.component';
+import { ChooseThemeComponent } from './add-broadcast/choose-theme/choose-theme.component';
 
 const routes: Routes = [
     {
@@ -37,7 +40,10 @@ const routes: Routes = [
     ],
     declarations: [
         BroadcastComponent,
-        AddBroadcastComponent
+        AddBroadcastComponent,
+        CustomMailComponent,
+        CodeYourOwnComponent,
+        ChooseThemeComponent
     ]
 })
 export class BroadcastModule {

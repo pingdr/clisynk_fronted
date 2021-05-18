@@ -17,75 +17,22 @@
     </nav>
     <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-            <div class="email-comman-main">
-                <div class="first-row-main">
-                    <div class="left-heding-email">Subject:</div>
-                    <div class="right-input-field-main">
-                        <input type="email" />
-                    </div>
-                </div>
-                <div class="second-row-main">
-                    <ckeditor debounce="500" [config]="ckeConfig"></ckeditor>
-                    <section class="toggle-switch">
-                        <div class="Signature">
-                            <span>Signature</span>
-                        </div>
-                        <div class="Signature-toggle">
-                            <label class="switch">
-                                <input type="checkbox">
-                                <span class="slider round"></span>
-                            </label>
-                        </div>
-                    </section>
-                </div>
-                <div class="third-row-main-content">
-                    <div class="left-col-three-btn">
-                        <button class="comman-btn">
-                            <img src="../../../../assets/images/upload-pin.svg">
-                        </button>
-                        <button class="comman-btn">
-                            <img src="../../../../assets/images/merge-pin.svg">
-                        </button>
-                        <button class="comman-btn">
-                            <img src="../../../../assets/images/document-pin.svg">
-                        </button>
-                    </div>
-                    <div class="rigt-col-next-btn">
-                        <button class="next-btn"> NEXT</button>
-                    </div>
-                </div>
+            
+            <custom-mail></custom-mail>
+         
 
-
-                
-            </div>
         </div>
         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-            <div class="grid-themes-main">
-                <div class="comman-grid" *ngFor="let item of [1,2,3,4,5,6,7,8,9,10]">
-                    <div class="image-div-main">
-                        <img src="../../../../assets/images/theme-pic.png">    
-                    </div>
-                    <div class="template-name-main">Template Name</div>
-                </div>
-            </div>
+            
+            <choose-theme>
+
+            </choose-theme>
+           
 
 
         </div>
         <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-            <div class="third-tab-code">
-                <div class="inner-code-wrapper-main">
-                    <div class="above-ping-main">
-                        <img src="../../../../assets/images/code.svg">
-                    </div>
-                    <div class="below-ping-main">
-                        <div class="heading-ping">Paste in code</div>
-                        <span class="create-temp">Create a template by pasting your custom coded design.</span>
-                    </div>
-                </div>
-
-
-
-            </div>
+            <code-your-own></code-your-own>
 
         </div>
     </div>
