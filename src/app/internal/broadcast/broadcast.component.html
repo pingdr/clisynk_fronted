@@ -55,12 +55,12 @@
                 </thead>
                 <tbody>
 
-                        <tr>
-                            <td class="hash-col">1</td>
-                            <td class="name-col">Pillow Talk.</td>
-                            <td class="date-col">04/04/2021, 04:45 PM</td>
-                            <td class="contacts-col">5</td>
-                            <td class="view-content-col">
+                        <tr *ngFor="let data of myModel?.data?.data; index as i">
+                            <td class="hash-col">{{i + 1}}</td>
+                            <td class="name-col">{{data?.subject || 'no subject'}}</td>
+                            <td class="date-col">{{data?.updatedAt |date:'MMM dd, hh:mm a'}}</td>
+                            <td class="contacts-col">{{data?.contactId?.length}}</td>
+                            <td class="view-content-col" (click)="openDetails(data)">
                                 <div class="views-cont">
                                     <div class="comman-grid">
                                         <img src="../../../assets/images/mac-icon.svg">
@@ -71,25 +71,29 @@
                                 </div>
                             </td>
                             <td class="status-col">
-                                <div class="comman-status draft">Draft</div>
+                                <div class="comman-status draft" [ngClass]="{ 'sent': data?.status == 1, 'scheduled': data?.status == 2, 'draft': data?.status == 3}">
+                                    {{data?.status == 1 ? 'Sent' : 'Draft'}}
+                                </div>
                             </td>
                             <td class="action-col">
                                 <div class="actions-column">
                                     <div class="comman-grid">
-                                        <img src="../../../assets/images/copy-vector.svg">
+                                        <img src="../../../assets/images/copy-vector.svg" (click)="copyBroadcast(data)">
                                     </div>
-                                    <div class="comman-grid">
+                                    <div [routerLink]="['/broadcast/edit-broadcast',data._id]" 
+                                        (click)="http.saveData(data)" *ngIf="data?.status != 1"
+                                        class="comman-grid">
                                         <img src="../../../assets/images/New-ui-images/pencil.svg">
                                     </div>
-                                    <div class="comman-grid">
-                                        <img src="../../../assets/images/trash-icon.svg">
+                                    <div class="comman-grid" *ngIf="data?.status != 1"> 
+                                        <img src="../../../assets/images/trash-icon.svg" (click)="deleteBroadcast(data)">
                                     </div>
                                 </div>
                             </td>
                         </tr>
 
                         <!-- -------------Shimmer-shine---------------------- -->
-                        <tr>
+                        <tr *ngIf="myModel?.loader">
                             <td class="hash-col">
                                 <div class="number-shine shine"></div>
                             </td>
@@ -139,7 +143,7 @@
 
 <!-- -------------Old Code---------------------------- -->
 
-<!-- <div class="broadcasts-page">
+<div class="broadcasts-page">
     <section class="broadcast-table">
         <header class="page-header">
             <div class="title">
@@ -298,4 +302,4 @@
             </ng-container>
         </div>
     </section>
-</div> -->
+</div>
