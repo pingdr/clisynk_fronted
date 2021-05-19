@@ -32,6 +32,7 @@ export class BroadcastComponent implements OnInit {
             search: this.search.value
         };
         this.myModel.loader = true;
+        this.myModel.data = null;
         this.http.getData(ApiUrl.BROADCAST_LIST, obj).subscribe(res => {
             this.myModel.data = res.data;
             this.myModel.loader = false;

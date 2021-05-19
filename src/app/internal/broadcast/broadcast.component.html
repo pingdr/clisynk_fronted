@@ -8,7 +8,10 @@
 
     <div class="header-search-main">
             <div class="left-search-main">
-                <input type="text" placeholder="Search">
+                <input 
+                pattern=".*" autocomplete="off" class="" [formControl]="search"
+                (input)="broadcastList(0)"
+                type="text" placeholder="Search broadcast">
             </div>
 
             <div class="right-buttons">
@@ -17,6 +20,7 @@
                         placeholder="DD/MM/YYYY"
                         class="form-control"
                         bsDatepicker
+                      
                         [bsConfig]="{ adaptivePosition: true }">
                     </div>
 
@@ -28,10 +32,10 @@
                             </button>
                             <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
                                 role="menu" aria-labelledby="button-basic">
-                              <li role="menuitem"><a class="dropdown-item" >All</a></li>
-                              <li role="menuitem"><a class="dropdown-item" >Sent</a></li>
-                              <li role="menuitem"><a class="dropdown-item" >Scheduled</a></li>
-                              <li role="menuitem"><a class="dropdown-item" >Draft</a>
+                              <li role="menuitem"><a class="dropdown-item" (click)="broadcastList(0)">All</a></li>
+                              <li role="menuitem"><a class="dropdown-item" (click)="broadcastList(1)">Sent</a></li>
+                              <li role="menuitem"><a class="dropdown-item" (click)="broadcastList(2)">Scheduled</a></li>
+                              <li role="menuitem"><a class="dropdown-item" (click)="broadcastList(3)">Draft</a>
                               </li>
                             </ul>
                           </div>
@@ -71,8 +75,15 @@
                                 </div>
                             </td>
                             <td class="status-col">
-                                <div class="comman-status draft" [ngClass]="{ 'sent': data?.status == 1, 'scheduled': data?.status == 2, 'draft': data?.status == 3}">
-                                    {{data?.status == 1 ? 'Sent' : 'Draft'}}
+                                <div class="comman-status draft" 
+                                [ngClass]="{ 'sent': data?.status == 1, 
+                                            'scheduled': data?.status == 2, 
+                                            'draft': data?.status == 3}">
+                                    {{
+                                        data?.status == 1 ? 'Sent' : 
+                                        data?.status == 2 ? 'Scheduled' : 
+                                        data?.status == 3 ? 'Draft' : 
+                                    'Draft'}}
                                 </div>
                             </td>
                             <td class="action-col">
@@ -126,13 +137,9 @@
 
                 </tbody>
 
-
         </table>
 
-
     </div>
-
-
 
 </div>
 
@@ -143,7 +150,7 @@
 
 <!-- -------------Old Code---------------------------- -->
 
-<div class="broadcasts-page">
+<!-- <div class="broadcasts-page">
     <section class="broadcast-table">
         <header class="page-header">
             <div class="title">
@@ -302,4 +309,4 @@
             </ng-container>
         </div>
     </section>
-</div>
+</div> -->

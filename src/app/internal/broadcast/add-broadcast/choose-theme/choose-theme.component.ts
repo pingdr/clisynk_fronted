@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChooseThemeComponent implements OnInit {
 
+  isThemeSelected = false;
   constructor() { }
 
   ngOnInit() {
+  }
+
+  selectTheme(item) {
+    this.isThemeSelected = true;
+    
   }
 
 }
