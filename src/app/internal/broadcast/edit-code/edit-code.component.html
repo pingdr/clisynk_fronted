@@ -1,6 +1,6 @@
 <div class="header-edit">
     <div class="edit-head">Edit</div>
-    <button class="back-btn"> Back</button>
+    <button class="back-btn" (click)="changeView('paste-in')"> Back</button>
 </div>
 
 
@@ -23,7 +23,7 @@
         </div>
         <div class="btn-row-main-preview">
             <button class="save-btn comman-btn">Save</button>
-            <button class="send-template-btn comman-btn">Send Template</button>
+            <button class="send-template-btn comman-btn" (click)="changeView('mail')">Send Template</button>
         </div>
     </div>
 </div>

@@ -1,14 +1,28 @@
-<div class="third-tab-code">
-    <div class="inner-code-wrapper-main" routerLink="/broadcast/edit-code">
-        <div class="above-ping-main">
-            <img src="../../../../assets/images/code.svg">
+<ng-container [ngSwitch]="showView">
+
+    <ng-container *ngSwitchCase="'edit-code'">
+        <edit-code (changeView)="changeView($event)"></edit-code>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'mail'">
+        <custom-mail></custom-mail>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'paste-in'">
+        <div class="third-tab-code" (click)="changeView('edit-code')">
+            <div class="inner-code-wrapper-main" >
+                <div class="above-ping-main">
+                    <img src="../../../../assets/images/code.svg">
+                </div>
+                <div class="below-ping-main">
+                    <div class="heading-ping">Paste in code</div>
+                    <span class="create-temp">Create a template by pasting your custom coded design.</span>
+                </div>
+            </div>
+        
+        
+        
         </div>
-        <div class="below-ping-main">
-            <div class="heading-ping">Paste in code</div>
-            <span class="create-temp">Create a template by pasting your custom coded design.</span>
-        </div>
-    </div>
+    </ng-container>
 
-
-
-</div>
+</ng-container>

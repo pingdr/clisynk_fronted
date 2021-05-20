@@ -1,3 +1,4 @@
+import { BroadCastType } from './../../models/enums';
 import {Component, OnInit} from '@angular/core';
 import { FormControl} from '@angular/forms';
 import {HttpService} from '../../services/http.service';
@@ -14,6 +15,8 @@ import {Subject} from 'rxjs';
 
 export class BroadcastComponent implements OnInit {
 
+    broadCastType = BroadCastType;
+    
     myModel: TableModel;
     search = new FormControl();
 

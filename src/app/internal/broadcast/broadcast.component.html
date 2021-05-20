@@ -10,7 +10,7 @@
             <div class="left-search-main">
                 <input 
                 pattern=".*" autocomplete="off" class="" [formControl]="search"
-                (input)="broadcastList(0)"
+                (input)="broadcastList(broadCastType.ALL)"
                 type="text" placeholder="Search broadcast">
             </div>
 
@@ -32,10 +32,10 @@
                             </button>
                             <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
                                 role="menu" aria-labelledby="button-basic">
-                              <li role="menuitem"><a class="dropdown-item" (click)="broadcastList(0)">All</a></li>
-                              <li role="menuitem"><a class="dropdown-item" (click)="broadcastList(1)">Sent</a></li>
-                              <li role="menuitem"><a class="dropdown-item" (click)="broadcastList(2)">Scheduled</a></li>
-                              <li role="menuitem"><a class="dropdown-item" (click)="broadcastList(3)">Draft</a>
+                              <li role="menuitem"><a class="dropdown-item" (click)="broadcastList(broadCastType.ALL)">All</a></li>
+                              <li role="menuitem"><a class="dropdown-item" (click)="broadcastList(broadCastType.SENT)">Sent</a></li>
+                              <li role="menuitem"><a class="dropdown-item" (click)="broadcastList(broadCastType.SCHEDULED)">Scheduled</a></li>
+                              <li role="menuitem"><a class="dropdown-item" (click)="broadcastList(broadCastType.DRAFT)">Draft</a>
                               </li>
                             </ul>
                           </div>

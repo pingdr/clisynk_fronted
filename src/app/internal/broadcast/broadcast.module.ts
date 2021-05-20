@@ -32,11 +32,11 @@ const routes: Routes = [
                 data: {title: 'Edit BroadCast'},
                 canActivate: [AuthGuard]
             },
-            {
-                path: 'edit-code',
-                component: EditCodeComponent,
-                data: {title: 'Edit Code'},
-            }
+            // {
+            //     path: 'edit-code',
+            //     component: EditCodeComponent,
+            //     data: {title: 'Edit Code'},
+            // }
         ]
     }
 ];

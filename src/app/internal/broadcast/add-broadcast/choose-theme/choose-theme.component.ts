@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
+
+/**
+ * @flow: User will select the theme then send the broadcast mail.
+ */
+ declare type ViewType = 'choose-theme' | 'mail';
+
 @Component({
   selector: 'choose-theme',
   templateUrl: './choose-theme.component.html',
@@ -7,15 +13,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChooseThemeComponent implements OnInit {
 
-  isThemeSelected = false;
+  showView: ViewType = "choose-theme";
   constructor() { }
 
   ngOnInit() {
   }
 
-  selectTheme(item) {
-    this.isThemeSelected = true;
-    
+  changeView(view: ViewType) {
+    this.showView = view;
   }
 
 }
