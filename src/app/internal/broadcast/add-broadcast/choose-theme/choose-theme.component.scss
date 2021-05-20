@@ -4,10 +4,17 @@
     grid-template-columns: repeat(5, 1fr);
     grid-column-gap: 20px;
     grid-row-gap: 20px;
+    cursor: pointer;
     .comman-grid{
+        margin-bottom: 10px;
         .image-div-main {
             border: 1px solid #ccc;
             margin-bottom: 10px;
+            height: 400px;
+            width: 300px;
+            overflow: auto;
+            padding: 20px;
+            border-radius: 10px;
             img{             
                 width: 100%;
             }
@@ -18,6 +25,7 @@
             font-size: 18px;
             line-height: 22px;
             letter-spacing: 0.02em;
+            margin-top: 10px;
         }
     }
 }

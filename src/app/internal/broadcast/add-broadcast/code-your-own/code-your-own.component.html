@@ -5,13 +5,16 @@
     </ng-container>
 
     <ng-container *ngSwitchCase="'mail'">
-        <custom-mail></custom-mail>
+        <custom-mail 
+            [currentTab]="currentTab"
+            (goBack)="$event ? showView = 'edit-code' : ''">
+        </custom-mail>
     </ng-container>
 
     <ng-container *ngSwitchCase="'paste-in'">
-        <div class="third-tab-code" (click)="changeView('edit-code')">
+        <div class="third-tab-code" >
             <div class="inner-code-wrapper-main" >
-                <div class="above-ping-main">
+                <div (click)="changeView('edit-code')" class="above-ping-main">
                     <img src="../../../../assets/images/code.svg">
                 </div>
                 <div class="below-ping-main">

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { MailTemplateData } from 'src/app/shared/models/mail-template.model';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
@@ -9,6 +10,8 @@ import { EmailTemplateComponent } from 'src/app/shared/modals/email-template/ema
 import { EditorContent } from 'src/app/shared/models/editor.model';
 import { TableModel } from 'src/app/shared/models/table.common.model';
 
+declare type CurrentTabType = 'custom-mail' | 'themes' | 'code-your-own';
+
 @Component({
   selector: 'custom-mail',
   templateUrl: './custom-mail.component.html',
@@ -16,7 +19,16 @@ import { TableModel } from 'src/app/shared/models/table.common.model';
 })
 export class CustomMailComponent implements OnInit {
 
+
+  @Input('currentTab')
+  currentTab: string;
+
+  @Input('selectedTemplate')
+  selectedTemplate:MailTemplateData;
   
+  @Output('goBack')
+  goBackEmitter = new EventEmitter();
+
   form: FormGroup;
   myModel: any;
   contacts: any = [];
@@ -50,6 +62,16 @@ export class CustomMailComponent implements OnInit {
       this.templateList();
   }
 
+
+  goBack() {
+    if (this.currentTab == 'custom-mail') {
+        this.http.goBack();
+    } else {
+        this.goBackEmitter.emit(true);
+    }
+  }
+
+
   formInit() {
       this.form = this.http.fb.group({
           subject: ['', Validators.required],
@@ -60,6 +82,14 @@ export class CustomMailComponent implements OnInit {
           timingType: [''],
           timeZone: ['']
       });
+
+      /* When user select theme or code your own theme then this will patch the content */
+      if (this.selectedTemplate) {
+        this.form.patchValue({
+            subject: this.selectedTemplate.subject,
+            content: this.selectedTemplate.html,
+        }) 
+      }
   }
 
   fillValues(data) {

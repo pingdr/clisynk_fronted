@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { SaveTemplateComponent } from './../../../../shared/modals/save-template/save-template.component';
+import { HttpService } from 'src/app/services/http.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { ApiUrl } from 'src/app/services/apiUrls';
+import { Subject } from 'rxjs';
 
 /**
  * @flow: 
@@ -6,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
  *  2. Edit the code then save as a theme or can redirect to the send
  *  
  */
-declare type viewType = 'paste-in' | 'edit-code' | 'mail';
+declare type ViewType = 'paste-in' | 'edit-code' | 'mail';
 @Component({
   selector: 'code-your-own',
   templateUrl: './code-your-own.component.html',
@@ -14,15 +18,19 @@ declare type viewType = 'paste-in' | 'edit-code' | 'mail';
 })
 export class CodeYourOwnComponent implements OnInit {
   
+  @Input('currentTab')
+  currentTab: string;
   
-  showView: viewType = 'paste-in';
-  constructor() { }
+  showView: ViewType = 'paste-in';
+  constructor(public http: HttpService) { }
 
   ngOnInit() {
     
   }
 
-  changeView(view: viewType) {
+  changeView(view: ViewType) {
     this.showView = view;
   }
+
+  
 }
