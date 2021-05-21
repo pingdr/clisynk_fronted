@@ -9485,11 +9485,6 @@ tag-input.add_new_tags {
   display: none !important;
 }
 
-// .time-line-main-task td.fc-widget-content > div {
-//   // height: auto !important;
-//   // padding: 7px 0px;
-// }
-
 .time-line-main-task td.fc-divider.fc-col-resizer.fc-widget-header {
   display: none !important;
 }
@@ -9507,4 +9502,8 @@ tag-input.add_new_tags {
   .edits-code-main .left-code-main .CodeMirror {
     font-size: 11px !important;
   }
+}
+
+.comman-row-date .mat-form-field {
+    width: 100% !important;
 }

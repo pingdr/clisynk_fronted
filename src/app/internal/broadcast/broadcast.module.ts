@@ -10,6 +10,7 @@ import { CodeYourOwnComponent } from './add-broadcast/code-your-own/code-your-ow
 import { ChooseThemeComponent } from './add-broadcast/choose-theme/choose-theme.component';
 import { EditCodeComponent } from './edit-code/edit-code.component';
 import { DynamicHTMLModule } from './edit-code/dynamic-html';
+import { NewEmailBroadcastComponent } from './new-email-broadcast/new-email-broadcast.component';
 
 const routes: Routes = [
     {
@@ -37,6 +38,16 @@ const routes: Routes = [
             //     component: EditCodeComponent,
             //     data: {title: 'Edit Code'},
             // }
+            {
+                path: 'edit-code',
+                component: EditCodeComponent,
+                data: {title: 'Edit Code'},
+            },
+            {
+                path: 'send-email-broadcast',
+                component:NewEmailBroadcastComponent,
+                data: {title: 'New Email Broadcast'},
+            }
         ]
     }
 ];
@@ -57,7 +68,8 @@ const routes: Routes = [
         CustomMailComponent,
         CodeYourOwnComponent,
         ChooseThemeComponent,
-        EditCodeComponent
+        EditCodeComponent,
+        NewEmailBroadcastComponent
     ]
 })
 export class BroadcastModule {

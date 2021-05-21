@@ -1,4 +1,4 @@
-<!-- <div class="email-comman-main">
+<div class="email-comman-main">
 
     <div class="first-row-main">
         <div class="left-heding-email">Subject:</div>
@@ -8,38 +8,91 @@
     </div>
     <div class="second-row-main">
         <ckeditor debounce="500" [config]="ckeConfig"></ckeditor>
-        <section class="toggle-switch">
-            <div class="Signature">
-                <span>Signature</span>
+        <div class="signature-row-main">
+            <section class="toggle-switch">
+                <div class="Signature">
+                    <span>Signature</span>
+                </div>
+                <div class="Signature-toggle">
+                    <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </section>
+            <div class="left-col-three-btn">
+                <button class="comman-btn">
+                    <img src="../../../../assets/images/upload-pin.svg">
+                </button>
+                <button class="comman-btn">
+                    <img src="../../../../assets/images/merge-pin.svg">
+                </button>
+                <button class="comman-btn">
+                    <img src="../../../../assets/images/document-pin.svg">
+                </button>
             </div>
-            <div class="Signature-toggle">
-                <label class="switch">
-                    <input type="checkbox">
-                    <span class="slider round"></span>
-                </label>
-            </div>
-        </section>
-    </div>
-    <div class="third-row-main-content">
-        <div class="left-col-three-btn">
-            <button class="comman-btn">
-                <img src="../../../../assets/images/upload-pin.svg">
-            </button>
-            <button class="comman-btn">
-                <img src="../../../../assets/images/merge-pin.svg">
-            </button>
-            <button class="comman-btn">
-                <img src="../../../../assets/images/document-pin.svg">
-            </button>
-        </div>
-        <div class="rigt-col-next-btn">
-            <button class="next-btn"> NEXT</button>
         </div>
     </div>
 
-
+    <!-- --------------Ned-design----------------------- -->
+    <div class="comman-rows-sub">
+        <div class="form-lab">Contact<span class="red-color">*</span></div>
+        <input type="text"  placeholder="Select Contact"/>
+    </div>
     
-</div> -->
+    <!-- ------------When do you want--------------------------- -->
+    <div class="comman-row-main">
+        <div class="heading-part">When do you want to send the emails?</div>
+    </div>
+    <div class="radio-groups-main">
+        <div class="radio-btn">
+            <input type="radio" id="test1" name="radio-group" checked>
+            <label for="test1">Right away</label>
+        </div>
+        <div class="radio-btn">
+            <input type="radio" id="test2" name="radio-group" checked>
+            <label for="test2">At a specific time</label>
+        </div>
+    </div>
+    <div class="at-a-specific-time-main">
+        <div class="comman-row-date">
+            <mat-form-field appearance="outline">
+                <mat-label>Due Date</mat-label>
+                <input matInput [matDatepicker]="picker">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="comman-row-date pm-am-btn">
+            <mat-form-field appearance="outline" class="example-full-width">
+                <mat-label>Time</mat-label>
+                <input matInput placeholder="Time">
+            </mat-form-field>
+            <button class="btn-am">AM</button>
+        </div>
+        <div class="comman-row-date">
+
+            <mat-form-field appearance="outline">
+                <mat-select placeholder="Timezone">
+                  <mat-option>
+                    (GMT +2:00) Johannesburg 
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+        </div>
+
+
+    </div>
+    <div class="btns-groups-main">
+        <button type="button" class="btn btn-save-btn">Save and come back later</button>
+        <button type="button" class="btn btn-send-btn">Send Broadcast</button>
+    </div>
+</div>
+
+
+
+
+
 
 
 <div class="med-popup">
@@ -255,4 +308,6 @@
             </div>
         </form>
     </div>
+
+
 </div>
