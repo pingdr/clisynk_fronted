@@ -9,7 +9,7 @@ import { HttpService } from 'src/app/services/http.service';
 import { EmailTemplateComponent } from 'src/app/shared/modals/email-template/email-template.component';
 import { EditorContent } from 'src/app/shared/models/editor.model';
 import { TableModel } from 'src/app/shared/models/table.common.model';
-
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 declare type CurrentTabType = 'custom-mail' | 'themes' | 'code-your-own';
 
 @Component({
@@ -22,6 +22,9 @@ export class CustomMailComponent implements OnInit {
 
   @Input('currentTab')
   currentTab: string;
+
+  @Input('content')
+  content: string;
 
   @Input('selectedTemplate')
   selectedTemplate:MailTemplateData;
@@ -43,6 +46,31 @@ export class CustomMailComponent implements OnInit {
       'disabled': true
   };
   isEdit = false;
+
+  editorConfig: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: '25rem',
+    minHeight: '5rem',
+    placeholder: 'Enter text here...',
+    translate: 'no',
+    uploadUrl: 'v1/images', // if needed
+    customClasses: [ // optional
+      {
+        name: "quote",
+        class: "quote",
+      },
+      {
+        name: 'redText',
+        class: 'redText'
+      },
+      {
+        name: "titleText",
+        class: "titleText",
+        tag: "h1",
+      },
+    ]
+  };
 
   constructor(public http: HttpService, public activeRoute: ActivatedRoute) {
       this.myModel = new TableModel();
@@ -84,13 +112,20 @@ export class CustomMailComponent implements OnInit {
       });
 
       /* When user select theme or code your own theme then this will patch the content */
-      if (this.selectedTemplate) {
+      if (this.currentTab == 'themes' && this.selectedTemplate) {
         this.form.patchValue({
             subject: this.selectedTemplate.subject,
             content: this.selectedTemplate.html,
         }) 
       }
-  }
+
+      /* when user comes from code-your-own tab */
+      if (this.currentTab == 'code-your-own' && this.content) {
+        this.form.patchValue({
+            content: this.content
+        })
+      }
+    }
 
   fillValues(data) {
       this.form.patchValue({

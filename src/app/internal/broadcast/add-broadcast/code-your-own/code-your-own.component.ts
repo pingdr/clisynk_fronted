@@ -22,6 +22,7 @@ export class CodeYourOwnComponent implements OnInit {
   currentTab: string;
   
   showView: ViewType = 'paste-in';
+  content: string = '';
   constructor(public http: HttpService) { }
 
   ngOnInit() {
@@ -30,6 +31,11 @@ export class CodeYourOwnComponent implements OnInit {
 
   changeView(view: ViewType) {
     this.showView = view;
+  }
+
+  sendEmail(eventData:{html: string, view: ViewType }) {
+    this.content = eventData.html;
+    this.changeView(eventData.view);
   }
 
   

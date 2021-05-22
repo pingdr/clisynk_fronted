@@ -5,6 +5,7 @@ import {
   Output,
   ViewChild,
   EventEmitter,
+  Input,
 } from "@angular/core";
 import { DomSanitizer } from "@angular/platform-browser";
 import { Subject } from "rxjs";
@@ -21,9 +22,10 @@ declare type ViewType = "paste-in" | "edit-code" | "mail";
 })
 export class EditCodeComponent implements OnInit {
   @Output("changeView")
-  changeViewEmitter = new EventEmitter<ViewType>();
+  changeViewEmitter = new EventEmitter<{html: string, view: ViewType}>();
 
-  content: any;
+  @Input('content')
+  content: any = '';
   constructor(public http: HttpService,public sanitizer: DomSanitizer) {}
 
   ngOnInit() {}
@@ -37,7 +39,7 @@ export class EditCodeComponent implements OnInit {
   }
 
   changeView(view: ViewType) {
-    this.changeViewEmitter.emit(view);
+    this.changeViewEmitter.emit({ html: this.content, view: view});
   }
 
   openSaveTemplate() {

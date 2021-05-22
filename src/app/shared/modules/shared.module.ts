@@ -129,8 +129,7 @@ import { NewEditTaskComponent } from '../modals/new-edit-task/new-edit-task.comp
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { SaveTemplateComponent } from '../modals/save-template/save-template.component';
 import { DynamicHTMLModule } from 'src/app/internal/broadcast/edit-code/dynamic-html/module';
-import { EditCodeComponent } from 'src/app/internal/broadcast/edit-code/edit-code.component';
-
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 const entryList = [EmailFormatComponent, SendEmailComponent, ContactDetailsComponent, AddNoteComponent,
     ContactOptionsComponent, AddTaskComponent, LoaderComponent, ContactDetailComponent, ActivityListComponent, ContactFilterComponent,
@@ -148,7 +147,6 @@ const entryList = [EmailFormatComponent, SendEmailComponent, ContactDetailsCompo
     CreateFolderComponent, AddPageComponent, CreateDocumentComponent, DeleteDocComponent, MoveComponent, EmailDocumentFormatComponent,
     DeleteAutomationComponent, LeadFormDeletedComponent, NavigateToLeadFormsComponent, NavigateToAppointmentComponent, NavigateToTagsComponent,
     NavigateToProductsComponent, RenameAutomationComponent, EditWorkspaceComponent, NewEditTaskComponent, SaveTemplateComponent
-
 ];
 
 const importExportList = [MatStepperModule, MatTabsModule, MatSliderModule, MatInputModule, MatSelectModule,
@@ -156,7 +154,7 @@ const importExportList = [MatStepperModule, MatTabsModule, MatSliderModule, MatI
     ReactiveFormsModule, FormsModule, MatCheckboxModule, NgxSkeletonLoaderModule, MatSnackBarModule, ScrollingModule,
     Ng2SearchPipeModule, MatDatepickerModule, MatNativeDateModule, ClickOutsideModule, TagInputModule, DragDropModule,
     FullCalendarModule, ColorPickerModule, FormioModule, RxReactiveFormsModule, MatTooltipModule, MatSortModule, PDFExportModule,
-    AvatarModule, MatSidenavModule,
+    AvatarModule, MatSidenavModule,AngularEditorModule
 
 ];
 

@@ -12,7 +12,9 @@
     <div class="html-preview">
         <div class="iframe-wrapper desktop" *ngIf="fullview">
             <!-- <p [innerHTML]="modalData?.content"></p> -->
-            <dynamic-html [content]="modalData?.content"></dynamic-html>
+            <div class="desktop-preview">
+                <dynamic-html [content]="modalData?.content"></dynamic-html>
+            </div>
             
         </div>
         <div class="iframe-wrapper mobile" *ngIf="!fullview">
