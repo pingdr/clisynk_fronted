@@ -11,6 +11,9 @@
                 <div class="template-name-main">{{template.name}}</div>
             </div>
         </div>
+        <div class="loading" *ngIf="templates.length == 0">
+            Loading...
+        </div>
         
     </ng-container>
     <ng-container *ngSwitchCase="'mail'">

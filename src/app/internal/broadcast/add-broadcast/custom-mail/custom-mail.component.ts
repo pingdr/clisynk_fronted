@@ -23,6 +23,9 @@ export class CustomMailComponent implements OnInit {
   @Input('currentTab')
   currentTab: string;
 
+  @Input('content')
+  content: string;
+
   @Input('selectedTemplate')
   selectedTemplate:MailTemplateData;
   
@@ -84,13 +87,20 @@ export class CustomMailComponent implements OnInit {
       });
 
       /* When user select theme or code your own theme then this will patch the content */
-      if (this.selectedTemplate) {
+      if (this.currentTab == 'themes' && this.selectedTemplate) {
         this.form.patchValue({
             subject: this.selectedTemplate.subject,
             content: this.selectedTemplate.html,
         }) 
       }
-  }
+
+      /* when user comes from code-your-own tab */
+      if (this.currentTab == 'code-your-own' && this.content) {
+        this.form.patchValue({
+            content: this.content
+        })
+      }
+    }
 
   fillValues(data) {
       this.form.patchValue({
