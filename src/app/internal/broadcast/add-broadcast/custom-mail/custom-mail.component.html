@@ -432,10 +432,12 @@
                         </div>
                         <!-- -----------------New-code-------------------------- -->
                         <div class="or-text-main">Or</div> 
+                        {{this.emails.value|json}}
                         <div class="upload-main-csv">
-                            <div class="text-lab">Upload CSV File</div>
+                            <div class="text-lab">{{ this.emails?.value.length > 0 ? 'Uploaded successfully' :  'Upload CSV File'}}</div>
                             <img src="../../../../../assets/images/csv-icon.svg">
-                            <button class="btn btn-browse">Browse</button>
+                            <button *ngIf="this.emails?.value.length <= 0" class="btn btn-browse" (click)="file.click()" >Browse</button>
+                            <input accept=".csv" onclick="this.value=null;" hidden #file (change)="onCsvFileUpload($event.target.files[0])" type="file" name="" id="">
                         </div>
 
                 
@@ -486,8 +488,8 @@
 
 
                 <div class="modal-footer new-footer footer-btn text-left">
-                    <button type="submit" class="text-button" (click)="finalSubmit(1)">Save and come back later</button>
-                    <button type="submit" class="btn-outline-primary" (click)="finalSubmit(2)">Send broadcast</button>
+                    <button type="submit" class="text-button" (click)="finalSubmit(3)">Save and come back later</button>
+                    <button type="submit" class="btn-outline-primary" (click)="finalSubmit(1)">Send broadcast</button>
                 </div>
             </div>
         </form>

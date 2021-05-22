@@ -130,6 +130,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { SaveTemplateComponent } from '../modals/save-template/save-template.component';
 import { DynamicHTMLModule } from 'src/app/internal/broadcast/edit-code/dynamic-html/module';
 import { AngularEditorModule } from '@kolkov/angular-editor';
+import { NgxCsvParserModule } from 'ngx-csv-parser';
 
 const entryList = [EmailFormatComponent, SendEmailComponent, ContactDetailsComponent, AddNoteComponent,
     ContactOptionsComponent, AddTaskComponent, LoaderComponent, ContactDetailComponent, ActivityListComponent, ContactFilterComponent,
@@ -154,7 +155,7 @@ const importExportList = [MatStepperModule, MatTabsModule, MatSliderModule, MatI
     ReactiveFormsModule, FormsModule, MatCheckboxModule, NgxSkeletonLoaderModule, MatSnackBarModule, ScrollingModule,
     Ng2SearchPipeModule, MatDatepickerModule, MatNativeDateModule, ClickOutsideModule, TagInputModule, DragDropModule,
     FullCalendarModule, ColorPickerModule, FormioModule, RxReactiveFormsModule, MatTooltipModule, MatSortModule, PDFExportModule,
-    AvatarModule, MatSidenavModule,AngularEditorModule
+    AvatarModule, MatSidenavModule,AngularEditorModule, NgxCsvParserModule 
 
 ];
 
