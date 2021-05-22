@@ -10,245 +10,28 @@
 
     <nav>
         <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Custom Email</a>
-            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Themes</a>
-            <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Code your own</a>
+            <a (click)="changeTab('custom-mail')" class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Custom Email</a>
+            <a (click)="changeTab('themes')" class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Themes</a>
+            <a (click)="changeTab('code-your-own')" class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Code your own</a>
         </div>
     </nav>
     <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                Hiren
+            
+            <custom-mail [currentTab]="currentTab"></custom-mail>
+         
+
         </div>
         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-            Dhruv
+            
+            <choose-theme [currentTab]="currentTab"></choose-theme>
         </div>
         <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-           Jay
+            <code-your-own [currentTab]="currentTab"></code-your-own>
+
         </div>
     </div>
 
 
 
 </div>
-
-
-
-
-
-
-
-<!-- --------------------Old-code------------------------------------- -->
-<!-- <div class="med-popup">
-    <div class="broadcast-wizard-page">
-        <div class="modal-header email_str_header">
-            <section id="close" class="navigation">
-                <button class="icon-only" type="button" aria-label="Close" routerLink="/broadcast">
-                    <svg class="icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="arrow-left">
-                            <path
-                                    d="M13.707 3.293a1 1 0 0 1 0 1.414L7.414 11H19a1 1 0 1 1 0 2H7.414l6.293 6.293a1 1 0 0 1-1.414 1.414l-8-8-.073-.082a1.004 1.004 0 0 1-.007-.008l.08.09A1.008 1.008 0 0 1 4 12.02v-.037c0-.024.002-.048.004-.071L4 12a1.008 1.008 0 0 1 .213-.617c.025-.031.051-.062.08-.09l8-8a1 1 0 0 1 1.414 0z"
-                                    fill-rule="evenodd"></path>
-                        </svg>
-                    </svg>
-                </button>
-            </section>
-            <section class="text">
-                <h4>{{isEdit ? 'Update' : 'New'}} email broadcast</h4>
-            </section>
-        </div>
-        <form [formGroup]="form" autocomplete="off">
-            <div class="modal-body">
-
-                <accordion [isAnimated]="true" [closeOthers]="true">
-                    <accordion-group [isOpen]="openTab === 1" accordion-heading>
-
-                        <button class="btn btn-link btn-block clearfix text-left" accordion-heading type="button">
-                            <span class="badge badge-secondary">1</span>
-                            <div style="display: inline;">Create your email content</div>
-                        </button>
-
-                        <div class="form-group">
-                            <label>Subject</label>
-                            <input type="text" formControlName="subject" placeholder="Add a subject line"
-                                   class="form-control">
-                            <mat-error
-                                    *ngIf="form.controls['subject'].hasError('required') && form.controls.subject.touched">
-                                Please enter subject.
-                            </mat-error>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Preview line</label>
-                            <input type="text" formControlName="previewLine" placeholder="Add a preview line (optional)"
-                                   class="form-control">
-                        </div>
-
-                        <div class="email-content">
-                            <div class="form-group">
-                                <label>Content</label>
-                                <ckeditor formControlName="content" debounce="500" [config]="ckeConfig">
-                                </ckeditor>
-                            </div>
-                        </div>
-
-                        <div class="signature-toggle">
-                            <section class="signature-preview" *ngIf="signStatus?.value">
-                                <h4>{{http?.loginData?.name}}</h4>
-                                <p>{{http?.loginData?.email}}</p>
-                                <p>{{http?.loginData?.countryCode}} {{http?.loginData?.phoneNumber}}</p>
-                            </section>
-
-                            <section class="toggle-switch">
-                                <div class="Signature">
-                                    <span>Signature</span>
-                                </div>
-                                <div class="Signature-toggle">
-                                    <label class="switch">
-                                        <input type="checkbox" [formControl]="signStatus">
-                                        <span class="slider round"></span>
-                                    </label>
-                                </div>
-                            </section>
-                        </div>
-                        <div class="button-row">
-                            <button type="button" class="btn-outline-primary" (click)="openTab = 2"> Next: Define your
-                                audience
-                            </button>
-                            <div class="popover-container tooltip-container tooltip-hover"
-                                 style="display: inline-block">
-                                <div class="tooltip-reference">
-                                    <div class="btn-group add-booking-link insert-templates" dropdown>
-                                        <button id="button-basic2" dropdownToggle type="button" class="btn"
-                                                aria-controls="dropdown-basic">
-                                            <img src="/assets/images/ic_insert_template.svg">
-                                        </button>
-                                        <ul id="dropdown-basic2" *dropdownMenu class="dropdown-menu" role="menu"
-                                            aria-labelledby="button-basic" style="left: -103px;">
-                                            <div class="email-templates">
-                                                <h4>Insert template</h4>
-
-                                                <ng-container *ngFor="let data of myModel?.templates">
-                                                    <li role="menuitem" style="display: block"
-                                                        (click)="selectTemplate(data)">
-                                                        <a class="dropdown-item">
-                                                            <div class="item-text">
-                                                                <h6>{{data?.name}}</h6>
-                                                                <p>{{data?.subject || '(no subject)'}}</p>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                </ng-container>
-                                            </div>
-                                            <div class="manage-templates">
-                                                <button type="submit" class="text-button" (click)="openTemplate()">
-                                                    Manage templates
-                                                </button>
-                                            </div>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <section class="tooltip">
-                                    <div class="arrow"></div>
-                                    <div>Insert template</div>
-                                </section>
-                            </div>
-
-                        </div>
-
-                    </accordion-group>
-
-                    <accordion-group class="your-audience" [isOpen]="openTab === 2"
-                                     accordion-heading>
-
-                        <button class="btn btn-link btn-block clearfix text-left" accordion-heading type="button">
-                            <span class="badge badge-secondary">2</span>
-                            <div style="display: inline;">Define your audience</div>
-                        </button>
-
-                        <h4>Who should receive this email?</h4>
-                        <div class="form-group Associated-Contact remove-border">
-                            <label class="required">Associated Contact</label>
-                            <ng-multiselect-dropdown formControlName="contactId" [placeholder]="'Select Contact'"
-                                                     [data]="myModel?.contacts" [settings]="dropdownSettings">
-                            </ng-multiselect-dropdown>
-                            <mat-error
-                                    *ngIf="form.controls['contactId'].hasError('required') && form.controls.contactId.touched">
-                                Please enter contact.
-                            </mat-error>
-                        </div>
-                
-
-                        <div class="button-row">
-                            <button type="button" class="text-button" (click)="openTab = 1"> Previous</button>
-                            <button type="button" class="btn-outline-primary" (click)="openTab = 3"> Next: Select your
-                                timing
-                            </button>
-                        </div>
-                    </accordion-group>
-
-                    <accordion-group class="select-timing" [isOpen]="openTab === 3" accordion-heading>
-
-                        <button class="btn btn-link btn-block clearfix text-left" accordion-heading type="button">
-                            <span class="badge badge-secondary">3</span>
-                            <div style="display: inline;">Select your timing</div>
-                        </button>
-
-                        <h4>When do you want to send the emails?</h4>
-                        <div class="form-check">
-                            <label class="form-check-label">
-                                <input type="radio" class="form-check-input" [value]="1" formControlName="timingType">
-                                <span> Right away</span>
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <label class="form-check-label">
-                                <input type="radio" class="form-check-input" [value]="2" formControlName="timingType">
-                                <span>At a specific time</span>
-                            </label>
-                        </div>
-
-                        <div class="row" *ngIf="form.value.timingType === '2' || form.value.timingType === 2">
-                            <div class="col-md-4">
-                                <div class="input-field">
-                                    <mat-form-field appearance="outline">
-                                        <mat-label>Due Date</mat-label>
-                                        <input matInput type="text" readonly formControlName="timing" bsDatepicker
-                                               #dp="bsDatepicker" [minDate]="myModel.today">
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <div class="col-md-4 form-group">
-                                <mat-label>Due Date</mat-label>
-                                <timepicker formControlName="timing"></timepicker>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="input-field">
-                                    <div class="btn-group add-btn select-opt" dropdown>
-                                        <mat-form-field appearance="outline" class="select-height">
-                                            <mat-label>Select Timezone</mat-label>
-                                            <mat-select formControlName="timeZone">
-                                                <mat-option *ngFor="let val of myModel?.timeZones" [value]="val">
-                                                    {{val}}
-                                                </mat-option>
-                                            </mat-select>
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="button-row">
-                            <button type="button" class="text-button" (click)="openTab = 2"> Previous</button>
-                        </div>
-
-                    </accordion-group>
-                </accordion>
-
-                <div class="modal-footer footer-btn text-left">
-                    <button type="submit" class="text-button" (click)="finalSubmit(1)">Save and come back later</button>
-                    <button type="submit" class="btn-outline-primary" (click)="finalSubmit(2)">Send broadcast</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div> -->

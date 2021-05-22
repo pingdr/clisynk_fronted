@@ -73,7 +73,8 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
         ForgotPasswordComponent,
         CreateAccountsComponent,
         ValidationMessageComponent,
-        ThanksPageComponent
+        ThanksPageComponent,
+        
         
     ],
     imports: [

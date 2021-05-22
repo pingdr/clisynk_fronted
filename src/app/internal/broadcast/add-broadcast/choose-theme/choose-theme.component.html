@@ -1,0 +1,24 @@
+<ng-container [ngSwitch]="showView">
+    <ng-container *ngSwitchCase="'choose-theme'">
+        
+        <!-- <div (click)="changeView('mail')" class="grid-themes-main"> -->
+        <div class="grid-themes-main">
+            <div (click)="chooseTemplate(template)" class="comman-grid" *ngFor="let template of templates">
+                <div class="image-div-main">
+                    <dynamic-html [content]="template.html"></dynamic-html>
+                    <!-- <img src="../../../../assets/images/theme-pic.png">     -->
+                </div>
+                <div class="template-name-main">{{template.name}}</div>
+            </div>
+        </div>
+        
+    </ng-container>
+    <ng-container *ngSwitchCase="'mail'">
+        <custom-mail 
+            [selectedTemplate]="selectedTemplate" 
+            [currentTab]="currentTab" 
+            (goBack)="$event ? showView = 'choose-theme' : ''">
+        </custom-mail>        
+    </ng-container>
+
+</ng-container>

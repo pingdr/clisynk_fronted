@@ -1,3 +1,4 @@
+import { BroadCastType } from './../../models/enums';
 import {Component, OnInit} from '@angular/core';
 import { FormControl} from '@angular/forms';
 import {HttpService} from '../../services/http.service';
@@ -14,6 +15,8 @@ import {Subject} from 'rxjs';
 
 export class BroadcastComponent implements OnInit {
 
+    broadCastType = BroadCastType;
+    
     myModel: TableModel;
     search = new FormControl();
 
@@ -32,6 +35,7 @@ export class BroadcastComponent implements OnInit {
             search: this.search.value
         };
         this.myModel.loader = true;
+        this.myModel.data = null;
         this.http.getData(ApiUrl.BROADCAST_LIST, obj).subscribe(res => {
             this.myModel.data = res.data;
             this.myModel.loader = false;
@@ -64,11 +68,11 @@ export class BroadcastComponent implements OnInit {
         });
     }
 
-    openDetails(data) {
+    openDetails(data,fullView = true) {
         // const obj: any = {
         //     content: data.content
         // };
-        this.http.openModal('emailDetail', {content: data.content, subject: data.subject});
+        this.http.openModal('emailDetail', {content: data.content, subject: data.subject, fullView});
     }
 
 }

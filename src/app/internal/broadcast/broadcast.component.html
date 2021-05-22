@@ -8,7 +8,10 @@
 
     <div class="header-search-main">
             <div class="left-search-main">
-                <input type="text" placeholder="Search">
+                <input 
+                pattern=".*" autocomplete="off" class="" [formControl]="search"
+                (input)="broadcastList(broadCastType.ALL)"
+                type="text" placeholder="Search broadcast">
             </div>
 
             <div class="right-buttons">
@@ -17,6 +20,7 @@
                         placeholder="DD/MM/YYYY"
                         class="form-control"
                         bsDatepicker
+                      
                         [bsConfig]="{ adaptivePosition: true }">
                     </div>
 
@@ -28,10 +32,10 @@
                             </button>
                             <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
                                 role="menu" aria-labelledby="button-basic">
-                              <li role="menuitem"><a class="dropdown-item" href="#">All</a></li>
-                              <li role="menuitem"><a class="dropdown-item" href="#">Sent</a></li>
-                              <li role="menuitem"><a class="dropdown-item" href="#">Scheduled</a></li>
-                              <li role="menuitem"><a class="dropdown-item" href="#">Draft</a>
+                              <li role="menuitem"><a class="dropdown-item" (click)="broadcastList(broadCastType.ALL)">All</a></li>
+                              <li role="menuitem"><a class="dropdown-item" (click)="broadcastList(broadCastType.SENT)">Sent</a></li>
+                              <li role="menuitem"><a class="dropdown-item" (click)="broadcastList(broadCastType.SCHEDULED)">Scheduled</a></li>
+                              <li role="menuitem"><a class="dropdown-item" (click)="broadcastList(broadCastType.DRAFT)">Draft</a>
                               </li>
                             </ul>
                           </div>
@@ -55,41 +59,56 @@
                 </thead>
                 <tbody>
 
-                        <tr>
-                            <td class="hash-col">1</td>
-                            <td class="name-col">Pillow Talk.</td>
-                            <td class="date-col">04/04/2021, 04:45 PM</td>
-                            <td class="contacts-col">5</td>
-                            <td class="view-content-col">
+                        <tr *ngFor="let data of myModel?.data?.data; index as i">
+                            <td class="hash-col">{{i + 1}}</td>
+                            <td class="name-col">
+                                <div class="subject">
+                                    {{data?.subject || 'no subject'}}
+                                </div>
+                            </td>
+                            <td class="date-col">{{data?.updatedAt |date:'MMM dd, hh:mm a'}}</td>
+                            <td class="contacts-col">{{data?.contactId?.length}}</td>
+                            <td class="view-content-col" >
                                 <div class="views-cont">
                                     <div class="comman-grid">
-                                        <img src="../../../assets/images/mac-icon.svg">
+                                        <img (click)="openDetails(data,true)" src="../../../assets/images/mac-icon.svg">
                                     </div>
                                     <div class="comman-grid">
-                                        <img src="../../../assets/images/iphone-vector.svg">
+                                        <img (click)="openDetails(data,false)" src="../../../assets/images/iphone-vector.svg">
                                     </div>
                                 </div>
                             </td>
                             <td class="status-col">
-                                <div class="comman-status draft">Draft</div>
+                                <div class="comman-status draft" 
+                                [ngClass]="{ 'sent': data?.status == 1, 
+                                            'scheduled': data?.status == 2, 
+                                            'draft': data?.status == 3}">
+                                    {{
+                                        data?.status == 1 ? 'Sent' : 
+                                        data?.status == 2 ? 'Scheduled' : 
+                                        data?.status == 3 ? 'Draft' : 
+                                    'Draft'}}
+                                </div>
                             </td>
                             <td class="action-col">
                                 <div class="actions-column">
                                     <div class="comman-grid">
-                                        <img src="../../../assets/images/copy-vector.svg">
+                                        <img src="../../../assets/images/copy-vector.svg" (click)="copyBroadcast(data)">
                                     </div>
-                                    <div class="comman-grid">
+                                    <div [routerLink]="['/broadcast/edit-broadcast',data._id]" 
+                                        (click)="http.saveData(data)" *ngIf="data?.status != 1"
+                                        class="comman-grid">
                                         <img src="../../../assets/images/New-ui-images/pencil.svg">
                                     </div>
-                                    <div class="comman-grid">
-                                        <img src="../../../assets/images/trash-icon.svg">
+                                    <div class="comman-grid" *ngIf="data?.status != 1"> 
+                                        <img src="../../../assets/images/trash-icon.svg" (click)="deleteBroadcast(data)">
                                     </div>
                                 </div>
                             </td>
                         </tr>
 
                         <!-- -------------Shimmer-shine---------------------- -->
-                        <tr>
+                        <tr *ngIf="myModel?.loader">
                             <td class="hash-col">
                                 <div class="number-shine shine"></div>
                             </td>
@@ -122,13 +141,9 @@
 
                 </tbody>
 
-
         </table>
 
-
     </div>
-
-
 
 </div>
 

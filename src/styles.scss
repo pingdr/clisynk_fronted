@@ -1,5 +1,7 @@
 /* Import main Inspinia style */
 @import "assets/styles/style";
+@import '~codemirror/lib/codemirror';
+@import '~codemirror/theme/material';
 
 // documents style
 .tab1-documents-container {
@@ -9115,11 +9117,11 @@ tag-input.add_new_tags {
   min-height: auto !important;
   margin-top: 0px !important;
 }
-.time-line-main-task .fc-event-container {
-  max-width: 100% !important;
-  width: 100% !important;
-  top: 0 !important;
-}
+// .time-line-main-task .fc-event-container {
+//   max-width: 100% !important;
+//   width: 100% !important;
+//   top: 0 !important;
+// }
 .time-line-main-task .fc-event .fc-content {
   display: block !important;
 }
@@ -9475,4 +9477,33 @@ tag-input.add_new_tags {
     grid-template-columns: repeat(2, 1fr) !important;
     grid-row-gap: 20px !important;
   }
+}
+
+
+.fc-license-message {
+  position: relative !important;
+  display: none !important;
+}
+
+.time-line-main-task td.fc-divider.fc-col-resizer.fc-widget-header {
+  display: none !important;
+}
+
+.time-line-main-task td.fc-widget-content > div .fc-cell-content {
+  padding: 9px 10px !important;
+}
+
+
+.edits-code-main .left-code-main .CodeMirror {
+  height: 100%;
+}
+
+@media (max-width:1400px){
+  .edits-code-main .left-code-main .CodeMirror {
+    font-size: 11px !important;
+  }
+}
+
+.comman-row-date .mat-form-field {
+    width: 100% !important;
 }
