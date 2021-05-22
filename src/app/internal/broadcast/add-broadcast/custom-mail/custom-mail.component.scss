@@ -124,57 +124,57 @@ span.red-color {
 }
 
 
-[type="radio"]:checked,
-[type="radio"]:not(:checked) {
-    position: absolute;
-    left: -9999px;
-}
-[type="radio"]:checked + label,
-[type="radio"]:not(:checked) + label
-{
-    position: relative;
-    padding-left: 28px;
-    cursor: pointer;
-    line-height: 20px;
-    display: inline-block;
-    font-size: 16px;
-    letter-spacing: 0.02em;
-    color: #2A2A2A !important;
-}
-[type="radio"]:checked + label:before,
-[type="radio"]:not(:checked) + label:before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 18px;
-    height: 18px;
-    border: 1px solid #ddd;
-    border-radius: 100%;
-    background: #fff;
-}
-[type="radio"]:checked + label:after,
-[type="radio"]:not(:checked) + label:after {
-    content: '';
-    width: 10px;
-    height: 10px;
-    background: #4776e6;
-    position: absolute;
-    top: 4px;
-    left: 4px;
-    border-radius: 100%;
-    transition: all 0.2s ease;
-}
-[type="radio"]:not(:checked) + label:after {
-    opacity: 0;
-    -webkit-transform: scale(0);
-    transform: scale(0);
-}
-[type="radio"]:checked + label:after {
-    opacity: 1;
-    -webkit-transform: scale(1);
-    transform: scale(1);
-}
+// [type="radio"]:checked,
+// [type="radio"]:not(:checked) {
+//     position: absolute;
+//     left: -9999px;
+// }
+// [type="radio"]:checked + label,
+// [type="radio"]:not(:checked) + label
+// {
+//     position: relative;
+//     padding-left: 28px;
+//     cursor: pointer;
+//     line-height: 20px;
+//     display: inline-block;
+//     font-size: 16px;
+//     letter-spacing: 0.02em;
+//     color: #2A2A2A !important;
+// }
+// [type="radio"]:checked + label:before,
+// [type="radio"]:not(:checked) + label:before {
+//     content: '';
+//     position: absolute;
+//     left: 0;
+//     top: 0;
+//     width: 18px;
+//     height: 18px;
+//     border: 1px solid #ddd;
+//     border-radius: 100%;
+//     background: #fff;
+// }
+// [type="radio"]:checked + label:after,
+// [type="radio"]:not(:checked) + label:after {
+//     content: '';
+//     width: 10px;
+//     height: 10px;
+//     background: #4776e6;
+//     position: absolute;
+//     top: 4px;
+//     left: 4px;
+//     border-radius: 100%;
+//     transition: all 0.2s ease;
+// }
+// [type="radio"]:not(:checked) + label:after {
+//     opacity: 0;
+//     -webkit-transform: scale(0);
+//     transform: scale(0);
+// }
+// [type="radio"]:checked + label:after {
+//     opacity: 1;
+//     -webkit-transform: scale(1);
+//     transform: scale(1);
+// }
 
 .radio-btn {
     margin-bottom: 10px;
@@ -246,4 +246,103 @@ span.red-color {
 
 .button-row {
     margin-top: -12px;
+}
+
+.broadcast-wizard-page{
+    margin: 0px !important;
+}
+
+.broadcast-wizard-page .form-group label {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #000;
+    font-weight: 500;
+}
+
+.or-text-main {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0.02em;
+    color: #BBBBBB;
+}
+
+.upload-main-csv {
+    border: 1px dashed #CFD0D1;
+    box-sizing: border-box;
+    border-radius: 5px;
+    padding: 20px 10px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.upload-main-csv .text-lab {
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    letter-spacing: 0.02em;
+    color: #BBBBBB;
+    margin-bottom: 11px;
+}
+
+.upload-main-csv img {
+    width: 33px;
+}
+
+.upload-main-csv .btn-browse {
+    margin: auto;
+    background: #4776E6;
+    border-radius: 5px;
+    color: #fff;
+    margin-top: 18px;
+    padding: 11px 30px;
+    font-size: 11px;
+    display: block;
+}
+
+.new-heading {
+    font-size: 18px !important;
+    line-height: 22px !important;
+    letter-spacing: 0.02em;
+    color: #2A2A2A;
+    font-weight: 500;
+    margin-bottom: 15px !important;
+}
+
+.form-check-label:before{
+    display: none;
+}
+
+.broadcast-wizard-page label.form-check-label {
+    padding-left: 0;
+}
+
+.new-row .col-md-4 {
+    padding: 0 !important;
+}
+
+.new-row .time-picker mat-label {
+    margin-bottom: 20px !important;
+    display: block;
+    font-size: 15px;
+}
+
+
+.new-footer {
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+}
+
+.new-footer .text-button {
+    border: 1px solid #4776E6;
+    box-sizing: border-box;
+    border-radius: 5px;
+    color: #4776e6 !important;
+    margin: 0;
+    margin-right: 10px;
+    padding: 9px 40px;
+    font-size: 14px;
+    background: transparent !important;
 }

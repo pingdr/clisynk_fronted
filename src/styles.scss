@@ -9155,6 +9155,51 @@ tag-input.add_new_tags {
     border-right: 5px solid transparent !important;
 }
 
+.New-class-added .email-content .form-group {
+  margin-bottom: 0;
+}
+.New-class-added .email-content .form-group .angular-editor .angular-editor-wrapper .angular-editor-textarea {
+  border-bottom: 0 !important;
+  resize: none;
+}
+
+.New-class-added .signature-toggle {
+  border: 1px solid #ccc;
+  border-top: 0;
+  margin-bottom: 30px !important;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 20px;
+  align-items: flex-end;
+}
+
+.New-class-added .signature-toggle .sign section.toggle-switch {
+  padding: 0;
+}
+
+.New-class-added .signature-toggle .sign .signature-preview {
+  padding: 0;
+  padding-bottom: 20px;
+}
+.multiselect-dropdown .dropdown-btn span {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.new-row .time-picker table tr td {
+  float: none !important;
+}
+.new-row .time-picker table tr td.form-group input {
+  width: 100%;
+  height: auto !important;
+  padding: 9px 9px !important;
+}
+.new-row .time-picker table tr td .btn {
+  padding: 11px 10px;
+  border-radius: 6px;
+  margin-top: -5px;
+  font-size: 12px;
+}
 
 
 

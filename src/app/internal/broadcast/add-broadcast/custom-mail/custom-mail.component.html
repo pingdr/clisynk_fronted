@@ -315,8 +315,8 @@
 
 <!-- PULL IT OUT -->
 <div class="med-popup">
-    <div class="broadcast-wizard-page">
-        <div class="modal-header email_str_header">
+    <div class="broadcast-wizard-page New-class-added">
+        <!-- <div class="modal-header email_str_header">
             <section id="close" class="navigation">
                 <button class="icon-only" type="button" aria-label="Close" (click)="goBack()" >
                     <svg class="icon">
@@ -331,7 +331,7 @@
             <section class="text">
                 <h4>{{isEdit ? 'Update' : 'New'}} email broadcast</h4>
             </section>
-        </div>
+        </div> -->
         <form [formGroup]="form" autocomplete="off">
             <div class="modal-body">
 
@@ -345,16 +345,14 @@
                             </mat-error>
                         </div>
 
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label>Preview line</label>
                             <input type="text" formControlName="previewLine" placeholder="Add a preview line (optional)"
                                    class="form-control">
-                        </div>
+                        </div> -->
 
                         <div class="email-content">
                             <div class="form-group">
-                                <label>Content</label>
-
                                 <angular-editor formControlName="content" [config]="editorConfig"></angular-editor>
                             </div>
                         </div>
@@ -367,7 +365,6 @@
                                     <p>{{http?.loginData?.email}}</p>
                                     <p>{{http?.loginData?.countryCode}} {{http?.loginData?.phoneNumber}}</p>
                                 </section>
-    
                                 <section class="toggle-switch">
                                     <div class="Signature">
                                         <span>Signature</span>
@@ -423,11 +420,8 @@
     
                             </div>
                         </div>
-
-
-                        <h4>Who should receive this email?</h4>
-                        <div class="form-group Associated-Contact remove-border">
-                            <label class="required">Associated Contact</label>
+                        <div class="form-group Associated-Contact">
+                            <label class="required">Contact</label>
                             <ng-multiselect-dropdown formControlName="contactId" [placeholder]="'Select Contact'"
                                                      [data]="myModel?.contacts" [settings]="dropdownSettings">
                             </ng-multiselect-dropdown>
@@ -436,8 +430,16 @@
                                 Please enter contact.
                             </mat-error>
                         </div>
+                        <!-- -----------------New-code-------------------------- -->
+                        <div class="or-text-main">Or</div> 
+                        <div class="upload-main-csv">
+                            <div class="text-lab">Upload CSV File</div>
+                            <img src="../../../../../assets/images/csv-icon.svg">
+                            <button class="btn btn-browse">Browse</button>
+                        </div>
+
                 
-                        <h4>When do you want to send the emails?</h4>
+                        <h4 class="new-heading">When do you want to send the emails?</h4>
                         <div class="form-check">
                             <label class="form-check-label">
                                 <input type="radio" class="form-check-input" [value]="1" formControlName="timingType">
@@ -451,8 +453,8 @@
                             </label>
                         </div>
 
-                        <div class="row" *ngIf="form.value.timingType === '2' || form.value.timingType === 2">
-                            <div class="col-md-4">
+                        <div class="new-row" *ngIf="form.value.timingType === '2' || form.value.timingType === 2">
+                            <div class="col-md-4 comman-row">
                                 <div class="input-field">
                                     <mat-form-field appearance="outline">
                                         <mat-label>Due Date</mat-label>
@@ -461,12 +463,12 @@
                                     </mat-form-field>
                                 </div>
                             </div>
-                            <div class="col-md-4 form-group">
-                                <mat-label>Due Date</mat-label>
+                            <div class="col-md-4 time-picker form-group">
+                                <mat-label>Time</mat-label>
                                 <timepicker formControlName="timing"></timepicker>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-4 comman-row">
                                 <div class="input-field">
                                     <div class="btn-group add-btn select-opt" dropdown>
                                         <mat-form-field appearance="outline" class="select-height">
@@ -483,7 +485,7 @@
                         </div>
 
 
-                <div class="modal-footer footer-btn text-left">
+                <div class="modal-footer new-footer footer-btn text-left">
                     <button type="submit" class="text-button" (click)="finalSubmit(1)">Save and come back later</button>
                     <button type="submit" class="btn-outline-primary" (click)="finalSubmit(2)">Send broadcast</button>
                 </div>
