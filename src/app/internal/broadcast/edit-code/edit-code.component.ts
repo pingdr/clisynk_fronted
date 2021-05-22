@@ -5,6 +5,7 @@ import {
   Output,
   ViewChild,
   EventEmitter,
+  Input,
 } from "@angular/core";
 import { DomSanitizer } from "@angular/platform-browser";
 import { Subject } from "rxjs";
@@ -23,7 +24,8 @@ export class EditCodeComponent implements OnInit {
   @Output("changeView")
   changeViewEmitter = new EventEmitter<{html: string, view: ViewType}>();
 
-  content: any;
+  @Input('content')
+  content: any = '';
   constructor(public http: HttpService,public sanitizer: DomSanitizer) {}
 
   ngOnInit() {}

@@ -1,7 +1,7 @@
 <ng-container [ngSwitch]="showView">
 
     <ng-container *ngSwitchCase="'edit-code'">
-        <edit-code (changeView)="sendEmail($event)"></edit-code>
+        <edit-code [content]="content" (changeView)="sendEmail($event)"></edit-code>
     </ng-container>
 
     <ng-container *ngSwitchCase="'mail'">

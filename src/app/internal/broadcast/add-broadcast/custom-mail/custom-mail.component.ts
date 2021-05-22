@@ -9,7 +9,7 @@ import { HttpService } from 'src/app/services/http.service';
 import { EmailTemplateComponent } from 'src/app/shared/modals/email-template/email-template.component';
 import { EditorContent } from 'src/app/shared/models/editor.model';
 import { TableModel } from 'src/app/shared/models/table.common.model';
-
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 declare type CurrentTabType = 'custom-mail' | 'themes' | 'code-your-own';
 
 @Component({
@@ -46,6 +46,31 @@ export class CustomMailComponent implements OnInit {
       'disabled': true
   };
   isEdit = false;
+
+  editorConfig: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: '25rem',
+    minHeight: '5rem',
+    placeholder: 'Enter text here...',
+    translate: 'no',
+    uploadUrl: 'v1/images', // if needed
+    customClasses: [ // optional
+      {
+        name: "quote",
+        class: "quote",
+      },
+      {
+        name: 'redText',
+        class: 'redText'
+      },
+      {
+        name: "titleText",
+        class: "titleText",
+        tag: "h1",
+      },
+    ]
+  };
 
   constructor(public http: HttpService, public activeRoute: ActivatedRoute) {
       this.myModel = new TableModel();

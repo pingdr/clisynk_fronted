@@ -141,8 +141,9 @@
                         <div class="email-content">
                             <div class="form-group">
                                 <label>Content</label>
-                                <ckeditor formControlName="content" debounce="500" [config]="ckeConfig">
-                                </ckeditor>
+                                <!-- <ckeditor formControlName="content" debounce="500" [config]="ckeConfig">
+                                </ckeditor> -->
+                                <angular-editor formControlName="content" [config]="editorConfig"></angular-editor>
                             </div>
                         </div>
 

@@ -13,8 +13,22 @@
                 <div class="template-name-main">{{template.name}}</div>
             </div>
         </div>
-        <div class="loading" *ngIf="templates.length == 0">
-            Loading...
+        <div class="shimmer-main"  *ngIf="templates.length == 0">
+
+            <div class="shimmer-inner-grid-main">
+                    <div class="shimmer-card" *ngFor="let item of [1,2,3,4,5,6,7,8,9,10]">
+                            <div class="shimmer-content-heading shine"></div>
+                            <div class="address-shim shine"></div>
+                            <div class="address-shim shine"></div>
+                            <div class="address-shim shine"></div>
+                            <div class="address-shim shine"></div>
+                            <div class="address-shim shine"></div>
+                    </div>
+        
+            </div>
+            
+        
+        
         </div>
         
     </ng-container>
@@ -28,20 +42,3 @@
 
 </ng-container>
 
-<div class="shimmer-main">
-
-    <div class="shimmer-inner-grid-main">
-            <div class="shimmer-card" *ngFor="let item of [1,2,3,4,5,6,7,8,9,10]">
-                    <div class="shimmer-content-heading shine"></div>
-                    <div class="address-shim shine"></div>
-                    <div class="address-shim shine"></div>
-                    <div class="address-shim shine"></div>
-                    <div class="address-shim shine"></div>
-                    <div class="address-shim shine"></div>
-            </div>
-
-    </div>
-    
-
-
-</div>
