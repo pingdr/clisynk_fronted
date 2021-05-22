@@ -68,11 +68,11 @@ export class BroadcastComponent implements OnInit {
         });
     }
 
-    openDetails(data) {
+    openDetails(data,fullView = true) {
         // const obj: any = {
         //     content: data.content
         // };
-        this.http.openModal('emailDetail', {content: data.content, subject: data.subject});
+        this.http.openModal('emailDetail', {content: data.content, subject: data.subject, fullView});
     }
 
 }

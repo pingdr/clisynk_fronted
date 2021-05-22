@@ -61,16 +61,20 @@
 
                         <tr *ngFor="let data of myModel?.data?.data; index as i">
                             <td class="hash-col">{{i + 1}}</td>
-                            <td class="name-col">{{data?.subject || 'no subject'}}</td>
+                            <td class="name-col">
+                                <div class="subject">
+                                    {{data?.subject || 'no subject'}}
+                                </div>
+                            </td>
                             <td class="date-col">{{data?.updatedAt |date:'MMM dd, hh:mm a'}}</td>
                             <td class="contacts-col">{{data?.contactId?.length}}</td>
-                            <td class="view-content-col" (click)="openDetails(data)">
+                            <td class="view-content-col" >
                                 <div class="views-cont">
                                     <div class="comman-grid">
-                                        <img src="../../../assets/images/mac-icon.svg">
+                                        <img (click)="openDetails(data,true)" src="../../../assets/images/mac-icon.svg">
                                     </div>
                                     <div class="comman-grid">
-                                        <img src="../../../assets/images/iphone-vector.svg">
+                                        <img (click)="openDetails(data,false)" src="../../../assets/images/iphone-vector.svg">
                                     </div>
                                 </div>
                             </td>

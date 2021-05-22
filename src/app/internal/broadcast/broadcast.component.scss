@@ -119,6 +119,12 @@
 
 .broadcast-table-main .name-col {
     width: 350px;
+    .subject {
+        width: 350px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 }
 .date-col {
     width: 270px;

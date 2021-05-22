@@ -57,10 +57,7 @@ const routes: Routes = [
         SharedModule,
         CodemirrorModule,
         RouterModule.forChild(routes),
-        DynamicHTMLModule.forRoot({
-            components: [
-              {component: EditCodeComponent, selector: 'hello'}
-            ]})
+      
     ],
     declarations: [
         BroadcastComponent,
