@@ -336,7 +336,7 @@
             <div class="modal-body">
 
                           <div class="form-group">
-                            <label>Subject</label>
+                            <label>Subject<span style="color:red">*</span></label>
                             <input type="text" formControlName="subject" placeholder="Add a subject line"
                                    class="form-control">
                             <mat-error
@@ -378,14 +378,30 @@
                                 </section>
                             </div>
                             <div class="button-row">
-    
+                                <!-- <span class="mr-2">
+                                    <img src="../../../../assets/images/upload-pin.svg">
+                                </span> -->
+                                <!-- <div class="tooltip-container tooltip-hover">
+                                    <div class="tooltip-reference">
+                                        <button type="button" (click)="openUpload()"><img src="assets/images/upload-pin.svg">
+                                        </button>
+                                    </div>
+                                    <section class="tooltip">
+                                        <div class="arrow"></div>
+                                        <div>Add attachment</div>
+                                    </section>
+                                </div> -->
+                                <!-- <span class="mr-2">
+                                    <img src="../../../../assets/images/merge-pin.svg">
+                                </span> -->
+
                                 <div class="popover-container tooltip-container tooltip-hover"
                                      style="display: inline-block">
                                     <div class="tooltip-reference">
                                         <div class="btn-group add-booking-link insert-templates" dropdown>
                                             <button id="button-basic2" dropdownToggle type="button" class="btn"
                                                     aria-controls="dropdown-basic">
-                                                <img src="/assets/images/ic_insert_template.svg">
+                                                <img src="/assets/images/document-pin.svg">
                                             </button>
                                             <ul id="dropdown-basic2" *dropdownMenu class="dropdown-menu" role="menu"
                                                 aria-labelledby="button-basic" style="left: -103px;">
@@ -417,11 +433,10 @@
                                         <div>Insert template</div>
                                     </section>
                                 </div>
-    
                             </div>
                         </div>
                         <div class="form-group Associated-Contact">
-                            <label class="required">Contact</label>
+                            <label class="required">Contact <span style="color:red">*</span></label>
                             <ng-multiselect-dropdown formControlName="contactId" [placeholder]="'Select Contact'"
                                                      [data]="myModel?.contacts" [settings]="dropdownSettings">
                             </ng-multiselect-dropdown>
