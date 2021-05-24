@@ -1,3 +1,4 @@
+import { ImportedEmailViewComponent } from './../modals/imported-email-view/imported-email-view.component';
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -147,7 +148,8 @@ const entryList = [EmailFormatComponent, SendEmailComponent, ContactDetailsCompo
     SmartFormCreateComponent, CreateWorkspaceComponent, MergeContactsComponent, SmartFormDeleteComponent, LeadFormCreateComponent,
     CreateFolderComponent, AddPageComponent, CreateDocumentComponent, DeleteDocComponent, MoveComponent, EmailDocumentFormatComponent,
     DeleteAutomationComponent, LeadFormDeletedComponent, NavigateToLeadFormsComponent, NavigateToAppointmentComponent, NavigateToTagsComponent,
-    NavigateToProductsComponent, RenameAutomationComponent, EditWorkspaceComponent, NewEditTaskComponent, SaveTemplateComponent
+    NavigateToProductsComponent, RenameAutomationComponent, EditWorkspaceComponent, NewEditTaskComponent, SaveTemplateComponent,
+    ImportedEmailViewComponent
 ];
 
 const importExportList = [MatStepperModule, MatTabsModule, MatSliderModule, MatInputModule, MatSelectModule,
@@ -165,11 +167,7 @@ const importExportList = [MatStepperModule, MatTabsModule, MatSliderModule, MatI
         CommonModule, PaginationModule.forRoot(), BsDropdownModule.forRoot(), TabsModule.forRoot(),
         ModalModule.forRoot(), CollapseModule.forRoot(), AccordionModule.forRoot(), PopoverModule.forRoot(),
         NgxSummernoteModule,
-        DynamicHTMLModule.forRoot({
-            components: [
-         
-            ]
-        }),
+        DynamicHTMLModule.forRoot({components: []}),
 
 
         ...importExportList

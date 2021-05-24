@@ -1,3 +1,4 @@
+import { ImportedEmailViewComponent } from './../../../../shared/modals/imported-email-view/imported-email-view.component';
 import { MailTemplateData } from 'src/app/shared/models/mail-template.model';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
@@ -13,6 +14,7 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { NgxCsvParser } from 'ngx-csv-parser';
 import { NgxCSVParserError } from 'ngx-csv-parser';
 import { BroadCastType } from 'src/app/models/enums';
+import { DeleteComponent } from 'src/app/shared/modals/delete/delete.component';
 declare type CurrentTabType = 'custom-mail' | 'themes' | 'code-your-own';
 
 @Component({
@@ -136,6 +138,8 @@ export class CustomMailComponent implements OnInit {
       }
     }
 
+
+
   fillValues(data) {
       this.form.patchValue({
           subject: data.subject,
@@ -245,6 +249,18 @@ export class CustomMailComponent implements OnInit {
           });
       });
   }
+
+  openImportedEmailView() {
+    const modalRef = this.http.showModal(ImportedEmailViewComponent, 'lg', { emails: this.emails.value});
+    modalRef.content.onClose = new Subject<boolean>();
+    modalRef.content.onClose.subscribe(res => {
+        
+    });
+  }
+  
+  removeImportedEmails() {
+    this.emails.setValue([]);
+  }  
 
   
 }

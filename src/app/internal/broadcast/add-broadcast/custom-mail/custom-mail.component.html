@@ -432,11 +432,15 @@
                         </div>
                         <!-- -----------------New-code-------------------------- -->
                         <div class="or-text-main">Or</div> 
-                        {{this.emails.value|json}}
+                        <!-- {{this.emails.value|json}} -->
                         <div class="upload-main-csv">
+                            <div class="cancel-btn" *ngIf="this.emails?.value.length > 0" (click)="removeImportedEmails()">X</div>
                             <div class="text-lab">{{ this.emails?.value.length > 0 ? 'Uploaded successfully' :  'Upload CSV File'}}</div>
                             <img src="../../../../../assets/images/csv-icon.svg">
-                            <button *ngIf="this.emails?.value.length <= 0" class="btn btn-browse" (click)="file.click()" >Browse</button>
+                            <button class="btn btn-browse" 
+                                (click)="this.emails?.value.length <= 0 ? file.click() : openImportedEmailView() " >
+                                {{this.emails?.value.length <= 0 ? 'Browse' : 'View Imported Emails'}}
+                            </button>
                             <input accept=".csv" onclick="this.value=null;" hidden #file (change)="onCsvFileUpload($event.target.files[0])" type="file" name="" id="">
                         </div>
 
