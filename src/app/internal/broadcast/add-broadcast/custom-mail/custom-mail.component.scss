@@ -347,29 +347,3 @@ span.red-color {
     background: transparent !important;
 }
 
-.cancel-btn {
-    position: relative;
-    content: 'X';
-    background: rgba(113, 113, 113, 0.2);
-    width: 20px;
-    height: 20px;
-    border-radius: 100%;
-    top: 68%;
-    left: 94%;
-    text-align: center;
-    font-size: 8px;
-    line-height: 20px;
-    font-weight: 500;
-    color: #111;
-    cursor: pointer;
-}
-.tooltip-reference button img {
-    width: 40px;
-    height: 40px;
-    padding: 0px !important;
-}
-.button-row span img {
-    width: 40px;
-    height: 40px;
-
-}

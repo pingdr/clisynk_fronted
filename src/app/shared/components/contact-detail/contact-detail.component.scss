@@ -455,6 +455,7 @@ section.invoices-mains {
     height: 1px;
     position: relative;
     margin-bottom: 40px;
+    margin-top: 40px;
 }
 .days-and-calender-main span.days-main {
     position: absolute;
@@ -568,7 +569,8 @@ section.invoices-mains {
     color: #979797;
     font-weight: 400;
     line-height: 20px;
-    font-size: 14px;
+    font-size: 12px;
+    width: 50%;
 }
 
 .comman-rows-name {
@@ -577,15 +579,17 @@ section.invoices-mains {
 }
 
 .comman-rows-name .comman-label {
-    width: 12%;
+    width: 26%;
     margin-right: 10px;
 }
 
 .comman-rows-name .comman-value {
-    width: 50%;
+    width: 400px;
     font-size: 13px;
     color: #2A2A2A;
     font-weight: 400;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .comman-label {
@@ -598,8 +602,8 @@ section.invoices-mains {
 .assignee-main {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-column-gap: 50px;
-    margin-top: 30px;
+    grid-column-gap: 30px;
+    margin-top: 20px;
 }
 
 .assignee-main .assigne-left {
@@ -627,10 +631,9 @@ section.invoices-mains {
     align-items: center;
     justify-content: center;
     font-weight: 500;
-    font-size: 14px;
-    line-height: 17px;
+    font-size: 13px;
+    line-height: 13px;
     text-align: center;
-    letter-spacing: 0.02em;
     color: #0040DC;
 }
 
@@ -654,10 +657,10 @@ section.invoices-mains {
 }
 
 .assignee-main .assigne-right .comman-status {
-    padding: 7px 20px;
+    padding: 3px 20px;
     border-radius: 100px;
     color: #4A4A4A;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 500;
 }
 .high{
@@ -673,11 +676,11 @@ section.invoices-mains {
 .assigne-attachments {
     display: flex;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
 .assigne-attachments .comman-label {
-    width: 12%;
+    width: 19%;
 }
 
 .assigne-attachments .comman-pdf-main {
@@ -687,7 +690,7 @@ section.invoices-mains {
 
 .assigne-attachments .comman-pdf-main img {
     margin-right: 10px;
-    width: 22px;
+    width: 17px;
 }
 .assigne-attachments .comman-pdf-main span.file-name {
     margin-right: 7px;
@@ -997,18 +1000,24 @@ section.invoices-mains {
 @media (max-width:1600px){
     .comman-rows-name .comman-label{
         width:20%;
+        font-size: 12px;
     }
     .assignee-main .assigne-left .comman-label{
-        width: 40%;
+        width: 26%;
     }
     .assigne-attachments .comman-label {
         width: 22%;
     }
     .task-managet-main  .left-col-img{
-        width: 60px;
+        width: 40px;
+        height: 40px;
+        top: -7px;
     }
     .new-tags-main-area{
         width:60%;
+    }
+    .comman-label{
+        font-size: 12px;
     }
 }
 
@@ -1020,14 +1029,15 @@ section.invoices-mains {
 }
 
 @media (max-width: 1300px){
-    .task-managet-main .left-col-img{
-        width:68px;
-    }
     .comman-label{
         font-size: 12px;
     }
     .assignee-main{
         grid-column-gap: 20px;
+    }
+    .comman-rows-name .comman-label{
+        width: 24%;
+        font-size: 12px;
     }
     .comman-rows-name .comman-value{
         width: 70%;
@@ -1041,6 +1051,10 @@ section.invoices-mains {
     .search-field-main .input-search-main{
         width: 50%;
         position: relative;
+    }
+
+    .task-managet-main .right-co-all-tast{
+        width:80%;
     }
 }
 
