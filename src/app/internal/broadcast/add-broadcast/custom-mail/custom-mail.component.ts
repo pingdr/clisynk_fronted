@@ -38,6 +38,7 @@ export class CustomMailComponent implements OnInit {
   @Output('goBack')
   goBackEmitter = new EventEmitter();
 
+  BroadCastType = BroadCastType;
   form: FormGroup;
   myModel: any;
   contacts: any = [];
@@ -147,7 +148,8 @@ export class CustomMailComponent implements OnInit {
           content: data.content,
           previewLine: data.previewLine,
           timingType: data.timingType,
-          timeZone: data.timeZone
+          timeZone: data.timeZone,
+          emails: data.emails
       });
       if (this.form.value.timingType === '2' || this.form.value.timingType === 2) {
           this.form.controls.timing.patchValue(new Date(data.timing));
@@ -168,6 +170,7 @@ export class CustomMailComponent implements OnInit {
           if (status == BroadCastType.DRAFT) {
               obj.status = BroadCastType.DRAFT;
           }
+          obj.emails = JSON.stringify(obj.emails);
 
         //   delete obj.emails;
           // delete obj.timezone;

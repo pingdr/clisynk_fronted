@@ -507,8 +507,14 @@
 
 
                 <div class="modal-footer new-footer footer-btn text-left">
-                    <button type="submit" class="text-button" (click)="finalSubmit(3)">Save and come back later</button>
-                    <button type="submit" class="btn-outline-primary" (click)="finalSubmit(1)">Send broadcast</button>
+                    <ng-container *ngIf="this.myModel?.data?.status == BroadCastType.SCHEDULED; else elseTemplate">
+                        <button type="submit" class="text-button" (click)="finalSubmit(BroadCastType.SCHEDULED)">Save and come back later</button>
+                    </ng-container>
+                    <ng-template #elseTemplate>
+                        <button type="submit" class="text-button" (click)="finalSubmit(BroadCastType.DRAFT)">Save and come back later</button>
+                        <button type="submit" class="btn-outline-primary" (click)="finalSubmit(BroadCastType.SENT)">Send broadcast</button>
+                    </ng-template>
+                    
                 </div>
             </div>
         </form>

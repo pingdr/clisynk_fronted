@@ -16,8 +16,6 @@ export interface Task {
     title: string;
     dueDateTime: number;
     reminderType: number;
-    startDateTime: number;
-    priority: string;
     timeZone: number;
     addedBy: AddedBy;
     workspaceId: string;
@@ -26,6 +24,11 @@ export interface Task {
     __v: number;
     convertedDate: string;
     date: string;
+    /* New added */
+    startDateTime: number;
+    priority: string;
+    image: string;
+
   }
   
   interface AddedBy {

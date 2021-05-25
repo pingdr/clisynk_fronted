@@ -19,16 +19,22 @@ export class DeleteComponent implements OnInit {
     }
 
     deleteFun() {
-        const obj: any = {
-            [this.modalData.key]: this.modalData.id,
-            type: this.modalData.type
-        };
-        this.http.hideModal();
-        this.http.postData(ApiUrl.DELETE_DATA, obj, false)
-            .subscribe(() => {
-                this.onClose.next(true);
-                this.http.contactUpdated();
-            }, () => {
-            });
+        if (this.modalData.id) {
+            const obj: any = {
+                [this.modalData.key]: this.modalData.id,
+                type: this.modalData.type
+            };
+            this.http.hideModal();
+            this.http.postData(ApiUrl.DELETE_DATA, obj, false)
+                .subscribe(() => {
+                    this.onClose.next(true);
+                    this.http.contactUpdated();
+                }, () => {
+                });
+
+        } else {
+            this.http.hideModal();
+            this.onClose.next(true);
+        }
     }
 }
