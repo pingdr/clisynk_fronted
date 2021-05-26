@@ -79,7 +79,7 @@ export class TopNavBarComponent implements OnInit {
         const secondsCounter = interval(30000);
         this.allSubscribers.push(
             secondsCounter.subscribe(n => {
-                this.notificationList();
+                // this.notificationList();
             })
         )
         const obj = { skip: 0, limit: 30 };

@@ -1,7 +1,10 @@
 <div class="edit-task-main-area">
-    <div class="left-mark-complete" (click)="changeStatus(2)" *ngIf="modalData?.status && modalData?.status != 2">
-        <img src="../../../../assets/images/tick-mark.svg"  >
-        Mark complete
+    <div class="left-mark-complete"
+     (click)="(modalData?.status && modalData?.status == TaskStatus.INCOMPLETE) ? 
+        changeStatus(TaskStatus.COMPLETED) : ''" >
+        <img src="../../../../assets/images/tick-mark.svg" *ngIf="modalData?.status == TaskStatus.INCOMPLETE"  >
+        {{ (modalData?.status && modalData?.status != TaskStatus.COMPLETED) ? 
+            'Mark complete' : 'Completed'}}
     </div>
 
     <div class="right-mark-complete">
@@ -11,7 +14,7 @@
         <div class="comman-grids-back">
             <img src="../../../../assets/images/vertical-pin.svg">
         </div>
-        <div class="comman-grids-back">
+        <div class="comman-grids-back" (click)="deleteTask(deletePopup)">
             <img src="../../../../assets/images/delete-one.svg">
         </div>
         <div (click)="close(false)" class="close-icon">
@@ -116,3 +119,20 @@
 
 
 </div>
+
+<ng-template #deletePopup>
+    <div class="delete-comp xs">
+      <div class="delete-comp-inner">
+        <h4>Delete task</h4>
+        <p>Are you sure you want to delete this task?</p>
+        <div class="button-row form-group">
+          <button class="delete-btn" type="submit" (click)="http.hideModal(); changeStatus(4)">
+            Delete
+          </button>
+          <button class="text-button" type="button" aria-label="Close" (click)="http.hideModal()">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-template>

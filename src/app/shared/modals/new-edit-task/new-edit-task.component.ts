@@ -1,3 +1,4 @@
+import { TaskStatus } from './../../../models/enums';
 import { remainderTypes } from './../../../services/constants';
 import { Task } from './../../../models/task';
 import { Component, OnInit } from '@angular/core';
@@ -18,7 +19,7 @@ import { TableModel } from '../../models/table.common.model';
 })
 export class NewEditTaskComponent implements OnInit {
 
- 
+  TaskStatus = TaskStatus;
   form: FormGroup;
   allData;
   myModel: any;

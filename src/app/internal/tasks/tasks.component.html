@@ -1,50 +1,67 @@
 <div class="page-header-main">
-        <div class="heading-txt">Tasks</div>
-        <div class="heading-right-side">
-                <div class="search-fields">
-                    <input type="text" placeholder="Search task or project here..."/>
-                </div>
-                <button class="btn share-btn">
-                    <img src="../../../assets/images/shares-icons.svg">
-                    Share</button>
-                <button class="btn add-btn" (click)="openEditTask()">+ Add Task</button>
+    <div class="heading-txt">Tasks</div>
+    <div class="heading-right-side">
+        <div class="search-fields">
+            <input type="text" placeholder="Search task or project here..." />
         </div>
+        <button class="btn share-btn">
+            <img src="../../../assets/images/shares-icons.svg">
+            Share</button>
+        <button class="btn add-btn" (click)="openEditTask()">+ Add Task</button>
+    </div>
 
 
 </div>
- 
+
 <div class="second-row-main-content">
     <div class="inner-wrappersmain">
-            <div class="first-task-drops">
-                <div class="btn-group" dropdown>
-                    <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle" aria-controls="dropdown-basic">
-                          <img src="../../../assets/images/tick-marks-main.svg">   All Task
-                    </button>
-                    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
-                        role="menu" aria-labelledby="button-basic">
-                      <li role="menuitem"><a class="dropdown-item">Incomplete tasks</a></li>
-                      <li role="menuitem"><a class="dropdown-item">Completed tasks</a></li>
-                      <li role="menuitem"><a class="dropdown-item">All tasks</a>
-                      </li>
-                    </ul>
-                  </div>
+        <div class="first-task-drops">
+            <div class="btn-group" dropdown>
+                <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+                    aria-controls="dropdown-basic">
+                    <img src="../../../assets/images/tick-marks-main.svg"> All Task
+                </button>
+                <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                    <li role="menuitem" [ngClass]="{'selected': this.myModel.status == TaskStatus.INCOMPLETE }">
+                        <a class="dropdown-item" (click)="this.myModel.status = TaskStatus.INCOMPLETE; taskList()">
+                            Incomplete tasks
+                        </a>
+                    </li>
+                    <li role="menuitem" [ngClass]="{'selected': this.myModel.status == TaskStatus.COMPLETED }">
+                        <a class="dropdown-item" (click)="this.myModel.status = TaskStatus.COMPLETED; taskList()">
+                            Completed tasks
+                        </a>
+                    </li>
+                    <li role="menuitem" [ngClass]="{'selected': this.myModel.status == TaskStatus.ALL }">
+                        <a class="dropdown-item" (click)="this.myModel.status = TaskStatus.ALL; taskList()">
+                            All tasks
+                        </a>
+                    </li>
+                </ul>
             </div>
-            <div class="date-pickres-main">
-                <input type="text" placeholder="Daterangepicker" class="form-control" bsDaterangepicker>
+        </div>
+        <div class="date-pickres-main">
+            <input type="text" placeholder="Daterangepicker" class="form-control" bsDaterangepicker>
+        </div>
+        <div class="priority-drops">
+            <div class="btn-group" dropdown>
+                <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+                    aria-controls="dropdown-basic">
+                    <img src="../../../assets/images/filter-vector.svg">Priority
+                </button>
+                <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                    <li role="menuitem"><a class="dropdown-item">
+                            <div class="high-dot comman-dot"></div> High
+                        </a></li>
+                    <li role="menuitem"><a class="dropdown-item">
+                            <div class="low-dot comman-dot"></div> Low
+                        </a></li>
+                    <li role="menuitem"><a class="dropdown-item">
+                            <div class="med-dot comman-dot"></div> Medium
+                        </a></li>
+                </ul>
             </div>
-            <div class="priority-drops">
-                <div class="btn-group" dropdown>
-                    <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle" aria-controls="dropdown-basic">
-                          <img src="../../../assets/images/filter-vector.svg">Priority
-                    </button>
-                    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
-                        role="menu" aria-labelledby="button-basic">
-                      <li role="menuitem"><a class="dropdown-item" ><div class="high-dot comman-dot"></div>  High</a></li>
-                      <li role="menuitem"><a class="dropdown-item" ><div class="low-dot comman-dot"></div>  Low</a></li>
-                      <li role="menuitem"><a class="dropdown-item" ><div class="med-dot comman-dot"></div>  Medium</a></li>
-                    </ul>
-                  </div>
-            </div>
+        </div>
 
     </div>
 
@@ -55,96 +72,104 @@
 <div class="tabs-main-tasks">
     <nav>
         <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">List</a>
-            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Timeline</a>
-            <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Calender</a>
-            <a class="nav-item nav-link" id="nav-about-tab" data-toggle="tab" href="#nav-about" role="tab" aria-controls="nav-about" aria-selected="false">Files</a>
+            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+                aria-controls="nav-home" aria-selected="true">List</a>
+            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
+                aria-controls="nav-profile" aria-selected="false">Timeline</a>
+            <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab"
+                aria-controls="nav-contact" aria-selected="false">Calender</a>
+            <a class="nav-item nav-link" id="nav-about-tab" data-toggle="tab" href="#nav-about" role="tab"
+                aria-controls="nav-about" aria-selected="false">Files</a>
         </div>
     </nav>
     <div class="tab-content" id="nav-tabContent">
-        <div class="list-tab-main tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+        <div class="list-tab-main tab-pane fade show active" id="nav-home" role="tabpanel"
+            aria-labelledby="nav-home-tab">
             <div class="main-table-for-list-area">
-                    <table>
-                        <thead>
-                                <tr>
-                                    <th class="task-name">
-                                        <mat-checkbox class="example-margin"></mat-checkbox>Task Name
-                                    </th>
-                                    <th class="task-description">Task Description</th>
-                                    <th class="assignee">Assignee</th>
-                                    <th class="start-date">Start Date</th>
-                                    <th class="due-date">Due Date</th>
-                                    <th class="priority">Priority</th>
-                                    <th class="action">Action</th>
-                                </tr>
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="task-name">
+                                <mat-checkbox class="example-margin"></mat-checkbox>Task Name
+                            </th>
+                            <th class="task-description">Task Description</th>
+                            <th class="assignee">Assignee</th>
+                            <th class="start-date">Start Date</th>
+                            <th class="due-date">Due Date</th>
+                            <th class="priority">Priority</th>
+                            <th class="action">Action</th>
+                        </tr>
 
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let task of tasks" >
-                                <td class="task-name">
-                                    <div class="task-name-in-wrap">
-                                        <div class="checkbox"> <mat-checkbox class="example-margin"></mat-checkbox></div>
-                                        <div class="task-name">{{task?.title}}</div>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let task of tasks">
+                            <td class="task-name"
+                                [ngStyle]="{ 'background' : task?.status == TaskStatus.COMPLETED ? '#D9F6E0': ''}">
+                                <div class="task-name-in-wrap">
+                                    <div class="checkbox">
+                                        <mat-checkbox class="example-margin"></mat-checkbox>
                                     </div>
-                                </td>
-                                <td class="task-description">
-                                    {{task?.note}}
-                                </td>
-                                <td class="assignee">
-                                        <div class="grid-names">
-                                                <div class="comman-grid" data-toggle="tooltip" data-placement="top" [title]="task?.contactId?.fullName">
-                                                    {{task?.contactId?.firstName?.substr(0,1)}}{{task?.contactId?.lastName?.substr(0,1)}}
-                                                </div>
-                                                <!-- <div class="comman-grid">JD</div>
+                                    <div class="task-name">{{task?.title}}</div>
+                                </div>
+                            </td>
+                            <td class="task-description">
+                                {{task?.note}}
+                            </td>
+                            <td class="assignee">
+                                <div class="grid-names">
+                                    <div class="comman-grid" data-toggle="tooltip" data-placement="top"
+                                        [title]="task?.contactId?.fullName">
+                                        {{task?.contactId?.firstName?.substr(0,1)}}{{task?.contactId?.lastName?.substr(0,1)}}
+                                    </div>
+                                    <!-- <div class="comman-grid">JD</div>
                                                 <div class="comman-grid">+5</div>
                                                 <div class="comman-grid last-person">
                                                     <img src="../../../assets/images/task-person.svg">
                                                 </div> -->
 
-                                        </div>
+                                </div>
 
-                                </td>
-                                <!-- <td class="start-date">23/04/2021</td> -->
-                                <!-- <td class="due-date">23/04/2021</td> -->
-                                <td class="start-date">{{task?.startDateTime|date: 'dd/MM/yyyy'}}</td>
-                                <td class="due-date">{{task?.dueDateTime|date: 'dd/MM/yyyy'}}</td>
-                                <td class="priority">
-                                    <div  
-                                    [ngClass]="{
-                                        'high': task?.priority == 'HIGH',
+                            </td>
+                            <!-- <td class="start-date">23/04/2021</td> -->
+                            <!-- <td class="due-date">23/04/2021</td> -->
+                            <td class="start-date">{{task?.startDateTime|date: 'dd/MM/yyyy'}}</td>
+                            <td class="due-date">{{task?.dueDateTime|date: 'dd/MM/yyyy'}}</td>
+                            <td class="priority">
+                                <div [ngClass]="{
+                                        'high': task?.priority == 'High',
                                         'low': task?.priority == 'Low',
                                         'med': task?.priority == 'Medium'
-                                    }"
-                                    class="high-dot prio-comman-tag">{{task?.priority}}</div>
-                                </td>
-                                <td class="action">
-                                        <div class="actions-main-button">
-                                            <a>
-                                                <img src="../../../assets/images/edit-icons.svg" (click)="openEditTask(task)">
-                                            </a>
-                                            <a>
-                                                <img src="../../../assets/images/trash-icon.svg" (click)="deleteTask(task)">
-                                            </a>
-                                        </div>
+                                    }" class="high-dot prio-comman-tag">{{task?.priority}}</div>
+                            </td>
+                            <td class="action">
+                                <div class="actions-main-button">
+                                    <a>
+                                        <img src="../../../assets/images/edit-icons.svg" (click)="openEditTask(task)">
+                                    </a>
+                                    <a>
+                                        <img src="../../../assets/images/trash-icon.svg" (click)="deleteTask(task)">
+                                    </a>
+                                </div>
 
-                                </td>
-                            </tr>
-                        
-                        </tbody>
+                            </td>
+                        </tr>
 
+                    </tbody>
 
 
-                    </table>
+
+                </table>
             </div>
         </div>
         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-       
+
             <app-timeline-view></app-timeline-view>
-        
+
         </div>
-        <div class="tab-pane fade caldeder-main-tasks" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+        <div class="tab-pane fade caldeder-main-tasks" id="nav-contact" role="tabpanel"
+            aria-labelledby="nav-contact-tab">
             <app-calender-view [_tasks]="tasks"></app-calender-view>
-          
+
         </div>
         <div class="tab-pane fade" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
             <div class="search-task-tabs-inner-search">
@@ -152,66 +177,66 @@
             </div>
 
             <div class="task-name-main">
-                    <table class="mainfiles-table">
+                <table class="mainfiles-table">
 
-                        <thead>
-                            <tr>
-                                <th>Task Name</th>
-                                <th>File Name</th>
-                                <th>Date & Time</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div class="f_task_name">Task Name1</div>
-                                </td>
-                                <td>
-                                        <div class="filetype-main">
-                                            <div class="types-main-inner">
-                                                <div class="left-file-type-main">
-                                                    <img src="../../../assets/images/pdf-main.svg">
-                                                    QR code file.pdf <span class="file-sized">(120K)</span>
-                                                </div>
-                                                <div class="close-icon">
-                                                    <img src="../../../assets/images/close-icons-news.png">
-                                                </div>
-                                            </div>
+                    <thead>
+                        <tr>
+                            <th>Task Name</th>
+                            <th>File Name</th>
+                            <th>Date & Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="f_task_name">Task Name1</div>
+                            </td>
+                            <td>
+                                <div class="filetype-main">
+                                    <div class="types-main-inner">
+                                        <div class="left-file-type-main">
+                                            <img src="../../../assets/images/pdf-main.svg">
+                                            QR code file.pdf <span class="file-sized">(120K)</span>
                                         </div>
-                                        <div class="filetype-main">
-                                            <div class="types-main-inner">
-                                                <div class="left-file-type-main">
-                                                    <img src="../../../assets/images/pdf-main.svg">
-                                                    QR code file.pdf <span class="file-sized">(120K)</span>
-                                                </div>
-                                                <div class="close-icon">
-                                                    <img src="../../../assets/images/close-icons-news.png">
-                                                </div>
-                                            </div>
+                                        <div class="close-icon">
+                                            <img src="../../../assets/images/close-icons-news.png">
                                         </div>
-                                        <div class="filetype-main">
-                                            <div class="types-main-inner">
-                                                <div class="left-file-type-main">
-                                                    <img src="../../../assets/images/pdf-main.svg">
-                                                    QR code file.pdf <span class="file-sized">(120K)</span>
-                                                </div>
-                                                <div class="close-icon">
-                                                    <img src="../../../assets/images/close-icons-news.png">
-                                                </div>
-                                            </div>
+                                    </div>
+                                </div>
+                                <div class="filetype-main">
+                                    <div class="types-main-inner">
+                                        <div class="left-file-type-main">
+                                            <img src="../../../assets/images/pdf-main.svg">
+                                            QR code file.pdf <span class="file-sized">(120K)</span>
                                         </div>
-                                </td>
-                                <td>
-                                    <div class="date-time-task">25/04/2021 - 1:00 PM</div>
-                                    <div class="date-time-task">25/04/2021 - 1:00 PM</div>
-                                    <div class="date-time-task">25/04/2021 - 1:00 PM</div>
-                                </td>
+                                        <div class="close-icon">
+                                            <img src="../../../assets/images/close-icons-news.png">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="filetype-main">
+                                    <div class="types-main-inner">
+                                        <div class="left-file-type-main">
+                                            <img src="../../../assets/images/pdf-main.svg">
+                                            QR code file.pdf <span class="file-sized">(120K)</span>
+                                        </div>
+                                        <div class="close-icon">
+                                            <img src="../../../assets/images/close-icons-news.png">
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="date-time-task">25/04/2021 - 1:00 PM</div>
+                                <div class="date-time-task">25/04/2021 - 1:00 PM</div>
+                                <div class="date-time-task">25/04/2021 - 1:00 PM</div>
+                            </td>
 
-                            </tr>
+                        </tr>
 
-                        </tbody>
+                    </tbody>
 
-                    </table>
+                </table>
             </div>
 
         </div>
@@ -249,10 +274,10 @@
         </div>
         <div class="actions button-row text-right">
             <button type="button" class="text-button" *ngIf="this.myModel.status ===1"
-                    (click)="this.myModel.status = 2;taskList()"> Show completed
+                (click)="this.myModel.status = 2;taskList()"> Show completed
             </button>
             <button type="button" class="text-button" *ngIf="this.myModel.status ===2"
-                    (click)="this.myModel.status = 1;taskList()"> Hide completed
+                (click)="this.myModel.status = 1;taskList()"> Hide completed show incomplete
             </button>
             <button type="button" class="btn-outline-primary" (click)="http.openModal('addTask')"> Add a task</button>
         </div>
@@ -261,6 +286,6 @@
     <section>
         <app-placeholders [flag]="5" *ngIf="!myModel?.allData?.length && !myModel?.loader"></app-placeholders>
         <app-loader [showLoader]="myModel?.loader"></app-loader>
-        <app-task-list  [allData]="myModel?.allData"></app-task-list>
+        <app-task-list [allData]="myModel?.allData"></app-task-list>
     </section>
 </div> -->

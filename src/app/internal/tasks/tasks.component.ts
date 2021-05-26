@@ -1,3 +1,5 @@
+import { finalize } from 'rxjs/operators';
+import { TaskStatus } from './../../models/enums';
 import { Task } from 'src/app/models/task';
 // import { CalendarOptions } from '@fullcalendar/angular';
 import { Component, OnDestroy, OnInit } from '@angular/core';
@@ -21,10 +23,12 @@ export class TasksComponent implements OnInit, OnDestroy {
     myModel: any;
     search = new FormControl();
     subscription: Subscription;
+    TaskStatus = TaskStatus;
 
     constructor(public http: HttpService) {
         this.myModel = new TableModel();
         this.myModel.loader = true;
+        this.myModel.status = TaskStatus.ALL;
         this.subscription = this.http.eventStatus.subscribe(data => {
             if (data && data.eventType === 'addTask') {
                 this.taskList();
@@ -46,37 +50,39 @@ export class TasksComponent implements OnInit, OnDestroy {
             skip: 0,
             limit: 100
         };
-        if (this.myModel.status === 2) {
+        if (this.myModel.status === TaskStatus.COMPLETED || this.myModel.status === TaskStatus.INCOMPLETE) {
             obj.status = this.myModel.status;
         }
         this.myModel.allData = [];
         this.myModel.loader = true;
-        this.http.getData(ApiUrl.TASK_LIST, obj).subscribe(res => {
-            this.myModel.allData = res.data.data;
-            this.myModel.count = res.data.count;
-            this.myModel.loader = false;
 
-            let t:[] = res.data.data.map(x => x.data);
-            
-            console.log(t);
-            let temp = []
-            res.data.data.map(x => x.data).forEach(x => temp.push(...x))
-            // this.tasks =  [...];
-            console.log(this.tasks);
-            temp.forEach(x => {
-                if (x.startDateTime) {
-                    x.startDateTime = new Date(x.startDateTime);
-                }
-                if (x.dueDateTime) {
-                    x.dueDateTime = new Date(x.dueDateTime);
-                }
-            })
-            this.tasks = temp;
+        this.http.getData(ApiUrl.TASK_LIST, obj)
+            .pipe(finalize(()=>{this.myModel.loader = false;}))
+            .subscribe(res => {
+                this.myModel.allData = res.data.data;
+                this.myModel.count = res.data.count;
+                this.tasks = res.data.data;
 
+                /* Logic for making flat OLD 
+                    let t:[] = res.data.data.map(x => x.data);
+                    
+                    console.log(t);
+                    let temp = []
+                    res.data.data.map(x => x.data).forEach(x => temp.push(...x))
+                    // this.tasks =  [...];
+                    console.log(this.tasks);
+                    temp.forEach(x => {
+                        if (x.startDateTime) {
+                            x.startDateTime = new Date(x.startDateTime);
+                        }
+                        if (x.dueDateTime) {
+                            x.dueDateTime = new Date(x.dueDateTime);
+                        }
+                    })
+                    this.tasks = temp;
+                */
 
-        }, () => {
-            this.myModel.loader = false;
-        });
+            });
     }
 
     changeStatus(status,task) {

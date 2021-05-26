@@ -11,3 +11,9 @@ export enum BroadCastType {
     SCHEDULED=2,
     DRAFT=3
 }
+
+export enum TaskStatus {
+    ALL=1,
+    COMPLETED=2,
+    INCOMPLETE=3
+}
