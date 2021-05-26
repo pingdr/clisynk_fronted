@@ -11,6 +11,7 @@ import Tooltip from 'tooltip.js';
 import { EventClickInfo } from '../event-click-info';
 import { Task } from 'src/app/models/task';
 import { AddTaskComponent } from 'src/app/shared/modals/add-task/add-task.component';
+import { NewEditTaskComponent } from 'src/app/shared/modals/new-edit-task/new-edit-task.component';
 
 @Component({
     selector: 'app-calender-view',
@@ -76,17 +77,21 @@ export class CalenderViewComponent implements OnInit {
         console.log(clickedEvent);
         const task = clickedEvent.event.extendedProps.data;
         
-        this.openEditTask(task);
+        this.openEditNewTask(task);
     }
 
     
     handleDateClick(arg) {
         console.log(arg);
-        this.openEditTask();
+        this.openAddTask();
     }
 
-    openEditTask(data?) {
-        this.http.showModal(AddTaskComponent, 'md', data);
+    openAddTask(data?) {
+        this.http.showModal(AddTaskComponent, 'md');
+    }
+
+    openEditNewTask(data?) {
+        this.http.showModal(NewEditTaskComponent, 'md', data);
     }
 
     // onEventRender(info: EventClickInfo) {

@@ -116,6 +116,15 @@
     background: #FC9CA4;
 }
 
+.low{
+    background: #DCECEC;   
+}
+
+.med{
+    background: #FADDAC;
+}
+
+
 .comman-day-before {
     font-size: 14px;
     font-weight: 500;
@@ -198,4 +207,32 @@
     color: #4776E6 !important;
     padding: 9px 30px !important;
     margin-right: 0 !important;
+}
+
+.assignee-round {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #ccc;
+    border-radius: 100%;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    letter-spacing: 0.02em;
+    color: #0040DC;
+    position: relative;
+}
+
+.assignee-round:before {
+    position: absolute;
+    content: '';
+    width: 30px;
+    height: 30px;
+    background: #f7f7f740;
+    border-radius: 100%;
+    z-index: 1;
 }

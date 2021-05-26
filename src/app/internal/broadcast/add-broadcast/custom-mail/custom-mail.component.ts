@@ -1,15 +1,21 @@
+import { ImportedEmailViewComponent } from './../../../../shared/modals/imported-email-view/imported-email-view.component';
 import { MailTemplateData } from 'src/app/shared/models/mail-template.model';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { ApiUrl } from 'src/app/services/apiUrls';
-import { TimeZones } from 'src/app/services/constants';
+import { FileType, TimeZones } from 'src/app/services/constants';
 import { HttpService } from 'src/app/services/http.service';
 import { EmailTemplateComponent } from 'src/app/shared/modals/email-template/email-template.component';
 import { EditorContent } from 'src/app/shared/models/editor.model';
 import { TableModel } from 'src/app/shared/models/table.common.model';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { NgxCsvParser } from 'ngx-csv-parser';
+import { NgxCSVParserError } from 'ngx-csv-parser';
+import { BroadCastType } from 'src/app/models/enums';
+import { DeleteComponent } from 'src/app/shared/modals/delete/delete.component';
+import { UploadComponent } from 'src/app/shared/modals/upload/upload.component';
 declare type CurrentTabType = 'custom-mail' | 'themes' | 'code-your-own';
 
 @Component({
@@ -32,6 +38,7 @@ export class CustomMailComponent implements OnInit {
   @Output('goBack')
   goBackEmitter = new EventEmitter();
 
+  BroadCastType = BroadCastType;
   form: FormGroup;
   myModel: any;
   contacts: any = [];
@@ -46,6 +53,9 @@ export class CustomMailComponent implements OnInit {
       'disabled': true
   };
   isEdit = false;
+  get emails(): AbstractControl {
+      return this.form.get('emails');
+  }
 
   editorConfig: AngularEditorConfig = {
     editable: true,
@@ -72,7 +82,7 @@ export class CustomMailComponent implements OnInit {
     ]
   };
 
-  constructor(public http: HttpService, public activeRoute: ActivatedRoute) {
+  constructor(public http: HttpService, public activeRoute: ActivatedRoute, private ngxCsvParser: NgxCsvParser) {
       this.myModel = new TableModel();
       this.myModel.timeZones = TimeZones;
   }
@@ -108,7 +118,10 @@ export class CustomMailComponent implements OnInit {
           previewLine: [''],
           timing: [new Date()],
           timingType: [''],
-          timeZone: ['']
+          timeZone: [''],
+
+          /* New added */
+          emails: [[]]
       });
 
       /* When user select theme or code your own theme then this will patch the content */
@@ -127,13 +140,16 @@ export class CustomMailComponent implements OnInit {
       }
     }
 
+
+
   fillValues(data) {
       this.form.patchValue({
           subject: data.subject,
           content: data.content,
           previewLine: data.previewLine,
           timingType: data.timingType,
-          timeZone: data.timeZone
+          timeZone: data.timeZone,
+          emails: data.emails
       });
       if (this.form.value.timingType === '2' || this.form.value.timingType === 2) {
           this.form.controls.timing.patchValue(new Date(data.timing));
@@ -141,16 +157,28 @@ export class CustomMailComponent implements OnInit {
   }
 
   finalSubmit(status) {
-      if (status === 1 || this.http.isFormValid(this.form)) {
+      if (this.http.isFormValid(this.form)) {
           const obj: any = JSON.parse(JSON.stringify(this.form.value));
           obj.contactId = JSON.stringify(this.http.getIdsOnly(this.form.value.contactId));
           obj.status = status;
+          if (obj.timingType == 1) {
+              /* right away */
+              obj.status = BroadCastType.SENT;
+            } else {
+              obj.status = BroadCastType.SCHEDULED;
+          }
+          if (status == BroadCastType.DRAFT) {
+              obj.status = BroadCastType.DRAFT;
+          }
+          obj.emails = JSON.stringify(obj.emails);
+
+        //   delete obj.emails;
           // delete obj.timezone;
           if (this.isEdit) {
               obj.broadcastId = this.myModel.data._id;
           }
-          this.http.openSnackBar(`Broadcast ${this.isEdit ? 'Updated' : 'Added'} Successfully`);
           this.http.postData(ApiUrl.ADD_BROADCAST, obj).subscribe(() => {
+              this.http.openSnackBar(`Broadcast ${this.isEdit ? 'Updated' : 'Added'} Successfully`);
               this.http.navigate('broadcast');
           });
       }
@@ -173,8 +201,27 @@ export class CustomMailComponent implements OnInit {
           if (this.isEdit) {
               this.form.controls.contactId.patchValue(this.http.selectedInArray(res.data.data, this.myModel.data.contactId));
           }
+          console.log(this.myModel.contacts);
+          console.log(res);
       });
   }
+
+  onCsvFileUpload(file:File) {
+    if (file.type !== FileType.CSV) {
+        this.http.handleError('Please upload valid file type.!!');
+        return false;
+    }
+      // Parse the file you want to select for the operation along with the configuration
+      this.ngxCsvParser.parse(file, { header: true })
+      .pipe().subscribe((result: Array<{email: string}>) => {
+        console.log('Result', result.map(x => x.email));
+        this.emails.setValue(result.map(x => x.email));
+      }, (error: NgxCSVParserError) => {
+        console.log('Error', error);
+      });
+
+  }
+
 
   selectTemplate(data) {
       this.form.patchValue({
@@ -206,4 +253,21 @@ export class CustomMailComponent implements OnInit {
           });
       });
   }
+
+  openImportedEmailView() {
+    const modalRef = this.http.showModal(ImportedEmailViewComponent, 'lg', { emails: this.emails.value});
+    modalRef.content.onClose = new Subject<boolean>();
+    modalRef.content.onClose.subscribe(res => {
+        
+    });
+  }
+  
+  removeImportedEmails() {
+    this.emails.setValue([]);
+  }  
+  
+  openUpload() {
+    this.http.showModal(UploadComponent, 'md');
+  }
+  
 }

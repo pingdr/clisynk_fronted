@@ -7,7 +7,7 @@
                 <button class="btn share-btn">
                     <img src="../../../assets/images/shares-icons.svg">
                     Share</button>
-                <button class="btn add-btn" (click)="openNewAddTask()">+ Add Task</button>
+                <button class="btn add-btn" (click)="openEditTask()">+ Add Task</button>
         </div>
 
 
@@ -92,12 +92,14 @@
                                 </td>
                                 <td class="assignee">
                                         <div class="grid-names">
-                                                <div class="comman-grid">JD</div>
-                                                <div class="comman-grid">JD</div>
+                                                <div class="comman-grid" data-toggle="tooltip" data-placement="top" [title]="task?.contactId?.fullName">
+                                                    {{task?.contactId?.firstName?.substr(0,1)}}{{task?.contactId?.lastName?.substr(0,1)}}
+                                                </div>
+                                                <!-- <div class="comman-grid">JD</div>
                                                 <div class="comman-grid">+5</div>
                                                 <div class="comman-grid last-person">
                                                     <img src="../../../assets/images/task-person.svg">
-                                                </div>
+                                                </div> -->
 
                                         </div>
 
@@ -107,7 +109,13 @@
                                 <td class="start-date">{{task?.startDateTime|date: 'dd/MM/yyyy'}}</td>
                                 <td class="due-date">{{task?.dueDateTime|date: 'dd/MM/yyyy'}}</td>
                                 <td class="priority">
-                                    <div class="high-dot prio-comman-tag">{{task?.priority}}</div>
+                                    <div  
+                                    [ngClass]="{
+                                        'high': task?.priority == 'HIGH',
+                                        'low': task?.priority == 'Low',
+                                        'med': task?.priority == 'Medium'
+                                    }"
+                                    class="high-dot prio-comman-tag">{{task?.priority}}</div>
                                 </td>
                                 <td class="action">
                                         <div class="actions-main-button">
@@ -115,7 +123,7 @@
                                                 <img src="../../../assets/images/edit-icons.svg" (click)="openEditTask(task)">
                                             </a>
                                             <a>
-                                                <img src="../../../assets/images/trash-icon.svg">
+                                                <img src="../../../assets/images/trash-icon.svg" (click)="deleteTask(task)">
                                             </a>
                                         </div>
 

@@ -336,7 +336,7 @@
             <div class="modal-body">
 
                           <div class="form-group">
-                            <label>Subject</label>
+                            <label>Subject<span style="color:red">*</span></label>
                             <input type="text" formControlName="subject" placeholder="Add a subject line"
                                    class="form-control">
                             <mat-error
@@ -378,14 +378,30 @@
                                 </section>
                             </div>
                             <div class="button-row">
-    
+                                <!-- <span class="mr-2">
+                                    <img src="../../../../assets/images/upload-pin.svg">
+                                </span> -->
+                                <!-- <div class="tooltip-container tooltip-hover">
+                                    <div class="tooltip-reference">
+                                        <button type="button" (click)="openUpload()"><img src="assets/images/upload-pin.svg">
+                                        </button>
+                                    </div>
+                                    <section class="tooltip">
+                                        <div class="arrow"></div>
+                                        <div>Add attachment</div>
+                                    </section>
+                                </div> -->
+                                <!-- <span class="mr-2">
+                                    <img src="../../../../assets/images/merge-pin.svg">
+                                </span> -->
+
                                 <div class="popover-container tooltip-container tooltip-hover"
                                      style="display: inline-block">
                                     <div class="tooltip-reference">
                                         <div class="btn-group add-booking-link insert-templates" dropdown>
                                             <button id="button-basic2" dropdownToggle type="button" class="btn"
                                                     aria-controls="dropdown-basic">
-                                                <img src="/assets/images/ic_insert_template.svg">
+                                                <img src="/assets/images/document-pin.svg">
                                             </button>
                                             <ul id="dropdown-basic2" *dropdownMenu class="dropdown-menu" role="menu"
                                                 aria-labelledby="button-basic" style="left: -103px;">
@@ -417,11 +433,10 @@
                                         <div>Insert template</div>
                                     </section>
                                 </div>
-    
                             </div>
                         </div>
                         <div class="form-group Associated-Contact">
-                            <label class="required">Contact</label>
+                            <label class="required">Contact <span style="color:red">*</span></label>
                             <ng-multiselect-dropdown formControlName="contactId" [placeholder]="'Select Contact'"
                                                      [data]="myModel?.contacts" [settings]="dropdownSettings">
                             </ng-multiselect-dropdown>
@@ -432,10 +447,16 @@
                         </div>
                         <!-- -----------------New-code-------------------------- -->
                         <div class="or-text-main">Or</div> 
+                        <!-- {{this.emails.value|json}} -->
                         <div class="upload-main-csv">
-                            <div class="text-lab">Upload CSV File</div>
+                            <div class="cancel-btn" *ngIf="this.emails?.value.length > 0" (click)="removeImportedEmails()">X</div>
+                            <div class="text-lab">{{ this.emails?.value.length > 0 ? 'Uploaded successfully' :  'Upload CSV File'}}</div>
                             <img src="../../../../../assets/images/csv-icon.svg">
-                            <button class="btn btn-browse">Browse</button>
+                            <button class="btn btn-browse" 
+                                (click)="this.emails?.value.length <= 0 ? file.click() : openImportedEmailView() " >
+                                {{this.emails?.value.length <= 0 ? 'Browse' : 'View Imported Emails'}}
+                            </button>
+                            <input accept=".csv" onclick="this.value=null;" hidden #file (change)="onCsvFileUpload($event.target.files[0])" type="file" name="" id="">
                         </div>
 
                 
@@ -486,8 +507,14 @@
 
 
                 <div class="modal-footer new-footer footer-btn text-left">
-                    <button type="submit" class="text-button" (click)="finalSubmit(1)">Save and come back later</button>
-                    <button type="submit" class="btn-outline-primary" (click)="finalSubmit(2)">Send broadcast</button>
+                    <ng-container *ngIf="this.myModel?.data?.status == BroadCastType.SCHEDULED; else elseTemplate">
+                        <button type="submit" class="text-button" (click)="finalSubmit(BroadCastType.SCHEDULED)">Save and come back later</button>
+                    </ng-container>
+                    <ng-template #elseTemplate>
+                        <button type="submit" class="text-button" (click)="finalSubmit(BroadCastType.DRAFT)">Save and come back later</button>
+                        <button type="submit" class="btn-outline-primary" (click)="finalSubmit(BroadCastType.SENT)">Send broadcast</button>
+                    </ng-template>
+                    
                 </div>
             </div>
         </form>

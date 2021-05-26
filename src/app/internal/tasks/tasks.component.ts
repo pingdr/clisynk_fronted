@@ -1,13 +1,15 @@
+import { Task } from 'src/app/models/task';
 // import { CalendarOptions } from '@fullcalendar/angular';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {TableModel} from '../../shared/models/table.common.model';
 import {HttpService} from '../../services/http.service';
-import {Subscription} from 'rxjs';
+import {Subject, Subscription} from 'rxjs';
 import {ApiUrl} from '../../services/apiUrls';
 import { AddTaskComponent } from 'src/app/shared/modals/add-task/add-task.component';
 import * as _ from 'lodash'
 import { NewEditTaskComponent } from '../../shared/modals/new-edit-task/new-edit-task.component';
+import { DeleteComponent } from 'src/app/shared/modals/delete/delete.component';
 @Component({
     selector: 'app-tasks', 
     templateUrl: './tasks.component.html',
@@ -38,7 +40,7 @@ export class TasksComponent implements OnInit, OnDestroy {
         this.subscription.unsubscribe();
     }
 
-    tasks: any[];
+    tasks: Task[];
     taskList() {
         const obj: any = {
             skip: 0,
@@ -77,12 +79,43 @@ export class TasksComponent implements OnInit, OnDestroy {
         });
     }
 
+    changeStatus(status,task) {
+        const obj = {
+            status: status,
+            taskId: task._id
+        };
+        this.http.getData(ApiUrl.UPDATE_TASK, obj).subscribe(() => {
+            if (status === 2) {
+                this.http.openSnackBar('Task Completed Successfully');
+            } else {
+                this.http.openSnackBar('Task Deleted Successfully');
+            }
+            this.http.eventSubject.next({eventType: 'addTask'});
+        });
+    }
+
+    deleteTask(task) {
+        const obj: any = {
+            type: 10,
+            key: 'id',
+            title: `Really delete?`,
+            message: 'Do you really want to delete this task?',
+        };
+
+        const modalRef = this.http.showModal(DeleteComponent, 'xs', obj);
+        modalRef.content.onClose = new Subject<boolean>();
+        modalRef.content.onClose.subscribe(() => {
+            // this.http.openSnackBar('Task has been deleted');
+            this.changeStatus(4,task);
+        });
+    }
+
     openEditTask(data) {
         this.http.showModal(AddTaskComponent, 'md', data);
     }
     
-    openNewAddTask() {
-        this.http.showModal(NewEditTaskComponent, 'md');
+    openNewAddTask(data) {
+        this.http.showModal(NewEditTaskComponent, 'md', data);
 
     }
 

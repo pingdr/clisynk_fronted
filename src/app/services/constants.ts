@@ -129,5 +129,7 @@ export const FileType = {
     JPEG: 'image/jpeg',
     PNG: 'image/png',
     PDF: 'application/pdf',
-    MP4: 'video/mp4'
+    MP4: 'video/mp4',
+
+    CSV: 'application/vnd.ms-excel'
 }

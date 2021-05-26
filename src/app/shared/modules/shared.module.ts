@@ -1,3 +1,4 @@
+import { ImportedEmailViewComponent } from './../modals/imported-email-view/imported-email-view.component';
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -130,6 +131,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { SaveTemplateComponent } from '../modals/save-template/save-template.component';
 import { DynamicHTMLModule } from 'src/app/internal/broadcast/edit-code/dynamic-html/module';
 import { AngularEditorModule } from '@kolkov/angular-editor';
+import { NgxCsvParserModule } from 'ngx-csv-parser';
 
 const entryList = [EmailFormatComponent, SendEmailComponent, ContactDetailsComponent, AddNoteComponent,
     ContactOptionsComponent, AddTaskComponent, LoaderComponent, ContactDetailComponent, ActivityListComponent, ContactFilterComponent,
@@ -146,7 +148,8 @@ const entryList = [EmailFormatComponent, SendEmailComponent, ContactDetailsCompo
     SmartFormCreateComponent, CreateWorkspaceComponent, MergeContactsComponent, SmartFormDeleteComponent, LeadFormCreateComponent,
     CreateFolderComponent, AddPageComponent, CreateDocumentComponent, DeleteDocComponent, MoveComponent, EmailDocumentFormatComponent,
     DeleteAutomationComponent, LeadFormDeletedComponent, NavigateToLeadFormsComponent, NavigateToAppointmentComponent, NavigateToTagsComponent,
-    NavigateToProductsComponent, RenameAutomationComponent, EditWorkspaceComponent, NewEditTaskComponent, SaveTemplateComponent
+    NavigateToProductsComponent, RenameAutomationComponent, EditWorkspaceComponent, NewEditTaskComponent, SaveTemplateComponent,
+    ImportedEmailViewComponent
 ];
 
 const importExportList = [MatStepperModule, MatTabsModule, MatSliderModule, MatInputModule, MatSelectModule,
@@ -154,7 +157,7 @@ const importExportList = [MatStepperModule, MatTabsModule, MatSliderModule, MatI
     ReactiveFormsModule, FormsModule, MatCheckboxModule, NgxSkeletonLoaderModule, MatSnackBarModule, ScrollingModule,
     Ng2SearchPipeModule, MatDatepickerModule, MatNativeDateModule, ClickOutsideModule, TagInputModule, DragDropModule,
     FullCalendarModule, ColorPickerModule, FormioModule, RxReactiveFormsModule, MatTooltipModule, MatSortModule, PDFExportModule,
-    AvatarModule, MatSidenavModule,AngularEditorModule
+    AvatarModule, MatSidenavModule,AngularEditorModule, NgxCsvParserModule 
 
 ];
 
@@ -164,11 +167,7 @@ const importExportList = [MatStepperModule, MatTabsModule, MatSliderModule, MatI
         CommonModule, PaginationModule.forRoot(), BsDropdownModule.forRoot(), TabsModule.forRoot(),
         ModalModule.forRoot(), CollapseModule.forRoot(), AccordionModule.forRoot(), PopoverModule.forRoot(),
         NgxSummernoteModule,
-        DynamicHTMLModule.forRoot({
-            components: [
-         
-            ]
-        }),
+        DynamicHTMLModule.forRoot({components: []}),
 
 
         ...importExportList
