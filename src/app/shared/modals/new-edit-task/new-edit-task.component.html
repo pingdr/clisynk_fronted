@@ -1,6 +1,6 @@
 <div class="edit-task-main-area">
-    <div class="left-mark-complete" *ngIf="modalData?.status && modalData?.status != 2">
-        <img src="../../../../assets/images/tick-mark.svg"  (click)="changeStatus(2)">
+    <div class="left-mark-complete" (click)="changeStatus(2)" *ngIf="modalData?.status && modalData?.status != 2">
+        <img src="../../../../assets/images/tick-mark.svg"  >
         Mark complete
     </div>
 

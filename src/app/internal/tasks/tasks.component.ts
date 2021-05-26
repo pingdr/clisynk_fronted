@@ -110,7 +110,7 @@ export class TasksComponent implements OnInit, OnDestroy {
         });
     }
 
-    openEditTask(data) {
+    openEditTask(data?) {
         this.http.showModal(AddTaskComponent, 'md', data);
     }
     
