@@ -424,7 +424,30 @@ td {
     opacity: 1;
     transition: 0.3s all ease;
 }
+.commanname-shine {
+    width: 100%;
+    height: 20px;
+}
+.extra-added {
+    display: flex;
+}
+.extra-added .round-shine {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    margin-right: 10px;
+}
 
+.actions-btn {
+    display: flex;
+}
+
+.actions-btn .comman-shine {
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+    border-radius: 7px;
+}
 
 
 
