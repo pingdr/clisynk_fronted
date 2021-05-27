@@ -14,23 +14,12 @@ declare type CurrentTabType = 'custom-mail' | 'themes' | 'code-your-own';
 export class AddBroadcastComponent implements OnInit {
   
     currentTab: CurrentTabType = 'custom-mail';
-    constructor(public http: HttpService, public activeRoute: ActivatedRoute, public dialog: MatDialog) {  }
+    constructor(public http: HttpService, public activeRoute: ActivatedRoute) {  }
 
     ngOnInit(): void { }
 
     changeTab(tab: CurrentTabType) {
         this.currentTab = tab;
     }
-    openDialogsuccess(){
-        const dialogRef = this.dialog.open(SuccessBroadcastModalComponent, {
-            panelClass:"success-broadcast"
-          
-          });
-      
-          dialogRef.afterClosed().subscribe(result => {
-            console.log('The dialog was closed');
-            
-          });
-    }
-
+    
 }

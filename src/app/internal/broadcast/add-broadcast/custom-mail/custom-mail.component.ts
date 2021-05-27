@@ -16,6 +16,8 @@ import { NgxCSVParserError } from 'ngx-csv-parser';
 import { BroadCastType } from 'src/app/models/enums';
 import { DeleteComponent } from 'src/app/shared/modals/delete/delete.component';
 import { UploadComponent } from 'src/app/shared/modals/upload/upload.component';
+import { SuccessBroadcastModalComponent } from 'src/app/shared/modals/success-broadcast-modal/success-broadcast-modal.component';
+import { MatDialog } from '@angular/material';
 declare type CurrentTabType = 'custom-mail' | 'themes' | 'code-your-own';
 
 @Component({
@@ -82,7 +84,9 @@ export class CustomMailComponent implements OnInit {
     ]
   };
 
-  constructor(public http: HttpService, public activeRoute: ActivatedRoute, private ngxCsvParser: NgxCsvParser) {
+  constructor(public http: HttpService, public activeRoute: ActivatedRoute,
+    public dialog: MatDialog,
+    private ngxCsvParser: NgxCsvParser) {
       this.myModel = new TableModel();
       this.myModel.timeZones = TimeZones;
   }
@@ -178,6 +182,10 @@ export class CustomMailComponent implements OnInit {
               obj.broadcastId = this.myModel.data._id;
           }
           this.http.postData(ApiUrl.ADD_BROADCAST, obj).subscribe(() => {
+              if (obj.status == BroadCastType.SENT) {
+                this.openDialogsuccess();
+              }
+
               this.http.openSnackBar(`Broadcast ${this.isEdit ? 'Updated' : 'Added'} Successfully`);
               this.http.navigate('broadcast');
           });
@@ -269,5 +277,16 @@ export class CustomMailComponent implements OnInit {
   openUpload() {
     this.http.showModal(UploadComponent, 'md');
   }
+
+  openDialogsuccess(){
+
+    const dialogRef = this.dialog.open(SuccessBroadcastModalComponent, {
+        panelClass:"success-broadcast",
+    });
   
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
 }
