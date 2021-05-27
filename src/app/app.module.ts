@@ -58,6 +58,7 @@ import { ValidationMessageComponent } from './shared/components/validation-messa
 import { ThanksPageComponent } from './external/thanks-page/thanks-page.component';
 
 
+
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   bgsColor: '#87cefa',
   fgsColor: '#87cefa',
@@ -73,7 +74,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
         ForgotPasswordComponent,
         CreateAccountsComponent,
         ValidationMessageComponent,
-        ThanksPageComponent,
+        ThanksPageComponent
         
         
     ],

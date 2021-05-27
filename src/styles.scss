@@ -9200,6 +9200,14 @@ tag-input.add_new_tags {
   margin-top: -5px;
   font-size: 12px;
 }
+.success-broadcast {
+    max-width: 100% !important;
+    width: 40% !important;
+}
+
+.success-broadcast .mat-dialog-container {
+  padding: 0px;
+}
 
 
 
@@ -9284,6 +9292,10 @@ tag-input.add_new_tags {
   }
   .main-product-area-main-added .text-descriptions{
     width: 90%;
+  }
+  .success-broadcast {
+    max-width: 100% !important;
+    width: 60% !important;
   }
 
 }

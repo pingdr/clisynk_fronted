@@ -8,6 +8,9 @@
 .select-a-starting-main {
     padding: 30px 40px;
     border-bottom: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .tabs-add-broadcast nav {
