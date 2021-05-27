@@ -108,15 +108,16 @@ export class NewEditTaskComponent implements OnInit {
           obj.taskId = this.modalData._id;
       }
       obj.timeZone = this.http.getTimeZone();
+
+
       if (this.http.isFormValid(this.form)) {
           this.myModel.loader = true;
-          this.http.postData(ApiUrl.ADD_TASK, obj).subscribe(() => {
+          this.http.postDataNew(ApiUrl.ADD_TASK, obj).pipe(finalize(()=>{this.myModel.loader = false;})).subscribe(() => {
               this.http.hideModal();
-              this.myModel.loader = false;
-              this.isEditMode ? this.http.openSnackBar('Task Updated Successfully') : this.http.openSnackBar('Task Added Successfully');
-              this.http.eventSubject.next({eventType: 'addTask'});
-          }, () => {
-              this.myModel.loader = false;
+              this.isEditMode 
+                ? this.http.openSnackBar('Task Updated Successfully') 
+                : this.http.openSnackBar('Task Added Successfully');
+              this.http.eventSubject.next({eventType: 'addTask'}); /* will refresh the list */
           });
       }
   }
@@ -211,6 +212,11 @@ export class NewEditTaskComponent implements OnInit {
           this.imageObj = res.data;
           this.form.controls.image.patchValue(JSON.stringify(this.imageObj));
       });
+  }
+
+  deleteFile() {
+      this.imageObj = null;
+      this.form.patchValue({image:''});
   }
 
 }

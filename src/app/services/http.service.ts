@@ -263,6 +263,16 @@ export class HttpService {
         return this.http.post<any>(this.apiEndpoint + url, formData, { reportProgress: isLoading });
     }
 
+    postDataNew(url, obj, isLoading?: boolean) {
+        const formData = new FormData();
+        Object.keys(obj).forEach(key => {
+            if (obj[key] !== undefined && obj[key] !== null) {
+                formData.append(key, obj[key]);
+            }
+        });
+        return this.http.post<any>(this.apiEndpoint + url, formData, { reportProgress: isLoading });
+    }
+
     postChatImage(url, payload, isLoading?: boolean) {
 
         return this.http.post<any>(this.apiEndpoint + url, payload, { reportProgress: isLoading });

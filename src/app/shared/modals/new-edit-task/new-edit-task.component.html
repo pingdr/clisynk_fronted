@@ -104,7 +104,7 @@
                   {{imageObj?.fileName}}<span class="size">({{imageObj?.size}})</span>
               </div> 
               <div class="right-col-close">
-                <img src="../../../../assets/images/close-icons-main.svg">
+                <img src="../../../../assets/images/close-icons-main.svg" (click)="deleteFile()">
               </div>
         </div>
         <div *ngIf="!imageObj" class="no-file">
@@ -113,10 +113,11 @@
     </div>
 
     <div class="btns-rows">
-            <button class="btn update-btn">Update</button>
-            <button class="btn cancel-btn" (click)="this.close(false)">Cancel</button>
-
-
+            <button class="btn update-btn" (click)="finalSubmit()" [disabled]="this.myModel.loader">
+            <i [ngClass]="{ 'fa fa-spinner fa-spin' : this.myModel.loader }" aria-hidden="true"></i>
+                Update
+            </button>
+            <button class="btn cancel-btn" (click)="this.close(false)" [disabled]="this.myModel.loader">Cancel</button>
     </div>
 
 
