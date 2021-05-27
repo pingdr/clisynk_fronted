@@ -21,7 +21,7 @@ import { NewEditTaskComponent } from 'src/app/shared/modals/new-edit-task/new-ed
 export class CalenderViewComponent implements OnInit {
 
     @Input() _tasks: Task[];
-    set tasks(value) {
+    set bingo(value) {
         if (value) {
             this._tasks = value;
             this.convertTasksToEvents();
@@ -46,7 +46,9 @@ export class CalenderViewComponent implements OnInit {
     ngOnChanges(changes: { [propertyName: string]: SimpleChange }) {
         console.log(changes);
         if ('_tasks' in changes) {
-            this.convertTasksToEvents();
+            if (this._tasks) {
+                this.convertTasksToEvents();
+            }
         }
 
     }
@@ -62,7 +64,7 @@ export class CalenderViewComponent implements OnInit {
             events.push({
                 title: x.title, 
                 start: new Date(x.startDateTime),
-                date: new Date(x.date), 
+                date: new Date(x.createdAt), 
                 end: new Date(x.dueDateTime), 
                 color: 'green',
                 data: x
