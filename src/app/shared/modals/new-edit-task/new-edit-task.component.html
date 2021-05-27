@@ -97,7 +97,7 @@
     </div>
     <div class="comman-rows-main">
         <div class="comman-labal-main">Attachment :</div>
-        <div class="attachment-stripe">
+        <div class="attachment-stripe" *ngIf="imageObj">
               <div class="left-col-main">
                   <img src="../../../../assets/images/pdf-main.svg">
                   <!-- QR code file.pdf <span class="size">(120K)</span> -->
@@ -106,6 +106,9 @@
               <div class="right-col-close">
                 <img src="../../../../assets/images/close-icons-main.svg">
               </div>
+        </div>
+        <div *ngIf="!imageObj" class="no-file">
+            No File
         </div>
     </div>
 

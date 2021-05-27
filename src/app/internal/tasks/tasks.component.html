@@ -2,7 +2,7 @@
     <div class="heading-txt">Tasks</div>
     <div class="heading-right-side">
         <div class="search-fields">
-            <input type="text" placeholder="Search task or project here..." />
+            <input type="text" [(ngModel)]="headerSearchText" placeholder="Search task or project here..." />
         </div>
         <button class="btn share-btn">
             <img src="../../../assets/images/shares-icons.svg">
@@ -102,7 +102,7 @@
 
                     </thead>
                     <tbody>
-                        <tr *ngFor="let task of tasks">
+                        <tr *ngFor="let task of (tasks|filter:headerSearchText)">
                             <td class="task-name"
                                 [ngStyle]="{ 'background' : task?.status == TaskStatus.COMPLETED ? '#D9F6E0': ''}">
                                 <div class="task-name-in-wrap">

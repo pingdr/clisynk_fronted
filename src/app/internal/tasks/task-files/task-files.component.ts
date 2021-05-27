@@ -9,6 +9,8 @@ import { Task } from 'src/app/models/task';
 export class TaskFilesComponent implements OnInit {
 
   @Input() tasks: Task[] = [];
+
+  searchText = '';
   constructor() { }
 
   ngOnInit() {

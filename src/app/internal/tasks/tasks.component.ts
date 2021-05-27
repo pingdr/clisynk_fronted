@@ -24,6 +24,7 @@ export class TasksComponent implements OnInit, OnDestroy {
     search = new FormControl();
     subscription: Subscription;
     TaskStatus = TaskStatus;
+    headerSearchText = '';
 
     constructor(public http: HttpService) {
         this.myModel = new TableModel();

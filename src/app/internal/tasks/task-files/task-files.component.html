@@ -1,5 +1,5 @@
 <div class="search-task-tabs-inner-search">
-    <input type="text" placeholder="Search task name or file name here...">
+    <input type="text" [(ngModel)]="searchText" placeholder="Search task name or file name here...">
 </div>
 
 <div class="task-name-main">
@@ -13,7 +13,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let task of this.tasks">
+            <tr *ngFor="let task of (this.tasks|filter:searchText)">
                 <td>
                     <div class="f_task_name">{{task?.title}}</div>
                 </td>
