@@ -153,32 +153,36 @@
 
                             </td>
                         </tr>
-                        <tr class="shimmer-row" *ngFor="let task of [1,2,3,4,5,6,7,8,9,10]">
-
-                            <td class="task-name"><div class="commanname-shine shine"></div></td>
-                            <td class="task-description"><div class="commanname-shine shine"></div></td>
-                            <td class="assignee">
-                                <div class="extra-added ">
-                                    <div class="round-shine shine"></div>
-                                    <div class="round-shine shine"></div>
-                                    <div class="round-shine shine"></div>
-                                </div>
-                            </td>
-                            <td class="start-date"><div class="commanname-shine shine"></div></td>
-                            <td class="due-date"><div class="commanname-shine shine"></div></td>
-                            <td class="priority"><div class="commanname-shine shine"></div></td>
-                            <td class="action">
-                                <div class="actions-btn">
-                                    <div class="comman-shine shine"></div>
-                                    <div class="comman-shine shine"></div>
-                                    <div class="comman-shine shine"></div>
-                                </div>
-                            </td>
-
-                        
-                           
+                        <ng-container *ngIf="!tasks">
                             
-                        </tr>
+                            <tr class="shimmer-row" *ngFor="let task of [1,2]">
+    
+                                <td class="task-name"><div class="commanname-shine shine"></div></td>
+                                <td class="task-description"><div class="commanname-shine shine"></div></td>
+                                <td class="assignee">
+                                    <div class="extra-added ">
+                                        <div class="round-shine shine"></div>
+                                        <div class="round-shine shine"></div>
+                                        <div class="round-shine shine"></div>
+                                    </div>
+                                </td>
+                                <td class="start-date"><div class="commanname-shine shine"></div></td>
+                                <td class="due-date"><div class="commanname-shine shine"></div></td>
+                                <td class="priority"><div class="commanname-shine shine"></div></td>
+                                <td class="action">
+                                    <div class="actions-btn">
+                                        <div class="comman-shine shine"></div>
+                                        <div class="comman-shine shine"></div>
+                                        <div class="comman-shine shine"></div>
+                                    </div>
+                                </td>
+    
+                            
+                               
+                                
+                            </tr>
+
+                        </ng-container>
 
 
 
