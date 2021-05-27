@@ -33,7 +33,6 @@ export class DeleteComponent implements OnInit {
                 });
 
         } else {
-            this.http.hideModal();
             this.onClose.next(true);
         }
     }

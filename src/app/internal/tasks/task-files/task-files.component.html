@@ -26,7 +26,7 @@
                                 {{(task?.image|stringToObj)?.fileName}} <span class="file-sized">({{(task?.image|stringToObj)?.size}})</span>
                             </div>
                             <div class="close-icon">
-                                <img src="../../../assets/images/close-icons-news.png">
+                                <img src="../../../assets/images/close-icons-news.png" (click)="deleteFile(task)">
                             </div>
                         </div>
                         <div class="no-file ml-3" *ngIf="!task?.image">

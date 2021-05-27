@@ -114,6 +114,7 @@ export class TasksComponent implements OnInit, OnDestroy {
         modalRef.content.onClose.subscribe(() => {
             // this.http.openSnackBar('Task has been deleted');
             this.changeStatus(4,task);
+            this.http.hideModal();
         });
     }
 
