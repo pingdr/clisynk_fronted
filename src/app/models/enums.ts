@@ -15,7 +15,8 @@ export enum BroadCastType {
 export enum TaskStatus {
     ALL=1,
     COMPLETED=2,
-    INCOMPLETE=3
+    INCOMPLETE=3,
+    DELETE=4
 }
 
 export enum TaskPriority{

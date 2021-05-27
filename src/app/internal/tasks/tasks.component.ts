@@ -91,7 +91,7 @@ export class TasksComponent implements OnInit, OnDestroy {
             taskId: task._id
         };
         this.http.getData(ApiUrl.UPDATE_TASK, obj).subscribe(() => {
-            if (status === 2) {
+            if (status === TaskStatus.COMPLETED) {
                 this.http.openSnackBar('Task Completed Successfully');
             } else {
                 this.http.openSnackBar('Task Deleted Successfully');
