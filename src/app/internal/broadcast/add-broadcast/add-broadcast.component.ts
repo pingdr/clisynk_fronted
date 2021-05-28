@@ -2,6 +2,8 @@ import { ChooseThemeComponent } from './choose-theme/choose-theme.component';
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {HttpService} from '../../../services/http.service';
 import {ActivatedRoute} from '@angular/router';
+import { MatDialog } from '@angular/material';
+import { SuccessBroadcastModalComponent } from 'src/app/shared/modals/success-broadcast-modal/success-broadcast-modal.component';
 
 declare type CurrentTabType = 'custom-mail' | 'themes' | 'code-your-own';
 @Component({
@@ -19,5 +21,5 @@ export class AddBroadcastComponent implements OnInit {
     changeTab(tab: CurrentTabType) {
         this.currentTab = tab;
     }
-
+    
 }

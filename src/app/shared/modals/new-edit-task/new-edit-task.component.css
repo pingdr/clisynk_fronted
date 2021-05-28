@@ -184,6 +184,7 @@
 
 .attachment-stripe .right-col-close img {
     width: 12px;
+    cursor: pointer;
 }
 
 .btns-rows {

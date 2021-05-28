@@ -20,13 +20,13 @@ import { NewEditTaskComponent } from 'src/app/shared/modals/new-edit-task/new-ed
 })
 export class CalenderViewComponent implements OnInit {
 
-    @Input() _tasks: Task[];
-    set tasks(value) {
-        if (value) {
-            this._tasks = value;
-            this.convertTasksToEvents();
-        }
-    }
+    @Input() tasks: Task[];
+    // set t(value) {
+    //     if (value) {
+    //         this.tasks = value;
+    //         this.convertTasksToEvents();
+    //     }
+    // }
 
     @ViewChild('calendar', { static: false }) calendarComponent: FullCalendarComponent;
 
@@ -45,8 +45,10 @@ export class CalenderViewComponent implements OnInit {
 
     ngOnChanges(changes: { [propertyName: string]: SimpleChange }) {
         console.log(changes);
-        if ('_tasks' in changes) {
-            this.convertTasksToEvents();
+        if ('tasks' in changes) {
+            if (this.tasks) {
+                this.convertTasksToEvents();
+            }
         }
 
     }
@@ -58,11 +60,11 @@ export class CalenderViewComponent implements OnInit {
     convertTasksToEvents() {
         console.log("convert tasks to events");
         let events: EventInput[] = [];
-        this._tasks.forEach(x => {
+        this.tasks.forEach(x => {
             events.push({
                 title: x.title, 
                 start: new Date(x.startDateTime),
-                date: new Date(x.date), 
+                date: new Date(x.createdAt), 
                 end: new Date(x.dueDateTime), 
                 color: 'green',
                 data: x

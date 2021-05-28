@@ -6,6 +6,7 @@ import {AuthGuardService as AuthGuard} from '../../services/authguard.service';
 import {FullCalendarModule} from '@fullcalendar/angular';
 import { TimelineViewComponent } from './timeline-view/timeline-view.component';
 import { CalenderViewComponent } from './calender-view/calender-view.component';
+import { TaskFilesComponent } from './task-files/task-files.component';
 
 const routes: Routes = [
     {
@@ -30,6 +31,7 @@ const routes: Routes = [
         TasksComponent,
         TimelineViewComponent,
         CalenderViewComponent,
+        TaskFilesComponent,
     ],
 })
 export class TasksModule {
