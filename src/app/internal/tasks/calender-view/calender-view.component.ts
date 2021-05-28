@@ -12,6 +12,7 @@ import { EventClickInfo } from '../event-click-info';
 import { Task } from 'src/app/models/task';
 import { AddTaskComponent } from 'src/app/shared/modals/add-task/add-task.component';
 import { NewEditTaskComponent } from 'src/app/shared/modals/new-edit-task/new-edit-task.component';
+import { ApiUrl } from 'src/app/services/apiUrls';
 
 @Component({
     selector: 'app-calender-view',
@@ -67,7 +68,8 @@ export class CalenderViewComponent implements OnInit {
                 date: new Date(x.createdAt), 
                 end: new Date(x.dueDateTime), 
                 color: 'green',
-                data: x
+                data: x,
+                allDay: true
             });
         })
         this.calendarEvents = events;
@@ -86,6 +88,9 @@ export class CalenderViewComponent implements OnInit {
     handleDateClick(arg) {
         console.log(arg);
         this.openAddTask();
+    }
+    onEventResize(event) {
+        console.log(event);
     }
 
     openAddTask(data?) {
@@ -138,11 +143,40 @@ export class CalenderViewComponent implements OnInit {
 
 
 
-    // onEventDragStart(event) {
-    //     console.log("start=>", event);
-    // }
+    onEventDragStart(event:EventClickInfo) {
+        console.log("start=>", event.event._instance.range);
+    }
 
-    // onEventDragStop(event) {
-    //     console.log("stop=>", event);
-    // }
+    onEventDragStop(event:EventClickInfo) {
+        console.log("stop=>", event.event._instance.range);
+    }
+    
+    onEventDrop(event:EventClickInfo) {
+        console.log("drop=>", event.event._instance.range);
+
+        const start = _.clone(event.event._instance.range.start) ;
+        const end = _.clone(event.event._instance.range.end);
+        const task: Task = _.clone(event.event.extendedProps.data);
+        task.startDateTime = start.setHours(start.getHours());
+        task.dueDateTime = end.setHours(end.getHours());
+
+        let obj = {
+            taskId: task._id,
+            startDateTime: task.startDateTime,
+            dueDateTime: task.dueDateTime
+        }
+        
+        this.updateTask(obj);
+    }
+
+    updateTask(obj: any) {
+ 
+        this.http.postDataNew(ApiUrl.ADD_TASK, obj).subscribe((res) => {
+              this.http.openSnackBar('Task Updated Successfully') 
+              this.http.eventSubject.next({eventType: 'addTask'}); /* will refresh the list */
+        });
+    
+    }
+
+    
 }

@@ -9,13 +9,16 @@ id="full-calendar" deepChangeDetection="true"
 [plugins]="calendarPlugins" [validRange]="validRange"
 (dateClick)="handleDateClick($event)"
 (eventClick)="onEventClick($event)" 
+[eventResizableFromStart]="true"
+(eventResize)="onEventResize($event)"
+(eventDragStart)="onEventDragStart($event)"
+(eventDragStop)="onEventDragStop($event)"
+(eventDrop)="onEventDrop($event)"
 >
 </full-calendar>   
 </div>
 <!-- (eventRender)="onEventRender($event)"
-(datesRender)="dateRender($event)" -->
-<!-- (eventDragStart)="onEventDragStart($event)"
-(eventDragStop)="onEventDragStop($event)" -->
+    (datesRender)="dateRender($event)" -->
 <!-- [header]="{
     left: 'prev,next today',
     center: 'title',
