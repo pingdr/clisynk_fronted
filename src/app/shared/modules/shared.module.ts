@@ -110,7 +110,6 @@ import { CreateDocumentComponent } from './../modals/create-document/create-docu
 import { AddPageComponent } from './../modals/add-page/add-page.component';
 import { CreateFolderComponent } from './../modals/create-folder/create-folder.component';
 import { EmailDocumentFormatComponent } from './../modals/email-document-format/email-document-format.component';
-import { NgxSummernoteModule } from 'ngx-summernote';
 import { PDFExportModule } from '@progress/kendo-angular-pdf-export';
 
 // Automation Module Modals components.
@@ -133,6 +132,7 @@ import { DynamicHTMLModule } from 'src/app/internal/broadcast/edit-code/dynamic-
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { NgxCsvParserModule } from 'ngx-csv-parser';
 import { SuccessBroadcastModalComponent } from '../modals/success-broadcast-modal/success-broadcast-modal.component';
+import { DxSchedulerModule, DxTemplateModule } from 'devextreme-angular';
 
 const entryList = [EmailFormatComponent, SendEmailComponent, ContactDetailsComponent, AddNoteComponent,
     ContactOptionsComponent, AddTaskComponent, LoaderComponent, ContactDetailComponent, ActivityListComponent, ContactFilterComponent,
@@ -158,7 +158,8 @@ const importExportList = [MatStepperModule, MatTabsModule, MatSliderModule, MatI
     ReactiveFormsModule, FormsModule, MatCheckboxModule, NgxSkeletonLoaderModule, MatSnackBarModule, ScrollingModule,
     Ng2SearchPipeModule, MatDatepickerModule, MatNativeDateModule, ClickOutsideModule, TagInputModule, DragDropModule,
     FullCalendarModule, ColorPickerModule, FormioModule, RxReactiveFormsModule, MatTooltipModule, MatSortModule, PDFExportModule,
-    AvatarModule, MatSidenavModule,AngularEditorModule, NgxCsvParserModule 
+    AvatarModule, MatSidenavModule,AngularEditorModule, NgxCsvParserModule,DxSchedulerModule,
+    DxTemplateModule, 
 
 ];
 
@@ -167,7 +168,6 @@ const importExportList = [MatStepperModule, MatTabsModule, MatSliderModule, MatI
         NgMultiSelectDropDownModule.forRoot(), BsDatepickerModule.forRoot(), TimepickerModule.forRoot(),
         CommonModule, PaginationModule.forRoot(), BsDropdownModule.forRoot(), TabsModule.forRoot(),
         ModalModule.forRoot(), CollapseModule.forRoot(), AccordionModule.forRoot(), PopoverModule.forRoot(),
-        NgxSummernoteModule,
         DynamicHTMLModule.forRoot({components: []}),
 
 

@@ -1,4 +1,4 @@
-<div class="time-line-main-task">
+<!-- <div class="time-line-main-task">
     <full-calendar id="calendar" #calendarEl defaultView="resourceTimelineMonth"
         id="full-calendar" deepChangeDetection="true" 
         [height]="'auto'"
@@ -22,9 +22,37 @@
         >   
     </full-calendar>   
     
-</div>
+</div> -->
 
 
 <!-- [resourceGroupField]="'building'"
 [resources]="resources"
 [events]="calendarEvents" -->
+
+
+<dx-scheduler
+    timeZone="America/Los_Angeles"
+    [dataSource]="appointmentsData"
+    [views]='["timelineDay", "timelineWeek", "timelineWorkWeek", "timelineMonth"]'
+    currentView="timelineMonth"
+    [firstDayOfWeek]="0"
+    [startDayHour]="8"
+    [endDayHour]="20"
+    [cellDuration]="20"
+    [groups]="['priority']"
+    [currentDate]="currentDate"
+    [height]="580">
+    <dxi-resource
+        fieldExpr="ownerId"
+        [allowMultiple]="true"
+        [dataSource]="resourcesData"
+        label="Owner"
+        [useColorAsDefault]="true"
+    ></dxi-resource>
+    <dxi-resource
+        fieldExpr="priority"
+        [allowMultiple]="false"
+        [dataSource]="prioritiesData"
+        label="Priority"
+    ></dxi-resource>
+</dx-scheduler>

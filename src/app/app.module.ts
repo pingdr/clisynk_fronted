@@ -42,7 +42,6 @@ import { PreviewLeadformComponent } from './internal/settings/preview-leadform/p
 import { PreviewSmartformComponent } from './internal/settings/preview-smartform/preview-smartform.component';
 import { ForgotPasswordComponent } from './external/forgot-password/forgot-password.component';
 
-import { NgxSummernoteModule } from 'ngx-summernote';
 
 import {
   NgxUiLoaderModule,
@@ -97,7 +96,6 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
         AngularFireMessagingModule,
         MatChipsModule,
         AngularFireModule.initializeApp(environment.firebase),
-        NgxSummernoteModule,
         NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
         NgxUiLoaderRouterModule, // import this module for showing loader automatically when navigating between app routes
         NgxUiLoaderHttpModule

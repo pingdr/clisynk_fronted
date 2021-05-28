@@ -33,15 +33,13 @@
               "node_modules/ngx-lightbox/lightbox.css",
               "node_modules/intl-tel-input/build/css/intlTelInput.css",
               "node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
-              "node_modules/summernote/dist/summernote-lite.min.css",
               "src/styles.scss"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
               "node_modules/metismenu/dist/metisMenu.js",
-              "node_modules/intl-tel-input/build/js/intlTelInput.min.js",
-              "node_modules/summernote/dist/summernote-lite.min.js"
+              "node_modules/intl-tel-input/build/js/intlTelInput.min.js"
             ]
           },
           "configurations": {
@@ -98,14 +96,13 @@
               "node_modules/intl-tel-input/build/css/intlTelInput.css",
               "node_modules/fullcalendar/dist/fullcalendar.min.css",
               "node_modules/fullcalendar/dist/fullcalendar.min.css",
-              "node_modules/summernote/dist/summernote-lite.min.css"
+              "node_modules/devextreme/dist/css/dx.light.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
               "node_modules/metismenu/dist/metisMenu.js",
-              "node_modules/intl-tel-input/build/js/intlTelInput.min.js",
-              "node_modules/summernote/dist/summernote-lite.min.js"
+              "node_modules/intl-tel-input/build/js/intlTelInput.min.js"
             ],
             "assets": [
               "src/favicon.png",

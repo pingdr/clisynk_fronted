@@ -1,3 +1,4 @@
+import { TaskService } from './../task.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import * as _ from 'lodash'
@@ -10,6 +11,7 @@ import timeGrigPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction'; // for dateClick
 import resourceTimeline from "@fullcalendar/resource-timeline";
 import resourceTimeGridPlugin from "@fullcalendar/resource-timegrid";
+import { AppointmentData, Resource, Priority } from '../task.service';
 
 @Component({
   selector: 'app-timeline-view',
@@ -18,7 +20,15 @@ import resourceTimeGridPlugin from "@fullcalendar/resource-timegrid";
 })
 export class TimelineViewComponent implements OnInit {
 
-  constructor() {
+  appointmentsData: AppointmentData[];
+    resourcesData: Resource[];
+    prioritiesData: Priority[];
+    currentDate: Date = new Date(2021, 1, 2);
+
+  constructor(service: TaskService) {
+    this.appointmentsData = service.getAppointments();
+    this.resourcesData = service.getResources();
+    this.prioritiesData = service.getPriorities();
     const name = Calendar.name; // add this line in your constructor
    }
 
