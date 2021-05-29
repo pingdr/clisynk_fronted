@@ -347,3 +347,26 @@ span.red-color {
     background: transparent !important;
 }
 
+.new-btn-row {
+    margin: 0;
+}
+
+.new-btn-row button.btn {
+    padding: 0;
+}
+
+.new-btn-row button.btn img {
+    width: 30px;
+    margin-left: 9px;
+    cursor: pointer;
+}
+
+.broadcast-wizard-page label.form-check-label input[type="radio"] {
+    width: 20px;
+    height: 17px;
+    left: 0px;
+}
+.broadcast-wizard-page label.form-check-label span {
+    margin-left: 28px;
+    font-size: 15px;
+}

@@ -133,3 +133,15 @@ FULLCALENDAR
     color: #fff;
   }
    */
+.fc-ltr .fc-h-event .fc-start-resizer, .fc-rtl .fc-h-event .fc-end-resizer {
+    cursor: w-resize;
+    left: -1px;
+}
+
+.fc-event .fc-resizer {
+    display: none;
+}
+.fc-event .fc-resizer {
+    position: absolute;
+    z-index: 4;
+}
