@@ -377,22 +377,68 @@
                                     </div>
                                 </section>
                             </div>
+                            <!-- NEW BUTTONS -->
                             <div class="new-btn-row">
                                 <button class="btn">
-                                    <img src="../../../../assets/images/upload-pin.svg">
+                                    <!-- <img src="../../../../assets/images/upload-pin.svg"> -->
+                                    <div class="tooltip-container tooltip-hover">
+                                        <div class="tooltip-reference">
+                                            <button type="button" (click)="openUpload()"><img src="assets/images/upload-pin.svg">
+                                            </button>
+                                        </div>
+                                        <section class="tooltip">
+                                            <div class="arrow"></div>
+                                            <div>Add attachment</div>
+                                        </section>
+                                    </div>
                                 </button>
-                                <button class="btn">
+                                <!-- <button class="btn">
                                     <img src="../../../../assets/images/merge-pin.svg">
-                                </button>
+                                </button> -->
                                 <button class="btn">
-                                    <img src="../../../../assets/images/document-round.svg">
+                                    <!-- <img src="../../../../assets/images/document-round.svg"> -->
+                                    <div class="popover-container tooltip-container tooltip-hover"
+                                    style="display: inline-block">
+                                   <div class="tooltip-reference">
+                                       <div class="btn-group add-booking-link insert-templates" dropdown>
+                                           <button id="button-basic2" dropdownToggle type="button" class="btn"
+                                                   aria-controls="dropdown-basic">
+                                               <img src="/assets/images/document-pin.svg">
+                                           </button>
+                                           <ul id="dropdown-basic2" *dropdownMenu class="dropdown-menu" role="menu"
+                                               aria-labelledby="button-basic" style="left: -103px;">
+                                               <div class="email-templates">
+                                                   <h4>Insert template</h4>
+   
+                                                   <ng-container *ngFor="let data of myModel?.templates">
+                                                       <li role="menuitem" style="display: block"
+                                                           (click)="selectTemplate(data)">
+                                                           <a class="dropdown-item">
+                                                               <div class="item-text">
+                                                                   <h6>{{data?.name}}</h6>
+                                                                   <p>{{data?.subject || '(no subject)'}}</p>
+                                                               </div>
+                                                           </a>
+                                                       </li>
+                                                   </ng-container>
+                                               </div>
+                                               <div class="manage-templates">
+                                                   <button type="submit" class="text-button" (click)="openTemplate()">
+                                                       Manage templates
+                                                   </button>
+                                               </div>
+                                           </ul>
+                                       </div>
+                                   </div>
+                                   <section class="tooltip">
+                                       <div class="arrow"></div>
+                                       <div>Insert template</div>
+                                   </section>
+                               </div>
                                 </button>
 
                             </div>
                             <!-- <div class="button-row">
-                                <span class="mr-2">
-                                    <img src="../../../../assets/images/upload-pin.svg">
-                                </span>
                                 <div class="tooltip-container tooltip-hover">
                                     <div class="tooltip-reference">
                                         <button type="button" (click)="openUpload()"><img src="assets/images/upload-pin.svg">
