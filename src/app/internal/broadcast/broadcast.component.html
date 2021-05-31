@@ -4,7 +4,7 @@
 </div>
 
 
-<div class="tables-for-broadcast-list">
+<div *ngIf="myModel?.data?.data.length !== 0" class="tables-for-broadcast-list">
 
     <div class="header-search-main">
             <div class="left-search-main">
@@ -107,6 +107,8 @@
                             </td>
                         </tr>
 
+                       
+
                         <!-- -------------Shimmer-shine---------------------- -->
                         <tr *ngIf="myModel?.loader">
                             <td class="hash-col">
@@ -147,6 +149,10 @@
 
 </div>
 
+<div *ngIf="myModel?.data?.data.length == 0">
+    <h3>No broadcast vector design will go here</h3>
+    No broadcast found
+</div>
 
 
 
