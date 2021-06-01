@@ -16,6 +16,11 @@
 <div class="second-row-main-content">
     <div class="inner-wrappersmain">
         <div class="first-task-drops">
+            <button (click)="this.http.showModal(deletePopup, 'xs')" class="mr-3" *ngIf="this.selectedTasks?.length > 0" id="button-basic" type="button" class="btn btn-primary">
+                <img  style="height: 19px; width:24px" src="../../../assets/images/trash-icon.svg" > 
+                Delete All
+            </button>
+
             <div class="btn-group" dropdown>
                 <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
                     aria-controls="dropdown-basic">
@@ -90,7 +95,7 @@
                     <thead>
                         <tr>
                             <th class="task-name">
-                                <mat-checkbox class="example-margin"></mat-checkbox>Task Name
+                                <mat-checkbox [checked]="this.selectedTasks?.length > 0 && this.selectedTasks?.length == this.tasks?.length" (change)="selectDeselectAllTasks($event)" class="example-margin"></mat-checkbox>Task Name
                             </th>
                             <th class="task-description">Task Description</th>
                             <th class="assignee">Assignee</th>
@@ -106,8 +111,8 @@
                             <td class="task-name"
                                 [ngStyle]="{ 'background' : task?.status == TaskStatus.COMPLETED ? '#D9F6E0': ''}">
                                 <div class="task-name-in-wrap">
-                                    <div class="checkbox">
-                                        <mat-checkbox class="example-margin"></mat-checkbox>
+                                    <div class="checkbox" [ngClass]="{'selected': this.selectedTasks.includes(task)}">
+                                        <mat-checkbox [checked]="this.selectedTasks.includes(task)" (change)="onTaskSelectionChange(task)" class="example-margin"></mat-checkbox>
                                     </div>
                                     <div class="task-name">{{task?.title}}</div>
                                 </div>
@@ -217,7 +222,23 @@
 
 
 
-
+<ng-template #deletePopup>
+    <div class="delete-comp xs">
+      <div class="delete-comp-inner">
+        <h4>Delete task</h4>
+        <p>Are you sure you want to delete these tasks?</p>
+        <div class="button-row form-group">
+          <button class="delete-btn" type="submit" [disabled]="loader" (click)="deleteSelectedTasks()">
+            <i [ngClass]="{'fa fa-spinner fa-spin':loader}" aria-hidden="true"></i>
+            Delete
+          </button>
+          <button class="text-button" type="button" [disabled]="loader" aria-label="Close" (click)="http.hideModal()">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
 
 
 

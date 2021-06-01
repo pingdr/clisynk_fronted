@@ -424,6 +424,11 @@ td {
     opacity: 1;
     transition: 0.3s all ease;
 }
+
+.task-name-in-wrap .checkbox.selected{
+    opacity: 1 !important;
+}
+
 .commanname-shine {
     width: 100%;
     height: 20px;
