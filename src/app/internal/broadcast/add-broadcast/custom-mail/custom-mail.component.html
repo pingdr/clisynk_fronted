@@ -358,10 +358,12 @@
                         </div>
                         <div class="contact-email-attachments">
 
-                            <div class="attachments-container" *ngFor="let data of filesData;let i=index">
+                            <div class="attachments-container new-attach-ment" *ngFor="let data of filesData;let i=index">
                                 <div class="attachment">
-                                    <span class="file-type">{{data?.ext}}</span>
-                                    <span class="file-name">{{data?.fileName}}</span>
+                                    <div class="left-icons">
+                                        <span class="file-type">{{data?.ext}}</span>
+                                        <span class="file-name">{{data?.fileName}}</span>
+                                    </div>
                                     <span class="file-delete-icon">
                                         <button type="button" (click)="deleteFile(data,i)">
                                             <!--                            <img src="assets/images/ic_delete_opt.svg" (click)="deleteFile(data,i)">-->
