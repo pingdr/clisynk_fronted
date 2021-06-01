@@ -150,8 +150,15 @@
 </div>
 
 <div *ngIf="myModel?.data?.data.length == 0">
-    <h3>No broadcast vector design will go here</h3>
-    No broadcast found
+    <div class="lets-add-some-broadcast-main">
+            <img src="../../../assets/images/broadcast-none.svg" />
+            <h3 class="small-head">Let's add some Broadcasts</h3>
+            <p>Bring your Broadcast together for complete organization.</p>
+
+            <button routerLink="/broadcast/add-broadcast" class="btn btn-add-broadcast">Add Broadcasts</button>
+
+    </div>
+
 </div>
 
 
