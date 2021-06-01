@@ -121,9 +121,9 @@ export const threeDotOptions = [
 
 export const HEIGHT = 1200;
 export const WIDTH = 800;
-export const KB = 1000;
-export const MB = KB * 1000;
-export const GB = MB * 1000;
+export const KB = 1024;
+export const MB = KB * 1024;
+export const GB = MB * 1024;
 export const FileType = {
     JPG: 'image/jpg',
     JPEG: 'image/jpeg',
@@ -132,4 +132,15 @@ export const FileType = {
     MP4: 'video/mp4',
 
     CSV: 'application/vnd.ms-excel'
+}
+
+export const FileExt = {
+    JPG: 'jpg',
+    JPEG: 'jpeg',
+    PNG: 'png',
+    PDF: 'pdf',
+    MP4: 'mp4',
+    CSV: 'csv',
+    XLS: 'xls',
+    DOC: 'doc'
 }

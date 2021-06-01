@@ -1,4 +1,4 @@
-import { MB } from './../../../services/constants';
+import { FileExt, MB } from './../../../services/constants';
 import {Component, Input, OnChanges, Output, EventEmitter, OnDestroy} from '@angular/core';
 import {HttpService} from '../../../services/http.service';
 import {ApiUrl} from '../../../services/apiUrls';
@@ -41,6 +41,10 @@ export class ContactDetailComponent implements OnChanges, OnDestroy {
         address: '', lat: undefined, long: undefined, other: '', country: '', state: '', zipCode: '', city: ''
     };
 
+    allowedExt = [
+        FileExt.JPEG, FileExt.JPEG, FileExt.PDF, FileExt.XLS, FileExt.DOC, FileExt.PNG
+    ]
+
     get multiPhoneNumber(): FormArray {
         return this.form.get('multiPhoneNumber') as FormArray;
     }
@@ -77,7 +81,8 @@ export class ContactDetailComponent implements OnChanges, OnDestroy {
     }
 
     uploadImage(file) {
-        if (!this.http.isValidateFileTypeAndSize(file,'image', 10 * MB)) return;
+        if (!this.http.isValidFileType(file,this.allowedExt)) return;
+        if (!this.http.isValidFileSize(file, 10 * MB)) return;
 
         if (file) {
             this.isLoader = true;
