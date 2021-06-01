@@ -215,7 +215,10 @@ export class CustomMailComponent implements OnInit {
   }
 
   onCsvFileUpload(file:File) {
-    if (file.type !== FileType.CSV) {
+    console.log(file)
+    console.log(file.name.split("."))
+    console.log(file.name.split(".")[1]);
+    if (file.type !== FileType.CSV || file.name.split(".")[1].toLowerCase() !== 'csv') {
         this.http.handleError('Please upload valid file type.!!');
         return false;
     }
