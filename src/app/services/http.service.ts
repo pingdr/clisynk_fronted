@@ -730,13 +730,27 @@ export class HttpService {
               }
         }
        
-    
-        if (file.size >= size) {
-          this.handleError(`File size should be less than ${this.formatBytes(size,0)}`);
-          return false;
-        }
-        return true;
-        
+        return this.isValidFileSize(file, size);
     }
+
+    isValidFileType(file: File, allowedExt: string[]) {
+        const fileExt = file.name.split(".").pop().toLowerCase();
+        if(allowedExt.includes(fileExt)) {
+            return true;
+        } else {
+            this.handleError('Please upload valid file type.!!');
+            return false;
+        }
+    }
+
+    isValidFileSize(file: File, size: number) {
+        if (file.size >= size) {
+            this.handleError(`File size should be less than ${this.formatBytes(size,0)}`);
+            return false;
+          }
+          return true;
+    }
+
+
 }
 

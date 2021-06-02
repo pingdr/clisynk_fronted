@@ -355,10 +355,11 @@
               <div class="btn-group add-btn" dropdown>
                 <button id="add-contact4" dropdownToggle type="button" class="btn dropdown-toggle"
                   aria-controls="dropdown-basic">
-                  <span class="plus-icon"><img src="../../../assets/images/New-ui-images/add-icon.svg" />
+                  <span class="plus-icon">
+                    <img (click)="openAddContact()" src="../../../assets/images/New-ui-images/add-icon.svg" />
                   </span>
                 </button>
-                <ul id="add-contact4" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                <!-- <ul id="add-contact4" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
                   <li role="menuitem">
                     <a class="dropdown-item" (click)="openAddContact()">
                       Add Contact</a>
@@ -367,12 +368,12 @@
                     <a class="dropdown-item" (click)="importContact()">
                       Import Contact</a>
                   </li>
-                </ul>
+                </ul> -->
               </div>
             </div>
             <!-- -----------------Export-------------------- -->
             <div class="export-contact">
-              <img src="../../../assets/images/export-icon.svg">
+              <img (click)="importContact()" src="../../../assets/images/export-icon.svg">
             </div>
 
             <ul class="nav nav-pills mb-3 contact-h-tab-heading">

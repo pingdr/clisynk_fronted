@@ -370,3 +370,60 @@ span.red-color {
     margin-left: 28px;
     font-size: 15px;
 }
+
+.tooltip-reference button img {
+    padding: 0px !important; 
+}
+
+.cancel-btn {
+    position: absolute;
+    content: 'X';
+    background: rgba(113, 113, 113, 0.2);
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    right: 46px;
+    text-align: center;
+    font-size: 8px;
+    line-height: 20px;
+    font-weight: 500;
+    color: #111;
+}
+
+
+.new-attach-ment {
+    width: 100%;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    padding: 0px 13px;
+}
+
+.new-attach-ment .attachment {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin: auto;
+    background: #f5f5f5;
+    padding: 11px 13px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.new-attach-ment .attachment .left-icons span.file-type {
+    padding: 10px 6px;
+    font-size: 8px;
+    border-radius: 4px;
+    background: #4776e6;
+    margin-right: 10px;
+}
+
+.new-attach-ment .attachment .left-icons span.file-name {
+    color: #4776e6;
+    font-weight: 500;
+    font-size: 12px;
+}
+
+.new-attach-ment .attachment span.file-delete-icon button {
+    padding: 0;
+}

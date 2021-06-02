@@ -267,6 +267,35 @@
     display: flex;
 }
 
+.lets-add-some-broadcast-main {
+    text-align: center;
+    padding: 150px 0px;
+}
+.lets-add-some-broadcast-main img {
+    margin-bottom: 30px;
+    width: 300px;
+}
+.lets-add-some-broadcast-main h3.small-head {
+    font-size: 25px;
+    line-height: 31px;
+    text-align: center;
+    letter-spacing: 0.02em;
+    color: #2A2A2A;
+}
+.lets-add-some-broadcast-main p {
+    font-size: 16px;
+    letter-spacing: 0.02em;
+    color: #979797;
+    margin-bottom: 40px;
+}
+.lets-add-some-broadcast-main .btn-add-broadcast {
+    background: #4776e6;
+    color: #fff;
+    padding: 11px 50px;
+}
+
+
+
 @media (max-width:1600px) {
     .header-search-main  .right-buttons{
         width:35%;

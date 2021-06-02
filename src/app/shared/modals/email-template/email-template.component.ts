@@ -28,7 +28,7 @@ export class EmailTemplateComponent implements OnInit {
     templates: MailTemplateData[] = [];
     ckeConfig: any = EditorContent;
 
-    public onClose: Subject<boolean>;
+    public onClose: Subject<any>;
     selectedTemplate: MailTemplateData = new MailTemplateData();
 
     constructor(public http: HttpService, public appoint: AppointmentService, private sanitized: DomSanitizer) {
@@ -102,7 +102,8 @@ export class EmailTemplateComponent implements OnInit {
 
     insertTemplate() {
         if (this.modalData && this.modalData.isBroadcast) {
-            this.onClose.next(this.selectedTemplate ? true : false);
+            this.onClose.next(this.selectedTemplate);
+            this.http.hideModal();
         } else if (this.modalData && this.modalData.fromPipeline) {
             this.http.hideModal();
             this.http.showModal('PipelineSendEmailComponent', this.selectedTemplate);

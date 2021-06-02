@@ -5,7 +5,7 @@ import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/fo
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { ApiUrl } from 'src/app/services/apiUrls';
-import { FileType, TimeZones } from 'src/app/services/constants';
+import { FileType, MB, TimeZones } from 'src/app/services/constants';
 import { HttpService } from 'src/app/services/http.service';
 import { EmailTemplateComponent } from 'src/app/shared/modals/email-template/email-template.component';
 import { EditorContent } from 'src/app/shared/models/editor.model';
@@ -18,6 +18,7 @@ import { DeleteComponent } from 'src/app/shared/modals/delete/delete.component';
 import { UploadComponent } from 'src/app/shared/modals/upload/upload.component';
 import { SuccessBroadcastModalComponent } from 'src/app/shared/modals/success-broadcast-modal/success-broadcast-modal.component';
 import { MatDialog } from '@angular/material';
+import { finalize } from 'rxjs/operators';
 declare type CurrentTabType = 'custom-mail' | 'themes' | 'code-your-own';
 
 @Component({
@@ -215,7 +216,10 @@ export class CustomMailComponent implements OnInit {
   }
 
   onCsvFileUpload(file:File) {
-    if (file.type !== FileType.CSV) {
+    console.log(file)
+    console.log(file.name.split("."))
+    console.log(file.name.split(".")[1]);
+    if (file.type !== FileType.CSV || file.name.split(".")[1].toLowerCase() !== 'csv') {
         this.http.handleError('Please upload valid file type.!!');
         return false;
     }
@@ -274,9 +278,59 @@ export class CustomMailComponent implements OnInit {
     this.emails.setValue([]);
   }  
   
-  openUpload() {
-    this.http.showModal(UploadComponent, 'md');
+  loading = false;
+  filesData: any[]=[];
+  openUpload(template) {
+    this.http.showModal(template, 'md',);
   }
+
+  uploadImage(files:any) {
+    if (files.length > 1) {
+        files = Array.prototype.slice.call(files);
+
+        this.loading = true;
+        this.http.uploadMultipleImages(ApiUrl.UPLOAD_IMAGE, files, true).pipe(finalize(()=> this.loading = false)).subscribe(res => {
+            console.log(res);
+            (res.data as []).forEach((file:any) => {
+                this.filesData.push({
+                    original: file.original,
+                    thumbnail: file.thumbnail,
+                    ext: file.ext,
+                    fileName: file.fileName
+                });
+            })
+            this.http.hideModal();
+          }, (err) => {
+            console.log(err);
+        });
+
+    } else {
+        files = files[0];
+        this.loading = true;
+        this.http.uploadImage(ApiUrl.UPLOAD_IMAGE, files, true).pipe(finalize(()=> this.loading = false)).subscribe(res => {
+            this.filesData.push({
+                original: res.data.original,
+                thumbnail: res.data.thumbnail,
+                ext: res.data.ext,
+                fileName: res.data.fileName
+            });
+            this.http.hideModal();
+        }, (err) => {
+            console.log(err);
+        });
+    }
+    console.log(files);
+   
+}
+
+deleteFile(data, index) {
+  const obj: any = {
+      thumbnail: data.thumbnail,
+      original: data.original
+  };
+  this.filesData.splice(index, 1);
+  this.http.postData(ApiUrl.DELETE_IMAGE, obj).subscribe();
+}
 
   openDialogsuccess(){
 
