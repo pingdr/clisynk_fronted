@@ -372,6 +372,7 @@ export class ContactDetailComponent implements OnChanges, OnDestroy {
         this.http.getData(ApiUrl.TASK_LIST, obj).subscribe(res => {
             this.myModel.tasks = res.data.data;
             this.activityLoader = false;
+            console.log("contact details task list=>", this.myModel.tasks)
         }, () => {
             this.activityLoader = false;
         });
