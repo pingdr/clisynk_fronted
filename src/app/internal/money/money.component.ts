@@ -137,7 +137,8 @@ export class MoneyComponent implements OnInit, OnDestroy {
     }
 
     openPreviewInvoice() {
-        this.http.showModal(PreviewInvoiceComponent, 'md');
+        this.http.showModal(PreviewInvoiceComponent, 'md preview-invoice-class');
+    
     }
 
 }

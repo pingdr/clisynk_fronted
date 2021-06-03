@@ -9209,13 +9209,24 @@ tag-input.add_new_tags {
   padding: 0px;
 }
 
+.preview-invoice-class {
+  max-width: 100% !important;
+  width: 40% !important;
+}
 
+.preview-invoice-class .modal-content {
+  border-radius: 5px;
+  box-shadow: none;
+}
 
 
 // --------------------New-Responsive-------------//
 @media (max-width: 1660px) {
   .setting-grid-main .comman-grid-area .main-area-content p{
     min-height: 70px;
+  }
+  .preview-invoice-class{
+    width: 55% !important;
   }
 }
 @media (max-width: 1600px) {
@@ -9328,6 +9339,7 @@ tag-input.add_new_tags {
   .contact-invoices .order-card-holder {
     grid-template-columns: repeat(3, 1fr) !important;
   }
+
 }
 
 @media (max-width:1300px){
@@ -9397,6 +9409,9 @@ tag-input.add_new_tags {
   .header-links > ul {
     display: flex;
   }
+  .preview-invoice-class{
+    width: 65% !important;
+  }
 }
 @media (max-width:1200px) {
   .top-width {
@@ -9458,6 +9473,9 @@ tag-input.add_new_tags {
     width: 50%;
     margin: auto;
   }
+  .preview-invoice-class{
+    width: 70% !important;
+  }
 }
 
 @media (max-width:1100px) {
@@ -9512,6 +9530,9 @@ tag-input.add_new_tags {
     transform: translate(0%, 0px) !important;
     font-size: 12px;
     opacity: 1;
+  }
+  .preview-invoice-class{
+    width: 80% !important;
   }
 }
 
