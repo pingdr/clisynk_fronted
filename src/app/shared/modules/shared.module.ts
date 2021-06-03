@@ -133,6 +133,7 @@ import { DynamicHTMLModule } from 'src/app/internal/broadcast/edit-code/dynamic-
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { NgxCsvParserModule } from 'ngx-csv-parser';
 import { SuccessBroadcastModalComponent } from '../modals/success-broadcast-modal/success-broadcast-modal.component';
+import { PreviewInvoiceComponent } from '../modals/preview-invoice/preview-invoice.component';
 
 const entryList = [EmailFormatComponent, SendEmailComponent, ContactDetailsComponent, AddNoteComponent,
     ContactOptionsComponent, AddTaskComponent, LoaderComponent, ContactDetailComponent, ActivityListComponent, ContactFilterComponent,
@@ -150,7 +151,7 @@ const entryList = [EmailFormatComponent, SendEmailComponent, ContactDetailsCompo
     CreateFolderComponent, AddPageComponent, CreateDocumentComponent, DeleteDocComponent, MoveComponent, EmailDocumentFormatComponent,
     DeleteAutomationComponent, LeadFormDeletedComponent, NavigateToLeadFormsComponent, NavigateToAppointmentComponent, NavigateToTagsComponent,
     NavigateToProductsComponent, RenameAutomationComponent, EditWorkspaceComponent, NewEditTaskComponent, SaveTemplateComponent,
-    ImportedEmailViewComponent,SuccessBroadcastModalComponent
+    ImportedEmailViewComponent,SuccessBroadcastModalComponent, PreviewInvoiceComponent
 ];
 
 const importExportList = [MatStepperModule, MatTabsModule, MatSliderModule, MatInputModule, MatSelectModule,

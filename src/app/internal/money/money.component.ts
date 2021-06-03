@@ -1,3 +1,4 @@
+import { PreviewInvoiceComponent } from './../../shared/modals/preview-invoice/preview-invoice.component';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {TableModel} from '../../shared/models/table.common.model';
@@ -133,6 +134,10 @@ export class MoneyComponent implements OnInit, OnDestroy {
 
     openAddInvoice(type) {
         (type === 1) ? this.http.openModal('addInvoice') : this.http.openModal('addQuote');
+    }
+
+    openPreviewInvoice() {
+        this.http.showModal(PreviewInvoiceComponent, 'md');
     }
 
 }
