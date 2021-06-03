@@ -64,7 +64,7 @@ export class TasksComponent implements OnInit, OnDestroy {
                 this.myModel.allData = res.data.data;
                 this.myModel.count = res.data.count;
                 this.tasks = res.data.data;
-                /* Logic for making flat OLD 
+                
                     let t:[] = res.data.data.map(x => x.data);
                     
                     console.log(t);
@@ -81,7 +81,7 @@ export class TasksComponent implements OnInit, OnDestroy {
                         }
                     })
                     this.tasks = temp;
-                */
+                
 
             });
     }

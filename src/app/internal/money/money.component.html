@@ -1,4 +1,192 @@
-<div class="appointments-page" id="money_container">
+<div class="heading-row-main">
+    <div class="page-headings">Invoice</div>
+    <button class="comman-btn" (click)="openAddInvoice(1)">Add Invoice</button>
+</div>
+
+<div class="recent-invoice-main">
+    <div class="left-col-recent-invoice">
+            <div class="upper-row-main">
+                <div class="small-headings">Total Paid</div>
+                <!-- <div class="upper-value">$ 96,825.26</div> -->
+                <div class="upper-value">{{myModel?.allData?.paid |currency}}</div>
+            </div>
+            <div class="lower-row-main">
+                <div class="comman-grid">
+                    <div class="small-headings">Draft</div>
+                    <div class="value-of-paid">{{myModel?.allData?.draft |currency}}</div>
+                </div>
+                <div class="comman-grid">
+                    <div class="small-headings">Outstanding</div>
+                    <div class="value-of-paid">{{myModel?.allData?.outstanding |currency}}</div>
+                </div>
+            </div>
+
+    </div>
+    <div class="right-col-recent-invoice">
+            <div class="comman-headings">Recent invoices</div>
+            <!-- <app-invoive-tabs [data]="myModel?.allData?.recent"></app-invoive-tabs> -->
+            <div class="main-grids-for-invoices" >
+                    <ng-container *ngFor="let data of myModel?.allData?.recent">
+                        
+                        <div (click)="http.openInvoice('addInvoice',data)" 
+                            class="comman-grids" 
+                            [ngClass]="{
+                                'paid':data.status == 'Paid',
+                                'unpaid':data.status == 'Unpaid',
+                                'draft':data.status == 'Draft',
+                                'sent':data.status == 'Sent',
+                                'viewed':data.status == 'Viewed',
+                                'due':data.status == 'Due',
+                                'grey-back':data.status == 'Refunded'}"
+                        >
+                            <div class="card-title">{{data?.total |currency}}</div>
+                            <div class="card-holder">{{data?.contactId?.firstName}} {{data?.contactId?.lastName}}</div>
+                            <div class="date">{{data?.dueBy |date:'EEE, MMM dd,yyyy'}}</div>
+                            <div class="status">{{data?.status}}</div>
+                        </div>
+                    </ng-container>
+                    <!-- <div class="comman-grids sent draft">
+                        <div class="card-title">$1,202.36</div>
+                        <div class="card-holder">John Doe</div>
+                        <div class="date">Apr 21, 2021</div>
+                        <div class="status">Sent</div>
+                    </div> -->
+
+            </div>
+
+    </div>
+
+</div>
+
+<div class="search-bar-row-main">
+    <div class="left-col-search">
+        <div class="search-bar-field">
+            <input
+            type="search" 
+            (input)="invoiceList()"
+            maxlength="232" pattern=".*" 
+            autocomplete="off"
+            [formControl]="search"
+            placeholder="Search invoice number here..." />
+        </div>
+        <div class="all-invoice-dropdown">
+            <div class="btn-group" dropdown>
+                <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+                        aria-controls="dropdown-basic">
+                        All Invoice <span class="caret"></span>
+                </button>
+                <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+                    role="menu" aria-labelledby="button-basic">
+                  <li role="menuitem"><a class="dropdown-item headings-for-dropdown" >All Invoice</a></li>
+                  <li role="menuitem"><a class="dropdown-item" ><div class="draft comman-circle"></div> Draft</a></li>
+                  <li role="menuitem"><a class="dropdown-item" ><div class="sent comman-circle"></div>Sent</a></li>
+                  <li role="menuitem"><a class="dropdown-item" ><div class="viewed comman-circle"></div>Viewed</a></li>
+                  <li role="menuitem"><a class="dropdown-item" ><div class="unpaid comman-circle"></div>Unpaid</a></li>
+                  <li role="menuitem"><a class="dropdown-item" ><div class="due comman-circle"></div>Due</a></li>
+                  <li role="menuitem"><a class="dropdown-item" ><div class="paid comman-circle"></div>Paid</a></li>
+                </ul>
+              </div>
+        </div>
+
+    </div>
+    <div class="right-col-search">
+        <input type="text" placeholder="Daterangepicker" class="form-control" bsDaterangepicker>
+    </div>
+
+
+
+</div>
+
+<div class="invoices-main-table">
+        <table>
+            <thead>
+                <tr>
+                    <th class="first-col">#invoice</th>
+                    <th class="second-col">Contact</th>
+                    <th class="third-col">Invoice Date</th>
+                    <th class="fourth-col">Due Date</th>
+                    <th class="fifth-col">Amount</th>
+                    <th class="sixth-col">Status</th>
+                    <th class="seventh-col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr  *ngFor="let data of myModel?.allData?.data">
+                    <td class="first-col"><div class="invoice-number">#{{data?.srNo || 0}}</div></td>
+                    <td class="second-col"><div class="comman-fonts">{{data?.contactId?.firstName}} {{data?.contactId?.lastName}}</div></td>
+                    <td class="third-col"><div class="comman-fonts">{{data?.createdAt |date:'MM/dd/yyyy'}}</div></td>
+                    <td class="fourth-col"><div class="comman-fonts">{{data?.dueBy |date:'MM/dd/yyyy'}}</div></td>
+                    <td class="fifth-col"><div class="comman-fonts">{{data?.total |currency}}</div></td>
+                    <td class="sixth-col">
+                        <div class="comman-status draft"
+                        [ngClass]="{
+                                    'paid':data.status == 'Paid',
+                                    'unpaid':data.status == 'Unpaid',
+                                    'draft':data.status == 'Draft',
+                                    'sent':data.status == 'Sent',
+                                    'viewed':data.status == 'Viewed',
+                                    'due':data.status == 'Due',
+                                    'grey-back':data.status == 'Refunded'}"
+                        >
+                            {{data?.status}}
+                        </div>
+                    </td>
+                    <td class="seventh-col">
+                        <div class="actions-buttons-row">
+                            <a  (click)="http.openInvoice('addInvoice',data)"><img src="../../../assets/images/edits-pencils.svg" /></a>
+                            <a (click)="openPreviewInvoice()"><img src="../../../assets/images/downloads.svg"  /></a>
+                            <div class="btn-group" dropdown>
+                                <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle" aria-controls="dropdown-basic">
+                                    <img src="../../../assets/images/three-dots.svg" />
+                                </button>
+                                <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+                                    role="menu" aria-labelledby="button-basic">
+                                  <li role="menuitem"><a class="dropdown-item" (click)="cloneInvoice(data)" >Clone Invoice</a></li>
+                                  <li role="menuitem"><a class="dropdown-item" >Print Invoice</a></li>
+                                  <li role="menuitem"><a class="dropdown-item" >Send Email</a></li>
+                                  <li role="menuitem"><a class="dropdown-item" >Share Invoice Link</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+
+                </tr>
+                <ng-container *ngIf="myModel.loader">
+                    
+                    <tr *ngFor="let item of [1,2,3]">
+                        <td class="first-col"><div class="shimmer-invoice shine"></div></td>
+                        <td class="second-col"><div class="shimmer-invoice shine"></div></td>
+                        <td class="third-col"><div class="shimmer-invoice shine"></div></td>
+                        <td class="fourth-col"><div class="shimmer-invoice shine"></div></td>
+                        <td class="fifth-col"><div class="shimmer-invoice-value shine"></div></td>
+                        <td class="sixth-col"><div class="shimmer-invoice-status shine"></div></td>
+                        <td class="seventh-col">
+                            <div class="actions-buttons-row">
+                                <div class="comman-shine shine"></div>
+                                <div class="comman-shine shine"></div>
+                                <div class="comman-shine shine"></div>
+                            </div>
+                        </td>
+    
+                    </tr>
+                </ng-container>
+                <tr *ngIf="myModel?.allData?.data.length == 0">
+                    <td class="no-record text-center" colspan="7">No {{selectedTab === 1 ? 'Invoices' : 'Quotes'}} Found</td>
+                </tr>
+
+            </tbody>
+
+
+        </table>
+
+
+</div>
+
+
+
+
+<!-- ------------Old-Code-2/6/2021-------------------- -->
+<!-- <div class="appointments-page" id="money_container">
     <header class="page-header">
         <div title="Tasks" class="title">
             <h2>Money</h2>
@@ -26,11 +214,7 @@
                             <span class="ellipsis">Quote</span>
                         </a>
                     </li>
-                    <!--                    <li role="menuitem" style="display: block" (click)="http.openModal('successModal',{flag:2})">-->
-                    <!--                        <a class="dropdown-item">-->
-                    <!--                            <span data-v-26014303="" data-v-2a6cfecc="" class="ellipsis">Refund modal</span>-->
-                    <!--                        </a>-->
-                    <!--                    </li>-->
+                   
                 </ul>
             </div>
 
@@ -182,7 +366,7 @@
                             </colgroup>
                             <thead>
                             <tr>
-                                <!---->
+                               
                                 <th class="sortable">
                                     <div class="active-sortable cell" (click)="clickHeader(1)"
                                          [ngClass]="{'active-sortable':sortType == 1}">{{selectedTab === 1 ? 'Invoices' : 'Quotes'}}
@@ -250,7 +434,7 @@
                                          (click)="clickHeader(5)">Date created
                                         <div class="sort-arrows">
                                             <svg class="icon active" [ngClass]="{'descending':sortValue == 1}">
-                                                <!--                                                <img src="/assets/images/bottom-sort.svg">-->
+                                               
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                                      id="arrow-up">
                                                     <path
@@ -293,9 +477,9 @@
                                 </td>
                                 <td class="">
                                     <div class="cell">
-                                        <!--                                        late-->
+                                     
                                         <span class="order-status-pill draft " *ngIf="data?.type === 1">
-<!--                                            {{data.dueBy}} -=-=-=&#45;&#45;==-={{today}}-->
+
 
                                             <div class="chip" [ngClass]="{'red-back':todayEnd <= data?.dueBy,
                                                                           'green-back':data.status == 'Paid',
@@ -314,13 +498,10 @@
                                     </div>
                                 </td>
                                 <td class="" *ngIf="data?.createdAt">
-                                    <!--                                    local test-->
-                                    <!--                                    <div class="cell"><span title="{{data?.dueBy|date:'MMM dd,yyyy'}}"-->
-                                    <!--                                                            class="past-due"> {{data?.createdAt | timeAgo }} past due-->
-                                    <!--                                            </span></div>-->
+                              
 
                                     <div class="cell">
-                                        <!--                                        class="past-due">-->
+                                    
 
                                         <ng-container *ngIf="todayEnd <= data?.dueBy;else emptyValue">
                                         <span title="{{data?.dueBy|date:'MMM dd,yyyy'}}" class="past-due"
@@ -367,7 +548,7 @@
             </div>
         </section>
     </div>
-</div>
+</div> -->
 
 
 

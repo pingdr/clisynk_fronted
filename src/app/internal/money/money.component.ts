@@ -1,3 +1,4 @@
+import { PreviewInvoiceComponent } from './../../shared/modals/preview-invoice/preview-invoice.component';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {TableModel} from '../../shared/models/table.common.model';
@@ -113,6 +114,7 @@ export class MoneyComponent implements OnInit, OnDestroy {
         this.myModel.allData = null;
         this.http.getData(ApiUrl.QUOTES_LIST, obj).subscribe((res) => {
             this.myModel.allData = res.data;
+            console.log("MONEY DATA => ", this.myModel.allData);
             this.totalInvoices = res.data.count;
             console.log(this.totalInvoices);
             console.log(res)
@@ -132,6 +134,15 @@ export class MoneyComponent implements OnInit, OnDestroy {
 
     openAddInvoice(type) {
         (type === 1) ? this.http.openModal('addInvoice') : this.http.openModal('addQuote');
+    }
+
+    openPreviewInvoice() {
+        this.http.showModal(PreviewInvoiceComponent, 'md preview-invoice-class');
+    
+    }
+
+    cloneInvoice(data) {
+        console.log(data);
     }
 
 }
