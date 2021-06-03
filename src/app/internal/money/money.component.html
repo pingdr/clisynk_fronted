@@ -1,29 +1,31 @@
 <div class="heading-row-main">
     <div class="page-headings">Invoice</div>
-    <button class="comman-btn">Add Invoice</button>
+    <button class="comman-btn" (click)="openAddInvoice(1)">Add Invoice</button>
 </div>
 
 <div class="recent-invoice-main">
     <div class="left-col-recent-invoice">
             <div class="upper-row-main">
                 <div class="small-headings">Total Paid</div>
-                <div class="upper-value">$ 96,825.26</div>
+                <!-- <div class="upper-value">$ 96,825.26</div> -->
+                <div class="upper-value">{{myModel?.allData?.paid |currency}}</div>
             </div>
             <div class="lower-row-main">
                 <div class="comman-grid">
                     <div class="small-headings">Draft</div>
-                    <div class="value-of-paid">$1,202.36</div>
+                    <div class="value-of-paid">{{myModel?.allData?.draft |currency}}</div>
                 </div>
                 <div class="comman-grid">
                     <div class="small-headings">Outstanding</div>
-                    <div class="value-of-paid">$638.28</div>
+                    <div class="value-of-paid">{{myModel?.allData?.outstanding |currency}}</div>
                 </div>
             </div>
 
     </div>
     <div class="right-col-recent-invoice">
             <div class="comman-headings">Recent invoices</div>
-            <div class="main-grids-for-invoices">
+            <app-invoive-tabs [data]="myModel?.allData?.recent"></app-invoive-tabs>
+            <!-- <div class="main-grids-for-invoices">
                     <div class="comman-grids draft">
                         <div class="card-title">$1,202.36</div>
                         <div class="card-holder">John Doe</div>
@@ -56,7 +58,7 @@
                     </div>
 
 
-            </div>
+            </div> -->
 
     </div>
 
@@ -65,7 +67,13 @@
 <div class="search-bar-row-main">
     <div class="left-col-search">
         <div class="search-bar-field">
-            <input placeholder="Search invoice number here..." />
+            <input
+            type="search" 
+            (input)="invoiceList()"
+            maxlength="232" pattern=".*" 
+            autocomplete="off"
+            [formControl]="search"
+            placeholder="Search invoice number here..." />
         </div>
         <div class="all-invoice-dropdown">
             <div class="btn-group" dropdown>
@@ -75,13 +83,13 @@
                 </button>
                 <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
                     role="menu" aria-labelledby="button-basic">
-                  <li role="menuitem"><a class="dropdown-item headings-for-dropdown" href="#">All Invoice</a></li>
-                  <li role="menuitem"><a class="dropdown-item" href="#"><div class="draft comman-circle"></div> Draft</a></li>
-                  <li role="menuitem"><a class="dropdown-item" href="#"><div class="sent comman-circle"></div>Sent</a></li>
-                  <li role="menuitem"><a class="dropdown-item" href="#"><div class="viewed comman-circle"></div>Viewed</a></li>
-                  <li role="menuitem"><a class="dropdown-item" href="#"><div class="unpaid comman-circle"></div>Unpaid</a></li>
-                  <li role="menuitem"><a class="dropdown-item" href="#"><div class="due comman-circle"></div>Due</a></li>
-                  <li role="menuitem"><a class="dropdown-item" href="#"><div class="paid comman-circle"></div>Paid</a></li>
+                  <li role="menuitem"><a class="dropdown-item headings-for-dropdown" >All Invoice</a></li>
+                  <li role="menuitem"><a class="dropdown-item" ><div class="draft comman-circle"></div> Draft</a></li>
+                  <li role="menuitem"><a class="dropdown-item" ><div class="sent comman-circle"></div>Sent</a></li>
+                  <li role="menuitem"><a class="dropdown-item" ><div class="viewed comman-circle"></div>Viewed</a></li>
+                  <li role="menuitem"><a class="dropdown-item" ><div class="unpaid comman-circle"></div>Unpaid</a></li>
+                  <li role="menuitem"><a class="dropdown-item" ><div class="due comman-circle"></div>Due</a></li>
+                  <li role="menuitem"><a class="dropdown-item" ><div class="paid comman-circle"></div>Paid</a></li>
                 </ul>
               </div>
         </div>
@@ -109,48 +117,54 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let item of [1,2,3,4,5,6]">
-                    <td class="first-col"><div class="invoice-number">INV001</div></td>
-                    <td class="second-col"><div class="comman-fonts">John Deo</div></td>
-                    <td class="third-col"><div class="comman-fonts">03/21/2021</div></td>
+                <tr  *ngFor="let data of myModel?.allData?.data">
+                    <td class="first-col"><div class="invoice-number">#{{data?.srNo || 0}}</div></td>
+                    <td class="second-col"><div class="comman-fonts">{{data?.contactId?.firstName}} {{data?.contactId?.lastName}}</div></td>
+                    <td class="third-col"><div class="comman-fonts">{{data?.createdAt |date:'MM/dd/YYYY'}}</div></td>
                     <td class="fourth-col"><div class="comman-fonts">04/05/2021</div></td>
-                    <td class="fifth-col"><div class="comman-fonts">$700.00</div></td>
-                    <td class="sixth-col"><div class="comman-status draft">Draft</div></td>
+                    <td class="fifth-col"><div class="comman-fonts">{{data?.total |currency}}</div></td>
+                    <td class="sixth-col"><div class="comman-status draft">{{data?.status}}</div></td>
                     <td class="seventh-col">
                         <div class="actions-buttons-row">
-                            <a href="#"><img src="../../../assets/images/edits-pencils.svg" /></a>
-                            <a href="#"><img src="../../../assets/images/downloads.svg" /></a>
+                            <a  (click)="http.openInvoice('addInvoice',data)"><img src="../../../assets/images/edits-pencils.svg" /></a>
+                            <a><img src="../../../assets/images/downloads.svg" /></a>
                             <div class="btn-group" dropdown>
                                 <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle" aria-controls="dropdown-basic">
                                     <img src="../../../assets/images/three-dots.svg" />
                                 </button>
                                 <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
                                     role="menu" aria-labelledby="button-basic">
-                                  <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
-                                  <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
-                                  <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
-                                  <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a></li>
+                                  <li role="menuitem"><a class="dropdown-item" >Clone Invoice</a></li>
+                                  <li role="menuitem"><a class="dropdown-item" >Print Invoice</a></li>
+                                  <li role="menuitem"><a class="dropdown-item" >Send Email</a></li>
+                                  <li role="menuitem"><a class="dropdown-item" >Share Invoice Link</a></li>
                                 </ul>
                             </div>
                         </div>
                     </td>
 
                 </tr>
-                <tr *ngFor="let item of [1,2,3,4,5,6]">
-                    <td class="first-col"><div class="shimmer-invoice shine"></div></td>
-                    <td class="second-col"><div class="shimmer-invoice shine"></div></td>
-                    <td class="third-col"><div class="shimmer-invoice shine"></div></td>
-                    <td class="fourth-col"><div class="shimmer-invoice shine"></div></td>
-                    <td class="fifth-col"><div class="shimmer-invoice-value shine"></div></td>
-                    <td class="sixth-col"><div class="shimmer-invoice-status shine"></div></td>
-                    <td class="seventh-col">
-                        <div class="actions-buttons-row">
-                            <div class="comman-shine shine"></div>
-                            <div class="comman-shine shine"></div>
-                            <div class="comman-shine shine"></div>
-                        </div>
-                    </td>
-
+                <ng-container *ngIf="myModel.loader">
+                    
+                    <tr *ngFor="let item of [1,2,3]">
+                        <td class="first-col"><div class="shimmer-invoice shine"></div></td>
+                        <td class="second-col"><div class="shimmer-invoice shine"></div></td>
+                        <td class="third-col"><div class="shimmer-invoice shine"></div></td>
+                        <td class="fourth-col"><div class="shimmer-invoice shine"></div></td>
+                        <td class="fifth-col"><div class="shimmer-invoice-value shine"></div></td>
+                        <td class="sixth-col"><div class="shimmer-invoice-status shine"></div></td>
+                        <td class="seventh-col">
+                            <div class="actions-buttons-row">
+                                <div class="comman-shine shine"></div>
+                                <div class="comman-shine shine"></div>
+                                <div class="comman-shine shine"></div>
+                            </div>
+                        </td>
+    
+                    </tr>
+                </ng-container>
+                <tr *ngIf="myModel?.allData?.data.length == 0">
+                    <td class="no-record text-center" colspan="7">No {{selectedTab === 1 ? 'Invoices' : 'Quotes'}} Found</td>
                 </tr>
 
             </tbody>

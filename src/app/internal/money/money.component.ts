@@ -113,6 +113,7 @@ export class MoneyComponent implements OnInit, OnDestroy {
         this.myModel.allData = null;
         this.http.getData(ApiUrl.QUOTES_LIST, obj).subscribe((res) => {
             this.myModel.allData = res.data;
+            console.log("MONEY DATA => ", this.myModel.allData);
             this.totalInvoices = res.data.count;
             console.log(this.totalInvoices);
             console.log(res)
