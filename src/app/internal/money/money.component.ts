@@ -141,4 +141,8 @@ export class MoneyComponent implements OnInit, OnDestroy {
     
     }
 
+    cloneInvoice(data) {
+        console.log(data);
+    }
+
 }

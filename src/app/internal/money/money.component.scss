@@ -165,6 +165,7 @@
         grid-column-gap: 10px;
     }
     .comman-grids {
+        cursor: pointer;
         background: #FAFAFA;
         border-radius: 10px 10px 0px 10px;
         position: relative;
@@ -242,6 +243,30 @@
         border-top: 8px solid #FADDAC;
         .status{
             background: #FADDAC;
+        }
+    }
+    .viewed {
+        border-top: 8px solid #CCD3FC;
+        .status {
+            background: #CCD3FC;
+        }
+    }
+    .unpaid {
+        border-top: 8px solid #FC9CA4;
+        .status {
+            background: #FC9CA4;
+        }
+    }
+    .due {
+        border-top: 8px solid #FCDCDC;
+        .status {
+            background: #FCDCDC;
+        }
+    }
+    .paid {
+        border-top: 8px solid #84D4DF;
+        .status {
+            background: #84D4DF;
         }
     }
 }
@@ -464,6 +489,21 @@
                     }
                     .draft {
                         background: #DCECEC;
+                    }
+                    .sent {
+                        background: #FADDAC;
+                    }
+                    .viewed {
+                        background: #CCD3FC;
+                    }
+                    .unpaid {
+                        background: #FC9CA4;
+                    }
+                    .due {
+                        background: #FCDCDC;
+                    }
+                    .paid {
+                        background: #84D4DF;
                     }
                     .actions-buttons-row {
                         display: flex;
